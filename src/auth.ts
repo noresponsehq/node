@@ -3,133 +3,173 @@
  *
  * Each adapter maps claims your backend has already verified into the
  * `authContext` of an assessment request. Pass verified claims, not a raw token.
+ *
+ * The mapping is the table in `claim-map.ts`, a copy of
+ * contracts/api/v1/fixtures/assessment-contract/auth-context-claim-map.json,
+ * run by the small interpreter below. Every SDK runs the same table and the
+ * same vectors (tests/fixtures/auth-context-vectors.json). A claim that is
+ * missing, mistyped or out of range maps to absent, never to a stronger
+ * assurance.
  */
 import type { AuthContext } from "./models/auth-context.js";
+import { CLAIM_MAP } from "./claim-map.js";
 
 export type VerifiedClaims = Record<string, unknown>;
 export type AuthContextOverrides = Partial<AuthContext>;
 
-function text(value: unknown): string | undefined {
-  return typeof value === "string" && value.length > 0 ? value : undefined;
+type Wire = Record<string, unknown>;
+interface Rule {
+  op: string;
+  kind?: string;
+  claims?: string[];
+  claim?: string;
+  split?: string;
+  max?: number;
+  index?: number;
+  unitSeconds?: number;
+  maxSeconds?: number;
+  mfaValue?: string;
+  ignore?: string[];
+  required?: boolean;
 }
-function iso(value: unknown): string | undefined {
-  if (typeof value === "string") return value;
-  // Whole UTC seconds (the fraction is truncated), as the Go and Python helpers write it.
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return new Date(Math.trunc(value) * 1000).toISOString().replace(".000Z", "Z");
+
+const kinds = new Map(
+  Object.entries(CLAIM_MAP.kinds).map(([name, k]) => [name, { re: new RegExp("^(?:" + k.pattern + ")$"), max: k.maxLength }] as const),
+);
+const slug = new RegExp("^(?:" + CLAIM_MAP.slug + ")$");
+const splitters: Record<string, RegExp> = { whitespace: /[ \t\r\n\f\v]+/, comma_whitespace: /[ \t\r\n\f\v,]+/ };
+const MAX_TIME = 253402300799;
+
+function object(value: unknown): Wire | undefined {
+  return value !== null && typeof value === "object" && !Array.isArray(value) ? (value as Wire) : undefined;
+}
+function lookup(claims: Wire, path: string): unknown {
+  let current: unknown = claims;
+  for (const key of path.split(".")) {
+    const record = object(current);
+    if (!record || !Object.hasOwn(record, key)) return undefined;
+    current = record[key];
+  }
+  return current;
+}
+function matches(kind: string, value: unknown): value is string {
+  const k = kinds.get(kind)!;
+  return typeof value === "string" && [...value].length <= k.max && k.re.test(value);
+}
+function lower(value: string): string {
+  return value.replace(/[A-Z]/g, (c) => c.toLowerCase());
+}
+
+function mapTime(claims: Wire, rule: Rule): string | undefined {
+  for (const path of rule.claims ?? []) {
+    const value = lookup(claims, path);
+    if (typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= MAX_TIME) {
+      // Whole UTC seconds; the fraction is truncated.
+      return new Date(Math.trunc(value) * 1000).toISOString().replace(".000Z", "Z");
+    }
+    if (matches("time", value)) return value;
   }
   return undefined;
 }
-// Defaults are the contract's bounds for roles and scopes (32 items of at
-// most 64 characters); audiences are 8 x 256 and amr 8 x 32. The Go and
-// Python helpers apply the same caps. Over-long values are dropped, not truncated.
-function bounded(values: unknown[], limit: number, maxLength: number): string[] | undefined {
-  const kept = values
-    .filter((item): item is string => typeof item === "string" && item.length > 0 && [...item].length <= maxLength)
-    .slice(0, limit);
-  return kept.length ? kept : undefined;
+function mapList(claims: Wire, rule: Rule): string[] | undefined {
+  for (const path of rule.claims ?? []) {
+    const value = lookup(claims, path);
+    let items: unknown[] = [];
+    if (typeof value === "string") items = rule.split === "none" ? [value] : value.split(splitters[rule.split ?? "whitespace"]!);
+    else if (Array.isArray(value)) items = value;
+    const kept = items.filter((item) => matches(rule.kind!, item)).slice(0, rule.max);
+    if (kept.length) return kept as string[];
+  }
+  return undefined;
 }
-function strings(value: unknown, limit = 32, maxLength = 64): string[] | undefined {
-  if (typeof value === "string") return bounded(value.split(/\s+/), limit, maxLength);
-  return Array.isArray(value) ? bounded(value, limit, maxLength) : undefined;
-}
-function delimitedStrings(value: unknown, limit = 32, maxLength = 64): string[] | undefined {
-  if (typeof value !== "string") return strings(value, limit, maxLength);
-  return bounded(value.split(/[\s,]+/).map((item) => item.trim()), limit, maxLength);
-}
-function audiences(value: unknown): string[] | undefined {
-  return strings(value, 8, 256);
-}
-function object(value: unknown): Record<string, unknown> | undefined {
-  return value !== null && typeof value === "object" && !Array.isArray(value) ? (value as Record<string, unknown>) : undefined;
-}
-function actorPresent(value: unknown): boolean {
-  const record = object(value);
-  return Boolean(record ? (text(record["sub"]) ?? text(record["email"])) : text(value));
-}
-function defined<T extends object>(value: T): T {
-  return Object.fromEntries(Object.entries(value).filter(([, v]) => v !== undefined)) as T;
+function mapRule(claims: Wire, rule: Rule): unknown {
+  switch (rule.op) {
+    case "id":
+      for (const path of rule.claims ?? []) {
+        const value = lookup(claims, path);
+        if (matches(rule.kind!, value)) return value;
+      }
+      return undefined;
+    case "list":
+      return mapList(claims, rule);
+    case "time":
+      return mapTime(claims, rule);
+    case "bool":
+      for (const path of rule.claims ?? []) {
+        const value = lookup(claims, path);
+        if (typeof value === "boolean") return value;
+      }
+      return undefined;
+    case "actor": {
+      const value = lookup(claims, rule.claims![0]!);
+      const record = object(value);
+      if (record) return [record["sub"], record["email"]].some((item) => typeof item === "string" && item.length > 0);
+      return typeof value === "string" && value.length > 0;
+    }
+    case "mfa_factor_age": {
+      const value = lookup(claims, rule.claim!);
+      const age = Array.isArray(value) ? value[rule.index!] : undefined;
+      const seconds = typeof age === "number" ? age * rule.unitSeconds! : NaN;
+      return seconds >= 0 && seconds <= rule.maxSeconds! ? { present: true, age_seconds: Math.trunc(seconds) } : undefined;
+    }
+    case "mfa_methods": {
+      const value = lookup(claims, rule.claim!);
+      if (!Array.isArray(value)) return undefined;
+      const kept = value.filter((item) => matches(rule.kind!, item)).slice(0, rule.max) as string[];
+      const methods = kept.filter((item) => !rule.ignore!.includes(lower(item)));
+      if (!methods.length) return undefined;
+      return { present: kept.some((item) => lower(item) === rule.mfaValue), methods };
+    }
+    default:
+      throw new Error("unknown claim map op " + rule.op);
+  }
 }
 
-function base(
-  provider: string,
-  claims: VerifiedClaims,
-  overrides: AuthContextOverrides = {},
-  options: { includeIssuedAt?: boolean } = {},
-): AuthContext {
-  const issuer = text(overrides.issuer) ?? text(claims["iss"]);
-  const subject = text(overrides.subject) ?? text(claims["sub"]);
-  if (!issuer || !subject) throw new TypeError("NoResponse auth context requires a verified issuer and subject");
-  const mergedAudiences = overrides.audiences ?? audiences(claims["aud"]);
-  const context: AuthContext = { provider, issuer, subject, verified: true, transport: "backend" };
-  if (mergedAudiences?.length) {
-    context.audiences = mergedAudiences;
-    context.audience = overrides.audience ?? mergedAudiences[0]!;
+const camel = (key: string): string => key.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
+const snake = (key: string): string => key.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase());
+function rekey(value: unknown, fn: (key: string) => string): unknown {
+  const record = object(value);
+  if (!record) return value;
+  return Object.fromEntries(Object.entries(record).map(([k, v]) => [fn(k), k === "mfa" || k === "methods" ? rekey(v, fn) : v]));
+}
+
+function build(name: string, claims: VerifiedClaims, overrides: AuthContextOverrides, provider: string): AuthContext {
+  const spec = CLAIM_MAP.providers[name as keyof typeof CLAIM_MAP.providers] as unknown as { disable?: string[]; fields: Record<string, Rule> };
+  const rules: Record<string, Rule> = { ...(CLAIM_MAP.base as unknown as Record<string, Rule>), ...spec.fields };
+  for (const field of spec.disable ?? []) delete rules[field];
+  const wire: Wire = { provider, ...CLAIM_MAP.constants };
+  for (const [field, rule] of Object.entries(rules)) {
+    const value = mapRule(claims, rule);
+    if (value !== undefined) wire[field] = value;
   }
-  const issuedAt = iso(claims["iat"]);
-  if (options.includeIssuedAt !== false && issuedAt) context.issuedAt = issuedAt;
-  const expiresAt = iso(claims["exp"]);
-  if (expiresAt) context.expiresAt = expiresAt;
-  const authTime = iso(claims["auth_time"]);
-  if (authTime) context.authTime = authTime;
-  const sessionId = text(claims["sid"]);
-  if (sessionId) context.sessionId = sessionId;
-  const tokenId = text(claims["jti"]);
-  if (tokenId) context.tokenId = tokenId;
-  return { ...context, ...defined(overrides) };
+  for (const [field, value] of Object.entries(rekey(overrides, snake) as Wire)) {
+    if (value !== undefined && value !== null) wire[field] = value;
+  }
+  const audiences = wire["audiences"];
+  if (Array.isArray(audiences) && audiences.length && wire["audience"] === undefined) wire["audience"] = audiences[0];
+  if (typeof wire["issuer"] !== "string" || !wire["issuer"] || typeof wire["subject"] !== "string" || !wire["subject"]) {
+    throw new TypeError("NoResponse auth context requires a verified issuer and subject");
+  }
+  return rekey(wire, camel) as AuthContext;
 }
 
 /** Map verified WorkOS AuthKit claims plus verified user or session record overrides. */
 export function fromWorkOS(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
-  const defaults: AuthContextOverrides = {
-    organizationId: text(claims["org_id"]),
-    roles: strings(claims["roles"] ?? claims["role"]),
-    scopes: strings(claims["permissions"]),
-    impersonated: actorPresent(claims["act"]),
-  };
-  return base("workos", claims, { ...defaults, ...overrides });
+  return build("workos", claims, overrides, "workos");
 }
 
 /** Map verified Clerk session claims. Pass Session.createdAt as sessionCreatedAt. */
 export function fromClerk(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
-  const org = object(claims["o"]);
-  const secondFactorAgeMinutes =
-    Array.isArray(claims["fva"]) && typeof claims["fva"][1] === "number" && Number.isFinite(claims["fva"][1]) ? claims["fva"][1] : undefined;
-  const mfa =
-    secondFactorAgeMinutes !== undefined && secondFactorAgeMinutes >= 0
-      ? { present: true, ageSeconds: Math.trunc(secondFactorAgeMinutes * 60) }
-      : undefined;
-  const defaults: AuthContextOverrides = {
-    organizationId: text(org?.["id"]) ?? text(claims["org_id"]),
-    // Clerk's role claim is one role slug, not a list.
-    roles: bounded([org?.["rol"]], 32, 64) ?? bounded([claims["org_role"]], 32, 64),
-    scopes: delimitedStrings(org?.["per"]) ?? delimitedStrings(claims["org_permissions"]),
-    impersonated: actorPresent(claims["act"]),
-    ...(mfa ? { mfa } : {}),
-  };
-  // iat is a 60-second token refresh clock, so it is not sent as issuedAt; session age is the sessionCreatedAt override.
-  return base("clerk", claims, { ...defaults, ...overrides }, { includeIssuedAt: false });
+  return build("clerk", claims, overrides, "clerk");
 }
 
 /** Map verified Auth0 ID token, userinfo or normalised session claims. Do not pass an opaque API access token. */
 export function fromAuth0(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
-  const amr = strings(claims["amr"], 8, 32);
-  const mfaMethods = amr?.filter((method) => method.toLowerCase() !== "pwd");
-  const defaults: AuthContextOverrides = {
-    organizationId: text(claims["org_id"]),
-    scopes: strings(claims["scope"]) ?? strings(claims["permissions"]),
-    emailVerified: typeof claims["email_verified"] === "boolean" ? claims["email_verified"] : undefined,
-    phoneVerified: typeof claims["phone_number_verified"] === "boolean" ? claims["phone_number_verified"] : undefined,
-    impersonated: actorPresent(claims["act"]),
-    ...(mfaMethods?.length
-      ? { mfa: { present: amr?.some((method) => method.toLowerCase() === "mfa") ?? false, methods: mfaMethods } }
-      : {}),
-  };
-  return base("auth0", claims, { ...defaults, ...overrides });
+  return build("auth0", claims, overrides, "auth0");
 }
 
 /** Generic OIDC adapter for providers without a first-class helper. `provider` is a lowercase slug. */
 export function fromOIDC(provider: string, claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
-  if (!/^[a-z0-9][a-z0-9._-]{1,31}$/.test(provider)) throw new TypeError("provider must be a lowercase provider slug");
-  return base(provider, claims, overrides);
+  if (typeof provider !== "string" || !slug.test(provider)) throw new TypeError("provider must be a lowercase provider slug");
+  return build("oidc", claims, overrides, provider);
 }

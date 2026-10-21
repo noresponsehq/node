@@ -3,6 +3,7 @@ src/client.ts
 src/errors.ts
 src/webhooks.ts
 src/auth.ts
+src/claim-map.ts
 src/wait.ts
 /README.md
 /CHANGELOG.md

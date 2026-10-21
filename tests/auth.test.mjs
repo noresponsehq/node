@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import * as z from "zod/v4-mini";
 import { AuthContext$outboundSchema, fromAuth0, fromClerk, fromOIDC, fromWorkOS } from "../dist/esm/index.js";
+import { CLAIM_MAP } from "../dist/esm/claim-map.js";
 import { fixture } from "./helpers.mjs";
 
 /** The wire form (snake_case), as the request body carries it. */
@@ -80,14 +81,42 @@ test("auth mappers apply the auth-context caps", () => {
   assert.deepEqual(auth0.mfa.methods, range(8, "otp"));
 });
 
+const mappers = { workos: fromWorkOS, clerk: fromClerk, auth0: fromAuth0 };
+const run = (vector) => {
+  const overrides = camelize(vector.overrides);
+  const mapper = mappers[vector.provider];
+  return mapper ? mapper(vector.claims, overrides) : fromOIDC(vector.provider, vector.claims, overrides);
+};
+
 test("auth mappers match the cross-SDK auth-context vectors", () => {
   const { cases } = fixture("auth-context-vectors.json");
   assert.ok(cases.length > 0);
-  const mappers = { workos: fromWorkOS, clerk: fromClerk, auth0: fromAuth0 };
   for (const vector of cases) {
-    const overrides = camelize(vector.overrides);
-    const mapper = mappers[vector.provider];
-    const got = mapper ? mapper(vector.claims, overrides) : fromOIDC(vector.provider, vector.claims, overrides);
-    assert.deepEqual(wire(got), vector.expect, vector.name);
+    if (vector.error) assert.throws(() => run(vector), TypeError, vector.name);
+    else assert.deepEqual(wire(run(vector)), vector.expect, vector.name);
+  }
+});
+
+test("the bundled claim map is the contract's claim map", () => {
+  const { description, rules, ...table } = fixture("auth-context-claim-map.json");
+  assert.ok(description && rules);
+  for (const provider of Object.values(table.providers)) delete provider.notes;
+  assert.deepEqual(CLAIM_MAP, table);
+});
+
+test("the vectors exercise every claim in the claim map", () => {
+  const table = fixture("auth-context-claim-map.json");
+  const { cases } = fixture("auth-context-vectors.json");
+  const has = (claims, path) => path.split(".").reduce((node, key) => (node && typeof node === "object" && key in node ? node[key] : undefined), claims) !== undefined;
+  for (const [name, provider] of Object.entries(table.providers)) {
+    const slug = name === "oidc" ? "customidp" : name;
+    const used = cases.filter((c) => c.provider === slug && !c.error);
+    const rules = { ...table.base, ...provider.fields };
+    for (const [field, rule] of Object.entries(rules)) {
+      if (provider.disable?.includes(field)) continue;
+      for (const claim of rule.claims ?? [rule.claim]) {
+        assert.ok(used.some((c) => has(c.claims, claim)), `${name} ${field}: no vector sets claim ${claim}`);
+      }
+    }
   }
 });
