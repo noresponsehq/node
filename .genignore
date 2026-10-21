@@ -1,0 +1,13 @@
+# Hand-written files beside the generated client. Speakeasy leaves them alone.
+src/client.ts
+src/errors.ts
+src/webhooks.ts
+src/auth.ts
+src/wait.ts
+/README.md
+/CHANGELOG.md
+/LICENSE
+tests/
+src/index.ts
+src/meta.ts
+tsconfig.json

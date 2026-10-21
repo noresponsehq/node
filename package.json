@@ -1,0 +1,152 @@
+{
+  "name": "@noresponse/node",
+  "version": "2.0.0",
+  "author": "NoResponse",
+  "bugs": {
+    "url": "https://github.com/noresponsehq/node/issues"
+  },
+  "description": "NoResponse signup and gateway risk assessment client for Node.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "homepage": "https://docs.noresponse.org",
+  "keywords": [
+    "noresponse",
+    "signup",
+    "fraud",
+    "risk",
+    "identity",
+    "abuse",
+    "sdk"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "url": "git+https://github.com/noresponsehq/node.git",
+    "type": "git"
+  },
+  "type": "module",
+  "tshy": {
+    "compiler": "tsgo",
+    "sourceDialects": [
+      "@noresponse/node/source"
+    ],
+    "exports": {
+      ".": "./src/index.ts",
+      "./package.json": "./package.json",
+      "./types": "./src/types/index.ts",
+      "./models/errors": "./src/models/errors/index.ts",
+      "./models": "./src/models/index.ts",
+      "./models/operations": "./src/models/operations/index.ts",
+      "./*.js": "./src/*.ts",
+      "./*": "./src/*.ts"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "lint": "oxlint --max-warnings=0 --deny-warnings --no-error-on-unmatched-pattern src",
+    "build": "tshy",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && tsc -p tests/tsconfig.json && node --test tests/*.test.mjs"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@types/node": "22.15.30",
+    "@typescript/native-preview": "7.0.0-dev.20260302.1",
+    "oxlint": "^1.60.0",
+    "tshy": "^3.3.2",
+    "typescript": "~5.8.3"
+  },
+  "dependencies": {
+    "zod": "^3.25.65 || ^4.0.0"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "@noresponse/node/source": "./src/index.ts",
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./package.json": "./package.json",
+    "./types": {
+      "import": {
+        "@noresponse/node/source": "./src/types/index.ts",
+        "types": "./dist/esm/types/index.d.ts",
+        "default": "./dist/esm/types/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/types/index.d.ts",
+        "default": "./dist/commonjs/types/index.js"
+      }
+    },
+    "./models/errors": {
+      "import": {
+        "@noresponse/node/source": "./src/models/errors/index.ts",
+        "types": "./dist/esm/models/errors/index.d.ts",
+        "default": "./dist/esm/models/errors/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/models/errors/index.d.ts",
+        "default": "./dist/commonjs/models/errors/index.js"
+      }
+    },
+    "./models": {
+      "import": {
+        "@noresponse/node/source": "./src/models/index.ts",
+        "types": "./dist/esm/models/index.d.ts",
+        "default": "./dist/esm/models/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/models/index.d.ts",
+        "default": "./dist/commonjs/models/index.js"
+      }
+    },
+    "./models/operations": {
+      "import": {
+        "@noresponse/node/source": "./src/models/operations/index.ts",
+        "types": "./dist/esm/models/operations/index.d.ts",
+        "default": "./dist/esm/models/operations/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/models/operations/index.d.ts",
+        "default": "./dist/commonjs/models/operations/index.js"
+      }
+    },
+    "./*.js": {
+      "import": {
+        "@noresponse/node/source": "./src/*.ts",
+        "types": "./dist/esm/*.d.ts",
+        "default": "./dist/esm/*.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/*.d.ts",
+        "default": "./dist/commonjs/*.js"
+      }
+    },
+    "./*": {
+      "import": {
+        "@noresponse/node/source": "./src/*.ts",
+        "types": "./dist/esm/*.d.ts",
+        "default": "./dist/esm/*.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/*.d.ts",
+        "default": "./dist/commonjs/*.js"
+      }
+    }
+  },
+  "main": "./dist/commonjs/index.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "module": "./dist/esm/index.js"
+}

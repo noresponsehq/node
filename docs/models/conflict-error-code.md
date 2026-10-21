@@ -1,0 +1,19 @@
+# ConflictErrorCode
+
+Machine codes an HTTP 409 answer can carry.
+
+## Example Usage
+
+```typescript
+import { ConflictErrorCode } from "@noresponse/node/models";
+
+let value: ConflictErrorCode = "idempotency_key_reused";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
+```
+
+## Values
+
+```typescript
+"idempotency_key_reused" | "key_rotation_in_progress" | Unrecognized<string>
+```

@@ -1,0 +1,124 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: NoResponse
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: true
+    nameOverrideFeb2026: true
+    openSingleValueEnumsOct2026: true
+  auth:
+    oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  inferSSEOverload: true
+  sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: body
+  versioningStrategy: automatic
+  persistentEdits: {}
+  tests:
+    generateTests: false
+    generateNewTests: false
+    skipResponseBodyAssertions: false
+typescript:
+  version: 2.0.0
+  acceptHeaderEnum: false
+  additionalDependencies:
+    dependencies: {}
+    devDependencies:
+      '@types/node': 22.15.30
+    peerDependencies: {}
+  additionalPackageJSON:
+    bugs:
+      url: https://github.com/noresponsehq/node/issues
+    description: NoResponse signup and gateway risk assessment client for Node.js
+    engines:
+      node: '>=20'
+    files:
+      - dist
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
+    homepage: https://docs.noresponse.org
+    keywords:
+      - noresponse
+      - signup
+      - fraud
+      - risk
+      - identity
+      - abuse
+      - sdk
+    license: Apache-2.0
+    repository:
+      type: git
+      url: git+https://github.com/noresponsehq/node.git
+  additionalScripts:
+    test: npm run build && tsc -p tests/tsconfig.json && node --test tests/*.test.mjs
+    typecheck: tsc --noEmit
+  alwaysIncludeInboundAndOutbound: false
+  apiPromiseHelpers: false
+  author: NoResponse
+  baseErrorName: NoResponseError
+  clientServerStatusCodesAsErrors: true
+  constFieldsAlwaysOptional: false
+  defaultErrorName: APIStatusError
+  enableCustomCodeRegions: false
+  enableMCPServer: false
+  enableReactQuery: false
+  enumFormat: union
+  envVarPrefix: NORESPONSE
+  eventStreamClassName: EventStream
+  exportZodModelNamespace: false
+  fixEnumNameSanitization: false
+  flatAdditionalProperties: true
+  flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
+  formStringArrayEncodeMode: array
+  forwardCompatibleEnumsByDefault: true
+  forwardCompatibleUnionsByDefault: tagged-only
+  generateExamples: true
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models
+      webhooks: models/webhooks
+  inferUnionDiscriminators: true
+  inputModelSuffix: input
+  jsonpath: rfc9535
+  laxMode: lax
+  legacyFileNaming: false
+  maxMethodParams: 0
+  methodArguments: infer-optional-args
+  modelPropertyCasing: camel
+  moduleFormat: dual
+  multipartArrayFormat: standard
+  numericEnumMemberNames: words
+  outputModelSuffix: output
+  packageName: '@noresponse/node'
+  preApplyUnionDiscriminators: true
+  preserveModelFieldNames: false
+  privateIdentifierPrefix: '#'
+  requestExtras: false
+  responseFormat: flat
+  sseFlatResponse: false
+  templateVersion: v2
+  unionStrategy: populated-fields
+  usageSDKInitImports: []
+  useIndexModules: true
+  useOxlint: true
+  useTsgo: true
+  zodVersion: v4-mini
