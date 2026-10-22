@@ -5,8 +5,8 @@ management:
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.5
-  configChecksum: 3e949d30f5c7ef44bbc98d293260d1bb
+  releaseVersion: 2.0.6
+  configChecksum: 2b48b6c983408e3309501e2ea9c852ea
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -38,8 +38,6 @@ trackedFiles:
     last_write_checksum: sha1:12c849a8ec45ed86bdbb6ad3126888f5993d98d8
   RUNTIMES.md:
     last_write_checksum: sha1:e45b854f02c357cbcfdb8c3663000e8339e16505
-  USAGE.md:
-    last_write_checksum: sha1:1ee378d0ffb2508485f91527158dbdaa35412931
   docs/lib/utils/retryconfig.md:
     last_write_checksum: sha1:bc4454e196fcd219f5a78da690375a884f5ed07b
   docs/models/alternate-name-union.md:
@@ -232,22 +230,10 @@ trackedFiles:
     last_write_checksum: sha1:0785feace3f8a547bf73cc0f07c29795369c724d
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
-  docs/sdks/assessments/README.md:
-    last_write_checksum: sha1:501841a920b0327a74cf734187c71c37feb3ac3a
-  docs/sdks/keys/README.md:
-    last_write_checksum: sha1:73fde11abc5070108ad62ccde141fbe97db9ac12
-  examples/.env.template:
-    last_write_checksum: sha1:8d221c17e3b0a01dd098f4778ea5a7ee331ffdcb
-  examples/README.md:
-    last_write_checksum: sha1:5669d458a17a923d10a7939f93bb16c1f12bc746
-  examples/assessmentsCreate.example.ts:
-    last_write_checksum: sha1:4f9641aed4629f590ed79d34e812d31b96ca8db6
-  examples/package.json:
-    last_write_checksum: sha1:c82c4b4e70d3ed67626a70355877e6e56b2c337f
   jsr.json:
-    last_write_checksum: sha1:75dca9d20e685a42dc6edff20f96b552f9822cce
+    last_write_checksum: sha1:c4ea2c5fc545f3103e9023059089771fddd12b09
   package.json:
-    last_write_checksum: sha1:c9e70af2adf4f9cfb440e786942029b06700d688
+    last_write_checksum: sha1:201db908ad0f2b57aa2ab74b82e490a4774da136
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/assessments-create.ts:
@@ -269,7 +255,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:56ef640465c2ce264919bbd56c795f9be3cfe53d
+    last_write_checksum: sha1:a5cf9cc892e2f7fdb2d054be5edda2b7e3d22df6
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:

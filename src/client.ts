@@ -258,8 +258,9 @@ export class NoResponse {
   readonly core: NoResponseCore;
   readonly baseUrl: string;
 
-  constructor(options: NoResponseOptions = {}) {
-    const sdkOptions = toSDKOptions(options);
+  /** `new NoResponse()` reads NORESPONSE_API_KEY; `new NoResponse("nrk_...")` takes the key directly. */
+  constructor(options: NoResponseOptions | string = {}) {
+    const sdkOptions = toSDKOptions(typeof options === "string" ? { apiKey: options } : options);
     const client = new GeneratedClient(sdkOptions);
     this.baseUrl = sdkOptions.serverURL!;
     this.assessments = new Assessments(client.assessments);

@@ -13,7 +13,7 @@ npm install @noresponse/node
 ```ts
 import { NoResponse } from "@noresponse/node";
 
-const nr = new NoResponse(); // reads NORESPONSE_API_KEY
+const nr = new NoResponse(); // reads NORESPONSE_API_KEY, or new NoResponse("nrk_...")
 
 const assessment = await nr.assessments.create({
   accountId: "usr_8f2k1",

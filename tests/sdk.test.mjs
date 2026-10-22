@@ -46,6 +46,24 @@ test("construction reads the environment and defaults the base URL", () => {
   assert.throws(() => new NoResponse({ apiKey: KEY, timeoutMs: 1.5 }), /timeoutMs/);
 });
 
+test("a string is shorthand for the API key", async () => {
+  withEnv({ NORESPONSE_API_KEY: undefined, NORESPONSE_BASE_URL: undefined }, () => {
+    assert.equal(new NoResponse(KEY).baseUrl, DEFAULT_BASE_URL);
+    assert.throws(() => new NoResponse(""), /NORESPONSE_API_KEY/);
+  });
+  const { fetcher, calls } = fakeFetch([json(COMPLETE)]);
+  const original = globalThis.fetch;
+  globalThis.fetch = fetcher;
+  try {
+    await withEnv({ NORESPONSE_API_KEY: undefined, NORESPONSE_BASE_URL: undefined }, () =>
+      new NoResponse(KEY).assessments.get(COMPLETE.assessment_id),
+    );
+  } finally {
+    globalThis.fetch = original;
+  }
+  assert.equal(calls[0].headers.authorization, "Bearer " + KEY);
+});
+
 test("the key never appears when the client is printed", () => {
   const nr = new NoResponse({ apiKey: KEY });
   for (const rendered of [inspect(nr), JSON.stringify(nr), String(nr)]) {
