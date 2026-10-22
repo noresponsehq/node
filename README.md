@@ -201,6 +201,19 @@ async function handler(req, res) {
 
 `constructEvent(payload, headers, secrets, { toleranceSeconds })` takes the raw body (a `Buffer`, `Uint8Array` or the exact text), any header object (Fetch `Headers`, Node `IncomingHttpHeaders`, a plain object or entries) and refuses a repeated signature header, a delivery older than 300 seconds, an unknown key id or a bad signature with a `WebhookVerificationError` whose `code` says which. Deliveries are at least once: deduplicate on `event.id`. The same functions are on `NoResponse.webhooks` and `nr.webhooks`. This module uses `node:crypto`.
 
+### Late results
+
+An assessment can be revised after you allowed the signup. `handleLateResult` verifies the delivery with `constructEvent`, applies your policy and acts through your auth provider's admin API:
+
+```ts
+import { clerkActions, handleLateResult } from "@noresponse/node"; // or workosActions, auth0Actions
+
+const provider = clerkActions({ secretKey: process.env.CLERK_SECRET_KEY! });
+const result = await handleLateResult(rawBody, request.headers, secrets, provider, { policy: { review: "ban" } });
+```
+
+The default policy revokes sessions on `review` and does nothing otherwise. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it.
+
 ## Auth adapters
 
 Map a session your backend has already verified into `authContext`:

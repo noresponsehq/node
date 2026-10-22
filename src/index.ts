@@ -35,6 +35,23 @@ export {
   type WebhookErrorCode,
 } from "./webhooks.js";
 export {
+  handleLateResult,
+  lateResultAction,
+  clerkActions,
+  workosActions,
+  auth0Actions,
+  ProviderActionError,
+  DEFAULT_LATE_RESULT_POLICY,
+  type LateResult,
+  type LateResultAction,
+  type LateResultOptions,
+  type LateResultPolicy,
+  type LateResultProvider,
+  type ClerkActionsOptions,
+  type WorkOSActionsOptions,
+  type Auth0ActionsOptions,
+} from "./late-results.js";
+export {
   fromAuth0,
   fromClerk,
   fromCognito,
@@ -46,7 +63,9 @@ export {
   fromOryOAuth2,
   fromSupabase,
   fromWorkOS,
-  type VerifiedClaims, type AuthContextOverrides } from "./auth.js";
+  type VerifiedClaims,
+  type AuthContextOverrides,
+} from "./auth.js";
 export { DEFAULT_WAIT_TIMEOUT_MS, MIN_POLL_INTERVAL_MS } from "./wait.js";
 export * from "./models/index.js";
 export type { CreateAssessmentRequest, GetAssessmentRequest, RecordAssessmentOutcomeRequest } from "./models/operations/index.js";
