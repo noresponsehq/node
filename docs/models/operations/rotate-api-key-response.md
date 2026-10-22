@@ -6,16 +6,19 @@
 import { RotateApiKeyResponse } from "@noresponse/node/models/operations";
 
 let value: RotateApiKeyResponse = {
-  headers: {},
+  headers: {
+    "key": [],
+  },
   result: {
-    key: "<key>",
-    keyId: "<id>",
+    key:
+      "nrk_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA",
+    keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     scopes: [
       "history",
     ],
-    createdAt: "1715554216932",
-    previousKeyId: "<id>",
-    previousKeyExpiresAt: "<value>",
+    createdAt: "2026-10-14T09:10:00.000Z",
+    previousKeyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKN",
+    previousKeyExpiresAt: "2026-10-15T09:10:00.000Z",
   },
 };
 ```

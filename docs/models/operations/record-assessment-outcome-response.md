@@ -8,18 +8,18 @@ import { RecordAssessmentOutcomeResponse } from "@noresponse/node/models/operati
 let value: RecordAssessmentOutcomeResponse = {
   headers: {
     "key": [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
+      "example 1",
+      "example 2",
+      "example 3",
     ],
     "key1": [],
     "key2": [],
   },
   result: {
-    id: "<id>",
-    assessmentId: "<id>",
+    id: "out_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     outcome: "account_takeover",
-    receivedAt: "<value>",
+    receivedAt: "2026-10-14T09:05:00.000Z",
   },
 };
 ```

@@ -6,7 +6,7 @@
 ### `string`
 
 ```typescript
-const value: string = "<value>";
+const value: string = "example";
 ```
 
 ### `number`
@@ -31,9 +31,9 @@ const value: models.Email = {};
 
 ```typescript
 const value: any[] = [
-  "<value 1>",
-  "<value 2>",
-  "<value 3>",
+  "example",
+  "example",
+  "example",
 ];
 ```
 

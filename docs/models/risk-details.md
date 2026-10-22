@@ -7,7 +7,29 @@ Detailed view only (response_mode=detailed, which needs the detailed scope); a s
 ```typescript
 import { RiskDetails } from "@noresponse/node/models";
 
-let value: RiskDetails = {};
+let value: RiskDetails = {
+  phoneNames: [
+    {
+      value: "Alex Example",
+      seenBy: 176739,
+    },
+  ],
+  breaches: [
+    {
+      name: "Example Forum",
+      domain: "forum.example.com",
+      category: "forum",
+      kind: "darkweb_site",
+      matchedOn: "ip",
+    },
+  ],
+  breachNames: [
+    {
+      value: "Alex Example",
+      seenIn: 749093,
+    },
+  ],
+};
 ```
 
 ## Fields

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 88b1f03440bf6ac102bca1fd0701b0e2
+  docChecksum: 9b2eee6d979ca39441098c7423cd91b6
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.6
-  configChecksum: 2b48b6c983408e3309501e2ea9c852ea
+  releaseVersion: 2.0.7
+  configChecksum: 66befb61a0ec0347f3b7675b84133528
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -41,35 +41,35 @@ trackedFiles:
   docs/lib/utils/retryconfig.md:
     last_write_checksum: sha1:bc4454e196fcd219f5a78da690375a884f5ed07b
   docs/models/alternate-name-union.md:
-    last_write_checksum: sha1:614e936aa2ba8a5b36a9907c7449e0e0373dbda0
+    last_write_checksum: sha1:0e2f57f4868d3668b9da1ef84201a39c88a2e99d
   docs/models/alternate-name.md:
     last_write_checksum: sha1:cdacbb2a5cd3481f0a46c747dfa0a9882fb4e5f8
   docs/models/assessment-list.md:
-    last_write_checksum: sha1:443ba3b570143229a28eed9592e1cb829add2f3d
+    last_write_checksum: sha1:5e54624a3f7a0b42bbed25903df11b0d4959b8b9
   docs/models/assessment-outcome-request.md:
-    last_write_checksum: sha1:580ad8cbfd55f5f6b65e5a67d04d55fca06a9a13
+    last_write_checksum: sha1:1ba77cdf344d71bcbb7d087223464053482d361b
   docs/models/assessment-outcome.md:
-    last_write_checksum: sha1:6073c5e3a8d8c39f688fb4fd5af0bfdeb8429970
+    last_write_checksum: sha1:66027a04266386b2c3175881cb12593532bcee02
   docs/models/assessment-query.md:
-    last_write_checksum: sha1:2cc2eb0be333d0ba0ee0c26e339a13bffc4b1933
+    last_write_checksum: sha1:7040f9f7fdadf1e86ad83248fb37035b2d0ddafb
   docs/models/assessment-request-client-context.md:
-    last_write_checksum: sha1:1b267f70d98f8022edb1ea40c10db5697a7f506e
+    last_write_checksum: sha1:2b53c8a925473471f8c9faec89a8d7dde770c8cc
   docs/models/assessment-request-identifiers.md:
-    last_write_checksum: sha1:ccdc4b34972bab1c6b3f2e796c7fc6da854e5c2a
+    last_write_checksum: sha1:b65e853883caba7f7f0e61caed9f948e6b9ea42e
   docs/models/assessment-request-policy-context.md:
-    last_write_checksum: sha1:33cea7660aa73e2614c377e2036fb39dba77668c
+    last_write_checksum: sha1:48679382fb7971de96efad00d1f524f4188f460c
   docs/models/assessment-request.md:
-    last_write_checksum: sha1:3550eab112de68b824e344b87b0dbfd75c233ea5
+    last_write_checksum: sha1:40e52365ee9bcc11faaf6e34c4ac03eb39fb83ac
   docs/models/assessment-timing.md:
     last_write_checksum: sha1:bfa6994956dd971cd35c4fb7f70ff7858303528e
   docs/models/assessment.md:
-    last_write_checksum: sha1:8e80220b813ee0036eef0366bb8c7cc4ebc81a23
+    last_write_checksum: sha1:39cd380765eccc5cbc65393772fe5dea88612a1d
   docs/models/assurance-level.md:
     last_write_checksum: sha1:8d7e67d0661da2226668576dc53c1da768256398
   docs/models/auth-context-mfa.md:
-    last_write_checksum: sha1:41e57687504a7194ccac46697318280c991d4fba
+    last_write_checksum: sha1:216be43e87bb41f8326451ac7097e1ad10f24b35
   docs/models/auth-context.md:
-    last_write_checksum: sha1:48cb0055bc65462e9321d3e1ced44e3f8401a69c
+    last_write_checksum: sha1:0a7bc206ed91fac704ef05e618068f059a022ffa
   docs/models/authentication-error-code.md:
     last_write_checksum: sha1:fbe8295e87bea81f09d3610174528e77a5437f01
   docs/models/bad-request-error-code.md:
@@ -85,7 +85,7 @@ trackedFiles:
   docs/models/breach-summary.md:
     last_write_checksum: sha1:3274771b11b0de9ddc8220acb70329592111bc08
   docs/models/breach.md:
-    last_write_checksum: sha1:454610d9414fe6867ec14f5755194cacdded2330
+    last_write_checksum: sha1:3654541629e17a6ab34fe794cb97757a810a6dc6
   docs/models/confidence.md:
     last_write_checksum: sha1:64291fb32621f598df63d4db15e38bc083da6425
   docs/models/conflict-error-code.md:
@@ -97,21 +97,21 @@ trackedFiles:
   docs/models/country.md:
     last_write_checksum: sha1:f92f1640d9fb2c8819026f9c5d6aaff189660d3b
   docs/models/email-union.md:
-    last_write_checksum: sha1:feb1ddb0b3e416629719e7a6bcf4b3c08a264cdf
+    last_write_checksum: sha1:aa9bfac3db0305fa4ec5750383bc97f5f5fa4fe8
   docs/models/email.md:
     last_write_checksum: sha1:97c62f577665143036991549c4cbe4016f64f6b0
   docs/models/errors/authentication-error.md:
-    last_write_checksum: sha1:8f688af53fdd08e2b550b151a84983ee5230586d
+    last_write_checksum: sha1:20ef94ffe1baf431233d5891a825ceeeab856218
   docs/models/errors/bad-request-error.md:
-    last_write_checksum: sha1:15faa612772aa02251c3b9b7a1129897c904ee47
+    last_write_checksum: sha1:3bef67bbffc5634b7db3af21cc3b263bab00ac47
   docs/models/errors/conflict-error.md:
-    last_write_checksum: sha1:6bec4676d3596b9cebb89b157f65b600002649ae
+    last_write_checksum: sha1:8df37d989fe04b781fb03a062f16a3383948d9da
   docs/models/errors/not-found-error.md:
-    last_write_checksum: sha1:e7cf2326f001a043de483a427eb0a66499a4fef0
+    last_write_checksum: sha1:4d27d32e49c17f551dbc5948d7ed313467a479d9
   docs/models/errors/permission-denied-error.md:
-    last_write_checksum: sha1:a00435f7836c5264a03533f8bc73765565f4e337
+    last_write_checksum: sha1:f66dd542f561dac73f1d8a3750d68233a7d7569c
   docs/models/errors/rate-limit-error.md:
-    last_write_checksum: sha1:6fc97b9449a4a1765f97db4758cb7313b6c7f207
+    last_write_checksum: sha1:b8912ce35cd45720d8a3125e9dbe0292db823ca6
   docs/models/failure-reason.md:
     last_write_checksum: sha1:9b5555613d5f4e8268ee12c081b79e6206566340
   docs/models/flow.md:
@@ -127,53 +127,53 @@ trackedFiles:
   docs/models/ip-summary-type.md:
     last_write_checksum: sha1:290aaff18e3e3f0d6c48c821bbbf492cc114343c
   docs/models/ip-summary.md:
-    last_write_checksum: sha1:79cdceecaea236651951bb1f32e6acc377c3463e
+    last_write_checksum: sha1:47496853ac4079d13a5ffe500ac199b7623cb229
   docs/models/key-rotation-request.md:
     last_write_checksum: sha1:713fc85d09c6c88fd217a45a84fb6787a1c33b92
   docs/models/key-rotation.md:
-    last_write_checksum: sha1:8941638c3e4f556f9d890d59fb0ed47119d0cf1e
+    last_write_checksum: sha1:55b8c1331cb28b7c1075f855136e2c237389be90
   docs/models/lane.md:
     last_write_checksum: sha1:74153af33c5bb118d2b33f9d81fbd72d67b838db
   docs/models/line-type.md:
     last_write_checksum: sha1:11508fe9d099858fd3b0557f033ad836583d785e
   docs/models/location-union.md:
-    last_write_checksum: sha1:43a914b7faf2d5411dfc0c1ba94dd7ea5ec50245
+    last_write_checksum: sha1:3b5e091fdd204e025af76ce2fbef673f7bd955e3
   docs/models/location.md:
     last_write_checksum: sha1:e49f7cdf9a8564b2afeb06595daa99de48c3fefe
   docs/models/name-candidate-union.md:
-    last_write_checksum: sha1:374270b5e7bcd84fc749ca21cce5b126b1b1a833
+    last_write_checksum: sha1:3467093eee1acf9e8a89a072a67a2994c2e457ac
   docs/models/name-candidate.md:
     last_write_checksum: sha1:bad727297edfb1dc5b9ba2bad1e200921deff8d9
   docs/models/not-found-error-code.md:
     last_write_checksum: sha1:d37e3712028430c10f99dc87b52608558e808d28
   docs/models/operations/create-assessment-request.md:
-    last_write_checksum: sha1:04b879a96c6c44dfcc6165e25430d04d104968b6
+    last_write_checksum: sha1:ffc21c10e6a802648e0ca2159682d8b5ebb3a4fb
   docs/models/operations/create-assessment-response.md:
-    last_write_checksum: sha1:7879c8212856b43ba871c1aa3ff4294b72287153
+    last_write_checksum: sha1:cf60c23d70a3fd983df08ecadb59a2265a97a58c
   docs/models/operations/get-assessment-request.md:
-    last_write_checksum: sha1:a588c04df211e9c170dacc1bede65c1823f62e8e
+    last_write_checksum: sha1:57a9463eafb34e8f14f697571cf72c54baed8ad6
   docs/models/operations/get-assessment-response.md:
-    last_write_checksum: sha1:17f84d7a7d0675d5e47845bd440367f530f16932
+    last_write_checksum: sha1:ac3379634e1332e5f4ad6f7acb71be12821f587e
   docs/models/operations/query-account-assessments-response.md:
-    last_write_checksum: sha1:468f1da4883c177eaab609d245733de83a2142be
+    last_write_checksum: sha1:470229383b4f2ee789cac9009440d0088095b793
   docs/models/operations/record-assessment-outcome-request.md:
-    last_write_checksum: sha1:b659e5c28399e9897e44187b111ada915bd1d1d9
+    last_write_checksum: sha1:463070d65a75922709182cbf1694e73bd0d5291b
   docs/models/operations/record-assessment-outcome-response.md:
-    last_write_checksum: sha1:76d68fb2d26ceab2bf2fd4777229bebd0bb1dfde
+    last_write_checksum: sha1:f8d02b288805e01fa3cdc4df60c1aac882ad1a40
   docs/models/operations/rotate-api-key-response.md:
-    last_write_checksum: sha1:6aff1abb20676b171db28e491934144f36a6948f
+    last_write_checksum: sha1:bcfe8566edc7cf4d8df79972a752bb16f40286a2
   docs/models/outcome.md:
     last_write_checksum: sha1:007e0966669924d36f5c1b38db8694d99bb65125
   docs/models/permission-denied-error-code.md:
     last_write_checksum: sha1:6ea528413cb3eb2a2b879e90d566a768c560bc07
   docs/models/phone-enrichment-fields.md:
-    last_write_checksum: sha1:ab5fd8a0a48b49e4c9299822d8632bd31a5175a1
+    last_write_checksum: sha1:cd43332d5ac752249cf7c44eb1d8051e7abb556f
   docs/models/phone-enrichment.md:
-    last_write_checksum: sha1:694b5a5396c26750edf1792b9c4bfa6701edcb67
+    last_write_checksum: sha1:1536ee396b8f4bf7167aa948cb28dee4be7d6abf
   docs/models/platform.md:
     last_write_checksum: sha1:f2e4217b905c565ad5515f46657ff5ceccde6e67
   docs/models/problem-invalid-param.md:
-    last_write_checksum: sha1:05d14b01b9599d2bcb328f78934c8f004f3cd43a
+    last_write_checksum: sha1:9ae38aa0ce61323487732e642befce77cf938f52
   docs/models/rate-limit-error-code.md:
     last_write_checksum: sha1:76616c93197f7ced1c1da85310b91d481650fdbd
   docs/models/reason-code.md:
@@ -189,23 +189,23 @@ trackedFiles:
   docs/models/risk-coverage.md:
     last_write_checksum: sha1:ef78c8a394231becc34b11e3fe08c6f560e2626e
   docs/models/risk-details-breach-name.md:
-    last_write_checksum: sha1:22efa7f7ce862fced508ca21f45fc7285e351e9b
+    last_write_checksum: sha1:a51d5fc232fd40040927177470bcd762e7f3d060
   docs/models/risk-details-phone-name.md:
-    last_write_checksum: sha1:1d6e1c52cb47ff3c8a8606996bbfbf52a8112d01
+    last_write_checksum: sha1:14f5db49121b58433611c033a03c8c37ba12a9b8
   docs/models/risk-details.md:
-    last_write_checksum: sha1:2d7e97970e17d11bf1d1d0e1203bc644ee61e0f4
+    last_write_checksum: sha1:4635b0f02942556e6060cd8756bf7738225cb988
   docs/models/risk-reason.md:
     last_write_checksum: sha1:973c3fc8ceb93152beddfd3034dbe5bae3b45567
   docs/models/risk-summary-email.md:
     last_write_checksum: sha1:0ab75ac4b22caa18615f68a9bc0c8b1b211ca179
   docs/models/risk-summary-phone.md:
-    last_write_checksum: sha1:e56f886182ec0325dfaa64ff70ff3817afd68aed
+    last_write_checksum: sha1:1a17e275d1b9addcec6d5efa224d30ea928febb3
   docs/models/risk-summary-username.md:
     last_write_checksum: sha1:f874146619d7dc484de3abc9d4cdbbd0cd8596df
   docs/models/risk-summary.md:
-    last_write_checksum: sha1:65e01d29b34b169f6ed391481097bccb575a5545
+    last_write_checksum: sha1:5da5e5615d3465d884c6c3412c74fd7e523d54e3
   docs/models/risk.md:
-    last_write_checksum: sha1:f31c256df69d828ad106bb137cb3e8a51adf3d8e
+    last_write_checksum: sha1:1c8c2115b5935aab0112bcbbd63b1afe9afd950e
   docs/models/scope.md:
     last_write_checksum: sha1:dcceaf50f24dcfa9a23323ce2a9ae9c3ae511d63
   docs/models/security.md:
@@ -213,27 +213,27 @@ trackedFiles:
   docs/models/signal-outcome.md:
     last_write_checksum: sha1:eda436dba6796d00a35c70db8cda7d79e11b42dc
   docs/models/signal.md:
-    last_write_checksum: sha1:edb1dbe89703429587ccc668f3fff0b3c893778d
+    last_write_checksum: sha1:92735fbcfb68bccd334dc9dcbbdbd59fa638e2a1
   docs/models/social-profile-union.md:
-    last_write_checksum: sha1:05af47ff2f58ba954b323d9d7a3819abc4c61abf
+    last_write_checksum: sha1:92242b76ac0d19ff179a1b3b8bc5f07eeb2241fa
   docs/models/social-profile.md:
     last_write_checksum: sha1:0b8770443ae0ddaf21649edb310d2437abd7e975
   docs/models/status.md:
     last_write_checksum: sha1:02a77cfb65385e1ce7b24a1de9fbb07af57030e8
   docs/models/timezone-union.md:
-    last_write_checksum: sha1:79fa4f4b5ffab5f6348165f5366692e83c0c6285
+    last_write_checksum: sha1:dd81fc724f77bea421edc68d425b5560f25a5b00
   docs/models/timezone.md:
     last_write_checksum: sha1:d182129063580bd65b0e158c40558a9399364204
   docs/models/transport.md:
     last_write_checksum: sha1:6cbc89e71de1985d266ad16037c1be1094fd23bf
   docs/models/website-union.md:
-    last_write_checksum: sha1:0785feace3f8a547bf73cc0f07c29795369c724d
+    last_write_checksum: sha1:e45cdc6c787fc665770a08a7928408c3d9586141
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:c4ea2c5fc545f3103e9023059089771fddd12b09
+    last_write_checksum: sha1:72d0f3dff00c0414afd937bcce4a5339e48470d1
   package.json:
-    last_write_checksum: sha1:201db908ad0f2b57aa2ab74b82e490a4774da136
+    last_write_checksum: sha1:86c08434f3fce5a9b5db1df761848246f984d611
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/assessments-create.ts:
@@ -255,7 +255,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:a5cf9cc892e2f7fdb2d054be5edda2b7e3d22df6
+    last_write_checksum: sha1:c851f35f8b8a5d96f539c94feaf1fd9148dac98e
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -494,19 +494,19 @@ examples:
         application/json: {"account_id": "acct_7f3a9c", "identifiers": {"email": "new.user@example.com"}}
       responses:
         "200":
-          application/json: {"schema_version": "1", "assessment_id": "<id>", "account_id": "<id>", "status": "pending", "confidence": "high", "incomplete_sources": [], "policy_version": "<value>", "policy_basis": "heuristic_unvalidated", "assessment_version": 75248, "created_at": "1730661856226", "updated_at": "1735656370961", "expires_at": "1761465925841", "timing": {"deadline_ms": 255173, "elapsed_ms": 652212}}
+          application/json: {"schema_version": "1", "assessment_id": "<id>", "account_id": "<id>", "request_id": "req-2026-10-14-0001", "status": "pending", "confidence": "high", "risk": {"score": 679440, "band": "high", "recommendation": "step_up", "confidence": "low", "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "reasons": [{"code": "no_breach_history", "weight": 817362}], "summary": {"phone": {"country": "AU", "carrier": "Telstra"}, "ip": {"country": "AU"}}, "coverage": {"answered": 255173, "failed": 652212, "pending": 308918}, "details": {"phone_names": [{"value": "Alex Example", "seen_by": 790980}], "breaches": [{"name": "Example Forum", "domain": "forum.example.com", "category": "forum", "kind": "abuse_service", "matched_on": "ip"}], "breach_names": [{"value": "Alex Example", "seen_in": 215393}]}}, "signals": [{"type": "account_presence", "identifier": "phone", "outcome": "blocked", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "stale", "enrichment": {"fields": {"phone": "+61412345678", "name": "Alex Example", "carrier": "Telstra", "line_type": "mobile", "entity_type": "person", "country_code": "61", "country": "Australia", "state": "New South Wales", "city": "Sydney", "location": "Sydney, New South Wales, Australia", "national_format": "0412 345 678", "job_title": "Engineer", "company_name": "Example Pty Ltd", "email": "new.user@example.com", "website": "https://example.com", "first_call_at": "2026-09-01T00:00:00.000Z", "last_call_at": "2026-10-10T00:00:00.000Z", "matched_name": "Alex Example", "alternate_names": ["Alex E."], "name_candidates": ["Alex Example"], "timezones": ["Australia/Sydney"], "emails": ["new.user@example.com"], "websites": ["https://example.com"], "locations": ["Sydney, New South Wales, Australia"], "social_profiles": ["https://example.com/alexexample"]}}}], "incomplete_sources": [], "policy_version": "<value>", "policy_basis": "heuristic_unvalidated", "assessment_version": 75248, "created_at": "1730661856226", "updated_at": "1735656370961", "expires_at": "1761465925841", "assessment_url": "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "timing": {"deadline_ms": 255173, "elapsed_ms": 652212}}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "key_rotation_in_progress", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "key_rotation_in_progress", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     full:
       parameters:
         header:
@@ -515,19 +515,19 @@ examples:
         application/json: {"account_id": "acct_7f3a9c", "identifiers": {"email": "new.user@example.com", "username": "new_user_42", "phone": "+447700900123"}, "policy_context": {"flow": "signup", "region": "GB"}, "request_id": "req-2026-10-14-0001", "deadline_ms": 300}
       responses:
         "200":
-          application/json: {"schema_version": "1", "assessment_id": "<id>", "account_id": "<id>", "status": "pending", "confidence": "high", "incomplete_sources": [], "policy_version": "<value>", "policy_basis": "heuristic_unvalidated", "assessment_version": 75248, "created_at": "1730661856226", "updated_at": "1735656370961", "expires_at": "1761465925841", "timing": {"deadline_ms": 255173, "elapsed_ms": 652212}}
+          application/json: {"schema_version": "1", "assessment_id": "<id>", "account_id": "<id>", "request_id": "req-2026-10-14-0001", "status": "pending", "confidence": "high", "risk": {"score": 679440, "band": "high", "recommendation": "step_up", "confidence": "low", "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "reasons": [{"code": "no_breach_history", "weight": 817362}], "summary": {"phone": {"country": "AU", "carrier": "Telstra"}, "ip": {"country": "AU"}}, "coverage": {"answered": 255173, "failed": 652212, "pending": 308918}, "details": {"phone_names": [{"value": "Alex Example", "seen_by": 790980}], "breaches": [{"name": "Example Forum", "domain": "forum.example.com", "category": "forum", "kind": "abuse_service", "matched_on": "ip"}], "breach_names": [{"value": "Alex Example", "seen_in": 215393}]}}, "signals": [{"type": "account_presence", "identifier": "phone", "outcome": "blocked", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "stale", "enrichment": {"fields": {"phone": "+61412345678", "name": "Alex Example", "carrier": "Telstra", "line_type": "mobile", "entity_type": "person", "country_code": "61", "country": "Australia", "state": "New South Wales", "city": "Sydney", "location": "Sydney, New South Wales, Australia", "national_format": "0412 345 678", "job_title": "Engineer", "company_name": "Example Pty Ltd", "email": "new.user@example.com", "website": "https://example.com", "first_call_at": "2026-09-01T00:00:00.000Z", "last_call_at": "2026-10-10T00:00:00.000Z", "matched_name": "Alex Example", "alternate_names": ["Alex E."], "name_candidates": ["Alex Example"], "timezones": ["Australia/Sydney"], "emails": ["new.user@example.com"], "websites": ["https://example.com"], "locations": ["Sydney, New South Wales, Australia"], "social_profiles": ["https://example.com/alexexample"]}}}], "incomplete_sources": [], "policy_version": "<value>", "policy_basis": "heuristic_unvalidated", "assessment_version": 75248, "created_at": "1730661856226", "updated_at": "1735656370961", "expires_at": "1761465925841", "assessment_url": "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "timing": {"deadline_ms": 255173, "elapsed_ms": 652212}}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "key_rotation_in_progress", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "key_rotation_in_progress", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     name_and_ip:
       parameters:
         header:
@@ -536,25 +536,25 @@ examples:
         application/json: {"account_id": "acct_8412", "identifiers": {"email": "jane.doe@example.com", "username": "janedoe", "phone": "+14155550123", "name": "Jane A. Doe", "ip": "73.162.18.45"}, "policy_context": {"flow": "signup", "region": "US"}, "request_id": "req_01", "deadline_ms": 500, "response_mode": "standard"}
       responses:
         "200":
-          application/json: {"schema_version": "1", "assessment_id": "<id>", "account_id": "<id>", "status": "pending", "confidence": "high", "incomplete_sources": [], "policy_version": "<value>", "policy_basis": "heuristic_unvalidated", "assessment_version": 75248, "created_at": "1730661856226", "updated_at": "1735656370961", "expires_at": "1761465925841", "timing": {"deadline_ms": 255173, "elapsed_ms": 652212}}
+          application/json: {"schema_version": "1", "assessment_id": "<id>", "account_id": "<id>", "request_id": "req-2026-10-14-0001", "status": "pending", "confidence": "high", "risk": {"score": 679440, "band": "high", "recommendation": "step_up", "confidence": "low", "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "reasons": [{"code": "no_breach_history", "weight": 817362}], "summary": {"phone": {"country": "AU", "carrier": "Telstra"}, "ip": {"country": "AU"}}, "coverage": {"answered": 255173, "failed": 652212, "pending": 308918}, "details": {"phone_names": [{"value": "Alex Example", "seen_by": 790980}], "breaches": [{"name": "Example Forum", "domain": "forum.example.com", "category": "forum", "kind": "abuse_service", "matched_on": "ip"}], "breach_names": [{"value": "Alex Example", "seen_in": 215393}]}}, "signals": [{"type": "account_presence", "identifier": "phone", "outcome": "blocked", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "stale", "enrichment": {"fields": {"phone": "+61412345678", "name": "Alex Example", "carrier": "Telstra", "line_type": "mobile", "entity_type": "person", "country_code": "61", "country": "Australia", "state": "New South Wales", "city": "Sydney", "location": "Sydney, New South Wales, Australia", "national_format": "0412 345 678", "job_title": "Engineer", "company_name": "Example Pty Ltd", "email": "new.user@example.com", "website": "https://example.com", "first_call_at": "2026-09-01T00:00:00.000Z", "last_call_at": "2026-10-10T00:00:00.000Z", "matched_name": "Alex Example", "alternate_names": ["Alex E."], "name_candidates": ["Alex Example"], "timezones": ["Australia/Sydney"], "emails": ["new.user@example.com"], "websites": ["https://example.com"], "locations": ["Sydney, New South Wales, Australia"], "social_profiles": ["https://example.com/alexexample"]}}}], "incomplete_sources": [], "policy_version": "<value>", "policy_basis": "heuristic_unvalidated", "assessment_version": 75248, "created_at": "1730661856226", "updated_at": "1735656370961", "expires_at": "1761465925841", "assessment_url": "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "timing": {"deadline_ms": 255173, "elapsed_ms": 652212}}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "key_rotation_in_progress", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "key_rotation_in_progress", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     complete:
       parameters:
         header:
           Idempotency-Key: "<value>"
       requestBody:
-        application/json: {"account_id": "<id>", "identifiers": {}}
+        application/json: {"account_id": "<id>", "identifiers": {"email": "new.user@example.com", "username": "new.user", "phone": "+61412345678", "name": "Alex Example", "ip": "203.0.113.45"}, "policy_context": {"region": "AU"}, "request_id": "req-2026-10-14-0001", "client_context": {"timezone": "Australia/Sydney", "locale": "en-AU", "app_version": "4.12.0", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36", "device_id": "dev_5c1e8a", "session_id": "sess_9b2d41", "client_observed_at": "2026-10-14T08:59:58.000Z"}, "auth_context": {"provider": "clerk", "issuer": "https://example-app.clerk.accounts.dev", "audience": "https://app.example.com", "audiences": ["https://app.example.com"], "subject": "user_2EXAMPLE", "session_id": "sess_2EXAMPLE", "organization_id": "org_2EXAMPLE", "tenant_id": "tenant_2EXAMPLE", "token_id": "2EXAMPLEJTI", "issued_at": "2026-10-14T08:59:40.000Z", "expires_at": "2026-10-14T09:00:40.000Z", "session_created_at": "2026-10-14T08:57:00.000Z", "auth_time": "2026-10-14T08:55:00.000Z", "account_created_at": "2026-10-14T08:56:00.000Z", "verified": false, "mfa": {"methods": ["totp"]}, "roles": ["admin"], "scopes": ["org:sys_profile:manage"]}}
       responses:
         "200":
           application/json: {"schema_version": "1", "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-14-0001", "status": "complete", "recommendation": "step_up", "confidence": "medium", "signals": [{"type": "account_presence", "identifier": "email", "outcome": "found", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}, {"type": "breach_exposure", "identifier": "email", "outcome": "found", "source_id": "breach.corpus", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKP", "observed_at": "2025-03-02T00:00:00Z", "last_checked_at": "2026-10-14T09:00:00.150Z", "freshness": "stale"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-14T09:00:00.000Z", "updated_at": "2026-10-14T09:00:00.412Z", "expires_at": "2027-10-14T09:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}
@@ -563,7 +563,7 @@ examples:
         header:
           Idempotency-Key: "<value>"
       requestBody:
-        application/json: {"account_id": "<id>", "identifiers": {}}
+        application/json: {"account_id": "<id>", "identifiers": {"email": "new.user@example.com", "username": "new.user", "phone": "+61412345678", "name": "Alex Example", "ip": "203.0.113.45"}, "policy_context": {"region": "AU"}, "request_id": "req-2026-10-14-0001", "client_context": {"timezone": "Australia/Sydney", "locale": "en-AU", "app_version": "4.12.0", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36", "device_id": "dev_5c1e8a", "session_id": "sess_9b2d41", "client_observed_at": "2026-10-14T08:59:58.000Z"}, "auth_context": {"provider": "clerk", "issuer": "https://example-app.clerk.accounts.dev", "audience": "https://app.example.com", "audiences": ["https://app.example.com"], "subject": "user_2EXAMPLE", "session_id": "sess_2EXAMPLE", "organization_id": "org_2EXAMPLE", "tenant_id": "tenant_2EXAMPLE", "token_id": "2EXAMPLEJTI", "issued_at": "2026-10-14T08:59:40.000Z", "expires_at": "2026-10-14T09:00:40.000Z", "session_created_at": "2026-10-14T08:57:00.000Z", "auth_time": "2026-10-14T08:55:00.000Z", "account_created_at": "2026-10-14T08:56:00.000Z", "verified": false, "mfa": {"methods": ["totp"]}, "roles": ["admin"], "scopes": ["org:sys_profile:manage"]}}
       responses:
         "200":
           application/json: {"schema_version": "1", "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-14-0001", "status": "partial", "recommendation": "allow", "confidence": "low", "signals": [{"type": "account_presence", "identifier": "email", "outcome": "found", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "phone", "outcome": "unavailable", "source_id": "phone_src_04", "reason": "deferred", "freshness": "unknown"}], "incomplete_sources": [{"lane": "phone", "reason": "deferred"}], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 1, "created_at": "2026-10-14T09:00:00.000Z", "updated_at": "2026-10-14T09:00:00.412Z", "expires_at": "2027-10-14T09:00:00.000Z", "assessment_url": "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}
@@ -572,7 +572,7 @@ examples:
         header:
           Idempotency-Key: "<value>"
       requestBody:
-        application/json: {"account_id": "<id>", "identifiers": {}}
+        application/json: {"account_id": "<id>", "identifiers": {"email": "new.user@example.com", "username": "new.user", "phone": "+61412345678", "name": "Alex Example", "ip": "203.0.113.45"}, "policy_context": {"region": "AU"}, "request_id": "req-2026-10-14-0001", "client_context": {"timezone": "Australia/Sydney", "locale": "en-AU", "app_version": "4.12.0", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36", "device_id": "dev_5c1e8a", "session_id": "sess_9b2d41", "client_observed_at": "2026-10-14T08:59:58.000Z"}, "auth_context": {"provider": "clerk", "issuer": "https://example-app.clerk.accounts.dev", "audience": "https://app.example.com", "audiences": ["https://app.example.com"], "subject": "user_2EXAMPLE", "session_id": "sess_2EXAMPLE", "organization_id": "org_2EXAMPLE", "tenant_id": "tenant_2EXAMPLE", "token_id": "2EXAMPLEJTI", "issued_at": "2026-10-14T08:59:40.000Z", "expires_at": "2026-10-14T09:00:40.000Z", "session_created_at": "2026-10-14T08:57:00.000Z", "auth_time": "2026-10-14T08:55:00.000Z", "account_created_at": "2026-10-14T08:56:00.000Z", "verified": false, "mfa": {"methods": ["totp"]}, "roles": ["admin"], "scopes": ["org:sys_profile:manage"]}}
       responses:
         "200":
           application/json: {"schema_version": "1", "assessment_id": "asm_01JB3C4D5E6F7G8H9JKMNPQRST", "account_id": "acct_8412", "request_id": "req_01", "status": "complete", "recommendation": "allow", "confidence": "high", "risk": {"score": 0, "band": "low", "recommendation": "allow", "confidence": "high", "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "reasons": [{"code": "voip_number", "weight": 25, "identifier": "phone"}, {"code": "breach_cooccurrence", "weight": -10, "identifier": "phone"}, {"code": "breach_name_match", "weight": -15, "identifier": "name"}, {"code": "established_accounts", "weight": -15, "identifier": "email"}, {"code": "aged_identity", "weight": -25, "identifier": "email"}], "summary": {"phone": {"line_type": "voip", "country": "US", "report_count": 0}, "email": {"disposable": false, "accounts_found": 6, "breach": {"found": true, "breach_count": 7, "first_year": 2013, "last_year": 2021, "exposed": ["email", "name", "password", "phone", "ip"], "in_credential_lists": false, "recent_password_exposure": false, "truncated": false}}, "username": {"accounts_found": 3, "breach": {"found": false, "truncated": false}}, "ip": {"country": "US", "type": "residential", "seen_in_tenant": 1}, "consistency": {"name": "match", "phone": "match", "ip": "unknown", "country": "consistent"}}, "coverage": {"answered": 14, "failed": 1, "pending": 0}}, "incomplete_sources": [], "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "assessment_version": 3, "created_at": "2026-10-18T11:00:00.000Z", "updated_at": "2026-10-18T11:00:04.000Z", "expires_at": "2027-10-18T11:00:00.000Z", "timing": {"deadline_ms": 500, "elapsed_ms": 4000}}
@@ -581,7 +581,7 @@ examples:
         header:
           Idempotency-Key: "<value>"
       requestBody:
-        application/json: {"account_id": "<id>", "identifiers": {}}
+        application/json: {"account_id": "<id>", "identifiers": {"email": "new.user@example.com", "username": "new.user", "phone": "+61412345678", "name": "Alex Example", "ip": "203.0.113.45"}, "policy_context": {"region": "AU"}, "request_id": "req-2026-10-14-0001", "client_context": {"timezone": "Australia/Sydney", "locale": "en-AU", "app_version": "4.12.0", "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36", "device_id": "dev_5c1e8a", "session_id": "sess_9b2d41", "client_observed_at": "2026-10-14T08:59:58.000Z"}, "auth_context": {"provider": "clerk", "issuer": "https://example-app.clerk.accounts.dev", "audience": "https://app.example.com", "audiences": ["https://app.example.com"], "subject": "user_2EXAMPLE", "session_id": "sess_2EXAMPLE", "organization_id": "org_2EXAMPLE", "tenant_id": "tenant_2EXAMPLE", "token_id": "2EXAMPLEJTI", "issued_at": "2026-10-14T08:59:40.000Z", "expires_at": "2026-10-14T09:00:40.000Z", "session_created_at": "2026-10-14T08:57:00.000Z", "auth_time": "2026-10-14T08:55:00.000Z", "account_created_at": "2026-10-14T08:56:00.000Z", "verified": false, "mfa": {"methods": ["totp"]}, "roles": ["admin"], "scopes": ["org:sys_profile:manage"]}}
       responses:
         "200":
           application/json: {"schema_version": "1", "assessment_id": "asm_01JB3C4D5E6F7G8H9JKMNPQRST", "account_id": "acct_8412", "request_id": "req_01", "status": "complete", "recommendation": "allow", "confidence": "high", "risk": {"score": 10, "band": "low", "recommendation": "allow", "confidence": "high", "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "reasons": [{"code": "voip_number", "weight": 25, "identifier": "phone"}, {"code": "breach_name_match", "weight": -15, "identifier": "name"}], "summary": {"phone": {"line_type": "voip", "country": "US"}, "email": {"disposable": false, "accounts_found": 1, "breach": {"found": true, "breach_count": 2, "first_year": 2016, "last_year": 2019, "exposed": ["email", "password", "password_hash"], "in_credential_lists": true, "truncated": false}}, "consistency": {"name": "match"}}, "coverage": {"answered": 4, "failed": 0, "pending": 0}, "details": {"phone_names": [{"value": "Jane Doe", "seen_by": 3}], "breaches": [{"name": "Collection #1", "category": "combolist", "kind": "credential_list", "year": 2019, "matched_on": "email", "exposed": ["email", "password"]}, {"name": "LinkedIn", "domain": "linkedin.com", "category": "social", "kind": "site_breach", "year": 2016, "month": 5, "matched_on": "email", "exposed": ["email", "password_hash"]}], "breach_names": [{"value": "Jane Doe", "seen_in": 2}]}}, "signals": [{"type": "account_presence", "identifier": "email", "outcome": "found", "source_id": "src_3f9a1c", "evidence_ref": "evr_01JB3C4D5E6F7G8H9JKMNPQRSV", "observed_at": "2026-10-18T11:00:00.180Z", "last_checked_at": "2026-10-18T11:00:00.180Z", "freshness": "fresh"}, {"type": "breach_exposure", "identifier": "email", "outcome": "found", "source_id": "src_8d27e4", "evidence_ref": "evr_01JB3C4D5E6F7G8H9JKMNPQRSW", "observed_at": "2026-10-18T11:00:01.900Z", "last_checked_at": "2026-10-18T11:00:01.900Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "phone", "outcome": "found", "source_id": "src_51b0d7", "evidence_ref": "evr_01JB3C4D5E6F7G8H9JKMNPQRSX", "observed_at": "2026-10-18T11:00:03.700Z", "last_checked_at": "2026-10-18T11:00:03.700Z", "freshness": "fresh"}], "incomplete_sources": [], "policy_version": "risk-2026-10.3", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-18T11:00:00.000Z", "updated_at": "2026-10-18T11:00:04.000Z", "expires_at": "2027-10-18T11:00:00.000Z", "timing": {"deadline_ms": 500, "elapsed_ms": 4000}}
@@ -634,17 +634,17 @@ examples:
         "202":
           application/json: {"id": "<id>", "assessment_id": "<id>", "outcome": "account_takeover", "received_at": "<value>"}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "idempotency_key_reused", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     withdrawn:
       parameters:
         path:
@@ -657,17 +657,17 @@ examples:
         "202":
           application/json: {"id": "<id>", "assessment_id": "<id>", "outcome": "account_takeover", "received_at": "<value>"}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "idempotency_key_reused", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     recorded:
       parameters:
         path:
@@ -675,7 +675,7 @@ examples:
         header:
           Idempotency-Key: "<value>"
       requestBody:
-        application/json: {"outcome": "legitimate"}
+        application/json: {"outcome": "legitimate", "observed_at": "2026-10-14T09:04:30.000Z", "external_ref": "case-48213", "notes": "Chargeback filed two days after signup."}
       responses:
         "202":
           application/json: {"id": "out_01JA2ZC0Q1R2S3T4V5W6X7Y8Z9", "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "outcome": "confirmed_abuse", "received_at": "2026-10-20T05:00:02.000Z"}
@@ -685,22 +685,22 @@ examples:
         application/json: {"account_id": "acct_7f3a9c", "limit": 20}
       responses:
         "200":
-          application/json: {"schema_version": "1", "account_id": "<id>", "items": [], "retention_days": 365}
+          application/json: {"schema_version": "1", "account_id": "<id>", "items": [], "next_cursor": "eyJvIjoyMH0", "retention_days": 365}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_cursor", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_cursor", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "idempotency_key_reused", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     page:
       requestBody:
-        application/json: {"account_id": "<id>", "limit": 20}
+        application/json: {"account_id": "<id>", "limit": 20, "cursor": "eyJvIjoyMH0"}
       responses:
         "200":
           application/json: {"schema_version": "1", "account_id": "acct_7f3a9c", "items": [{"schema_version": "1", "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-14-0001", "status": "complete", "recommendation": "step_up", "confidence": "medium", "signals": [{"type": "account_presence", "identifier": "email", "outcome": "found", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}, {"type": "breach_exposure", "identifier": "email", "outcome": "found", "source_id": "breach.corpus", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKP", "observed_at": "2025-03-02T00:00:00Z", "last_checked_at": "2026-10-14T09:00:00.150Z", "freshness": "stale"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-14T09:00:00.000Z", "updated_at": "2026-10-14T09:00:00.412Z", "expires_at": "2027-10-14T09:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}, {"schema_version": "1", "assessment_id": "asm_01JA2Z9Y3R5T6V7W8X9ZABCDEF", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-01-0007", "status": "complete", "recommendation": "allow", "confidence": "high", "signals": [{"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-01T12:00:00Z", "updated_at": "2026-10-01T12:00:05Z", "expires_at": "2027-10-01T12:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}], "next_cursor": "eyJiIjoiY2hrXzAxIn0", "retention_days": 365}
@@ -712,17 +712,17 @@ examples:
         "201":
           application/json: {"key": "<key>", "key_id": "<id>", "scopes": [], "created_at": "1731308288128", "previous_key_id": "<id>", "previous_key_expires_at": "<value>"}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "idempotency_key_reused", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     default:
       requestBody:
         application/json: {}
@@ -730,17 +730,17 @@ examples:
         "201":
           application/json: {"key": "<key>", "key_id": "<id>", "scopes": [], "created_at": "1731308288128", "previous_key_id": "<id>", "previous_key_expires_at": "<value>"}
         "400":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "code": "invalid_request", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 400, "detail": "<value>", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "code": "unauthorized", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 401, "detail": "<value>", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "403":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "code": "tenant_forbidden", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 403, "detail": "<value>", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "404":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "code": "not_found", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 404, "detail": "<value>", "instance": "/v1/assessments", "code": "not_found", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "409":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "code": "idempotency_key_reused", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 409, "detail": "<value>", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "429":
-          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "code": "rate_limited", "request_id": "<id>"}
+          application/problem+json: {"type": "<value>", "title": "<value>", "status": 429, "detail": "<value>", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "<id>", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
     rotated:
       requestBody:
         application/json: {}

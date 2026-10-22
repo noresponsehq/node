@@ -7,7 +7,15 @@ A few typed facts per identifier. Every fact is optional: absent means the evide
 ```typescript
 import { RiskSummary } from "@noresponse/node/models";
 
-let value: RiskSummary = {};
+let value: RiskSummary = {
+  phone: {
+    country: "AU",
+    carrier: "Telstra",
+  },
+  ip: {
+    country: "AU",
+  },
+};
 ```
 
 ## Fields

@@ -8,24 +8,25 @@ The 201 answer of POST /v1/keys/rotate: the new key, shown once, and when the ke
 import { KeyRotation } from "@noresponse/node/models";
 
 let value: KeyRotation = {
-  key: "<key>",
-  keyId: "<id>",
+  key:
+    "nrk_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA",
+  keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   scopes: [
     "assess",
   ],
-  createdAt: "1710015460234",
-  previousKeyId: "<id>",
-  previousKeyExpiresAt: "<value>",
+  createdAt: "2026-10-14T09:10:00.000Z",
+  previousKeyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKN",
+  previousKeyExpiresAt: "2026-10-15T09:10:00.000Z",
 };
 ```
 
 ## Fields
 
-| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `key`                                                                                     | *string*                                                                                  | :heavy_check_mark:                                                                        | The new credential, nrk_<key id>_<secret>. It is shown only in this answer; store it now. |
-| `keyId`                                                                                   | *string*                                                                                  | :heavy_check_mark:                                                                        | The public id of the new key.                                                             |
-| `scopes`                                                                                  | [models.Scope](../models/scope.md)[]                                                      | :heavy_check_mark:                                                                        | The scopes of the new key: those of the presented key.                                    |
-| `createdAt`                                                                               | *string*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `previousKeyId`                                                                           | *string*                                                                                  | :heavy_check_mark:                                                                        | The id of the key that signed this request.                                               |
-| `previousKeyExpiresAt`                                                                    | *string*                                                                                  | :heavy_check_mark:                                                                        | When the previous key stops authenticating. Until then both keys work.                    |
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               | Example                                                                                   |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `key`                                                                                     | *string*                                                                                  | :heavy_check_mark:                                                                        | The new credential, nrk_<key id>_<secret>. It is shown only in this answer; store it now. | nrk_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA                |
+| `keyId`                                                                                   | *string*                                                                                  | :heavy_check_mark:                                                                        | The public id of the new key.                                                             | 01JA2Z8K6Q4V7W9XBCDEFGHJKM                                                                |
+| `scopes`                                                                                  | [models.Scope](../models/scope.md)[]                                                      | :heavy_check_mark:                                                                        | The scopes of the new key: those of the presented key.                                    |                                                                                           |
+| `createdAt`                                                                               | *string*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       | 2026-10-14T09:10:00.000Z                                                                  |
+| `previousKeyId`                                                                           | *string*                                                                                  | :heavy_check_mark:                                                                        | The id of the key that signed this request.                                               | 01JA2Z8K6Q4V7W9XBCDEFGHJKN                                                                |
+| `previousKeyExpiresAt`                                                                    | *string*                                                                                  | :heavy_check_mark:                                                                        | When the previous key stops authenticating. Until then both keys work.                    | 2026-10-15T09:10:00.000Z                                                                  |

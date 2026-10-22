@@ -7,7 +7,11 @@ Normalized multi-factor evidence from a verified provider session.
 ```typescript
 import { AuthContextMfa } from "@noresponse/node/models";
 
-let value: AuthContextMfa = {};
+let value: AuthContextMfa = {
+  methods: [
+    "totp",
+  ],
+};
 ```
 
 ## Fields
