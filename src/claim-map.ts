@@ -225,6 +225,91 @@ export const CLAIM_MAP = {
         }
       }
     },
+    "supabase": {
+      "disable": [
+        "auth_time"
+      ],
+      "fields": {
+        "session_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "session_id"
+          ]
+        },
+        "roles": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "role"
+          ],
+          "split": "none",
+          "max": 1
+        },
+        "mfa": {
+          "op": "mfa_aal",
+          "claim": "aal",
+          "present": [
+            "aal2"
+          ],
+          "absent": [
+            "aal1"
+          ],
+          "amr": "amr",
+          "methodKey": "method",
+          "factors": {
+            "totp": "totp",
+            "mfa/phone": "mfa:phone",
+            "mfa/webauthn": "mfa:webauthn",
+            "mfa/recovery_code": "mfa:recovery_code"
+          }
+        },
+        "assurance_level": {
+          "op": "marker",
+          "value": "low",
+          "when": [
+            {
+              "claim": "is_anonymous",
+              "equals": true
+            },
+            {
+              "claim": "app_metadata.provider",
+              "equals": "anonymous"
+            }
+          ]
+        }
+      }
+    },
+    "firebase": {
+      "disable": [
+        "session_id",
+        "token_id"
+      ],
+      "fields": {
+        "tenant_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "firebase.tenant"
+          ]
+        },
+        "mfa": {
+          "op": "mfa_factor",
+          "kind": "method",
+          "claim": "firebase.sign_in_second_factor"
+        },
+        "assurance_level": {
+          "op": "marker",
+          "value": "low",
+          "when": [
+            {
+              "claim": "firebase.sign_in_provider",
+              "equals": "anonymous"
+            }
+          ]
+        }
+      }
+    },
     "oidc": {
       "slugArgument": true,
       "fields": {}

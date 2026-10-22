@@ -30,6 +30,13 @@ interface Rule {
   maxSeconds?: number;
   mfaValue?: string;
   ignore?: string[];
+  present?: string[];
+  absent?: string[];
+  amr?: string;
+  methodKey?: string;
+  factors?: Record<string, string>;
+  value?: string;
+  when?: { claim: string; equals: unknown }[];
   required?: boolean;
 }
 
@@ -120,6 +127,26 @@ function mapRule(claims: Wire, rule: Rule): unknown {
       if (!methods.length) return undefined;
       return { present: kept.some((item) => lower(item) === rule.mfaValue), methods };
     }
+    case "mfa_aal": {
+      const level = lookup(claims, rule.claim!);
+      if (typeof level !== "string") return undefined;
+      if (rule.absent!.includes(level)) return { present: false };
+      if (!rule.present!.includes(level)) return undefined;
+      const entries = lookup(claims, rule.amr!);
+      const methods: string[] = [];
+      for (const entry of Array.isArray(entries) ? entries : []) {
+        const name = typeof entry === "string" ? entry : object(entry)?.[rule.methodKey!];
+        const mapped = typeof name === "string" && Object.hasOwn(rule.factors!, name) ? rule.factors![name]! : undefined;
+        if (mapped !== undefined && !methods.includes(mapped)) methods.push(mapped);
+      }
+      return methods.length ? { present: true, methods } : { present: true };
+    }
+    case "mfa_factor": {
+      const value = lookup(claims, rule.claim!);
+      return matches(rule.kind!, value) ? { present: true, methods: [value] } : undefined;
+    }
+    case "marker":
+      return rule.when!.some((test) => lookup(claims, test.claim) === test.equals) ? rule.value : undefined;
     default:
       throw new Error("unknown claim map op " + rule.op);
   }
@@ -166,6 +193,16 @@ export function fromClerk(claims: VerifiedClaims, overrides: AuthContextOverride
 /** Map verified Auth0 ID token, userinfo or normalised session claims. Do not pass an opaque API access token. */
 export function fromAuth0(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
   return build("auth0", claims, overrides, "auth0");
+}
+
+/** Map verified Supabase Auth access token claims (legacy HS256 secret or JWKS). Pass the user record's contact verification as overrides. */
+export function fromSupabase(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("supabase", claims, overrides, "supabase");
+}
+
+/** Map verified Firebase ID token claims from the Admin SDK verifyIdToken. Custom claims never change the mapping. */
+export function fromFirebase(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("firebase", claims, overrides, "firebase");
 }
 
 /** Generic OIDC adapter for providers without a first-class helper. `provider` is a lowercase slug. */

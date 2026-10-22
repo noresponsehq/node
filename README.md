@@ -206,7 +206,7 @@ async function handler(req, res) {
 Map a session your backend has already verified into `authContext`:
 
 ```ts
-import { fromClerk, fromWorkOS, fromAuth0, fromOIDC } from "@noresponse/node";
+import { fromClerk, fromWorkOS, fromAuth0, fromSupabase, fromFirebase, fromOIDC } from "@noresponse/node";
 
 const authContext = fromClerk(sessionClaims, {
   sessionCreatedAt: "2026-10-19T18:00:00Z",
@@ -215,7 +215,7 @@ const authContext = fromClerk(sessionClaims, {
 });
 ```
 
-Each adapter reads the standard claims (issuer, subject, audience, session and token ids, times), the provider's organisation, role and scope claims, and multi-factor evidence where the provider exposes it. Pass what the token leaves out as overrides. `fromOIDC(provider, claims, overrides)` covers any other provider.
+Each adapter reads the standard claims (issuer, subject, audience, session and token ids, times), the provider's organisation, role and scope claims, and multi-factor evidence where the provider exposes it. Pass what the token leaves out as overrides. `fromSupabase` takes the claims of a Supabase access token verified with the legacy HS256 secret or the project JWKS. `fromFirebase` takes the decoded token from the Admin SDK `verifyIdToken`; it reads only Firebase's reserved claims, so a custom claim never changes the result. `fromOIDC(provider, claims, overrides)` covers any other provider.
 
 ## Logging
 

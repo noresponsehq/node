@@ -34,7 +34,7 @@ export {
   type WebhookSecrets,
   type WebhookErrorCode,
 } from "./webhooks.js";
-export { fromAuth0, fromClerk, fromOIDC, fromWorkOS, type VerifiedClaims, type AuthContextOverrides } from "./auth.js";
+export { fromAuth0, fromClerk, fromFirebase, fromOIDC, fromSupabase, fromWorkOS, type VerifiedClaims, type AuthContextOverrides } from "./auth.js";
 export { DEFAULT_WAIT_TIMEOUT_MS, MIN_POLL_INTERVAL_MS } from "./wait.js";
 export * from "./models/index.js";
 export type { CreateAssessmentRequest, GetAssessmentRequest, RecordAssessmentOutcomeRequest } from "./models/operations/index.js";
