@@ -310,6 +310,271 @@ export const CLAIM_MAP = {
         }
       }
     },
+    "cognito": {
+      "fields": {
+        "audiences": {
+          "op": "list",
+          "kind": "audience",
+          "claims": [
+            "aud",
+            "client_id"
+          ],
+          "split": "none",
+          "max": 8
+        },
+        "session_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "origin_jti"
+          ]
+        },
+        "roles": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "cognito:groups"
+          ],
+          "split": "none",
+          "max": 32
+        },
+        "scopes": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "scope"
+          ],
+          "split": "whitespace",
+          "max": 32
+        },
+        "mfa": {
+          "op": "mfa_methods",
+          "kind": "method",
+          "claim": "amr",
+          "max": 8,
+          "mfaValue": "mfa",
+          "ignore": [
+            "pwd"
+          ]
+        }
+      }
+    },
+    "entra": {
+      "fields": {
+        "tenant_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "tid"
+          ]
+        },
+        "token_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "uti"
+          ]
+        },
+        "roles": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "roles"
+          ],
+          "split": "none",
+          "max": 32
+        },
+        "scopes": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "scp"
+          ],
+          "split": "whitespace",
+          "max": 32
+        },
+        "mfa": {
+          "op": "mfa_methods",
+          "kind": "method",
+          "claim": "amr",
+          "max": 8,
+          "mfaValue": "mfa",
+          "ignore": [
+            "pwd",
+            "none"
+          ]
+        }
+      }
+    },
+    "keycloak": {
+      "fields": {
+        "session_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "sid",
+            "session_state"
+          ]
+        },
+        "organization_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "organization"
+          ],
+          "single": true
+        },
+        "roles": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "realm_access.roles"
+          ],
+          "split": "none",
+          "max": 32
+        },
+        "scopes": {
+          "op": "list",
+          "kind": "role",
+          "claims": [
+            "scope"
+          ],
+          "split": "whitespace",
+          "max": 32
+        },
+        "impersonated": {
+          "op": "actor",
+          "claims": [
+            "impersonator.id",
+            "impersonator.username"
+          ],
+          "onlyTrue": true
+        },
+        "mfa": {
+          "op": "mfa_methods",
+          "kind": "method",
+          "claim": "amr",
+          "max": 8,
+          "mfaValue": "mfa",
+          "ignore": [
+            "pwd"
+          ],
+          "classes": {
+            "pwd": "knowledge",
+            "pin": "knowledge",
+            "kba": "knowledge",
+            "otp": "possession",
+            "hwk": "possession",
+            "swk": "possession",
+            "sc": "possession",
+            "sms": "possession",
+            "tel": "possession",
+            "fpt": "inherence",
+            "face": "inherence",
+            "iris": "inherence",
+            "retina": "inherence",
+            "vbm": "inherence"
+          }
+        }
+      }
+    },
+    "ory": {
+      "disable": [
+        "issuer",
+        "audiences",
+        "issued_at",
+        "token_id"
+      ],
+      "fields": {
+        "subject": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "identity.id"
+          ],
+          "required": true
+        },
+        "session_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "id"
+          ]
+        },
+        "expires_at": {
+          "op": "time",
+          "claims": [
+            "expires_at"
+          ]
+        },
+        "auth_time": {
+          "op": "time",
+          "claims": [
+            "authenticated_at"
+          ]
+        },
+        "session_created_at": {
+          "op": "time",
+          "claims": [
+            "issued_at"
+          ]
+        },
+        "account_created_at": {
+          "op": "time",
+          "claims": [
+            "identity.created_at"
+          ]
+        },
+        "organization_id": {
+          "op": "id",
+          "kind": "id",
+          "claims": [
+            "identity.organization_id"
+          ]
+        },
+        "mfa": {
+          "op": "mfa_aal",
+          "claim": "authenticator_assurance_level",
+          "present": [
+            "aal2"
+          ],
+          "absent": [
+            "aal1"
+          ],
+          "amr": "authentication_methods",
+          "methodKey": "method",
+          "levelKey": "aal",
+          "factors": {
+            "totp": "totp",
+            "lookup_secret": "lookup_secret",
+            "webauthn": "webauthn",
+            "code": "code"
+          }
+        }
+      }
+    },
+    "ory_oauth2": {
+      "fields": {
+        "mfa": {
+          "op": "mfa_methods",
+          "kind": "method",
+          "claim": "amr",
+          "max": 8,
+          "mfaValue": "mfa",
+          "ignore": [
+            "password",
+            "pwd"
+          ],
+          "classes": {
+            "password": "knowledge",
+            "totp": "possession",
+            "lookup_secret": "possession",
+            "webauthn": "possession",
+            "code": "possession"
+          }
+        }
+      }
+    },
     "oidc": {
       "slugArgument": true,
       "fields": {}

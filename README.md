@@ -206,7 +206,7 @@ async function handler(req, res) {
 Map a session your backend has already verified into `authContext`:
 
 ```ts
-import { fromClerk, fromWorkOS, fromAuth0, fromSupabase, fromFirebase, fromOIDC } from "@noresponse/node";
+import { fromClerk, fromWorkOS, fromAuth0, fromSupabase, fromFirebase, fromCognito, fromEntra, fromKeycloak, fromOry, fromOIDC } from "@noresponse/node";
 
 const authContext = fromClerk(sessionClaims, {
   sessionCreatedAt: "2026-10-19T18:00:00Z",
@@ -215,7 +215,7 @@ const authContext = fromClerk(sessionClaims, {
 });
 ```
 
-Each adapter reads the standard claims (issuer, subject, audience, session and token ids, times), the provider's organisation, role and scope claims, and multi-factor evidence where the provider exposes it. Pass what the token leaves out as overrides. `fromSupabase` takes the claims of a Supabase access token verified with the legacy HS256 secret or the project JWKS. `fromFirebase` takes the decoded token from the Admin SDK `verifyIdToken`; it reads only Firebase's reserved claims, so a custom claim never changes the result. `fromOIDC(provider, claims, overrides)` covers any other provider.
+Each adapter reads the standard claims (issuer, subject, audience, session and token ids, times), the provider's organisation, role and scope claims, and multi-factor evidence where the provider exposes it. Pass what the token leaves out as overrides. `fromSupabase` takes the claims of a Supabase access token verified with the legacy HS256 secret or the project JWKS. `fromFirebase` takes the decoded token from the Admin SDK `verifyIdToken`; it reads only Firebase's reserved claims, so a custom claim never changes the result. `fromCognito` takes a verified Cognito ID or access token and ignores claims a pre token generation Lambda adds. `fromEntra` takes a v1.0 or v2.0 Entra ID token or access token. `fromKeycloak` reads `amr` from the Authentication Method Reference mapper, so give your password and OTP executions the reference values `pwd` and `otp`. `fromOry` takes the session from `toSession` and needs your project URL as the `issuer` override; `fromOryOAuth2` takes an Ory OAuth2 ID token. `fromOIDC(provider, claims, overrides)` covers any other provider.
 
 ## Logging
 

@@ -1,7 +1,20 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import * as z from "zod/v4-mini";
-import { AuthContext$outboundSchema, fromAuth0, fromClerk, fromFirebase, fromOIDC, fromSupabase, fromWorkOS } from "../dist/esm/index.js";
+import {
+  AuthContext$outboundSchema,
+  fromAuth0,
+  fromClerk,
+  fromCognito,
+  fromEntra,
+  fromFirebase,
+  fromKeycloak,
+  fromOIDC,
+  fromOry,
+  fromOryOAuth2,
+  fromSupabase,
+  fromWorkOS,
+} from "../dist/esm/index.js";
 import { CLAIM_MAP } from "../dist/esm/claim-map.js";
 import { fixture } from "./helpers.mjs";
 
@@ -81,7 +94,18 @@ test("auth mappers apply the auth-context caps", () => {
   assert.deepEqual(auth0.mfa.methods, range(8, "otp"));
 });
 
-const mappers = { workos: fromWorkOS, clerk: fromClerk, auth0: fromAuth0, supabase: fromSupabase, firebase: fromFirebase };
+const mappers = {
+  workos: fromWorkOS,
+  clerk: fromClerk,
+  auth0: fromAuth0,
+  supabase: fromSupabase,
+  firebase: fromFirebase,
+  cognito: fromCognito,
+  entra: fromEntra,
+  keycloak: fromKeycloak,
+  ory: fromOry,
+  ory_oauth2: fromOryOAuth2,
+};
 const run = (vector) => {
   const overrides = camelize(vector.overrides);
   const mapper = mappers[vector.provider];

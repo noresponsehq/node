@@ -30,10 +30,14 @@ interface Rule {
   maxSeconds?: number;
   mfaValue?: string;
   ignore?: string[];
+  classes?: Record<string, string>;
   present?: string[];
   absent?: string[];
   amr?: string;
   methodKey?: string;
+  levelKey?: string;
+  single?: boolean;
+  onlyTrue?: boolean;
   factors?: Record<string, string>;
   value?: string;
   when?: { claim: string; equals: unknown }[];
@@ -93,7 +97,8 @@ function mapRule(claims: Wire, rule: Rule): unknown {
   switch (rule.op) {
     case "id":
       for (const path of rule.claims ?? []) {
-        const value = lookup(claims, path);
+        let value = lookup(claims, path);
+        if (rule.single && Array.isArray(value) && value.length === 1) value = value[0];
         if (matches(rule.kind!, value)) return value;
       }
       return undefined;
@@ -108,10 +113,13 @@ function mapRule(claims: Wire, rule: Rule): unknown {
       }
       return undefined;
     case "actor": {
-      const value = lookup(claims, rule.claims![0]!);
-      const record = object(value);
-      if (record) return [record["sub"], record["email"]].some((item) => typeof item === "string" && item.length > 0);
-      return typeof value === "string" && value.length > 0;
+      const acting = rule.claims!.some((path) => {
+        const value = lookup(claims, path);
+        const record = object(value);
+        if (record) return [record["sub"], record["email"]].some((item) => typeof item === "string" && item.length > 0);
+        return typeof value === "string" && value.length > 0;
+      });
+      return acting || (rule.onlyTrue ? undefined : false);
     }
     case "mfa_factor_age": {
       const value = lookup(claims, rule.claim!);
@@ -125,7 +133,9 @@ function mapRule(claims: Wire, rule: Rule): unknown {
       const kept = value.filter((item) => matches(rule.kind!, item)).slice(0, rule.max) as string[];
       const methods = kept.filter((item) => !rule.ignore!.includes(lower(item)));
       if (!methods.length) return undefined;
-      return { present: kept.some((item) => lower(item) === rule.mfaValue), methods };
+      const classes = rule.classes ?? {};
+      const spanned = new Set(kept.filter((item) => Object.hasOwn(classes, lower(item))).map((item) => classes[lower(item)]));
+      return { present: kept.some((item) => lower(item) === rule.mfaValue) || spanned.size >= 2, methods };
     }
     case "mfa_aal": {
       const level = lookup(claims, rule.claim!);
@@ -135,6 +145,10 @@ function mapRule(claims: Wire, rule: Rule): unknown {
       const entries = lookup(claims, rule.amr!);
       const methods: string[] = [];
       for (const entry of Array.isArray(entries) ? entries : []) {
+        if (rule.levelKey !== undefined) {
+          const entryLevel = object(entry)?.[rule.levelKey];
+          if (typeof entryLevel !== "string" || !rule.present!.includes(entryLevel)) continue;
+        }
         const name = typeof entry === "string" ? entry : object(entry)?.[rule.methodKey!];
         const mapped = typeof name === "string" && Object.hasOwn(rule.factors!, name) ? rule.factors![name]! : undefined;
         if (mapped !== undefined && !methods.includes(mapped)) methods.push(mapped);
@@ -203,6 +217,31 @@ export function fromSupabase(claims: VerifiedClaims, overrides: AuthContextOverr
 /** Map verified Firebase ID token claims from the Admin SDK verifyIdToken. Custom claims never change the mapping. */
 export function fromFirebase(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
   return build("firebase", claims, overrides, "firebase");
+}
+
+/** Map verified Amazon Cognito user pool ID or access token claims. Claims added by a pre token generation Lambda never change the mapping. */
+export function fromCognito(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("cognito", claims, overrides, "cognito");
+}
+
+/** Map verified Microsoft Entra ID v1.0 or v2.0 ID or access token claims. */
+export function fromEntra(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("entra", claims, overrides, "entra");
+}
+
+/** Map verified Keycloak ID or access token claims. */
+export function fromKeycloak(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("keycloak", claims, overrides, "keycloak");
+}
+
+/** Map an Ory session from `toSession` (Kratos FrontendApi). Pass your project URL as the `issuer` override. */
+export function fromOry(session: object, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("ory", session as VerifiedClaims, overrides, "ory");
+}
+
+/** Map verified Ory OAuth2 and OpenID Connect (Hydra) ID token claims. */
+export function fromOryOAuth2(claims: VerifiedClaims, overrides: AuthContextOverrides = {}): AuthContext {
+  return build("ory_oauth2", claims, overrides, "ory");
 }
 
 /** Generic OIDC adapter for providers without a first-class helper. `provider` is a lowercase slug. */
