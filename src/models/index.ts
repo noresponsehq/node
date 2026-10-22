@@ -4,6 +4,7 @@ export * from "./assessment-outcome.js";
 export * from "./assessment-query.js";
 export * from "./assessment-request-client-context.js";
 export * from "./assessment-request-identifiers.js";
+export * from "./assessment-request-issued-credential.js";
 export * from "./assessment-request-policy-context.js";
 export * from "./assessment-request.js";
 export * from "./assessment-timing.js";

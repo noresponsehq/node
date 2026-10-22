@@ -67,6 +67,7 @@ export {
   type AuthContextOverrides,
 } from "./auth.js";
 export { DEFAULT_WAIT_TIMEOUT_MS, MIN_POLL_INTERVAL_MS } from "./wait.js";
+export { hashIssuedCredential } from "./issued-credential.js";
 export * from "./models/index.js";
 export type { CreateAssessmentRequest, GetAssessmentRequest, RecordAssessmentOutcomeRequest } from "./models/operations/index.js";
 export { SDK_METADATA, ServerList, type SDKOptions } from "./lib/config.js";

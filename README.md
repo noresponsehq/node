@@ -173,6 +173,15 @@ Override per client with `retryConfig`, or per call with `{ retries }`:
 await nr.assessments.create(params, { retries: { strategy: "none" } });
 ```
 
+## Issued keys
+
+When your signup gate issues an API key to the new account, send only its hash, as `issued_credential.sha256`; the key itself never leaves your backend.
+
+```ts
+import { hashIssuedCredential } from "@noresponse/node";
+const sha256 = hashIssuedCredential(issuedKey); // 64 lower-case hex characters
+```
+
 ## Webhooks
 
 Verify the exact bytes you received, then act on the typed event. `secrets` maps each `whk_` key id we give you to its secret; hold both during a rotation.

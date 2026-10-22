@@ -11,6 +11,11 @@ import {
   AssessmentRequestIdentifiers$outboundSchema,
 } from "./assessment-request-identifiers.js";
 import {
+  AssessmentRequestIssuedCredential,
+  AssessmentRequestIssuedCredential$Outbound,
+  AssessmentRequestIssuedCredential$outboundSchema,
+} from "./assessment-request-issued-credential.js";
+import {
   AssessmentRequestPolicyContext,
   AssessmentRequestPolicyContext$Outbound,
   AssessmentRequestPolicyContext$outboundSchema,
@@ -55,6 +60,10 @@ export type AssessmentRequest = {
    * Normalised claims from a session your backend has already verified with WorkOS, Clerk, Auth0 or any OIDC provider. Pass the output of the SDK's auth adapters, not a raw token.
    */
   authContext?: AuthContext | undefined;
+  /**
+   * Optional. When the signup gate issues an API key to the new account, send SHA-256 of that key, so later usage of the key, or a leaked copy, ties back to this assessment. Each SDK has a helper that computes it. Send only the hash: customer keys are high-entropy, so the hash reveals nothing about them. The assessment stores it, and no response, webhook or log carries it.
+   */
+  issuedCredential?: AssessmentRequestIssuedCredential | undefined;
 };
 
 /** @internal */
@@ -67,6 +76,7 @@ export type AssessmentRequest$Outbound = {
   response_mode?: string | undefined;
   client_context?: AssessmentRequestClientContext$Outbound | undefined;
   auth_context?: AuthContext$Outbound | undefined;
+  issued_credential?: AssessmentRequestIssuedCredential$Outbound | undefined;
 };
 
 /** @internal */
@@ -83,6 +93,9 @@ export const AssessmentRequest$outboundSchema: z.ZodMiniType<
     responseMode: z.optional(ResponseMode$outboundSchema),
     clientContext: z.optional(AssessmentRequestClientContext$outboundSchema),
     authContext: z.optional(AuthContext$outboundSchema),
+    issuedCredential: z.optional(
+      AssessmentRequestIssuedCredential$outboundSchema,
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -93,6 +106,7 @@ export const AssessmentRequest$outboundSchema: z.ZodMiniType<
       responseMode: "response_mode",
       clientContext: "client_context",
       authContext: "auth_context",
+      issuedCredential: "issued_credential",
     });
   }),
 );

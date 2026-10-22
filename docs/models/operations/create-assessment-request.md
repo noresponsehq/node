@@ -60,6 +60,10 @@ let value: CreateAssessmentRequest = {
         "org:sys_profile:manage",
       ],
     },
+    issuedCredential: {
+      sha256:
+        "2bdbf5c72f2a36df0ef40fb92203612274d4546f56dba946070a6a79c2401a1b",
+    },
   },
 };
 ```
