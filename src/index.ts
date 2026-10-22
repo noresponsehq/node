@@ -6,6 +6,7 @@ export {
   NoResponse,
   Assessments,
   Keys,
+  WebhookEndpoints,
   Integrations,
   DEFAULT_BASE_URL,
   DEFAULT_TIMEOUT_MS,

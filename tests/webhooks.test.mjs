@@ -128,3 +128,15 @@ test("the contract-invalid webhook fixtures and malformed identifiers are refuse
     code(() => constructEvent(signedBody.raw, signedBody.headers, { whk_sdktest01: "secret" }, { now }), "invalid_payload");
   }
 });
+
+test("a test event says so, and a real one does not", () => {
+  const sample = fixture("valid/webhook-assessment-updated-test.json");
+  const real = fixture("valid/webhook-assessment-updated.json");
+  const stamp = String(1791968402);
+  const s = signed(sample, "secret", stamp, sample.id);
+  const event = constructEvent(s.raw, s.headers, { whk_sdktest01: "secret" }, { now: 1791968402 });
+  assert.equal(event.test, true);
+  assert.equal(event.data.assessmentId, sample.data.assessment_id);
+  const r = signed(real, "secret", stamp, real.id);
+  assert.equal(constructEvent(r.raw, r.headers, { whk_sdktest01: "secret" }, { now: 1791968402 }).test, undefined);
+});

@@ -15,5 +15,5 @@ let value: BadRequestErrorCode = "invalid_request";
 ## Values
 
 ```typescript
-"invalid_request" | "invalid_idempotency_key" | "invalid_cursor" | Unrecognized<string>
+"invalid_request" | "invalid_idempotency_key" | "invalid_cursor" | "webhook_url_refused" | Unrecognized<string>
 ```

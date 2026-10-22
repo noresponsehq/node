@@ -10,6 +10,7 @@ import { NoResponse as GeneratedClient } from "./sdk/sdk.js";
 import type { Assessments as GeneratedAssessments } from "./sdk/assessments.js";
 import type { Integrations as GeneratedIntegrations } from "./sdk/integrations.js";
 import type { Keys as GeneratedKeys } from "./sdk/keys.js";
+import type { WebhookEndpoints as GeneratedWebhookEndpoints } from "./sdk/webhook-endpoints.js";
 import type { NoResponseCore } from "./core.js";
 import { SDK_METADATA, type SDKOptions } from "./lib/config.js";
 import { HTTPClient, type Fetcher } from "./lib/http.js";
@@ -249,6 +250,52 @@ export class Keys {
 }
 
 /**
+ * Your webhook endpoints. create and rotateSigningKey return a signing secret
+ * that is shown only in that answer; none of create, rotateSigningKey and
+ * sendTestEvent is retried, since a retry would register, issue or send again.
+ */
+export class WebhookEndpoints {
+  constructor(private readonly inner: GeneratedWebhookEndpoints) {}
+
+  /** Register an endpoint. It starts unverified; send endpoint.verification with sendTestEvent. */
+  async create(request: models.WebhookEndpointRequest, options?: RequestOptions): Promise<WithMeta<models.WebhookEndpointCreated>> {
+    const response = await this.inner.create(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Every endpoint you hold, in every state, with its signing key ids. */
+  async list(options?: RequestOptions): Promise<WithMeta<models.WebhookEndpointList>> {
+    const response = await this.inner.list(options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Delete an endpoint and its keys; deliveries still queued for it are dropped. */
+  async delete(endpointId: string, options?: RequestOptions): Promise<ResponseMeta> {
+    const response = await this.inner.delete({ endpointId }, options);
+    return toMeta(response?.headers ?? {});
+  }
+
+  /** Issue a new signing key. The previous one keeps verifying for 7 days. */
+  async rotateSigningKey(endpointId: string, options?: RequestOptions): Promise<WithMeta<models.WebhookKeyRotation>> {
+    const response = await this.inner.rotateSigningKey({ endpointId, body: {} }, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /**
+   * Send endpoint.verification now (the answer says whether the endpoint
+   * echoed it), or queue an assessment.updated test event with test: true.
+   */
+  async sendTestEvent(
+    endpointId: string,
+    event: models.WebhookTestRequestEvent,
+    options?: RequestOptions,
+  ): Promise<WithMeta<models.WebhookTest>> {
+    const response = await this.inner.sendTestEvent({ endpointId, body: { event } }, options);
+    return withMeta(response.result, response.headers);
+  }
+}
+
+/**
  * Hosted provider integrations: a WorkOS or Auth0 Action that NoResponse
  * answers, so sign-ups and sign-ins are scored with no server of your own.
  * Every method needs the `integrations` scope. create and rotate are not
@@ -311,6 +358,7 @@ export class NoResponse {
   readonly webhooks = webhooks;
   readonly assessments: Assessments;
   readonly keys: Keys;
+  readonly webhookEndpoints: WebhookEndpoints;
   readonly integrations: Integrations;
   /** The generated client, for the standalone functions under `@noresponse/node/funcs/*`. */
   readonly core: NoResponseCore;
@@ -323,6 +371,7 @@ export class NoResponse {
     this.baseUrl = sdkOptions.serverURL!;
     this.assessments = new Assessments(client.assessments);
     this.keys = new Keys(client.keys);
+    this.webhookEndpoints = new WebhookEndpoints(client.webhookEndpoints);
     this.integrations = new Integrations(client.integrations);
     this.core = client;
     // Keep the key out of console.log(nr) and JSON.stringify(nr).

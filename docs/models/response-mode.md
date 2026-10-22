@@ -8,10 +8,12 @@ standard returns the consolidated risk response; detailed adds merged provider-n
 import { ResponseMode } from "@noresponse/node/models";
 
 let value: ResponseMode = "detailed";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
 
 ```typescript
-"standard" | "detailed"
+"standard" | "detailed" | Unrecognized<string>
 ```

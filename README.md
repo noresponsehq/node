@@ -201,7 +201,18 @@ const sha256 = hashIssuedCredential(issuedKey); // 64 lower-case hex characters
 
 ## Webhooks
 
-Verify the exact bytes you received, then act on the typed event. `secrets` maps each `whk_` key id we give you to its secret; hold both during a rotation.
+Register your endpoint with a key that has the `webhooks` scope. The signing secret is shown only in this answer, so store it, then send the verification challenge:
+
+```ts
+const { endpoint, signingSecret } = await nr.webhookEndpoints.create({ url: "https://app.example.com/webhooks/noresponse" });
+await secretStore.write(signingSecret.keyId, signingSecret.secret);
+const check = await nr.webhookEndpoints.sendTestEvent(endpoint.endpointId, "endpoint.verification"); // check.verified
+await nr.webhookEndpoints.sendTestEvent(endpoint.endpointId, "assessment.updated"); // event.test is true
+```
+
+`list()`, `rotateSigningKey(endpointId)` (the old key verifies for 7 more days) and `delete(endpointId)` manage it afterwards.
+
+Verify the exact bytes you received, then act on the typed event. `secrets` maps each `whk_` key id to its secret; hold both during a rotation.
 
 ```ts
 import { constructEvent, isExpiredEvent, verificationResponse, WebhookVerificationError } from "@noresponse/node";

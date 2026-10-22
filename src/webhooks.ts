@@ -56,6 +56,11 @@ export type AssessmentUpdatedEvent = {
   id: string;
   type: "assessment.updated";
   createdAt: string;
+  /**
+   * True on an event sent by webhookEndpoints.sendTestEvent: data is a fixed
+   * example assessment, not one of yours. Acknowledge it and apply nothing.
+   */
+  test?: true;
   /** The assessment exactly as assessments.get returns it at this version. */
   data: Assessment;
 };
@@ -188,7 +193,7 @@ export function constructEvent(
   if (!isRecord(body) || body["id"] !== found.get("nr-webhook-id")) {
     fail("invalid_payload", "Webhook event id does not match NR-Webhook-Id");
   }
-  const { id, type, created_at, data } = body;
+  const { id, type, created_at, data, test } = body;
   if (typeof id !== "string" || !EVENT_ID.test(id) || typeof created_at !== "string" || !validDateTime(created_at) || !isRecord(data)) {
     fail("invalid_payload", "Webhook event envelope is malformed");
   }
@@ -205,7 +210,7 @@ export function constructEvent(
   }
   const result = z.safeParse(Assessment$inboundSchema, data);
   if (!result.success) fail("invalid_payload", "Webhook data is not an assessment");
-  return { id, type, createdAt: created_at, data: result.data };
+  return test === true ? { id, type, createdAt: created_at, test: true, data: result.data } : { id, type, createdAt: created_at, data: result.data };
 }
 
 /** The body to answer an endpoint.verification event with, as JSON, status 200. */

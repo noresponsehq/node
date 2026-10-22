@@ -15,5 +15,5 @@ let value: ConflictErrorCode = "key_rotation_in_progress";
 ## Values
 
 ```typescript
-"idempotency_key_reused" | "key_rotation_in_progress" | "too_many_integrations" | Unrecognized<string>
+"idempotency_key_reused" | "key_rotation_in_progress" | "webhook_endpoint_limit_reached" | "webhook_endpoint_unverified" | "too_many_integrations" | Unrecognized<string>
 ```

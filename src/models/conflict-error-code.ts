@@ -8,6 +8,8 @@ import { OpenEnum } from "../types/enums.js";
 export const ConflictErrorCode = {
   IdempotencyKeyReused: "idempotency_key_reused",
   KeyRotationInProgress: "key_rotation_in_progress",
+  WebhookEndpointLimitReached: "webhook_endpoint_limit_reached",
+  WebhookEndpointUnverified: "webhook_endpoint_unverified",
   TooManyIntegrations: "too_many_integrations",
 } as const;
 /**

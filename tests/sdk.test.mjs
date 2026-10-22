@@ -32,6 +32,7 @@ import {
   ROTATION,
   drive,
   fakeFetch,
+  fixture,
   flush,
   json,
   problem,
@@ -207,6 +208,47 @@ test("keys.rotate posts the overlap and returns the new key once", async () => {
   assert.equal(calls[0].url, "https://example.com/v1/keys/rotate");
   assert.deepEqual(calls[0].body, { overlap_seconds: 3600 });
   assert.equal(calls[0].headers["idempotency-key"], undefined);
+});
+
+test("webhookEndpoints registers, lists, rotates, tests and deletes, and retries none of the writes", async () => {
+  const created = fixture("valid/webhook-endpoint-created.json");
+  const listed = fixture("valid/webhook-endpoint-list.json");
+  const rotated = fixture("valid/webhook-key-rotation.json");
+  const sent = fixture("valid/webhook-test-verification.json");
+  const id = created.endpoint.endpoint_id;
+  const { fetcher, calls } = fakeFetch([
+    json(created, { status: 201 }),
+    json(listed),
+    json(rotated, { status: 201 }),
+    json(sent, { status: 202 }),
+    new Response(null, { status: 204, headers: { "x-request-id": "b".repeat(32), "cache-control": "no-store" } }),
+    problem(503, "service_unavailable", {}, { "retry-after": "1" }),
+  ]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const endpoint = await nr.webhookEndpoints.create({ url: "https://hooks.example.com/noresponse" });
+  assert.equal(endpoint.signingSecret.secret, created.signing_secret.secret);
+  assert.equal(endpoint.endpoint.state, "unverified");
+  const all = await nr.webhookEndpoints.list();
+  assert.equal(all.items[0].signingKeys.length, 2);
+  const rotation = await nr.webhookEndpoints.rotateSigningKey(id);
+  assert.equal(rotation.previousKeyId, rotated.previous_key_id);
+  const test = await nr.webhookEndpoints.sendTestEvent(id, "endpoint.verification");
+  assert.equal(test.verified, true);
+  assert.equal(test.deliveryId, sent.delivery_id);
+  const deleted = await nr.webhookEndpoints.delete(id);
+  assert.equal(deleted.requestId, "b".repeat(32));
+  await assert.rejects(nr.webhookEndpoints.sendTestEvent(id, "assessment.updated"));
+  assert.deepEqual(calls.map((c) => `${c.method} ${c.url}`), [
+    "POST https://example.com/v1/webhooks",
+    "GET https://example.com/v1/webhooks",
+    `POST https://example.com/v1/webhooks/${id}/rotate`,
+    `POST https://example.com/v1/webhooks/${id}/test`,
+    `DELETE https://example.com/v1/webhooks/${id}`,
+    `POST https://example.com/v1/webhooks/${id}/test`,
+  ]);
+  assert.deepEqual(calls[0].body, { url: "https://hooks.example.com/noresponse" });
+  assert.deepEqual(calls[2].body, {});
+  assert.deepEqual(calls[3].body, { event: "endpoint.verification" });
 });
 
 test("integrations create, list, rotate and delete send the contract shapes", async () => {

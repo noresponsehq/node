@@ -2,6 +2,7 @@ import { ClientSDK } from "../lib/sdks.js";
 import { Assessments } from "./assessments.js";
 import { Integrations } from "./integrations.js";
 import { Keys } from "./keys.js";
+import { WebhookEndpoints } from "./webhook-endpoints.js";
 
 export class NoResponse extends ClientSDK {
   private _assessments?: Assessments;
@@ -17,5 +18,10 @@ export class NoResponse extends ClientSDK {
   private _integrations?: Integrations;
   get integrations(): Integrations {
     return (this._integrations ??= new Integrations(this._options));
+  }
+
+  private _webhookEndpoints?: WebhookEndpoints;
+  get webhookEndpoints(): WebhookEndpoints {
+    return (this._webhookEndpoints ??= new WebhookEndpoints(this._options));
   }
 }
