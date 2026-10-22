@@ -9,6 +9,7 @@ import {
   AuthContextMfa$Outbound,
   AuthContextMfa$outboundSchema,
 } from "./auth-context-mfa.js";
+import { HookPoint, HookPoint$outboundSchema } from "./hook-point.js";
 import { Transport, Transport$outboundSchema } from "./transport.js";
 
 /**
@@ -32,7 +33,7 @@ export type AuthContext = {
    */
   audiences?: Array<string> | undefined;
   /**
-   * The verified stable subject identifier (`sub`), opaque to NoResponse.
+   * The verified stable subject identifier (`sub`), opaque to NoResponse. Required, except from a provider hook at pre_registration, where no user exists yet.
    */
   subject: string;
   /**
@@ -88,9 +89,13 @@ export type AuthContext = {
    */
   impersonated?: boolean | undefined;
   /**
-   * Where the customer derived this context. Backend is the trusted integration path; browser values are treated as weak hints.
+   * Where this context was derived. Backend is the trusted integration path; browser values are treated as weak hints. provider_hook is a hosted provider hook (an Auth0 or WorkOS Action) calling at hook_point; it needs hook_point and verified false, and its authentication facts are not scored.
    */
   transport?: Transport | undefined;
+  /**
+   * The provider event a provider_hook context was sent for. pre_registration runs before the user exists, so subject and the request's account_id may be absent there. Sent only with transport provider_hook.
+   */
+  hookPoint?: HookPoint | undefined;
   /**
    * Whether the customer completed signature, issuer, audience and expiry validation before calling NoResponse. False contexts are accepted only as weak hints.
    */
@@ -130,6 +135,7 @@ export type AuthContext$Outbound = {
   assurance_level?: string | undefined;
   impersonated?: boolean | undefined;
   transport?: string | undefined;
+  hook_point?: string | undefined;
   verified: boolean;
   mfa?: AuthContextMfa$Outbound | undefined;
   roles?: Array<string> | undefined;
@@ -161,6 +167,7 @@ export const AuthContext$outboundSchema: z.ZodMiniType<
     assuranceLevel: z.optional(AssuranceLevel$outboundSchema),
     impersonated: z.optional(z.boolean()),
     transport: z.optional(Transport$outboundSchema),
+    hookPoint: z.optional(HookPoint$outboundSchema),
     verified: z.boolean(),
     mfa: z.optional(AuthContextMfa$outboundSchema),
     roles: z.optional(z.array(z.string())),
@@ -180,6 +187,7 @@ export const AuthContext$outboundSchema: z.ZodMiniType<
       emailVerified: "email_verified",
       phoneVerified: "phone_verified",
       assuranceLevel: "assurance_level",
+      hookPoint: "hook_point",
     });
   }),
 );

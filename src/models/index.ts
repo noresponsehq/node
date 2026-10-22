@@ -27,6 +27,7 @@ export * from "./country.js";
 export * from "./failure-reason.js";
 export * from "./flow.js";
 export * from "./freshness.js";
+export * from "./hook-point.js";
 export * from "./identifier-kind.js";
 export * from "./incomplete-reason.js";
 export * from "./incomplete-source.js";
