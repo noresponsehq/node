@@ -9,6 +9,9 @@ export const RISK = fixture("valid/assessment-risk.json");
 export const LIST = fixture("valid/assessment-list.json");
 export const OUTCOME = fixture("valid/assessment-outcome.json");
 export const ROTATION = fixture("valid/key-rotation.json");
+export const INTEGRATION_AUTH0 = fixture("valid/integration-auth0.json");
+export const INTEGRATION_ROTATED = fixture("valid/integration-auth0-rotated.json");
+export const INTEGRATION_LIST = fixture("valid/integration-list.json");
 
 export const REQUEST = { accountId: "usr_8f2k1", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } };
 

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 0d48ee861d2cd0c0289222280facb487
+  docChecksum: 640238fe3fdd4ec4c66fc03e636b7287
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.12
-  configChecksum: f0704105b2b488357d3381f99d26cd35
+  releaseVersion: 2.0.13
+  configChecksum: 7c4805043238207f9c789853097533e7
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -91,7 +91,7 @@ trackedFiles:
   docs/models/confidence.md:
     last_write_checksum: sha1:64291fb32621f598df63d4db15e38bc083da6425
   docs/models/conflict-error-code.md:
-    last_write_checksum: sha1:88c6ad9ad1ca0e5805cb70637251c77811b689ea
+    last_write_checksum: sha1:96deee3761182155aaba17ef79b142271dc34368
   docs/models/consistency-value.md:
     last_write_checksum: sha1:6a724fd7cf70be79ca6b2e1ef94e2dab40ffdd86
   docs/models/consistency.md:
@@ -128,6 +128,18 @@ trackedFiles:
     last_write_checksum: sha1:baae0eedbedbfaad2a3baaf5283e45d4099ded29
   docs/models/incomplete-source.md:
     last_write_checksum: sha1:fd57aec93004ba2e91331b5d5aff4c02a3d7d030
+  docs/models/integration-hook-point.md:
+    last_write_checksum: sha1:f95a42b6c2c5edec5994d60916b5d4b5786fb745
+  docs/models/integration-list.md:
+    last_write_checksum: sha1:10d65b835615f7224ebc0705a5dd233b7f55e6cf
+  docs/models/integration-platform.md:
+    last_write_checksum: sha1:265e43c3aaecb46f1e81e6c9d080fe29cbd54c60
+  docs/models/integration-request.md:
+    last_write_checksum: sha1:c58eeca5ad71eb99050a7e99ce51dc91fb4a7a2c
+  docs/models/integration-rotation-request.md:
+    last_write_checksum: sha1:77dbb39641068411e5f10c37079d71ee65185edb
+  docs/models/integration.md:
+    last_write_checksum: sha1:8c1908357ce183441038af24b2a7c7abebc04cd7
   docs/models/ip-summary-type.md:
     last_write_checksum: sha1:290aaff18e3e3f0d6c48c821bbbf492cc114343c
   docs/models/ip-summary.md:
@@ -154,10 +166,18 @@ trackedFiles:
     last_write_checksum: sha1:584b8afd38e9c231c7c3a7962910cc0e54483bf1
   docs/models/operations/create-assessment-response.md:
     last_write_checksum: sha1:cf60c23d70a3fd983df08ecadb59a2265a97a58c
+  docs/models/operations/create-integration-response.md:
+    last_write_checksum: sha1:d937c80f98edf28058962cc14aa3c88d490a5d07
+  docs/models/operations/delete-integration-request.md:
+    last_write_checksum: sha1:43a6af1879bf828274d44772106de153d85d379f
+  docs/models/operations/delete-integration-response.md:
+    last_write_checksum: sha1:4e776b7c697519c19a48daeacb933c7badb704cd
   docs/models/operations/get-assessment-request.md:
     last_write_checksum: sha1:57a9463eafb34e8f14f697571cf72c54baed8ad6
   docs/models/operations/get-assessment-response.md:
     last_write_checksum: sha1:ac3379634e1332e5f4ad6f7acb71be12821f587e
+  docs/models/operations/list-integrations-response.md:
+    last_write_checksum: sha1:84a1878c7891e82c1fcea19e49831b9e389e31e3
   docs/models/operations/query-account-assessments-response.md:
     last_write_checksum: sha1:470229383b4f2ee789cac9009440d0088095b793
   docs/models/operations/record-assessment-outcome-request.md:
@@ -166,6 +186,10 @@ trackedFiles:
     last_write_checksum: sha1:f8d02b288805e01fa3cdc4df60c1aac882ad1a40
   docs/models/operations/rotate-api-key-response.md:
     last_write_checksum: sha1:bcfe8566edc7cf4d8df79972a752bb16f40286a2
+  docs/models/operations/rotate-integration-secret-request.md:
+    last_write_checksum: sha1:9399481d58db5c42987cb76c1bd1eff489de5dc0
+  docs/models/operations/rotate-integration-secret-response.md:
+    last_write_checksum: sha1:276ab553c81edb2703db9a240936d05c0ec7c215
   docs/models/outcome.md:
     last_write_checksum: sha1:007e0966669924d36f5c1b38db8694d99bb65125
   docs/models/permission-denied-error-code.md:
@@ -211,7 +235,7 @@ trackedFiles:
   docs/models/risk.md:
     last_write_checksum: sha1:ac73504b65612f45d16ee80167ca4f8f7da1ec2b
   docs/models/scope.md:
-    last_write_checksum: sha1:dcceaf50f24dcfa9a23323ce2a9ae9c3ae511d63
+    last_write_checksum: sha1:90f932f67f6190d378972ad413e44e422a92129c
   docs/models/security.md:
     last_write_checksum: sha1:3355dd53014e4a23a9d5fc2f8c679ce76046b281
   docs/models/signal-outcome.md:
@@ -235,9 +259,9 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:87ad627208a9a906e3480dd7953891bdeea40003
+    last_write_checksum: sha1:54b83577ec5c47663a1d2847e82452844b192072
   package.json:
-    last_write_checksum: sha1:c2eea5b980a1a881e5206b82987af51c9d025fd0
+    last_write_checksum: sha1:5d900f6a2267a031bfa8f906a30efaa0bf85b105
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/assessments-create.ts:
@@ -248,6 +272,14 @@ trackedFiles:
     last_write_checksum: sha1:2387150484e0d9f7c35e3612ba99856af80ad810
   src/funcs/assessments-record-outcome.ts:
     last_write_checksum: sha1:a89264fa9a6f9c7e5f413494ebaff82c062519f2
+  src/funcs/integrations-create.ts:
+    last_write_checksum: sha1:049529913ddc89333db75bc52fa4d763b37e19bd
+  src/funcs/integrations-delete.ts:
+    last_write_checksum: sha1:c281c23ae9e81379d09d5a210c238c1269f0fa4a
+  src/funcs/integrations-list.ts:
+    last_write_checksum: sha1:af641a1d26551d3871eafd0c1d723afa6da4a575
+  src/funcs/integrations-rotate.ts:
+    last_write_checksum: sha1:fe0f134ff494aba50f0a8e6a9ed8324633e44538
   src/funcs/keys-rotate.ts:
     last_write_checksum: sha1:468085a0eac51bea455eb276098a3a43f5e22705
   src/hooks/hooks.ts:
@@ -259,7 +291,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:c7a4a43d4ed9d2ed6c311606cbee66ab3630504d
+    last_write_checksum: sha1:28a76323a8d3043cf38010eaf0b5d4930b740038
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -331,7 +363,7 @@ trackedFiles:
   src/models/confidence.ts:
     last_write_checksum: sha1:cd302a5801a6dbe90eb1dee9cc59b53f4c885497
   src/models/conflict-error-code.ts:
-    last_write_checksum: sha1:6c6f24d2f65f0386d1777ec6a4a713077ec45e9c
+    last_write_checksum: sha1:0832dbe875f2740d3676bf346d5a45c20469a7bc
   src/models/consistency-value.ts:
     last_write_checksum: sha1:01ff093077bc7611868ae681944fd60ccedb09ad
   src/models/consistency.ts:
@@ -377,7 +409,19 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:d20f1b4e39b25e882ea4913b8f4505b602c6bc51
   src/models/index.ts:
-    last_write_checksum: sha1:46275211115b98ef99f4c9aafd762c7da554f2dd
+    last_write_checksum: sha1:60eeac2914c4a6ea3e0e2d9770066b6294c0be6d
+  src/models/integration-hook-point.ts:
+    last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
+  src/models/integration-list.ts:
+    last_write_checksum: sha1:ed2abeb5f3265659144fd3651cc1cc9ef4f8bc7d
+  src/models/integration-platform.ts:
+    last_write_checksum: sha1:b6d081466f7c6228e7b043a72d3aa607e2edcbfd
+  src/models/integration-request.ts:
+    last_write_checksum: sha1:cadc294c6be84aa8b02ba87f4abb28f3754fcbcd
+  src/models/integration-rotation-request.ts:
+    last_write_checksum: sha1:d3000beb938b2ea029e93a7052825f185357144d
+  src/models/integration.ts:
+    last_write_checksum: sha1:7445364b0d8f7162fa65db531b3bcecffa9752c0
   src/models/ip-summary-type.ts:
     last_write_checksum: sha1:25ae6683672114f58d34202aea5417d5d293c043
   src/models/ip-summary.ts:
@@ -385,7 +429,7 @@ trackedFiles:
   src/models/key-rotation-request.ts:
     last_write_checksum: sha1:6e123313d34f45ec5851a6ce00a2d0c29df8fd21
   src/models/key-rotation.ts:
-    last_write_checksum: sha1:92c0409674708657eb354d4f913d718fe9950795
+    last_write_checksum: sha1:120aebcbaf6424b8abc496b07a57466c69ad2bf0
   src/models/lane.ts:
     last_write_checksum: sha1:5cfb0973506aa6a52ddec17e33034a3e408e6579
   src/models/line-type.ts:
@@ -394,16 +438,24 @@ trackedFiles:
     last_write_checksum: sha1:73853eef2849a0c599eb317c19272d1ad8eda1ee
   src/models/operations/create-assessment.ts:
     last_write_checksum: sha1:f09359edb22c0a9620f50bad1a6cebfb248c275f
+  src/models/operations/create-integration.ts:
+    last_write_checksum: sha1:43ba0c430c7ece0e031ab6b44611f0e80656f32c
+  src/models/operations/delete-integration.ts:
+    last_write_checksum: sha1:4e4378527f917780ac75957ef3f5e555748c6596
   src/models/operations/get-assessment.ts:
     last_write_checksum: sha1:fc989a767d917999e384db8774178b693460a0be
   src/models/operations/index.ts:
-    last_write_checksum: sha1:195430a5f3a740651d610b7be6fc7fbdaaa2e859
+    last_write_checksum: sha1:26519e1bbdf1449c4304da345a2d03dc52978ac0
+  src/models/operations/list-integrations.ts:
+    last_write_checksum: sha1:ad5ef86d5fc3fa658db51560c05d108b392f4cfc
   src/models/operations/query-account-assessments.ts:
     last_write_checksum: sha1:50da62079c79e13c265a4edac6ab8a78e0148057
   src/models/operations/record-assessment-outcome.ts:
     last_write_checksum: sha1:d40a822a706f6b8b85cf9941d7c3a37675bebb76
   src/models/operations/rotate-api-key.ts:
     last_write_checksum: sha1:3e0b6593a346b46c0121e9fd4e4bc00f902fcda3
+  src/models/operations/rotate-integration-secret.ts:
+    last_write_checksum: sha1:6118bd02dd02d144f91f9ac0bbd12cc6ca46590c
   src/models/outcome.ts:
     last_write_checksum: sha1:dcf78e5bfd1c278b8e3e9d0f04832e0034bec387
   src/models/permission-denied-error-code.ts:
@@ -462,10 +514,12 @@ trackedFiles:
     last_write_checksum: sha1:a4c1d6ec82160ed2902d7f85aec3afcfb8ce4ba5
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
+  src/sdk/integrations.ts:
+    last_write_checksum: sha1:d9028bd6e4041876e19a383a7ad4e953f211c268
   src/sdk/keys.ts:
     last_write_checksum: sha1:2b416568ccfe02c0608307a416a517ff136dfd2c
   src/sdk/sdk.ts:
-    last_write_checksum: sha1:19701fe9c10cf2d472356a58bac58efcc01c794b
+    last_write_checksum: sha1:ac40e2ebe93a713bd4007e117b2e309299364214
   src/types/async.ts:
     last_write_checksum: sha1:ebc27b1229fbbe1835d89ec484c7fa28188b9cf4
   src/types/blobs.ts:
@@ -755,4 +809,71 @@ examples:
       responses:
         "201":
           application/json: {"key": "nrk_01JA2ZC0Q1R2S3T4V5W6X7Y8Z9_0123456789abcdefghijklmnopqrstuvwxyzABCDEFA", "key_id": "01JA2ZC0Q1R2S3T4V5W6X7Y8Z9", "scopes": ["assess", "history"], "created_at": "2026-10-21T09:00:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "previous_key_expires_at": "2026-10-22T09:00:00.000Z"}
+  createIntegration:
+    auth0:
+      requestBody:
+        application/json: {"platform": "auth0"}
+      responses:
+        "201":
+          application/json: {"integration_id": "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "platform": "auth0", "hook_points": ["pre_registration", "post_login"], "url": "https://api.noresponse.org/hooks/int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "secret": "nri_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA", "created_at": "2026-10-14T09:00:00.000Z"}
+    workos:
+      requestBody:
+        application/json: {"platform": "workos", "hook_points": ["pre_registration", "post_login"], "signing_secret": "wos_action_secret_k3Yx8pQ2mN7vR4tW"}
+      responses:
+        "201":
+          application/json: {"integration_id": "int_01JA2Z9M3R5T8W1YBCDEFGHJKN", "platform": "workos", "hook_points": ["pre_registration", "post_login"], "url": "https://api.noresponse.org/hooks/int_01JA2Z9M3R5T8W1YBCDEFGHJKN", "created_at": "2026-10-14T09:05:00.000Z"}
+  listIntegrations:
+    list:
+      responses:
+        "200":
+          application/json: {"items": [{"integration_id": "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "platform": "auth0", "hook_points": ["pre_registration", "post_login"], "url": "https://api.noresponse.org/hooks/int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "created_at": "2026-10-14T09:00:00.000Z", "rotated_at": "2026-10-15T09:00:00.000Z", "previous_secret_expires_at": "2026-10-16T09:00:00.000Z"}, {"integration_id": "int_01JA2Z9M3R5T8W1YBCDEFGHJKN", "platform": "workos", "hook_points": ["post_login"], "url": "https://api.noresponse.org/hooks/int_01JA2Z9M3R5T8W1YBCDEFGHJKN", "created_at": "2026-10-14T09:05:00.000Z"}]}
+  deleteIntegration:
+    noresponse-default-delete-integration:
+      parameters:
+        path:
+          integration_id: "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
+      responses:
+        "400":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_cursor", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "401":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 401, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "403":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 403, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "404":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 404, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "not_found", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "409":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 409, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "429":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 429, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+  rotateIntegrationSecret:
+    auth0:
+      parameters:
+        path:
+          integration_id: "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"integration_id": "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "platform": "auth0", "hook_points": ["pre_registration", "post_login"], "url": "https://api.noresponse.org/hooks/int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "secret": "nri_Z9cD1eF5gH0jL4sP9uV2wX7yAk3Yx8pQ2mN7vR4tW6A", "created_at": "2026-10-14T09:00:00.000Z", "rotated_at": "2026-10-15T09:00:00.000Z", "previous_secret_expires_at": "2026-10-16T09:00:00.000Z"}
+    workos:
+      parameters:
+        path:
+          integration_id: "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
+      requestBody:
+        application/json: {"signing_secret": "wos_action_secret_Z9cD1eF5gH0jL4sP"}
+      responses:
+        "200":
+          application/json: {"integration_id": "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "platform": "workos", "hook_points": [], "url": "https://api.noresponse.org/hooks/int_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "secret": "nri_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA", "created_at": "2026-10-14T09:00:00.000Z", "rotated_at": "2026-10-15T09:00:00.000Z", "previous_secret_expires_at": "2026-10-16T09:00:00.000Z"}
+        "400":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "401":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 401, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "unauthorized", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "403":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 403, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "tenant_forbidden", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "404":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 404, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "not_found", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "409":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 409, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "idempotency_key_reused", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
+        "429":
+          application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 429, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "rate_limited", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
 examplesVersion: 1.0.2

@@ -7,7 +7,7 @@ Machine codes an HTTP 409 answer can carry.
 ```typescript
 import { ConflictErrorCode } from "@noresponse/node/models";
 
-let value: ConflictErrorCode = "idempotency_key_reused";
+let value: ConflictErrorCode = "key_rotation_in_progress";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: ConflictErrorCode = "idempotency_key_reused";
 ## Values
 
 ```typescript
-"idempotency_key_reused" | "key_rotation_in_progress" | Unrecognized<string>
+"idempotency_key_reused" | "key_rotation_in_progress" | "too_many_integrations" | Unrecognized<string>
 ```

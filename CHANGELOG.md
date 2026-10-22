@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.0.13
+
+* `sdk.integrations.create()`: **Added**
+* `sdk.integrations.list()`: **Added**
+* `sdk.integrations.delete()`: **Added**
+* `sdk.integrations.rotate()`: **Added**
+* `sdk.assessments.create()`:  `error.code.enum(tooManyIntegrations)` **Added**
+* `sdk.assessments.get()`:  `error.code.enum(tooManyIntegrations)` **Added**
+* `sdk.assessments.recordOutcome()`:  `error.code.enum(tooManyIntegrations)` **Added**
+* `sdk.assessments.query()`:  `error.code.enum(tooManyIntegrations)` **Added**
+* `sdk.keys.rotate()`: 
+  *  `response.scopes[].enum(integrations)` **Added**
+  *  `error.code.enum(tooManyIntegrations)` **Added**
+
 ## 2.0.12
 
 * `sdk.assessments.create()`: 

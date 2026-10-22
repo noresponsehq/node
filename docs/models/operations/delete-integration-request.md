@@ -1,0 +1,17 @@
+# DeleteIntegrationRequest
+
+## Example Usage
+
+```typescript
+import { DeleteIntegrationRequest } from "@noresponse/node/models/operations";
+
+let value: DeleteIntegrationRequest = {
+  integrationId: "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+};
+```
+
+## Fields
+
+| Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        | Example                                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `integrationId`                                                                                                                    | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | Path segment, matched case-sensitively. A value that does not match the integration_id shape, or another tenant's id, answers 404. | int_01JA2Z8K6Q4V7W9XBCDEFGHJKM                                                                                                     |

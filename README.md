@@ -121,6 +121,23 @@ rotation.previousKeyExpiresAt; // when the key that signed the request stops wor
 
 The default overlap is 24 hours (minimum 60 seconds, maximum 7 days). Rotate with the new key next time.
 
+## Integrations
+
+A hosted integration is a WorkOS or Auth0 Action that NoResponse answers, so sign-ups and sign-ins are scored with no server of your own. These calls need a key with the `integrations` scope.
+
+```ts
+const integration = await nr.integrations.create({ platform: "auth0" });
+integration.url;    // point the Auth0 Action at this
+integration.secret; // the Action's shared secret, shown once
+
+await nr.integrations.create({ platform: "workos", signingSecret: process.env.WORKOS_ACTIONS_SECRET! });
+const { items } = await nr.integrations.list(); // no secrets
+const rotated = await nr.integrations.rotate(integration.integrationId); // Auth0: new secret; WorkOS: pass { signingSecret }
+await nr.integrations.delete(integration.integrationId);
+```
+
+`create` and `rotate` are not idempotent and are never retried. The replaced secret is accepted until `previousSecretExpiresAt`.
+
 ## Response metadata
 
 Every returned object carries `meta`:

@@ -19,7 +19,24 @@ import {
   DEFAULT_BASE_URL,
   SDK_METADATA,
 } from "../dist/esm/index.js";
-import { COMPLETE, LIST, OUTCOME, PENDING, REQUEST, RISK, ROTATION, drive, fakeFetch, flush, json, problem, withEnv } from "./helpers.mjs";
+import {
+  COMPLETE,
+  INTEGRATION_AUTH0,
+  INTEGRATION_LIST,
+  INTEGRATION_ROTATED,
+  LIST,
+  OUTCOME,
+  PENDING,
+  REQUEST,
+  RISK,
+  ROTATION,
+  drive,
+  fakeFetch,
+  flush,
+  json,
+  problem,
+  withEnv,
+} from "./helpers.mjs";
 
 const KEY = "nrk_0TESTKEY00000000000000000_" + "s".repeat(43);
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
@@ -190,6 +207,55 @@ test("keys.rotate posts the overlap and returns the new key once", async () => {
   assert.equal(calls[0].url, "https://example.com/v1/keys/rotate");
   assert.deepEqual(calls[0].body, { overlap_seconds: 3600 });
   assert.equal(calls[0].headers["idempotency-key"], undefined);
+});
+
+test("integrations create, list, rotate and delete send the contract shapes", async () => {
+  const id = INTEGRATION_AUTH0.integration_id;
+  const { fetcher, calls } = fakeFetch([
+    json(INTEGRATION_AUTH0, { status: 201 }),
+    json(INTEGRATION_LIST),
+    json(INTEGRATION_ROTATED),
+    new Response(null, { status: 204, headers: { "x-request-id": "c".repeat(32) } }),
+  ]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+
+  const created = await nr.integrations.create({ platform: "auth0", hookPoints: ["post_login"] });
+  assert.equal(created.integrationId, id);
+  assert.equal(created.secret, INTEGRATION_AUTH0.secret);
+  assert.equal(created.meta.requestId, "a".repeat(32));
+  assert.equal(calls[0].method, "POST");
+  assert.equal(calls[0].url, "https://example.com/v1/integrations");
+  assert.deepEqual(calls[0].body, { platform: "auth0", hook_points: ["post_login"] });
+  assert.equal(calls[0].headers["idempotency-key"], undefined);
+
+  const listed = await nr.integrations.list();
+  assert.equal(listed.items.length, INTEGRATION_LIST.items.length);
+  assert.equal(listed.items[1].platform, "workos");
+  assert.equal(listed.items[0].secret, undefined);
+  assert.equal(calls[1].method, "GET");
+  assert.equal(calls[1].url, "https://example.com/v1/integrations");
+
+  const rotated = await nr.integrations.rotate(id);
+  assert.equal(rotated.secret, INTEGRATION_ROTATED.secret);
+  assert.equal(rotated.previousSecretExpiresAt, INTEGRATION_ROTATED.previous_secret_expires_at);
+  assert.equal(calls[2].method, "POST");
+  assert.equal(calls[2].url, `https://example.com/v1/integrations/${id}/rotate`);
+  assert.deepEqual(calls[2].body, {});
+
+  const deleted = await nr.integrations.delete(id);
+  assert.equal(deleted.meta.requestId, "c".repeat(32));
+  assert.equal(calls[3].method, "DELETE");
+  assert.equal(calls[3].url, `https://example.com/v1/integrations/${id}`);
+});
+
+test("integrations create and rotate are never retried", async () => {
+  const { fetcher, calls } = fakeFetch(() => problem(503, "service_unavailable", {}, { "retry-after": "1" }));
+  const nr = client(fetcher);
+  await assert.rejects(nr.integrations.create({ platform: "workos", signingSecret: "wos_action_secret_k3Yx8pQ2mN7vR4tW" }), APIStatusError);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].body.signing_secret, "wos_action_secret_k3Yx8pQ2mN7vR4tW");
+  await assert.rejects(nr.integrations.rotate(INTEGRATION_AUTH0.integration_id, {}), APIStatusError);
+  assert.equal(calls.length, 2);
 });
 
 test("every status maps to its error class with the problem fields", async () => {

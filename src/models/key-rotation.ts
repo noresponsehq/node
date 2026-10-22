@@ -12,6 +12,7 @@ export const Scope = {
   History: "history",
   Webhooks: "webhooks",
   Detailed: "detailed",
+  Integrations: "integrations",
 } as const;
 export type Scope = OpenEnum<typeof Scope>;
 

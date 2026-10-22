@@ -8,6 +8,7 @@
  */
 import { NoResponse as GeneratedClient } from "./sdk/sdk.js";
 import type { Assessments as GeneratedAssessments } from "./sdk/assessments.js";
+import type { Integrations as GeneratedIntegrations } from "./sdk/integrations.js";
 import type { Keys as GeneratedKeys } from "./sdk/keys.js";
 import type { NoResponseCore } from "./core.js";
 import { SDK_METADATA, type SDKOptions } from "./lib/config.js";
@@ -247,6 +248,62 @@ export class Keys {
   }
 }
 
+/**
+ * Hosted provider integrations: a WorkOS or Auth0 Action that NoResponse
+ * answers, so sign-ups and sign-ins are scored with no server of your own.
+ * Every method needs the `integrations` scope. create and rotate are not
+ * idempotent and are never retried.
+ */
+export class Integrations {
+  constructor(private readonly inner: GeneratedIntegrations) {}
+
+  /** Register a WorkOS or Auth0 integration. For Auth0, `secret` is the Action's shared secret, shown once. */
+  async create(request: models.IntegrationRequest, options?: RequestOptions): Promise<WithMeta<models.Integration>> {
+    const response = await this.inner.create(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Every integration, oldest first. Listings carry no secrets. */
+  async list(options?: RequestOptions): Promise<WithMeta<models.IntegrationList>> {
+    const response = await this.inner.list(options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Delete an integration; its endpoint answers 404 from then on. */
+  async delete(
+    integrationId: string | operations.DeleteIntegrationRequest,
+    options?: RequestOptions,
+  ): Promise<{ meta: ResponseMeta }> {
+    const request = typeof integrationId === "string" ? { integrationId } : integrationId;
+    const response = await this.inner.delete(request, options);
+    return { meta: toMeta(response?.headers ?? {}) };
+  }
+
+  /**
+   * Replace an integration's secret. For Auth0 send nothing and read the new
+   * `secret`, shown once; for WorkOS send the regenerated `signingSecret`. The
+   * replaced secret is accepted until `previousSecretExpiresAt`.
+   */
+  rotate(
+    integrationId: string,
+    request?: models.IntegrationRotationRequest,
+    options?: RequestOptions,
+  ): Promise<WithMeta<models.Integration>>;
+  rotate(request: operations.RotateIntegrationSecretRequest, options?: RequestOptions): Promise<WithMeta<models.Integration>>;
+  async rotate(
+    first: string | operations.RotateIntegrationSecretRequest,
+    second?: models.IntegrationRotationRequest | RequestOptions,
+    third?: RequestOptions,
+  ): Promise<WithMeta<models.Integration>> {
+    const [request, options] =
+      typeof first === "string"
+        ? [{ integrationId: first, body: (second as models.IntegrationRotationRequest | undefined) ?? {} }, third]
+        : [first, second as RequestOptions | undefined];
+    const response = await this.inner.rotate(request, options);
+    return withMeta(response.result, response.headers);
+  }
+}
+
 const webhooks = { constructEvent, verificationResponse } as const;
 
 export class NoResponse {
@@ -254,6 +311,7 @@ export class NoResponse {
   readonly webhooks = webhooks;
   readonly assessments: Assessments;
   readonly keys: Keys;
+  readonly integrations: Integrations;
   /** The generated client, for the standalone functions under `@noresponse/node/funcs/*`. */
   readonly core: NoResponseCore;
   readonly baseUrl: string;
@@ -265,6 +323,7 @@ export class NoResponse {
     this.baseUrl = sdkOptions.serverURL!;
     this.assessments = new Assessments(client.assessments);
     this.keys = new Keys(client.keys);
+    this.integrations = new Integrations(client.integrations);
     this.core = client;
     // Keep the key out of console.log(nr) and JSON.stringify(nr).
     Object.defineProperty(this, "core", { value: client, enumerable: false, writable: false });
