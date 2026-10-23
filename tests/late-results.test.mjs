@@ -19,13 +19,16 @@ const SECRET = "late-result-secret";
 const KEY = "whk_sdktest01";
 const NOW = 1791968402;
 const secrets = { [KEY]: SECRET };
-const REVIEW = fixture("valid/assessment-phone-uncovered-complete.json");
-const STEP_UP = fixture("valid/assessment-complete.json");
-const PENDING = fixture("valid/assessment-pending.json");
+const VIEW = fixture("valid/assessment-view-complete.json");
+const decided = (decision) => ({ ...VIEW, account: { ...VIEW.account, risk: { ...VIEW.account.risk, decision } } });
+const REVIEW = decided("review");
+const STEP_UP = decided("step_up");
+const PENDING = fixture("valid/assessment-view-pending.json");
+const KNOWN_PENDING = fixture("valid/assessment-view-pending-known-account.json");
 const EXPIRED = fixture("valid/webhook-assessment-expired.json");
 
 function delivery(data, accountId, extra = {}) {
-  const body = { id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ2", type: "assessment.updated", created_at: "2026-10-18T11:00:04Z", ...extra, data: accountId ? { ...data, account_id: accountId } : data };
+  const body = { id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ2", type: "assessment.updated", created_at: "2026-10-18T11:00:04Z", ...extra, data: accountId ? { ...data, detail: { ...data.detail, account_id: accountId } } : data };
   const raw = Buffer.from(JSON.stringify(body), "utf8");
   const stamp = String(NOW);
   const digest = createHmac("sha256", SECRET).update(stamp).update(".").update(raw).digest("hex");
@@ -52,19 +55,27 @@ async function mockProvider(route) {
   return { url, calls, close: () => new Promise((resolve) => server.close(resolve)) };
 }
 
-test("the default policy revokes on review and does nothing on allow, step_up, pending or expiry", () => {
-  const ev = (data) => ({ id: "evt_x", type: "assessment.updated", createdAt: "2026-10-18T11:00:04Z", data });
-  assert.equal(lateResultAction(ev({ status: "complete", recommendation: "review" })), "revoke_sessions");
-  assert.equal(lateResultAction(ev({ status: "complete", recommendation: "step_up" })), "none");
-  assert.equal(lateResultAction(ev({ status: "partial", recommendation: "allow" })), "none");
-  assert.equal(lateResultAction(ev({ status: "pending" })), "none");
-  assert.equal(lateResultAction(ev({ status: "expired", changeReason: "expired" })), "none");
+test("the default policy revokes on review and block and does nothing on allow, step_up, pending or expiry", () => {
+  const ev = (status, decision) => ({
+    id: "evt_x",
+    type: "assessment.updated",
+    createdAt: "2026-10-18T11:00:04Z",
+    data: { status, ...(decision ? { account: { risk: { decision } } } : {}), detail: { status } },
+  });
+  assert.equal(lateResultAction(ev("complete", "review")), "revoke_sessions");
+  assert.equal(lateResultAction(ev("complete", "block")), "revoke_sessions");
+  assert.equal(lateResultAction(ev("complete", "step_up")), "none");
+  assert.equal(lateResultAction(ev("partial", "allow")), "none");
+  assert.equal(lateResultAction(ev("pending")), "none");
+  assert.equal(lateResultAction(ev("pending", "review")), "none");
+  assert.equal(lateResultAction({ id: "evt_x", type: "assessment.updated", createdAt: "x", data: { status: "expired", changeReason: "expired" } }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "endpoint.verification", createdAt: "x", data: {} }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "account.deleted", createdAt: "x", test: false, data: { accountId: "acct_1", assessmentsDeleted: 1, deletedAt: "x" } }), "none");
-  assert.equal(lateResultAction(ev({ status: "complete", recommendation: "step_up" }), { step_up: "ban" }), "ban");
-  assert.equal(lateResultAction(ev({ status: "complete", recommendation: "review" }), { step_up: "ban" }), "none");
-  assert.throws(() => lateResultAction(ev({ status: "complete", recommendation: "review" }), { review: "delete" }), TypeError);
-  assert.deepEqual(DEFAULT_LATE_RESULT_POLICY, { allow: "none", step_up: "none", review: "revoke_sessions" });
+  assert.equal(lateResultAction(ev("complete", "step_up"), { step_up: "ban" }), "ban");
+  assert.equal(lateResultAction(ev("complete", "block"), { block: "ban" }), "ban");
+  assert.equal(lateResultAction(ev("complete", "review"), { step_up: "ban" }), "none");
+  assert.throws(() => lateResultAction(ev("complete", "review"), { review: "delete" }), TypeError);
+  assert.deepEqual(DEFAULT_LATE_RESULT_POLICY, { allow: "none", step_up: "none", review: "revoke_sessions", block: "revoke_sessions" });
 });
 
 test("Clerk: review revokes each active session, and a ban policy bans the user", async () => {
@@ -81,7 +92,7 @@ test("Clerk: review revokes each active session, and a ban policy bans the user"
     const result = await handleLateResult(raw, headers, secrets, clerk, { now: NOW });
     assert.equal(result.action, "revoke_sessions");
     assert.equal(result.userId, "user_2EXAMPLE");
-    assert.equal(result.event.data.assessmentId, REVIEW.assessment_id);
+    assert.equal(result.event.data.id, REVIEW.id);
     assert.deepEqual(
       mock.calls.map((c) => `${c.method} ${c.path}`),
       ["GET /v1/sessions", "POST /v1/sessions/sess_1/revoke", "POST /v1/sessions/sess_2/revoke"],
@@ -288,7 +299,7 @@ test("an unverified, quiet or unmapped event makes no provider call, and a provi
     await assert.rejects(handleLateResult(raw, headers, { [KEY]: "wrong" }, auth0, { now: NOW }), (e) => e instanceof WebhookVerificationError && e.code === "invalid_signature");
     await assert.rejects(handleLateResult(Buffer.concat([raw, Buffer.from(" ")]), headers, secrets, auth0, { now: NOW }), WebhookVerificationError);
     await assert.rejects(handleLateResult(raw, headers, secrets, auth0, { now: NOW + 301 }), (e) => e.code === "invalid_timestamp");
-    for (const data of [STEP_UP, PENDING, EXPIRED.data]) {
+    for (const data of [STEP_UP, PENDING, { ...KNOWN_PENDING, account: REVIEW.account }, EXPIRED.data]) {
       const d = delivery(data);
       assert.equal((await handleLateResult(d.raw, d.headers, secrets, auth0, { now: NOW })).action, "none");
     }

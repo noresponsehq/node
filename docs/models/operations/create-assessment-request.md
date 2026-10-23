@@ -9,6 +9,7 @@ let value: CreateAssessmentRequest = {
   idempotencyKey: "signup-acct_7f3a9c",
   body: {
     accountId: "acct_7f3a9c",
+    flow: "purchase",
     identifiers: {
       email: "new.user@example.com",
       username: "new.user",
@@ -47,7 +48,7 @@ let value: CreateAssessmentRequest = {
       sessionCreatedAt: "2026-10-14T08:57:00.000Z",
       authTime: "2026-10-14T08:55:00.000Z",
       accountCreatedAt: "2026-10-14T08:56:00.000Z",
-      verified: false,
+      verified: true,
       mfa: {
         methods: [
           "totp",

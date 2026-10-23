@@ -28,13 +28,15 @@ test("the shared signature vector verifies and yields a typed assessment", () =>
   assert.equal(event.type, "assessment.updated");
   assert.equal(event.id, headers["NR-Webhook-Id"]);
   assert.equal(event.createdAt, "2026-10-14T09:00:02.000Z");
-  assert.equal(event.data.assessmentId, "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
-  assert.equal(event.data.assessmentVersion, 2);
-  assert.equal(event.data.risk.recommendation, "step_up");
-  assert.deepEqual(event.data.risk.reasons[0], { code: "no_digital_footprint", weight: 35 });
+  assert.equal(event.data.id, "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
+  assert.equal(event.data.status, "complete");
+  assert.equal(event.data.account.risk.decision, "step_up");
+  assert.equal(event.data.detail.assessmentVersion, 2);
+  assert.equal(event.data.detail.risk.recommendation, "step_up");
+  assert.deepEqual(event.data.detail.risk.reasons[0], { code: "no_digital_footprint", weight: 35 });
   assert.equal(isExpiredEvent(event), false);
   // The same through the client, as a string body, a Headers object and a Node headers object.
-  assert.equal(NoResponse.webhooks.constructEvent(vector.payload, new Headers(headers), secrets, { now }).data.assessmentId, event.data.assessmentId);
+  assert.equal(NoResponse.webhooks.constructEvent(vector.payload, new Headers(headers), secrets, { now }).data.id, event.data.id);
   const node = Object.fromEntries(Object.entries(headers).map(([k, v]) => [k.toLowerCase(), v]));
   assert.equal(new NoResponse({ apiKey: "k".repeat(20) }).webhooks.constructEvent(payload, node, secrets, { now }).id, event.id);
 });
@@ -61,11 +63,11 @@ test("two secrets verify during a rotation and the event id must match the heade
   const { raw, headers: h } = signed(event, "new-secret", stamp, event.id, "whk_sdktest02");
   const both = { whk_sdktest01: "old-secret", whk_sdktest02: "new-secret" };
   const verified = constructEvent(raw, h, both, { now: 1791968402 });
-  assert.equal(verified.data.assessmentId, COMPLETE.assessment_id);
-  assert.equal(verified.data.assessmentVersion, COMPLETE.assessment_version);
+  assert.equal(verified.data.id, COMPLETE.id);
+  assert.equal(verified.data.detail.assessmentVersion, COMPLETE.detail.assessment_version);
   const mismatched = signed(event, "new-secret", stamp, "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ9", "whk_sdktest02");
   code(() => constructEvent(mismatched.raw, mismatched.headers, both, { now: 1791968402 }), "invalid_payload");
-  const pointer = { id: event.id, type: "assessment.updated", created_at: event.created_at, data: { assessment_id: COMPLETE.assessment_id, assessment_url: "/v1/assessments/x" } };
+  const pointer = { id: event.id, type: "assessment.updated", created_at: event.created_at, data: { assessment_id: COMPLETE.id, assessment_url: "/v1/assessments/x" } };
   const p = signed(pointer, "new-secret", stamp, event.id, "whk_sdktest02");
   code(() => constructEvent(p.raw, p.headers, both, { now: 1791968402 }), "invalid_payload");
 });
@@ -160,7 +162,7 @@ test("a test event says so, and a real one does not", () => {
   const s = signed(sample, "secret", stamp, sample.id);
   const event = constructEvent(s.raw, s.headers, { whk_sdktest01: "secret" }, { now: 1791968402 });
   assert.equal(event.test, true);
-  assert.equal(event.data.assessmentId, sample.data.assessment_id);
+  assert.equal(event.data.id, sample.data.id);
   const r = signed(real, "secret", stamp, real.id);
   assert.equal(constructEvent(r.raw, r.headers, { whk_sdktest01: "secret" }, { now: 1791968402 }).test, false);
 });

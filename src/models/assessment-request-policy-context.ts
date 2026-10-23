@@ -1,11 +1,9 @@
 import * as z from "zod/v4-mini";
-import { Flow, Flow$outboundSchema } from "./flow.js";
 
+/**
+ * Optional policy inputs: region.
+ */
 export type AssessmentRequestPolicyContext = {
-  /**
-   * The provider flow the assessment gates. Use the top-level flow instead; this member is ignored when the top-level flow is present. Absent means signup.
-   */
-  flow?: Flow | undefined;
   /**
    * ISO 3166-1 alpha-2 region of the signup, as the provider determines it.
    */
@@ -14,7 +12,6 @@ export type AssessmentRequestPolicyContext = {
 
 /** @internal */
 export type AssessmentRequestPolicyContext$Outbound = {
-  flow?: string | undefined;
   region?: string | undefined;
 };
 
@@ -23,7 +20,6 @@ export const AssessmentRequestPolicyContext$outboundSchema: z.ZodMiniType<
   AssessmentRequestPolicyContext$Outbound,
   AssessmentRequestPolicyContext
 > = z.object({
-  flow: z.optional(Flow$outboundSchema),
   region: z.optional(z.string()),
 });
 

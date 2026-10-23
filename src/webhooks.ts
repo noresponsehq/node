@@ -181,7 +181,7 @@ function expired(data: Record<string, unknown>): AssessmentExpired {
  * letter case, is refused. `secrets` maps each whk_ key id NoResponse gave you
  * to its secret, so two can be held during a rotation. Deliveries older than
  * `toleranceSeconds` (default 300) are refused; deduplicate on `event.id`
- * and keep the highest `assessmentVersion` yourself.
+ * and keep the highest `data.detail.assessmentVersion` yourself.
  */
 export function constructEvent(
   payload: Uint8Array | string,

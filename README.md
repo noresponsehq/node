@@ -17,15 +17,16 @@ const nr = new NoResponse(); // reads NORESPONSE_API_KEY, or new NoResponse("nrk
 
 const assessment = await nr.assessments.create({
   accountId: "usr_8f2k1",
+  flow: "signup",
   identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee", ip: "81.2.69.160" },
 });
 
-if (assessment.status === "pending") {
-  // No recommendation yet. Apply your fallback now, then wait or take the webhook.
-  const settled = await nr.assessments.wait(assessment.assessmentId);
-  console.log(settled.risk?.recommendation);
+if (assessment.account) {
+  console.log(assessment.account.risk.decision); // allow, step_up, review or block
 } else {
-  console.log(assessment.risk?.recommendation); // allow, step_up or review
+  // The account's first assessment is still pending. Apply your fallback now, then wait or take the webhook.
+  const settled = await nr.assessments.wait(assessment.id);
+  console.log(settled.account?.risk.decision);
 }
 ```
 
@@ -63,25 +64,27 @@ Every method takes request options as its last argument: `{ timeoutMs, signal, h
 const assessment = await nr.assessments.create(
   {
     accountId: "usr_8f2k1",                                    // your opaque account id
+    flow: "signup",                                            // signup, login or purchase
+    depth: "full",                                             // quick or full; full for signup and purchase, quick for login by default
     identifiers: { email: "jordan.lee@example.com" },          // email, username or phone; name and ip refine the match
-    policyContext: { flow: "signup", region: "AU" },           // signup, login, recovery or profile_change
+    policyContext: { region: "AU" },
     clientContext: { timezone: "Australia/Sydney", platform: "web", formDurationMs: 1800 },
     authContext: fromClerk(claims, { sessionCreatedAt }),      // see Auth adapters
-    responseMode: "standard",                                  // detailed adds signals and risk.details (detailed scope)
+    responseMode: "standard",                                  // detailed adds detail.signals and detail.risk.details (detailed scope)
   },
   { idempotencyKey: "signup-usr_8f2k1-0001" },
 );
 ```
 
-The answer is the assessment whether the API answered 200 (complete or partial) or 202 (pending). `status` is `complete`, `partial` or `pending`; `risk.recommendation` is `allow`, `step_up` or `review` and is absent while pending.
+The answer is the assessment whether the API answered 200 (complete or partial) or 202 (pending). `status` is `complete`, `partial` or `pending`. Act on `account.risk.decision`: `allow`, `step_up`, `review` or `block`, the account's current decision for this flow. `account` is absent while the account's first assessment is pending. `detail` holds this assessment's own facts: `detail.risk`, `detail.recommendation`, `detail.signals`, `detail.assessmentVersion` and, while pending, `detail.assessmentUrl`.
 
 The idempotency key is generated (a UUID) when you leave it out and is sent again on every retry of that call. Pass your own to make a retry of the same signup from your side replay the same assessment: the API answers the latest version with `meta.idempotentReplayed` true and starts no new work. The same key with a different body answers 409.
 
 ### Get and wait
 
 ```ts
-const latest = await nr.assessments.get(assessment.assessmentId);
-const settled = await nr.assessments.wait(assessment.assessmentId, { timeoutMs: 30_000 });
+const latest = await nr.assessments.get(assessment.id);
+const settled = await nr.assessments.wait(assessment.id, { timeoutMs: 30_000 });
 ```
 
 `wait` polls `get` until the status is `complete`, sleeping the server's `Retry-After` (at least one second) between polls. At `timeoutMs` (default 30 s) it returns the latest answer if that is `partial`, with its status still `partial`, and throws `APITimeoutError` if the assessment is still `pending`. Pass `responseMode: "detailed"` to either.
@@ -90,7 +93,7 @@ const settled = await nr.assessments.wait(assessment.assessmentId, { timeoutMs: 
 
 ```ts
 const page = await nr.assessments.query({ accountId: "usr_8f2k1", limit: 20 });
-page.items;        // newest first, each at its latest version
+page.items;        // assessment details, newest first, each at its latest version
 page.hasMore;      // true when another page exists
 await page.next(); // the next page, or null
 
@@ -125,7 +128,7 @@ Both calls need the `history` scope. An account with no decided assessment throw
 ### Record an outcome
 
 ```ts
-const receipt = await nr.assessments.recordOutcome(assessment.assessmentId, {
+const receipt = await nr.assessments.recordOutcome(assessment.id, {
   outcome: "chargeback", // confirmed_abuse, account_takeover, chargeback, false_positive, legitimate or unknown
   observedAt: "2026-10-20T10:00:00Z",
   externalRef: "case-42",
@@ -269,7 +272,7 @@ async function handler(req, res) {
     forget(event.data.assessmentId); // GET now answers 404
   } else if (event.test) {
     // sendTestEvent's fixed example assessment: apply nothing
-  } else if (isNewer(event.data)) {  // keep the highest assessmentVersion per assessment
+  } else if (isNewer(event.data)) {  // keep the highest detail.assessmentVersion per assessment
     apply(event.data);              // the full assessment, as assessments.get returns it
   }
   res.status(204).end();
@@ -289,7 +292,7 @@ const provider = clerkActions({ secretKey: process.env.CLERK_SECRET_KEY! });
 const result = await handleLateResult(rawBody, request.headers, secrets, provider, { policy: { review: "ban" } });
 ```
 
-The default policy revokes sessions on `review` and does nothing otherwise. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
+The policy maps the account's decision (`account.risk.decision`) to an action. The default revokes sessions on `review` and `block` and does nothing otherwise. A pending assessment acts on nothing: its account decision comes from an earlier assessment. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
 
 If your app has its own login, `logOnlyActions()` logs what it would revoke or ban (`console.info` by default, or pass `log`) and calls nothing. Use it to try the handler, then write your own `LateResultProvider`: a `name` and the two methods `revokeSessions(userId)` and `ban(userId)`.
 

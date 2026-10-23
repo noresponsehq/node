@@ -1,19 +1,23 @@
 import * as z from "zod/v4-mini";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
- * The provider flow the assessment gates. Use the top-level flow instead; this member is ignored when the top-level flow is present. Absent means signup.
+ * The customer event an assessment is made for: signup (a new account), login (a returning sign-in) or purchase (a payment or credit grant). The account's risk is reported with the decision for this flow.
  */
 export const Flow = {
   Signup: "signup",
   Login: "login",
-  Recovery: "recovery",
-  ProfileChange: "profile_change",
+  Purchase: "purchase",
 } as const;
 /**
- * The provider flow the assessment gates. Use the top-level flow instead; this member is ignored when the top-level flow is present. Absent means signup.
+ * The customer event an assessment is made for: signup (a new account), login (a returning sign-in) or purchase (a payment or credit grant). The account's risk is reported with the decision for this flow.
  */
-export type Flow = ClosedEnum<typeof Flow>;
+export type Flow = OpenEnum<typeof Flow>;
 
 /** @internal */
-export const Flow$outboundSchema: z.ZodMiniEnum<typeof Flow> = z.enum(Flow);
+export const Flow$inboundSchema: z.ZodMiniType<Flow, unknown> = openEnums
+  .inboundSchema(Flow);
+/** @internal */
+export const Flow$outboundSchema: z.ZodMiniType<string, Flow> = openEnums
+  .outboundSchema(Flow);

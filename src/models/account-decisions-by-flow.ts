@@ -8,7 +8,7 @@ import {
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
- * The decision for each flow. Every flow uses the tenant's signup thresholds today, so all three equal risk.decision.
+ * The decision for each flow. Every flow uses the tenant's signup thresholds today, so all three are equal.
  */
 export type AccountDecisionsByFlow = {
   /**

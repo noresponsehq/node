@@ -10,7 +10,7 @@ import { Transport, Transport$inboundSchema } from "./transport.js";
 /**
  * The identity fields of the auth context the assessment was made with, echoed for the tenant's own correlation: the request's auth_context, or the one a hosted provider hook (POST /hooks/{integration_id}) built, with transport provider_hook and its hook_point. Present exactly when the request carried an auth_context, and the same on every revision of the assessment. Values are as the request or the hook sent them; tokens, timestamps, roles and scopes are not echoed, and the echo does not change the score.
  */
-export type AssessmentAuthContext = {
+export type AssessmentDetailAuthContext = {
   /**
    * The provider slug the context named.
    */
@@ -46,8 +46,8 @@ export type AssessmentAuthContext = {
 };
 
 /** @internal */
-export const AssessmentAuthContext$inboundSchema: z.ZodMiniType<
-  AssessmentAuthContext,
+export const AssessmentDetailAuthContext$inboundSchema: z.ZodMiniType<
+  AssessmentDetailAuthContext,
   unknown
 > = z.pipe(
   z.object({
@@ -69,12 +69,12 @@ export const AssessmentAuthContext$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function assessmentAuthContextFromJSON(
+export function assessmentDetailAuthContextFromJSON(
   jsonString: string,
-): SafeParseResult<AssessmentAuthContext, SDKValidationError> {
+): SafeParseResult<AssessmentDetailAuthContext, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => AssessmentAuthContext$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AssessmentAuthContext' from JSON`,
+    (x) => AssessmentDetailAuthContext$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssessmentDetailAuthContext' from JSON`,
   );
 }

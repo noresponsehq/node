@@ -5,7 +5,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
-export type AssessmentTiming = {
+export type AssessmentDetailTiming = {
   /**
    * The budget the server applied to the synchronous answer.
    */
@@ -17,8 +17,8 @@ export type AssessmentTiming = {
 };
 
 /** @internal */
-export const AssessmentTiming$inboundSchema: z.ZodMiniType<
-  AssessmentTiming,
+export const AssessmentDetailTiming$inboundSchema: z.ZodMiniType<
+  AssessmentDetailTiming,
   unknown
 > = z.pipe(
   z.object({
@@ -33,12 +33,12 @@ export const AssessmentTiming$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function assessmentTimingFromJSON(
+export function assessmentDetailTimingFromJSON(
   jsonString: string,
-): SafeParseResult<AssessmentTiming, SDKValidationError> {
+): SafeParseResult<AssessmentDetailTiming, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => AssessmentTiming$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AssessmentTiming' from JSON`,
+    (x) => AssessmentDetailTiming$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssessmentDetailTiming' from JSON`,
   );
 }

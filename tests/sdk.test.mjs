@@ -32,7 +32,7 @@ import {
   PARTIAL,
   PENDING,
   REQUEST,
-  RISK,
+  BLOCK,
   ROTATION,
   drive,
   fakeFetch,
@@ -78,7 +78,7 @@ test("a string is shorthand for the API key", async () => {
   globalThis.fetch = fetcher;
   try {
     await withEnv({ NORESPONSE_API_KEY: undefined, NORESPONSE_BASE_URL: undefined }, () =>
-      new NoResponse(KEY).assessments.get(COMPLETE.assessment_id),
+      new NoResponse(KEY).assessments.get(COMPLETE.id),
     );
   } finally {
     globalThis.fetch = original;
@@ -96,19 +96,23 @@ test("the key never appears when the client is printed", () => {
 
 test("create sends the contract body and headers and returns the assessment with meta", async () => {
   const { fetcher, calls } = fakeFetch([
-    json(PENDING, { status: 202, headers: { "retry-after": "2", location: "/v1/assessments/" + PENDING.assessment_id } }),
+    json(PENDING, { status: 202, headers: { "retry-after": "2", location: "/v1/assessments/" + PENDING.id } }),
   ]);
   const nr = client(fetcher, { baseUrl: "https://example.com" });
   const assessment = await nr.assessments.create({
     ...REQUEST,
-    policyContext: { flow: "login", region: "AU" },
+    flow: "login",
+    depth: "quick",
+    policyContext: { region: "AU" },
     clientContext: { timezone: "Europe/London", platform: "web", formDurationMs: 1800 },
     responseMode: "detailed",
   });
   assert.equal(assessment.status, "pending");
-  assert.equal(assessment.assessmentId, PENDING.assessment_id);
-  assert.equal(assessment.recommendation, undefined);
-  assert.deepEqual(assessment.meta, { requestId: "a".repeat(32), retryAfter: 2, location: "/v1/assessments/" + PENDING.assessment_id, idempotentReplayed: false });
+  assert.equal(assessment.id, PENDING.id);
+  assert.equal(assessment.account, undefined);
+  assert.equal(assessment.detail.recommendation, undefined);
+  assert.equal(assessment.detail.assessmentUrl, PENDING.detail.assessment_url);
+  assert.deepEqual(assessment.meta, { requestId: "a".repeat(32), retryAfter: 2, location: "/v1/assessments/" + PENDING.id, idempotentReplayed: false });
   const [call] = calls;
   assert.equal(call.method, "POST");
   assert.equal(call.url, "https://example.com/v1/assessments");
@@ -119,22 +123,27 @@ test("create sends the contract body and headers and returns the assessment with
   assert.match(call.headers["idempotency-key"], UUID);
   assert.deepEqual(call.body, {
     account_id: "usr_8f2k1",
+    flow: "login",
+    depth: "quick",
     identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" },
-    policy_context: { flow: "login", region: "AU" },
+    policy_context: { region: "AU" },
     client_context: { timezone: "Europe/London", platform: "web", form_duration_ms: 1800 },
     response_mode: "detailed",
   });
 });
 
 test("create accepts an explicit idempotency key and the generated request shape", async () => {
-  const { fetcher, calls } = fakeFetch([json(RISK, { headers: { "idempotent-replayed": "true" } }), json(COMPLETE)]);
+  const { fetcher, calls } = fakeFetch([json(BLOCK, { headers: { "idempotent-replayed": "true" } }), json(COMPLETE)]);
   const nr = client(fetcher);
   const first = await nr.assessments.create(REQUEST, { idempotencyKey: "signup-usr_8f2k1-0001" });
   assert.equal(first.status, "complete");
-  assert.equal(first.risk.recommendation, RISK.risk.recommendation);
-  assert.equal(first.risk.score, RISK.risk.score);
-  assert.deepEqual(first.risk.reasons.map((reason) => reason.code), RISK.risk.reasons.map((reason) => reason.code));
-  assert.equal(first.risk.summary.email.disposable, RISK.risk.summary.email.disposable);
+  assert.equal(first.flow, "signup");
+  assert.equal(first.account.risk.decision, "block");
+  assert.equal(first.account.risk.score, BLOCK.account.risk.score);
+  assert.deepEqual(first.account.risk.reasons.map((reason) => reason.code), BLOCK.account.risk.reasons.map((reason) => reason.code));
+  assert.equal(first.detail.risk.recommendation, BLOCK.detail.risk.recommendation);
+  assert.equal(first.detail.risk.block, true);
+  assert.equal(first.detail.assessmentVersion, BLOCK.detail.assessment_version);
   assert.equal(first.meta.idempotentReplayed, true);
   await nr.assessments.create({ body: REQUEST, idempotencyKey: "signup-usr_8f2k1-0002" });
   assert.equal(calls[0].headers["idempotency-key"], "signup-usr_8f2k1-0001");
@@ -145,27 +154,28 @@ test("create with an app's own login leaves auth_context out of the body", async
   const { fetcher, calls } = fakeFetch([json(COMPLETE)]);
   const nr = client(fetcher);
   await nr.assessments.create({ ...REQUEST, authContext: undefined });
-  assert.deepEqual(calls[0].body, { account_id: "usr_8f2k1", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } });
+  assert.deepEqual(calls[0].body, { account_id: "usr_8f2k1", flow: "signup", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } });
 });
 
 test("get encodes the id and response mode and exposes Retry-After", async () => {
   const { fetcher, calls } = fakeFetch([json(PENDING, { headers: { "retry-after": "3" } }), json(COMPLETE)]);
   const nr = client(fetcher, { baseUrl: "https://example.com" });
-  const pending = await nr.assessments.get(PENDING.assessment_id, { responseMode: "detailed" });
+  const pending = await nr.assessments.get(PENDING.id, { responseMode: "detailed" });
   assert.equal(pending.meta.retryAfter, 3);
   assert.equal(calls[0].method, "GET");
-  assert.equal(calls[0].url, `https://example.com/v1/assessments/${PENDING.assessment_id}?response_mode=detailed`);
-  const complete = await nr.assessments.get({ assessmentId: COMPLETE.assessment_id });
+  assert.equal(calls[0].url, `https://example.com/v1/assessments/${PENDING.id}?response_mode=detailed`);
+  const complete = await nr.assessments.get({ assessmentId: COMPLETE.id });
   assert.equal(complete.status, "complete");
-  assert.equal(calls[1].url, `https://example.com/v1/assessments/${COMPLETE.assessment_id}`);
+  assert.equal(complete.account.risk.decision, COMPLETE.account.risk.decision);
+  assert.equal(calls[1].url, `https://example.com/v1/assessments/${COMPLETE.id}`);
   assert.equal(calls[1].body, null);
 });
 
 test("query posts the account id in the body and pages to exhaustion", async () => {
   const pages = {
-    undefined: { ...LIST, items: [COMPLETE], next_cursor: "cursor-two" },
-    "cursor-two": { ...LIST, items: [PENDING], next_cursor: "cursor-three" },
-    "cursor-three": { ...LIST, items: [COMPLETE], next_cursor: undefined },
+    undefined: { ...LIST, items: [COMPLETE.detail], next_cursor: "cursor-two" },
+    "cursor-two": { ...LIST, items: [PENDING.detail], next_cursor: "cursor-three" },
+    "cursor-three": { ...LIST, items: [COMPLETE.detail], next_cursor: undefined },
   };
   const { fetcher, calls } = fakeFetch((call) => json(pages[call.body.cursor]));
   const nr = client(fetcher, { baseUrl: "https://example.com" });
@@ -179,12 +189,12 @@ test("query posts the account id in the body and pages to exhaustion", async () 
   assert.equal(page.meta.requestId, "a".repeat(32));
   const seen = [];
   for await (const assessment of page) seen.push(assessment.assessmentId);
-  assert.deepEqual(seen, [COMPLETE.assessment_id, PENDING.assessment_id, COMPLETE.assessment_id]);
+  assert.deepEqual(seen, [COMPLETE.id, PENDING.id, COMPLETE.id]);
   assert.equal(calls.length, 3);
   assert.equal(calls[1].body.cursor, "cursor-two");
   assert.equal(calls[2].body.cursor, "cursor-three");
   const second = await page.next();
-  assert.equal(second.items[0].assessmentId, PENDING.assessment_id);
+  assert.equal(second.items[0].assessmentId, PENDING.id);
   const last = await second.next();
   assert.equal(last.hasMore, false);
   assert.equal(last.nextCursor, undefined);
@@ -252,8 +262,8 @@ test("assessments.delete deletes with DELETE and names the account's next curren
 
 test("accounts.listAssessments sends the query parameters and pages by cursor", async () => {
   const pages = {
-    null: { ...LIST, items: [COMPLETE], next_cursor: "cursor-two" },
-    "cursor-two": { ...LIST, items: [PENDING], next_cursor: undefined },
+    null: { ...LIST, items: [COMPLETE.detail], next_cursor: "cursor-two" },
+    "cursor-two": { ...LIST, items: [PENDING.detail], next_cursor: undefined },
   };
   const { fetcher, calls } = fakeFetch((call) => json(pages[new URL(call.url).searchParams.get("cursor")]));
   const nr = client(fetcher, { baseUrl: "https://example.com" });
@@ -266,7 +276,7 @@ test("accounts.listAssessments sends the query parameters and pages by cursor", 
   assert.equal(page.meta.requestId, "a".repeat(32));
   const seen = [];
   for await (const assessment of page) seen.push(assessment.assessmentId);
-  assert.deepEqual(seen, [COMPLETE.assessment_id, PENDING.assessment_id]);
+  assert.deepEqual(seen, [COMPLETE.id, PENDING.id]);
   assert.equal(calls.length, 2);
   assert.equal(new URL(calls[1].url).searchParams.get("cursor"), "cursor-two");
   assert.equal(new URL(calls[1].url).searchParams.get("limit"), "10");
@@ -279,16 +289,16 @@ test("recordOutcome posts under its Idempotency-Key in both call shapes", async 
   const { fetcher, calls } = fakeFetch([json(OUTCOME, { status: 202 }), json(OUTCOME, { status: 202 })]);
   const nr = client(fetcher, { baseUrl: "https://example.com" });
   const receipt = await nr.assessments.recordOutcome(
-    COMPLETE.assessment_id,
+    COMPLETE.id,
     { outcome: "chargeback", observedAt: "2026-10-20T10:00:00Z", externalRef: "case-42", notes: "Disputed" },
     { idempotencyKey: "outcome-usr_8f2k1-0001" },
   );
   assert.equal(receipt.outcome, OUTCOME.outcome);
   assert.equal(receipt.receivedAt, OUTCOME.received_at);
-  assert.equal(calls[0].url, `https://example.com/v1/assessments/${COMPLETE.assessment_id}/outcomes`);
+  assert.equal(calls[0].url, `https://example.com/v1/assessments/${COMPLETE.id}/outcomes`);
   assert.equal(calls[0].headers["idempotency-key"], "outcome-usr_8f2k1-0001");
   assert.deepEqual(calls[0].body, { outcome: "chargeback", observed_at: "2026-10-20T10:00:00Z", external_ref: "case-42", notes: "Disputed" });
-  await nr.assessments.recordOutcome({ assessmentId: COMPLETE.assessment_id, body: { outcome: "legitimate" } });
+  await nr.assessments.recordOutcome({ assessmentId: COMPLETE.id, body: { outcome: "legitimate" } });
   assert.match(calls[1].headers["idempotency-key"], UUID);
   assert.deepEqual(calls[1].body, { outcome: "legitimate" });
 });
@@ -443,7 +453,7 @@ test("every status maps to its error class with the problem fields", async () =>
     const extra = status === 400 ? { invalid_params: [{ field: "identifiers", reason: "required" }] } : {};
     const { fetcher } = fakeFetch([problem(status, code, extra)]);
     const nr = client(fetcher, { retryConfig: { strategy: "none" } });
-    await assert.rejects(nr.assessments.get(COMPLETE.assessment_id), (error) => {
+    await assert.rejects(nr.assessments.get(COMPLETE.id), (error) => {
       assert.ok(error instanceof Class, `${status} should be ${Class.name}, got ${error.constructor.name}: ${error.message}`);
       assert.ok(error instanceof NoResponseError);
       assert.equal(error.status, status);
@@ -464,7 +474,7 @@ test("every status maps to its error class with the problem fields", async () =>
 test("a non-JSON error body still yields a typed error with the request id from the header", async () => {
   const { fetcher } = fakeFetch([new Response("bad gateway", { status: 502, headers: { "x-request-id": "c".repeat(32) } })]);
   const nr = client(fetcher, { retryConfig: { strategy: "none" } });
-  await assert.rejects(nr.assessments.get(COMPLETE.assessment_id), (error) => {
+  await assert.rejects(nr.assessments.get(COMPLETE.id), (error) => {
     assert.ok(error instanceof APIStatusError);
     assert.equal(error.status, 502);
     assert.equal(error.code, null);
@@ -478,14 +488,14 @@ test("a non-JSON error body still yields a typed error with the request id from 
 test("a non-JSON 2xx body is an invalid_response error", async () => {
   const { fetcher } = fakeFetch([new Response("<html>", { status: 200, headers: { "content-type": "text/html" } })]);
   const nr = client(fetcher);
-  await assert.rejects(nr.assessments.get(COMPLETE.assessment_id), (error) => {
+  await assert.rejects(nr.assessments.get(COMPLETE.id), (error) => {
     assert.ok(error instanceof NoResponseError, error.constructor.name);
     assert.equal(error.status, 200);
     assert.equal(error.code, "invalid_response");
     return true;
   });
   const { fetcher: broken } = fakeFetch([json({ unexpected: true })]);
-  await assert.rejects(client(broken).assessments.get(COMPLETE.assessment_id), (error) => {
+  await assert.rejects(client(broken).assessments.get(COMPLETE.id), (error) => {
     assert.ok(error instanceof ResponseValidationError, error.constructor.name);
     assert.equal(error.code, "invalid_response");
     return true;
@@ -534,7 +544,7 @@ test("a hostile Retry-After is capped at 8 seconds and 409 is never retried", as
 test("408 and connection errors are retried; a timeout surfaces as APITimeoutError", async (t) => {
   t.mock.timers.enable({ apis: ["setTimeout"] });
   const { fetcher, calls } = fakeFetch([new TypeError("fetch failed"), problem(408, "timeout"), json(COMPLETE)]);
-  const result = await drive(t.mock.timers, client(fetcher).assessments.get(COMPLETE.assessment_id), [1500, 2500]);
+  const result = await drive(t.mock.timers, client(fetcher).assessments.get(COMPLETE.id), [1500, 2500]);
   assert.equal(result.status, "complete");
   assert.equal(calls.length, 3);
   t.mock.timers.reset();
@@ -544,13 +554,13 @@ test("408 and connection errors are retried; a timeout surfaces as APITimeoutErr
   // The request timeout's timer is unref'd (AbortSignal.timeout), and this
   // fetch holds no socket open, so keep the event loop alive until it fires.
   const keepAlive = setInterval(() => {}, 1000);
-  await assert.rejects(slow.assessments.get(COMPLETE.assessment_id), (error) => {
+  await assert.rejects(slow.assessments.get(COMPLETE.id), (error) => {
     assert.ok(error instanceof APITimeoutError);
     assert.ok(error instanceof RequestTimeoutError);
     return true;
   }).finally(() => clearInterval(keepAlive));
   const { fetcher: down } = fakeFetch(() => new TypeError("fetch failed"));
-  await assert.rejects(client(down, { retryConfig: { strategy: "none" } }).assessments.get(COMPLETE.assessment_id), (error) => {
+  await assert.rejects(client(down, { retryConfig: { strategy: "none" } }).assessments.get(COMPLETE.id), (error) => {
     assert.ok(error instanceof APIConnectionError);
     assert.ok(error instanceof ConnectionError);
     return true;
@@ -568,14 +578,14 @@ test("wait polls with Retry-After, floors at 1 s and gives up with APITimeoutErr
   const nr = client(fetcher, { baseUrl: "https://example.com" });
   const created = await nr.assessments.create(REQUEST);
   assert.equal(created.status, "pending");
-  const result = await drive(t.mock.timers, nr.assessments.wait(created.assessmentId, { responseMode: "detailed" }), [2000, 1000]);
+  const result = await drive(t.mock.timers, nr.assessments.wait(created.id, { responseMode: "detailed" }), [2000, 1000]);
   assert.equal(result.status, "complete");
   assert.equal(calls.length, 4);
-  assert.equal(calls[1].url, `https://example.com/v1/assessments/${PENDING.assessment_id}?response_mode=detailed`);
+  assert.equal(calls[1].url, `https://example.com/v1/assessments/${PENDING.id}?response_mode=detailed`);
 
   const { fetcher: forever } = fakeFetch(() => json(PENDING, { headers: { "retry-after": "1" } }));
   const stuck = client(forever);
-  const waiting = stuck.assessments.wait(PENDING.assessment_id, { timeoutMs: 2500 });
+  const waiting = stuck.assessments.wait(PENDING.id, { timeoutMs: 2500 });
   const rejection = assert.rejects(waiting, (error) => {
     assert.ok(error instanceof APITimeoutError);
     assert.match(error.message, /Timed out after 2500 ms/);
@@ -588,7 +598,7 @@ test("wait polls with Retry-After, floors at 1 s and gives up with APITimeoutErr
 test("wait keeps polling a partial answer until it is complete", async (t) => {
   t.mock.timers.enable({ apis: ["setTimeout", "Date"] });
   const { fetcher, calls } = fakeFetch([json(PARTIAL), json(PARTIAL, { headers: { "retry-after": "2" } }), json(COMPLETE)]);
-  const result = await drive(t.mock.timers, client(fetcher).assessments.wait(PARTIAL.assessment_id), [1000, 2000]);
+  const result = await drive(t.mock.timers, client(fetcher).assessments.wait(PARTIAL.id), [1000, 2000]);
   assert.equal(result.status, "complete");
   assert.equal(calls.length, 3);
 });
@@ -596,9 +606,9 @@ test("wait keeps polling a partial answer until it is complete", async (t) => {
 test("wait returns the latest partial answer when the timeout passes", async (t) => {
   t.mock.timers.enable({ apis: ["setTimeout", "Date"] });
   const { fetcher, calls } = fakeFetch((_, n) => (n === 1 ? json(PENDING, { headers: { "retry-after": "1" } }) : json(PARTIAL)));
-  const result = await drive(t.mock.timers, client(fetcher).assessments.wait(PENDING.assessment_id, { timeoutMs: 2500 }), [1000, 1000, 500, 500]);
+  const result = await drive(t.mock.timers, client(fetcher).assessments.wait(PENDING.id, { timeoutMs: 2500 }), [1000, 1000, 500, 500]);
   assert.equal(result.status, "partial");
-  assert.equal(result.assessmentId, PARTIAL.assessment_id);
+  assert.equal(result.id, PARTIAL.id);
   assert.ok(calls.length >= 3, `polled ${calls.length} times`);
 });
 

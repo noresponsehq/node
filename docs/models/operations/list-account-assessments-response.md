@@ -26,10 +26,10 @@ let value: ListAccountAssessmentsResponse = {
         status: "complete",
         confidence: "unavailable",
         risk: {
-          score: 419761,
+          score: 749093,
           band: "high",
-          recommendation: "allow",
-          confidence: "high",
+          recommendation: "review",
+          confidence: "low",
           policyVersion: "risk-2026-10.3",
           policyBasis: "heuristic_unvalidated",
           reasons: [],
@@ -43,15 +43,15 @@ let value: ListAccountAssessmentsResponse = {
             },
           },
           coverage: {
-            answered: 898586,
-            failed: 516216,
-            pending: 674465,
+            answered: 679809,
+            failed: 443549,
+            pending: 197967,
           },
           details: {
             phoneNames: [
               {
                 value: "Alex Example",
-                seenBy: 176739,
+                seenBy: 150748,
               },
             ],
             breaches: [
@@ -59,14 +59,14 @@ let value: ListAccountAssessmentsResponse = {
                 name: "Example Forum",
                 domain: "forum.example.com",
                 category: "forum",
-                kind: "darkweb_site",
-                matchedOn: "ip",
+                kind: "credential_list",
+                matchedOn: "username",
               },
             ],
             breachNames: [
               {
                 value: "Alex Example",
-                seenIn: 749093,
+                seenIn: 571629,
               },
             ],
           },
@@ -74,8 +74,8 @@ let value: ListAccountAssessmentsResponse = {
         signals: [
           {
             type: "account_presence",
-            identifier: "phone",
-            outcome: "unavailable",
+            identifier: "username",
+            outcome: "blocked",
             sourceId: "github",
             evidenceRef: "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
             observedAt: "2026-10-14T09:00:00.210Z",
@@ -135,8 +135,8 @@ let value: ListAccountAssessmentsResponse = {
         expiresAt: "2027-10-14T09:00:00.000Z",
         assessmentUrl: "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         timing: {
-          deadlineMs: 443549,
-          elapsedMs: 197967,
+          deadlineMs: 591072,
+          elapsedMs: 436508,
         },
         authContext: {
           provider: "clerk",
@@ -145,7 +145,7 @@ let value: ListAccountAssessmentsResponse = {
           sessionId: "sess_2EXAMPLE",
           organizationId: "org_2EXAMPLE",
           verified: true,
-          transport: "backend",
+          transport: "browser",
         },
       },
     ],

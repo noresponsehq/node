@@ -11,7 +11,7 @@ let value: RiskDetails = {
   phoneNames: [
     {
       value: "Alex Example",
-      seenBy: 176739,
+      seenBy: 150748,
     },
   ],
   breaches: [
@@ -19,14 +19,14 @@ let value: RiskDetails = {
       name: "Example Forum",
       domain: "forum.example.com",
       category: "forum",
-      kind: "darkweb_site",
-      matchedOn: "ip",
+      kind: "credential_list",
+      matchedOn: "username",
     },
   ],
   breachNames: [
     {
       value: "Alex Example",
-      seenIn: 749093,
+      seenIn: 571629,
     },
   ],
 };

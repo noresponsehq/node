@@ -2,8 +2,8 @@
  * Late-result handlers. Hand-written; not generated.
  *
  * An assessment can be revised after the signup was allowed: a slow source
- * settles and the recommendation rises. NoResponse sends the new version as a
- * signed assessment.updated webhook. handleLateResult verifies that delivery
+ * settles and the account's decision rises. NoResponse sends the new version as
+ * a signed assessment.updated webhook. handleLateResult verifies that delivery
  * with constructEvent, picks an action from your policy, and acts through the
  * auth provider's admin API: revoke the user's sessions or ban the user.
  *
@@ -13,16 +13,22 @@
  * the provider's documented admin endpoint. A provider 404 for a user or
  * session that is already gone counts as done, so a repeated delivery is safe.
  */
+import type { Assessment } from "./models/assessment.js";
 import { constructEvent, type ConstructEventOptions, type HeaderInput, type WebhookEvent, type WebhookSecrets } from "./webhooks.js";
 
 /** What to do to the user. "ban" also ends every session. */
 export type LateResultAction = "none" | "revoke_sessions" | "ban";
 
-/** The action for each recommendation. A recommendation you leave out does nothing. */
-export type LateResultPolicy = Readonly<Partial<Record<"allow" | "step_up" | "review", LateResultAction>>>;
+/** The action for each account decision (account.risk.decision). A decision you leave out does nothing. */
+export type LateResultPolicy = Readonly<Partial<Record<"allow" | "step_up" | "review" | "block", LateResultAction>>>;
 
-/** Revoke sessions on review; do nothing on allow or step_up. Banning is opt-in. */
-export const DEFAULT_LATE_RESULT_POLICY: LateResultPolicy = Object.freeze({ allow: "none", step_up: "none", review: "revoke_sessions" });
+/** Revoke sessions on review and block; do nothing on allow or step_up. Banning is opt-in. */
+export const DEFAULT_LATE_RESULT_POLICY: LateResultPolicy = Object.freeze({
+  allow: "none",
+  step_up: "none",
+  review: "revoke_sessions",
+  block: "revoke_sessions",
+});
 
 /** The two admin actions, for one auth provider. Build one with clerkActions, workosActions or auth0Actions. */
 export interface LateResultProvider {
@@ -47,10 +53,10 @@ export interface LateResultActor extends LateResultProvider {
 }
 
 export type LateResultOptions = ConstructEventOptions & {
-  /** Recommendation to action. Defaults to DEFAULT_LATE_RESULT_POLICY. */
+  /** Account decision to action. Defaults to DEFAULT_LATE_RESULT_POLICY. */
   policy?: LateResultPolicy;
   /**
-   * The provider user id for the assessment's account_id. Defaults to the
+   * The provider user id for the assessment's detail.account_id. Defaults to the
    * account_id itself, as when you assess with the provider's user id.
    * Return null or undefined to take no action.
    */
@@ -92,16 +98,19 @@ export class ProviderActionError extends Error {
 const ACTIONS: readonly string[] = ["none", "revoke_sessions", "ban"];
 
 /**
- * The action your policy names for a verified event. Only a served assessment with a recommendation can act;
- * a test event from webhookEndpoints.sendTestEvent never does.
+ * The action your policy names for a verified event's account.risk.decision. Only a complete or partial
+ * assessment whose account has a decision can act; a pending one and a test event from
+ * webhookEndpoints.sendTestEvent never do.
  */
 export function lateResultAction(event: WebhookEvent, policy: LateResultPolicy = DEFAULT_LATE_RESULT_POLICY): LateResultAction {
   if (event.type !== "assessment.updated" || event.data.status === "expired") return "none";
   if ("test" in event && event.test === true) return "none";
-  const data = event.data as { recommendation?: string; risk?: { recommendation?: string } };
-  const recommendation = data.recommendation ?? data.risk?.recommendation;
-  if (recommendation !== "allow" && recommendation !== "step_up" && recommendation !== "review") return "none";
-  const action = Object.prototype.hasOwnProperty.call(policy, recommendation) ? policy[recommendation] : undefined;
+  const data = event.data as Assessment;
+  // A pending answer carries an earlier assessment's decision; acting on it would repeat that action.
+  if (data.status === "pending") return "none";
+  const decision: string | undefined = data.account?.risk.decision;
+  if (decision !== "allow" && decision !== "step_up" && decision !== "review" && decision !== "block") return "none";
+  const action = Object.prototype.hasOwnProperty.call(policy, decision) ? policy[decision] : undefined;
   if (action === undefined) return "none";
   if (!ACTIONS.includes(action)) throw new TypeError(`unknown late result action ${String(action)}`);
   return action;
@@ -127,7 +136,7 @@ export async function handleLateResult(
   const event = constructEvent(payload, headers, secrets, verify);
   const action = lateResultAction(event, policy);
   if (action === "none" || event.type !== "assessment.updated") return { event, action: "none" };
-  const accountId = event.data.accountId;
+  const accountId = (event.data as Assessment).detail.accountId;
   const userId = resolve ? await resolve(accountId, event) : accountId;
   if (userId === null || userId === undefined || userId === "") return { event, action: "none" };
   let ran: LateResultAction = action;

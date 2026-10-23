@@ -15,15 +15,17 @@ const client = () => new NoResponse({ apiKey: "nrk_mock_" + "k".repeat(20), base
 test("create returns the documented assessment", { skip }, async () => {
   const assessment = await client().assessments.create({
     accountId: "acct_7f3a9c",
+    flow: "signup",
     identifiers: { email: "new.user@example.com" },
   });
-  assert.match(assessment.assessmentId, /^asm_/);
-  assert.equal(assessment.accountId, "acct_7f3a9c");
+  assert.match(assessment.id, /^asm_/);
+  assert.equal(assessment.detail.accountId, "acct_7f3a9c");
 });
 
 test("get returns the documented assessment", { skip }, async () => {
   const assessment = await client().assessments.get("asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
-  assert.match(assessment.assessmentId, /^asm_/);
+  assert.match(assessment.id, /^asm_/);
+  assert.equal(assessment.detail.assessmentId, assessment.id);
 });
 
 test("accounts.get returns the documented account", { skip }, async () => {

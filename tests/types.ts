@@ -12,6 +12,7 @@ import {
   type AccountDeletion,
   type AssessmentDeletion,
   type Assessment,
+  type AssessmentDetail,
   type AssessmentOutcome,
   type AssessmentPage,
   type AuthContext,
@@ -29,17 +30,22 @@ const nr = new NoResponse({ apiKey: "k" });
 
 async function surface(): Promise<void> {
   const created: WithMeta<Assessment> = await nr.assessments.create(
-    { accountId: "usr_8f2k1", identifiers: { email: "jordan.lee@example.com" } },
+    { accountId: "usr_8f2k1", flow: "signup", identifiers: { email: "jordan.lee@example.com" } },
     { idempotencyKey: "signup-usr_8f2k1-0001" },
   );
   const requestId: string | null = created.meta.requestId;
-  const risk: Risk | undefined = created.risk;
+  const current: AccountDecision | undefined = created.account?.risk.decision;
+  const risk: Risk | undefined = created.detail.risk;
   const reasons: RiskReason[] | undefined = risk?.reasons;
-  const polled: Assessment = await nr.assessments.wait(created.assessmentId, { timeoutMs: 5_000, responseMode: "detailed" });
+  const version: number = created.detail.assessmentVersion;
+  // @ts-expect-error flow is required
+  await nr.assessments.create({ accountId: "usr_8f2k1", identifiers: { email: "jordan.lee@example.com" } });
+  const polled: Assessment = await nr.assessments.wait(created.id, { timeoutMs: 5_000, responseMode: "detailed" });
   const page: AssessmentPage = await nr.assessments.query({ accountId: "usr_8f2k1" });
   for await (const item of page) {
+    const detail: AssessmentDetail = item;
     const id: string = item.assessmentId;
-    void id;
+    void [detail, id];
   }
   const next: AssessmentPage | null = await page.next();
   const account: WithMeta<Account> = await nr.accounts.get("usr_8f2k1");
@@ -54,7 +60,7 @@ async function surface(): Promise<void> {
   // @ts-expect-error deny is not an account decision
   const deny: AccountDecision = "deny";
   void [decision, history, deny];
-  const receipt: AssessmentOutcome = await nr.assessments.recordOutcome(created.assessmentId, { outcome: "chargeback" });
+  const receipt: AssessmentOutcome = await nr.assessments.recordOutcome(created.id, { outcome: "chargeback" });
   const rotation = await nr.keys.rotate({ overlapSeconds: 3600 });
   const key: string = rotation.key;
   const mode: ResponseMode = "detailed";
@@ -63,7 +69,7 @@ async function surface(): Promise<void> {
   const outcome: Outcome = "chargeback";
   // @ts-expect-error the outcome vocabulary is closed
   const fraud: Outcome = "fraud";
-  void [requestId, reasons, polled, next, receipt, key, mode, raw, outcome, fraud];
+  void [requestId, current, reasons, version, polled, next, receipt, key, mode, raw, outcome, fraud];
 }
 
 function errors(error: unknown): void {
@@ -88,7 +94,8 @@ function webhooks(): void {
     void version;
   } else if (event.type === "assessment.updated") {
     const assessment: Assessment = event.data;
-    void assessment;
+    const version: number = assessment.detail.assessmentVersion;
+    void [assessment, version];
   } else if (event.type === "account.deleted") {
     const erased: number = event.data.assessmentsDeleted;
     void erased;

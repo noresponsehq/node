@@ -1,10 +1,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import {
-  AssessmentFlow,
-  AssessmentFlow$outboundSchema,
-} from "./assessment-flow.js";
-import {
   AssessmentRequestClientContext,
   AssessmentRequestClientContext$Outbound,
   AssessmentRequestClientContext$outboundSchema,
@@ -30,6 +26,7 @@ import {
   AuthContext$outboundSchema,
 } from "./auth-context.js";
 import { Depth, Depth$outboundSchema } from "./depth.js";
+import { Flow, Flow$outboundSchema } from "./flow.js";
 import { ResponseMode, ResponseMode$outboundSchema } from "./response-mode.js";
 
 /**
@@ -43,7 +40,7 @@ export type AssessmentRequest = {
   /**
    * The customer event an assessment is made for: signup (a new account), login (a returning sign-in) or purchase (a payment or credit grant). The account's risk is reported with the decision for this flow.
    */
-  flow?: AssessmentFlow | undefined;
+  flow: Flow;
   /**
    * How long the synchronous answer waits for sources. quick waits only for the fast sources, those that answer within 500 ms of ingress (or deadline_ms when lower); full waits for the whole budget, up to 3000 ms. Sources still running at the cut continue asynchronously and update the assessment either way.
    */
@@ -52,6 +49,9 @@ export type AssessmentRequest = {
    * At least one of email, username or phone. name and ip refine the match and travel beside a lookup identifier; a body with only name or ip is refused with 400.
    */
   identifiers: AssessmentRequestIdentifiers;
+  /**
+   * Optional policy inputs: region.
+   */
   policyContext?: AssessmentRequestPolicyContext | undefined;
   /**
    * An optional provider correlation id, echoed back. It is not an idempotency key. Refuses an exact-shape JWT or a bare 40, 64 or 128 character hex digest; a UUID is accepted.
@@ -82,7 +82,7 @@ export type AssessmentRequest = {
 /** @internal */
 export type AssessmentRequest$Outbound = {
   account_id: string;
-  flow?: string | undefined;
+  flow: string;
   depth?: string | undefined;
   identifiers: AssessmentRequestIdentifiers$Outbound;
   policy_context?: AssessmentRequestPolicyContext$Outbound | undefined;
@@ -101,7 +101,7 @@ export const AssessmentRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     accountId: z.string(),
-    flow: z.optional(AssessmentFlow$outboundSchema),
+    flow: Flow$outboundSchema,
     depth: z.optional(Depth$outboundSchema),
     identifiers: AssessmentRequestIdentifiers$outboundSchema,
     policyContext: z.optional(AssessmentRequestPolicyContext$outboundSchema),

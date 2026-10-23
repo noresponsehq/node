@@ -88,7 +88,7 @@ export type AssessmentPage = models.AssessmentList & {
   hasMore: boolean;
   /** The next page, or null on the last one. */
   next(): Promise<AssessmentPage | null>;
-  [Symbol.asyncIterator](): AsyncIterator<models.Assessment>;
+  [Symbol.asyncIterator](): AsyncIterator<models.AssessmentDetail>;
 };
 
 function readEnv(name: string): string | undefined {

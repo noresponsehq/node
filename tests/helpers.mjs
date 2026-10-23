@@ -3,10 +3,10 @@ import { readFileSync } from "node:fs";
 export const fixture = (name) =>
   JSON.parse(readFileSync(new URL("./fixtures/" + name, import.meta.url), "utf8"));
 
-export const PENDING = fixture("valid/assessment-pending.json");
-export const COMPLETE = fixture("valid/assessment-complete.json");
-export const PARTIAL = fixture("valid/assessment-partial.json");
-export const RISK = fixture("valid/assessment-risk.json");
+export const PENDING = fixture("valid/assessment-view-pending.json");
+export const COMPLETE = fixture("valid/assessment-view-complete.json");
+export const PARTIAL = fixture("valid/assessment-view-partial.json");
+export const BLOCK = fixture("valid/assessment-view-block.json");
 export const LIST = fixture("valid/assessment-list.json");
 export const OUTCOME = fixture("valid/assessment-outcome.json");
 export const ROTATION = fixture("valid/key-rotation.json");
@@ -19,7 +19,7 @@ export const ACCOUNT_DELETION = fixture("valid/account-deletion.json");
 export const ASSESSMENT_DELETION = fixture("valid/assessment-deletion.json");
 export const ASSESSMENT_DELETION_LAST = fixture("valid/assessment-deletion-last.json");
 
-export const REQUEST = { accountId: "usr_8f2k1", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } };
+export const REQUEST = { accountId: "usr_8f2k1", flow: "signup", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } };
 
 /** A JSON response with the headers every real answer carries. */
 export function json(body, { status = 200, headers = {} } = {}) {

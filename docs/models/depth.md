@@ -8,10 +8,12 @@ How long the synchronous answer waits for sources. quick waits only for the fast
 import { Depth } from "@noresponse/node/models";
 
 let value: Depth = "full";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
 
 ```typescript
-"quick" | "full"
+"quick" | "full" | Unrecognized<string>
 ```

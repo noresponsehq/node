@@ -24,7 +24,7 @@ export type Account = {
   id: string;
   risk: AccountRisk;
   /**
-   * The decision for each flow. Every flow uses the tenant's signup thresholds today, so all three equal risk.decision.
+   * The decision for each flow. Every flow uses the tenant's signup thresholds today, so all three are equal.
    */
   decisionsByFlow: AccountDecisionsByFlow;
   /**

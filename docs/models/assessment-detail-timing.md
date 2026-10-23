@@ -1,13 +1,13 @@
-# AssessmentTiming
+# AssessmentDetailTiming
 
 ## Example Usage
 
 ```typescript
-import { AssessmentTiming } from "@noresponse/node/models";
+import { AssessmentDetailTiming } from "@noresponse/node/models";
 
-let value: AssessmentTiming = {
-  deadlineMs: 224343,
-  elapsedMs: 330616,
+let value: AssessmentDetailTiming = {
+  deadlineMs: 3698,
+  elapsedMs: 580970,
 };
 ```
 
