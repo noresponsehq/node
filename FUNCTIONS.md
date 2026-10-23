@@ -30,7 +30,7 @@ const noResponse = new NoResponseCore({
 
 async function run() {
   const res = await assessmentsCreate(noResponse, {
-    idempotencyKey: "signup-7f3a9c-0001",
+    idempotencyKey: "signup-acct_7f3a9c",
     body: {
       accountId: "acct_7f3a9c",
       identifiers: {
