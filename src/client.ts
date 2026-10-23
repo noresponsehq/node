@@ -239,7 +239,7 @@ export class Assessments {
     return withMeta(response.result, response.headers);
   }
 
-  /** Poll until the assessment is no longer pending, honouring Retry-After, for at most timeoutMs (default 30 s). */
+  /** Poll until the assessment is complete, honouring Retry-After, for at most timeoutMs (default 30 s); then return a partial answer as it stands or throw APITimeoutError while it is pending. */
   wait(assessmentId: string, options: WaitOptions = {}): Promise<WithMeta<models.Assessment>> {
     return waitForAssessment((id, opts) => this.get(id, opts), assessmentId, options);
   }

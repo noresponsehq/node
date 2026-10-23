@@ -5,6 +5,7 @@ export const fixture = (name) =>
 
 export const PENDING = fixture("valid/assessment-pending.json");
 export const COMPLETE = fixture("valid/assessment-complete.json");
+export const PARTIAL = fixture("valid/assessment-partial.json");
 export const RISK = fixture("valid/assessment-risk.json");
 export const LIST = fixture("valid/assessment-list.json");
 export const OUTCOME = fixture("valid/assessment-outcome.json");

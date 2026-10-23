@@ -1,5 +1,5 @@
 /**
- * Poll an assessment until it is no longer pending. Hand-written; not generated.
+ * Poll an assessment until it is complete. Hand-written; not generated.
  */
 import { RequestTimeoutError } from "./models/errors/http-client-errors.js";
 import type { Assessment } from "./models/assessment.js";
@@ -11,7 +11,11 @@ export const DEFAULT_WAIT_TIMEOUT_MS = 30_000;
 export const MIN_POLL_INTERVAL_MS = 1_000;
 
 export type WaitOptions = {
-  /** Give up after this long with an APITimeoutError. Default 30 000 ms. */
+  /**
+   * Stop polling after this long. Default 30 000 ms. If the latest answer is
+   * partial by then, wait returns it (its status stays "partial"); if it is
+   * still pending, wait throws an APITimeoutError.
+   */
   timeoutMs?: number;
   responseMode?: ResponseMode;
   /** Abort the wait early. */
@@ -42,9 +46,11 @@ function sleep(ms: number, signal: AbortSignal | undefined): Promise<void> {
 }
 
 /**
- * Poll `get` until the assessment is not pending. Each poll waits the
+ * Poll `get` until the assessment's status is "complete". Each poll waits the
  * server's Retry-After, with a 1 second floor, and the whole wait is bounded
- * by `timeoutMs` (default 30 s), after which an APITimeoutError is thrown.
+ * by `timeoutMs` (default 30 s). When the time runs out, a partial answer is
+ * returned as it stands, with status "partial", and a pending one throws an
+ * APITimeoutError, because a pending assessment has no recommendation yet.
  */
 export async function waitForAssessment(
   get: Getter,
@@ -56,21 +62,30 @@ export async function waitForAssessment(
     throw new TypeError("timeoutMs must be a positive integer");
   }
   const deadline = Date.now() + timeoutMs;
+  let last: WithMeta<Assessment> | undefined;
+  const timedOut = (): WithMeta<Assessment> => {
+    if (last?.status === "partial") return last;
+    throw new RequestTimeoutError(`Timed out after ${timeoutMs} ms waiting for assessment ${assessmentId}`);
+  };
   const getOptions: { responseMode?: ResponseMode; signal?: AbortSignal; timeoutMs?: number } = {};
   if (options.responseMode !== undefined) getOptions.responseMode = options.responseMode;
   if (options.signal !== undefined) getOptions.signal = options.signal;
   for (;;) {
     const requestRemaining = deadline - Date.now();
-    if (requestRemaining <= 0) {
-      throw new RequestTimeoutError(`Timed out after ${timeoutMs} ms waiting for assessment ${assessmentId}`);
-    }
+    if (requestRemaining <= 0) return timedOut();
     getOptions.timeoutMs = requestRemaining;
-    const assessment = await get(assessmentId, getOptions);
-    if (assessment.status !== "pending") return assessment;
-    const remaining = deadline - Date.now();
-    if (remaining <= 0) {
-      throw new RequestTimeoutError(`Timed out after ${timeoutMs} ms waiting for assessment ${assessmentId}`);
+    let assessment: WithMeta<Assessment>;
+    try {
+      assessment = await get(assessmentId, getOptions);
+    } catch (error) {
+      // The last poll ran into the deadline: a partial answer still stands.
+      if (error instanceof RequestTimeoutError && !options.signal?.aborted && last?.status === "partial") return last;
+      throw error;
     }
+    if (assessment.status === "complete") return assessment;
+    last = assessment;
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) return timedOut();
     const retryAfter = assessment.meta.retryAfter;
     const delay = Math.max(MIN_POLL_INTERVAL_MS, (retryAfter ?? 0) * 1000);
     await sleep(Math.min(delay, remaining), options.signal);

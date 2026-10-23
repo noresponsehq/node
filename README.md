@@ -84,7 +84,7 @@ const latest = await nr.assessments.get(assessment.assessmentId);
 const settled = await nr.assessments.wait(assessment.assessmentId, { timeoutMs: 30_000 });
 ```
 
-`wait` polls `get` until the status is no longer pending, sleeping the server's `Retry-After` (at least one second) between polls, and throws `APITimeoutError` at `timeoutMs` (default 30 s). Pass `responseMode: "detailed"` to either.
+`wait` polls `get` until the status is `complete`, sleeping the server's `Retry-After` (at least one second) between polls. At `timeoutMs` (default 30 s) it returns the latest answer if that is `partial`, with its status still `partial`, and throws `APITimeoutError` if the assessment is still `pending`. Pass `responseMode: "detailed"` to either.
 
 ### Query an account's history
 

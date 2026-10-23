@@ -28,6 +28,7 @@ import {
   INTEGRATION_ROTATED,
   LIST,
   OUTCOME,
+  PARTIAL,
   PENDING,
   REQUEST,
   RISK,
@@ -542,6 +543,23 @@ test("wait polls with Retry-After, floors at 1 s and gives up with APITimeoutErr
   });
   await drive(t.mock.timers, waiting.catch(() => {}), [1000, 1000, 500, 500]);
   await rejection;
+});
+
+test("wait keeps polling a partial answer until it is complete", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout", "Date"] });
+  const { fetcher, calls } = fakeFetch([json(PARTIAL), json(PARTIAL, { headers: { "retry-after": "2" } }), json(COMPLETE)]);
+  const result = await drive(t.mock.timers, client(fetcher).assessments.wait(PARTIAL.assessment_id), [1000, 2000]);
+  assert.equal(result.status, "complete");
+  assert.equal(calls.length, 3);
+});
+
+test("wait returns the latest partial answer when the timeout passes", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout", "Date"] });
+  const { fetcher, calls } = fakeFetch((_, n) => (n === 1 ? json(PENDING, { headers: { "retry-after": "1" } }) : json(PARTIAL)));
+  const result = await drive(t.mock.timers, client(fetcher).assessments.wait(PENDING.assessment_id, { timeoutMs: 2500 }), [1000, 1000, 500, 500]);
+  assert.equal(result.status, "partial");
+  assert.equal(result.assessmentId, PARTIAL.assessment_id);
+  assert.ok(calls.length >= 3, `polled ${calls.length} times`);
 });
 
 test("debug logging shows method, URL, status and request id but never the key or a body", async () => {
