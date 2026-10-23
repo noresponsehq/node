@@ -292,6 +292,16 @@ async function handler(req, res) {
     forgetAccount(event.data.accountId, event.data.deletedAt);
     return res.status(204).end();
   }
+  if (event.type === "tenant.deleted") {
+    // The workspace is deleted: the last event this endpoint receives, once per environment.
+    forgetEnvironment(event.data.environment);
+    return res.status(204).end();
+  }
+  if (event.type === "webhook_endpoint.disabled") {
+    // Another endpoint failed for 72 hours and is disabled until you verify it again.
+    alertOps(event.data.endpointId, event.data.failingSince);
+    return res.status(204).end();
+  }
   if (isExpiredEvent(event)) {
     forget(event.data.assessmentId); // GET now answers 404
   } else if (event.test) {

@@ -112,6 +112,68 @@ test("account.deleted is typed and carries the erased account", () => {
   }
 });
 
+const TENANT_DELETED = {
+  id: "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2",
+  type: "tenant.deleted",
+  created_at: "2026-10-23T10:00:00.000Z",
+  data: { workspace_id: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM", environment: "live", deleted_at: "2026-10-23T10:00:00.000Z" },
+};
+
+const ENDPOINT_DISABLED = {
+  id: "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V3",
+  type: "webhook_endpoint.disabled",
+  created_at: "2026-10-23T10:00:00.000Z",
+  data: { endpoint_id: "whe_01JA2ZD0E1F2G3H4J5K6M7N8P9", failing_since: "2026-10-20T10:00:00.000Z", disabled_at: "2026-10-23T10:00:00.000Z" },
+};
+
+const refusesMutations = (original, mutations) => {
+  for (const mutate of mutations) {
+    const body = structuredClone(original);
+    mutate(body);
+    const bad = signed(body, "secret", String(now), body.id);
+    code(() => constructEvent(bad.raw, bad.headers, { whk_sdktest01: "secret" }, { now }), "invalid_payload");
+  }
+};
+
+test("tenant.deleted is typed and carries the deleted workspace", () => {
+  const d = signed(TENANT_DELETED, "secret", String(now), TENANT_DELETED.id);
+  const event = constructEvent(d.raw, d.headers, { whk_sdktest01: "secret" }, { now });
+  assert.equal(event.type, "tenant.deleted");
+  assert.equal(event.id, TENANT_DELETED.id);
+  assert.equal(event.createdAt, "2026-10-23T10:00:00.000Z");
+  assert.equal(event.test, false);
+  assert.deepEqual(event.data, { workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM", environment: "live", deletedAt: "2026-10-23T10:00:00.000Z" });
+  assert.equal(isExpiredEvent(event), false);
+  assert.throws(() => verificationResponse(event), WebhookVerificationError);
+  refusesMutations(TENANT_DELETED, [
+    (body) => { delete body.data.workspace_id; },
+    (body) => { body.data.workspace_id = "-tnt"; },
+    (body) => { body.data.workspace_id = "tnt/01"; },
+    (body) => { body.data.environment = "staging"; },
+    (body) => { delete body.data.environment; },
+    (body) => { body.data.deleted_at = "tomorrow"; },
+    (body) => { delete body.data.deleted_at; },
+  ]);
+});
+
+test("webhook_endpoint.disabled is typed and names the disabled endpoint", () => {
+  const d = signed(ENDPOINT_DISABLED, "secret", String(now), ENDPOINT_DISABLED.id);
+  const event = constructEvent(d.raw, d.headers, { whk_sdktest01: "secret" }, { now });
+  assert.equal(event.type, "webhook_endpoint.disabled");
+  assert.equal(event.test, false);
+  assert.deepEqual(event.data, { endpointId: "whe_01JA2ZD0E1F2G3H4J5K6M7N8P9", failingSince: "2026-10-20T10:00:00.000Z", disabledAt: "2026-10-23T10:00:00.000Z" });
+  assert.equal(isExpiredEvent(event), false);
+  assert.throws(() => verificationResponse(event), WebhookVerificationError);
+  refusesMutations(ENDPOINT_DISABLED, [
+    (body) => { body.data.endpoint_id = "whk_01JA2ZD0E1F2G3H4J5K6M7N8P9"; },
+    (body) => { delete body.data.endpoint_id; },
+    (body) => { body.data.failing_since = "three days ago"; },
+    (body) => { delete body.data.failing_since; },
+    (body) => { body.data.disabled_at = "now"; },
+    (body) => { delete body.data.disabled_at; },
+  ]);
+});
+
 // The API adds fields without a new version, so keys this SDK does not know
 // must not stop a signed event from verifying.
 test("unknown fields are accepted", () => {

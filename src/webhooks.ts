@@ -19,6 +19,7 @@ const EVENT_ID = /^evt_[0-9A-HJKMNP-TV-Z]{26}$/;
 const ASSESSMENT_ID = /^asm_[0-9A-HJKMNP-TV-Z]{26}$/;
 const ACCOUNT_ID = /^[A-Za-z0-9][A-Za-z0-9._:|-]{0,127}$/;
 const ENDPOINT_ID = /^whe_[0-9A-HJKMNP-TV-Z]{26}$/;
+const WORKSPACE_ID = /^[A-Za-z0-9][A-Za-z0-9_.-]{0,122}$/;
 const DATETIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 
 /** Any case-insensitive mapping of header name to value: Fetch Headers, Node IncomingHttpHeaders, a plain object or entries. */
@@ -59,6 +60,27 @@ export type AccountDeleted = {
   assessmentsDeleted: number;
   /** When the erasure took effect, as deletedAt in the accounts.delete answer. */
   deletedAt: string;
+};
+
+/**
+ * The workspace was deleted. Sent once per environment before its endpoints
+ * are torn down: the last event this endpoint receives.
+ */
+export type TenantDeleted = {
+  workspaceId: string;
+  environment: "live" | "test";
+  deletedAt: string;
+};
+
+/**
+ * Another endpoint of this environment was disabled after failing
+ * continuously for 72 hours. It receives nothing more until it is verified again.
+ */
+export type EndpointDisabled = {
+  endpointId: string;
+  /** When its deliveries started failing. */
+  failingSince: string;
+  disabledAt: string;
 };
 
 export type AssessmentUpdatedEvent = {
@@ -102,7 +124,31 @@ export type AccountDeletedEvent = {
   data: AccountDeleted;
 };
 
-export type WebhookEvent = AssessmentUpdatedEvent | AssessmentExpiredEvent | EndpointVerificationEvent | AccountDeletedEvent;
+export type TenantDeletedEvent = {
+  id: string;
+  type: "tenant.deleted";
+  createdAt: string;
+  /** Always false. */
+  test: false;
+  data: TenantDeleted;
+};
+
+export type EndpointDisabledEvent = {
+  id: string;
+  type: "webhook_endpoint.disabled";
+  createdAt: string;
+  /** Always false. */
+  test: false;
+  data: EndpointDisabled;
+};
+
+export type WebhookEvent =
+  | AssessmentUpdatedEvent
+  | AssessmentExpiredEvent
+  | EndpointVerificationEvent
+  | AccountDeletedEvent
+  | TenantDeletedEvent
+  | EndpointDisabledEvent;
 
 export type WebhookErrorCode =
   | "missing_header"
@@ -237,6 +283,28 @@ export function constructEvent(
       fail("invalid_payload", "Account deleted event is malformed");
     }
     return { id, type, createdAt: created_at, test: false, data: { accountId: account_id, assessmentsDeleted: assessments_deleted, deletedAt: deleted_at } };
+  }
+  if (type === "tenant.deleted") {
+    const { workspace_id, environment, deleted_at } = data;
+    if (
+      typeof workspace_id !== "string" || !WORKSPACE_ID.test(workspace_id) ||
+      (environment !== "live" && environment !== "test") ||
+      typeof deleted_at !== "string" || !validDateTime(deleted_at)
+    ) {
+      fail("invalid_payload", "Tenant deleted event is malformed");
+    }
+    return { id, type, createdAt: created_at, test: false, data: { workspaceId: workspace_id, environment, deletedAt: deleted_at } };
+  }
+  if (type === "webhook_endpoint.disabled") {
+    const { endpoint_id, failing_since, disabled_at } = data;
+    if (
+      typeof endpoint_id !== "string" || !ENDPOINT_ID.test(endpoint_id) ||
+      typeof failing_since !== "string" || !validDateTime(failing_since) ||
+      typeof disabled_at !== "string" || !validDateTime(disabled_at)
+    ) {
+      fail("invalid_payload", "Endpoint disabled event is malformed");
+    }
+    return { id, type, createdAt: created_at, test: false, data: { endpointId: endpoint_id, failingSince: failing_since, disabledAt: disabled_at } };
   }
   if (type !== "assessment.updated") fail("invalid_payload", "Unknown webhook event type");
   if (data["status"] === "expired") {

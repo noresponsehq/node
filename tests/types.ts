@@ -110,6 +110,12 @@ function webhooks(): void {
   } else if (event.type === "account.deleted") {
     const erased: number = event.data.assessmentsDeleted;
     void erased;
+  } else if (event.type === "tenant.deleted") {
+    const environment: "live" | "test" = event.data.environment;
+    void environment;
+  } else if (event.type === "webhook_endpoint.disabled") {
+    const failingSince: string = event.data.failingSince;
+    void failingSince;
   } else {
     const challenge: string = event.data.challenge;
     void challenge;
