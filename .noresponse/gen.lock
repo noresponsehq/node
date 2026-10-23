@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: cb90dcc0457fc681deb74417af95c3ae
+  docChecksum: 85acd391e54a7b9ed9e0e1251e92cb8c
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 3.0.8
-  configChecksum: 8d209b1b63af77dcbd5c0f4a5153843e
+  releaseVersion: 4.0.0
+  configChecksum: fe582406fa3e81b201e236416505139a
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -136,8 +136,6 @@ trackedFiles:
     last_write_checksum: sha1:f66dd542f561dac73f1d8a3750d68233a7d7569c
   docs/models/errors/rate-limit-error.md:
     last_write_checksum: sha1:b8912ce35cd45720d8a3125e9dbe0292db823ca6
-  docs/models/event-type.md:
-    last_write_checksum: sha1:4ec46fc76e27435b9385d29c3e310de8c545f1ec
   docs/models/failure-reason.md:
     last_write_checksum: sha1:9b5555613d5f4e8268ee12c081b79e6206566340
   docs/models/failure.md:
@@ -337,7 +335,7 @@ trackedFiles:
   docs/models/webhook-delivery-attempt-status.md:
     last_write_checksum: sha1:d48ee0c33661a72a48f134ad75371b4db2fad770
   docs/models/webhook-delivery-attempt.md:
-    last_write_checksum: sha1:165a56b00aec69455d0801517c0ddb34b3cedfc4
+    last_write_checksum: sha1:f8a27359bcc797c8124893efb6047193bf48ade5
   docs/models/webhook-delivery-list.md:
     last_write_checksum: sha1:d361a2ef0b056f01ff1ba3433b59ee00dbb55289
   docs/models/webhook-endpoint-created.md:
@@ -357,7 +355,7 @@ trackedFiles:
   docs/models/webhook-replay-request.md:
     last_write_checksum: sha1:dddf42c0b8f5160303c00247b3d97f66c6707558
   docs/models/webhook-replay.md:
-    last_write_checksum: sha1:d57cf07d916a2efdd7dbbe0a494dc993d47b26f6
+    last_write_checksum: sha1:03b124d71c3b0981d739f9a6ddf73aad40257b21
   docs/models/webhook-test-request-event.md:
     last_write_checksum: sha1:58957b99933656d85b2fd30530810365f5f9a8fb
   docs/models/webhook-test-request.md:
@@ -369,9 +367,9 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:70c7f1eca5a470b07a1e7f87a4ba1f268a3455d2
+    last_write_checksum: sha1:2333ce1efb292010b6859ec415a81c023f90946c
   package.json:
-    last_write_checksum: sha1:fb38858acc3a0651b5a445837f7e57b2b1f61788
+    last_write_checksum: sha1:4015cd7c51c61d1890b5dd3eb797b4543d570cf5
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-delete.ts:
@@ -425,7 +423,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:7b84af03883029f2532b316109c41dde2c9eaaa2
+    last_write_checksum: sha1:c1bb0e49378a5dbed8b6fcb329d531a411f0db21
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -550,8 +548,6 @@ trackedFiles:
     last_write_checksum: sha1:894912ea2c66dbdcfdb64165e3b554a361156646
   src/models/errors/sdk-validation-error.ts:
     last_write_checksum: sha1:ccfe68a5612d285c2d326d470b2047cfd3887e70
-  src/models/event-type.ts:
-    last_write_checksum: sha1:ac3e479ccbba6025e6753f9b9a5481824b803b98
   src/models/failure-reason.ts:
     last_write_checksum: sha1:359cac4e89f033227df0cf286d198e2dd2d11a52
   src/models/failure.ts:
@@ -569,7 +565,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:d20f1b4e39b25e882ea4913b8f4505b602c6bc51
   src/models/index.ts:
-    last_write_checksum: sha1:2769602716e59d613733645037c94419e84b256b
+    last_write_checksum: sha1:20b32df135e362601841056c1cdbdff481efcd98
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -707,7 +703,7 @@ trackedFiles:
   src/models/webhook-delivery-attempt-status.ts:
     last_write_checksum: sha1:541754c69140c62a1dd6d5955d7eedd31e974c99
   src/models/webhook-delivery-attempt.ts:
-    last_write_checksum: sha1:6dd7e5cac99246f01382d7164811f4450361c471
+    last_write_checksum: sha1:5bd8ca71ef585fadead0d16857f2e14a5336cec4
   src/models/webhook-delivery-list.ts:
     last_write_checksum: sha1:128d5636fed39bad3e80460370de97d2cbc80122
   src/models/webhook-endpoint-created.ts:
@@ -727,7 +723,7 @@ trackedFiles:
   src/models/webhook-replay-request.ts:
     last_write_checksum: sha1:0e217dfeb414d06c8d64f4f8948fe7d77255284b
   src/models/webhook-replay.ts:
-    last_write_checksum: sha1:b31e64cadc738c05eeea2e77e9f26b39cc3c4782
+    last_write_checksum: sha1:54628dbc9e6924193e63eac55980040fbcc8cabc
   src/models/webhook-test-request-event.ts:
     last_write_checksum: sha1:80511231d32bab4e36e85b189512a1effc0d3354
   src/models/webhook-test-request.ts:

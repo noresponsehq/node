@@ -174,6 +174,37 @@ test("webhook_endpoint.disabled is typed and names the disabled endpoint", () =>
   ]);
 });
 
+test("account.risk_changed is typed: data.account is the Account accounts.get returns", () => {
+  const changed = fixture("valid/webhook-account-risk-changed.json");
+  const c = signed(changed, "secret", String(now), changed.id);
+  const event = constructEvent(c.raw, c.headers, { whk_sdktest01: "secret" }, { now });
+  assert.equal(event.type, "account.risk_changed");
+  assert.equal(event.test, false);
+  assert.equal(event.id, changed.id);
+  assert.equal(event.data.account.id, "acct_7f3a9c");
+  assert.equal(event.data.account.schemaVersion, "1");
+  assert.equal(event.data.account.risk.score, 70);
+  assert.equal(event.data.account.risk.decision, "review");
+  assert.deepEqual(event.data.account.risk.reasons[0], { code: "recent_password_exposure", weight: 55, identifier: "email" });
+  assert.deepEqual(event.data.account.decisionsByFlow, { signup: "review", login: "review", purchase: "review" });
+  assert.equal(event.data.account.assessmentId, "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
+  assert.equal(event.data.account.updatedAt, "2026-10-23T09:00:04.812Z");
+  assert.deepEqual(event.data.previousDecisionsByFlow, { signup: "allow", login: "allow", purchase: "allow" });
+  assert.equal(isExpiredEvent(event), false);
+  assert.throws(() => verificationResponse(event), WebhookVerificationError);
+  for (const mutate of [
+    (body) => { delete body.data.previous_decisions_by_flow; },
+    (body) => { delete body.data.account.decisions_by_flow; },
+    (body) => { body.data.account = "acct_7f3a9c"; },
+    (body) => { body.data.account.id = "jane@example.com"; },
+  ]) {
+    const body = structuredClone(changed);
+    mutate(body);
+    const bad = signed(body, "secret", String(now), body.id);
+    code(() => constructEvent(bad.raw, bad.headers, { whk_sdktest01: "secret" }, { now }), "invalid_payload");
+  }
+});
+
 // The API adds fields without a new version, so keys this SDK does not know
 // must not stop a signed event from verifying.
 test("unknown fields are accepted", () => {

@@ -4,7 +4,6 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { EventType, EventType$inboundSchema } from "./event-type.js";
 
 /**
  * The 202 answer of POST /v1/webhooks/{endpoint_id}/deliveries/{event_id}/replay: the event queued to be sent again.
@@ -18,7 +17,10 @@ export type WebhookReplay = {
    * The replayed event's id. The receiver sees the same id and body as the first time, with a new NR-Webhook-Timestamp and signature.
    */
   eventId: string;
-  eventType: EventType;
+  /**
+   * The event's type, as its body's type: assessment.updated, account.deleted or account.risk_changed.
+   */
+  eventType: string;
 };
 
 /** @internal */
@@ -29,7 +31,7 @@ export const WebhookReplay$inboundSchema: z.ZodMiniType<
   z.object({
     endpoint_id: types.string(),
     event_id: types.string(),
-    event_type: EventType$inboundSchema,
+    event_type: types.string(),
   }),
   z.transform((v) => {
     return remap$(v, {

@@ -304,6 +304,12 @@ async function handler(req, res) {
     alertOps(event.data.endpointId, event.data.failingSince);
     return res.status(204).end();
   }
+  if (event.type === "account.risk_changed") {
+    // The account's decision for at least one flow changed. data.account is the Account
+    // accounts.get returns; data.previousDecisionsByFlow holds the decisions it replaced.
+    applyDecisions(event.data.account.id, event.data.account.decisionsByFlow);
+    return res.status(204).end();
+  }
   if (isExpiredEvent(event)) {
     forget(event.data.assessmentId); // GET now answers 404
   } else if (event.test) {
@@ -328,7 +334,7 @@ const provider = clerkActions({ secretKey: process.env.CLERK_SECRET_KEY! });
 const result = await handleLateResult(rawBody, request.headers, secrets, provider, { policy: { review: "ban" } });
 ```
 
-The policy maps the account's decision (`account.risk.decision`) to an action. The default revokes sessions on `review` and `block` and does nothing otherwise. A pending assessment acts on nothing: its account decision comes from an earlier assessment. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
+The policy maps the account's decision (`account.risk.decision`) to an action. The default revokes sessions on `review` and `block` and does nothing otherwise. A pending assessment acts on nothing: its account decision comes from an earlier assessment. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. Nor does an `account.risk_changed` event: the handler acts on the `assessment.updated` that changed the decision. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
 
 If your app has its own login, `logOnlyActions()` logs what it would revoke or ban (`console.info` by default, or pass `log`) and calls nothing. Use it to try the handler, then write your own `LateResultProvider`: a `name` and the two methods `revokeSessions(userId)` and `ban(userId)`.
 

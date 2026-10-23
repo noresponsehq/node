@@ -6,6 +6,8 @@
  */
 import { createHmac, timingSafeEqual } from "node:crypto";
 import * as z from "zod/v4-mini";
+import { Account$inboundSchema, type Account } from "./models/account.js";
+import { AccountDecisionsByFlow$inboundSchema, type AccountDecisionsByFlow } from "./models/account-decisions-by-flow.js";
 import { Assessment$inboundSchema, type Assessment } from "./models/assessment.js";
 
 export const DEFAULT_TOLERANCE_SECONDS = 300;
@@ -83,6 +85,17 @@ export type EndpointDisabled = {
   disabledAt: string;
 };
 
+/**
+ * The account's decision for at least one flow changed. It is not sent when
+ * the score moves within the same decision, nor for an account's first risk.
+ */
+export type AccountRiskChanged = {
+  /** The account exactly as accounts.get returns it: the new risk and decisions. */
+  account: Account;
+  /** The decision for each flow before the change, as last announced. */
+  previousDecisionsByFlow: AccountDecisionsByFlow;
+};
+
 export type AssessmentUpdatedEvent = {
   id: string;
   type: "assessment.updated";
@@ -142,13 +155,23 @@ export type EndpointDisabledEvent = {
   data: EndpointDisabled;
 };
 
+export type AccountRiskChangedEvent = {
+  id: string;
+  type: "account.risk_changed";
+  createdAt: string;
+  /** Always false. */
+  test: false;
+  data: AccountRiskChanged;
+};
+
 export type WebhookEvent =
   | AssessmentUpdatedEvent
   | AssessmentExpiredEvent
   | EndpointVerificationEvent
   | AccountDeletedEvent
   | TenantDeletedEvent
-  | EndpointDisabledEvent;
+  | EndpointDisabledEvent
+  | AccountRiskChangedEvent;
 
 export type WebhookErrorCode =
   | "missing_header"
@@ -305,6 +328,14 @@ export function constructEvent(
       fail("invalid_payload", "Endpoint disabled event is malformed");
     }
     return { id, type, createdAt: created_at, test: false, data: { endpointId: endpoint_id, failingSince: failing_since, disabledAt: disabled_at } };
+  }
+  if (type === "account.risk_changed") {
+    const account = z.safeParse(Account$inboundSchema, data["account"]);
+    const previous = z.safeParse(AccountDecisionsByFlow$inboundSchema, data["previous_decisions_by_flow"]);
+    if (!account.success || !previous.success || !ACCOUNT_ID.test(account.data.id)) {
+      fail("invalid_payload", "Account risk changed event is malformed");
+    }
+    return { id, type, createdAt: created_at, test: false, data: { account: account.data, previousDecisionsByFlow: previous.data } };
   }
   if (type !== "assessment.updated") fail("invalid_payload", "Unknown webhook event type");
   if (data["status"] === "expired") {

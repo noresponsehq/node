@@ -36,7 +36,6 @@ export * from "./consistency-value.js";
 export * from "./consistency.js";
 export * from "./country.js";
 export * from "./depth.js";
-export * from "./event-type.js";
 export * from "./failure-reason.js";
 export * from "./failure.js";
 export * from "./flow.js";

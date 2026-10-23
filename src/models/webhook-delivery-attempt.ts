@@ -4,7 +4,6 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { EventType, EventType$inboundSchema } from "./event-type.js";
 import { Failure, Failure$inboundSchema } from "./failure.js";
 import {
   WebhookDeliveryAttemptStatus,
@@ -16,7 +15,10 @@ export type WebhookDeliveryAttempt = {
    * The event id the receiver saw as NR-Webhook-Id and as the body's id. Replay it with POST /v1/webhooks/{endpoint_id}/deliveries/{event_id}/replay.
    */
   eventId: string;
-  eventType: EventType;
+  /**
+   * The event's type, as its body's type: assessment.updated, account.deleted or account.risk_changed.
+   */
+  eventType: string;
   /**
    * Which attempt of this delivery this was: 1 for the first send, up to 9 with retries. A replay counts its own attempts from 1.
    */
@@ -54,7 +56,7 @@ export const WebhookDeliveryAttempt$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     event_id: types.string(),
-    event_type: EventType$inboundSchema,
+    event_type: types.string(),
     attempt: types.number(),
     replay: types.boolean(),
     status: WebhookDeliveryAttemptStatus$inboundSchema,

@@ -116,6 +116,10 @@ function webhooks(): void {
   } else if (event.type === "webhook_endpoint.disabled") {
     const failingSince: string = event.data.failingSince;
     void failingSince;
+  } else if (event.type === "account.risk_changed") {
+    const account: Account = event.data.account;
+    const previous: AccountDecision = event.data.previousDecisionsByFlow.signup;
+    void [account, previous];
   } else {
     const challenge: string = event.data.challenge;
     void challenge;
