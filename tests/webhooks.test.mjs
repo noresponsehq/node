@@ -138,5 +138,5 @@ test("a test event says so, and a real one does not", () => {
   assert.equal(event.test, true);
   assert.equal(event.data.assessmentId, sample.data.assessment_id);
   const r = signed(real, "secret", stamp, real.id);
-  assert.equal(constructEvent(r.raw, r.headers, { whk_sdktest01: "secret" }, { now: 1791968402 }).test, undefined);
+  assert.equal(constructEvent(r.raw, r.headers, { whk_sdktest01: "secret" }, { now: 1791968402 }).test, false);
 });

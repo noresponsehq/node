@@ -59,8 +59,9 @@ export type AssessmentUpdatedEvent = {
   /**
    * True on an event sent by webhookEndpoints.sendTestEvent: data is a fixed
    * example assessment, not one of yours. Acknowledge it and apply nothing.
+   * False on every real event.
    */
-  test?: true;
+  test: boolean;
   /** The assessment exactly as assessments.get returns it at this version. */
   data: Assessment;
 };
@@ -69,6 +70,8 @@ export type AssessmentExpiredEvent = {
   id: string;
   type: "assessment.updated";
   createdAt: string;
+  /** Always false: an expiry is never a test event. */
+  test: false;
   data: AssessmentExpired;
 };
 
@@ -76,6 +79,8 @@ export type EndpointVerificationEvent = {
   id: string;
   type: "endpoint.verification";
   createdAt: string;
+  /** Always false. */
+  test: false;
   data: EndpointVerification;
 };
 
@@ -202,15 +207,15 @@ export function constructEvent(
     if (typeof endpoint_id !== "string" || !ENDPOINT_ID.test(endpoint_id) || typeof challenge !== "string" || !CHALLENGE.test(challenge)) {
       fail("invalid_payload", "Endpoint verification event is malformed");
     }
-    return { id, type, createdAt: created_at, data: { endpointId: endpoint_id, challenge } };
+    return { id, type, createdAt: created_at, test: false, data: { endpointId: endpoint_id, challenge } };
   }
   if (type !== "assessment.updated") fail("invalid_payload", "Unknown webhook event type");
   if (data["status"] === "expired") {
-    return { id, type, createdAt: created_at, data: expired(data) };
+    return { id, type, createdAt: created_at, test: false, data: expired(data) };
   }
   const result = z.safeParse(Assessment$inboundSchema, data);
   if (!result.success) fail("invalid_payload", "Webhook data is not an assessment");
-  return test === true ? { id, type, createdAt: created_at, test: true, data: result.data } : { id, type, createdAt: created_at, data: result.data };
+  return { id, type, createdAt: created_at, test: test === true, data: result.data };
 }
 
 /** The body to answer an endpoint.verification event with, as JSON, status 200. */
