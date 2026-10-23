@@ -1,6 +1,6 @@
 {
   "name": "@noresponse/node",
-  "version": "2.0.24",
+  "version": "2.0.25",
   "author": "NoResponse",
   "bugs": {
     "url": "https://github.com/noresponsehq/node/issues"
@@ -52,8 +52,8 @@
     "lint": "oxlint --max-warnings=0 --deny-warnings --no-error-on-unmatched-pattern src",
     "build": "tshy",
     "prepublishOnly": "npm run build",
-    "test": "npm run build && tsc -p tests/tsconfig.json && node --test tests/*.test.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && tsc -p tests/tsconfig.json && node --test tests/*.test.mjs"
   },
   "peerDependencies": {},
   "devDependencies": {

@@ -15,7 +15,7 @@ let value: Account = {
     decision: "step_up",
     reasons: [
       {
-        code: "client_clock_skew",
+        code: "bot_or_automation",
         weight: 401478,
       },
     ],
