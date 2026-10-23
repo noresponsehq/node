@@ -112,9 +112,9 @@ test("account.deleted is typed and carries the erased account", () => {
   }
 });
 
-const TENANT_DELETED = {
+const WORKSPACE_DELETED = {
   id: "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2",
-  type: "tenant.deleted",
+  type: "workspace.deleted",
   created_at: "2026-10-23T10:00:00.000Z",
   data: { workspace_id: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM", environment: "live", deleted_at: "2026-10-23T10:00:00.000Z" },
 };
@@ -135,17 +135,17 @@ const refusesMutations = (original, mutations) => {
   }
 };
 
-test("tenant.deleted is typed and carries the deleted workspace", () => {
-  const d = signed(TENANT_DELETED, "secret", String(now), TENANT_DELETED.id);
+test("workspace.deleted is typed and carries the deleted workspace", () => {
+  const d = signed(WORKSPACE_DELETED, "secret", String(now), WORKSPACE_DELETED.id);
   const event = constructEvent(d.raw, d.headers, { whk_sdktest01: "secret" }, { now });
-  assert.equal(event.type, "tenant.deleted");
-  assert.equal(event.id, TENANT_DELETED.id);
+  assert.equal(event.type, "workspace.deleted");
+  assert.equal(event.id, WORKSPACE_DELETED.id);
   assert.equal(event.createdAt, "2026-10-23T10:00:00.000Z");
   assert.equal(event.test, false);
   assert.deepEqual(event.data, { workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM", environment: "live", deletedAt: "2026-10-23T10:00:00.000Z" });
   assert.equal(isExpiredEvent(event), false);
   assert.throws(() => verificationResponse(event), WebhookVerificationError);
-  refusesMutations(TENANT_DELETED, [
+  refusesMutations(WORKSPACE_DELETED, [
     (body) => { delete body.data.workspace_id; },
     (body) => { body.data.workspace_id = "-tnt"; },
     (body) => { body.data.workspace_id = "tnt/01"; },
@@ -186,10 +186,10 @@ test("account.risk_changed is typed: data.account is the Account accounts.get re
   assert.equal(event.data.account.risk.score, 70);
   assert.equal(event.data.account.risk.decision, "review");
   assert.deepEqual(event.data.account.risk.reasons[0], { code: "recent_password_exposure", weight: 55, identifier: "email" });
-  assert.deepEqual(event.data.account.decisionsByFlow, { signup: "review", login: "review", purchase: "review" });
+  assert.deepEqual(event.data.account.decisionsByFlow, { accountCreation: "review", login: "review", purchase: "review" });
   assert.equal(event.data.account.assessmentId, "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
   assert.equal(event.data.account.updatedAt, "2026-10-23T09:00:04.812Z");
-  assert.deepEqual(event.data.previousDecisionsByFlow, { signup: "allow", login: "allow", purchase: "allow" });
+  assert.deepEqual(event.data.previousDecisionsByFlow, { accountCreation: "allow", login: "allow", purchase: "allow" });
   assert.equal(isExpiredEvent(event), false);
   assert.throws(() => verificationResponse(event), WebhookVerificationError);
   for (const mutate of [

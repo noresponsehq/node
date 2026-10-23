@@ -27,7 +27,7 @@ let value: CreateAssessmentResponse = {
         ],
       },
       decisionsByFlow: {
-        signup: "review",
+        accountCreation: "review",
         login: "review",
         purchase: "allow",
       },

@@ -21,7 +21,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List the tenant's integrations.
+ * List the workspace's integrations.
  *
  * @remarks
  * Every integration, oldest first. Listings carry no secrets. Requires the integrations scope.

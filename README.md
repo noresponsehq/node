@@ -2,7 +2,7 @@
 
 # @noresponse/node
 
-The NoResponse client for Node.js. It assesses a signup or gateway event, polls a pending assessment, pages through an account's history, records what you later learned, rotates your API key and verifies webhooks.
+The NoResponse client for Node.js. It assesses an account creation, login or purchase, polls a pending assessment, pages through an account's history, records what you later learned, rotates your API key and verifies webhooks.
 
 Node.js 20 or later. ESM and CommonJS. TypeScript types included. The client is generated from the NoResponse OpenAPI document; webhooks, auth adapters and the wait helper are hand-written.
 
@@ -19,7 +19,7 @@ const nr = new NoResponse(); // reads NORESPONSE_API_KEY, or new NoResponse("nrk
 
 const assessment = await nr.assessments.create({
   accountId: "usr_8f2k1",
-  flow: "signup",
+  flow: "account_creation",
   identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee", ip: "81.2.69.160" },
 });
 
@@ -66,15 +66,15 @@ Every method takes request options as its last argument: `{ timeoutMs, signal, h
 const assessment = await nr.assessments.create(
   {
     accountId: "usr_8f2k1",                                    // your opaque account id
-    flow: "signup",                                            // signup, login or purchase
-    depth: "full",                                             // quick or full; full for signup and purchase, quick for login by default
+    flow: "account_creation",                                            // account_creation, login or purchase
+    depth: "full",                                             // quick or full; full for account_creation and purchase, quick for login by default
     identifiers: { email: "jordan.lee@example.com" },          // email, username or phone; name and ip refine the match
     policyContext: { region: "AU" },
     clientContext: { timezone: "Australia/Sydney", platform: "web", formDurationMs: 1800 },
     authContext: fromClerk(claims, { sessionCreatedAt }),      // see Auth adapters
     responseMode: "standard",                                  // detailed adds detail.signals and detail.risk.details (detailed scope)
   },
-  { idempotencyKey: "signup-usr_8f2k1-0001" },
+  { idempotencyKey: "account-usr_8f2k1-0001" },
 );
 ```
 
@@ -112,7 +112,7 @@ An account is the `accountId` you send with your assessments. It holds one curre
 const account = await nr.accounts.get("usr_8f2k1");
 account.risk.score;              // 0 (safe) to 100 (risky)
 account.risk.decision;           // allow, step_up, review or block
-account.decisionsByFlow.login;   // a decision for signup, login and purchase
+account.decisionsByFlow.login;   // a decision for account_creation, login and purchase
 account.assessmentId;            // the assessment the risk comes from
 
 const history = await nr.accounts.listAssessments("usr_8f2k1", { limit: 20 });
@@ -229,7 +229,7 @@ await nr.assessments.create(params, { retries: { strategy: "none" } });
 
 ## Issued keys
 
-When your signup gate issues an API key to the new account, send only its hash, as `issued_credential.sha256`; the key itself never leaves your backend.
+When your platform issues an API key to the new account, send only its hash, as `issued_credential.sha256`; the key itself never leaves your backend.
 
 ```ts
 import { hashIssuedCredential } from "@noresponse/node";
@@ -294,7 +294,7 @@ async function handler(req, res) {
     forgetAccount(event.data.accountId, event.data.deletedAt);
     return res.status(204).end();
   }
-  if (event.type === "tenant.deleted") {
+  if (event.type === "workspace.deleted") {
     // The workspace is deleted: the last event this endpoint receives, once per environment.
     forgetEnvironment(event.data.environment);
     return res.status(204).end();
@@ -325,7 +325,7 @@ async function handler(req, res) {
 
 ### Late results
 
-An assessment can be revised after you allowed the signup. `handleLateResult` verifies the delivery with `constructEvent`, applies your policy and acts through your auth provider's admin API:
+An assessment can be revised after you allowed the account creation. `handleLateResult` verifies the delivery with `constructEvent`, applies your policy and acts through your auth provider's admin API:
 
 ```ts
 import { clerkActions, handleLateResult } from "@noresponse/node"; // or workosActions, auth0Actions

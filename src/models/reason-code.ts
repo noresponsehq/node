@@ -17,7 +17,7 @@ export const ReasonCode = {
   ProxyIp: "proxy_ip",
   SeenBefore: "seen_before",
   SharedIp: "shared_ip",
-  ManyRecentSignups: "many_recent_signups",
+  ManyRecentAccounts: "many_recent_accounts",
   EstablishedAccounts: "established_accounts",
   AgedIdentity: "aged_identity",
   BreachNameMatch: "breach_name_match",

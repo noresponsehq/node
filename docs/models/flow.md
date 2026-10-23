@@ -1,13 +1,13 @@
 # Flow
 
-The customer event an assessment is made for: signup (a new account), login (a returning sign-in) or purchase (a payment or credit grant). The account's risk is reported with the decision for this flow.
+The event an assessment is made for: account_creation (a user creates an account), login (a user returns to an existing account) or purchase (a payment or a credit grant). The account's risk is reported with the decision for this flow.
 
 ## Example Usage
 
 ```typescript
 import { Flow } from "@noresponse/node/models";
 
-let value: Flow = "signup";
+let value: Flow = "account_creation";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: Flow = "signup";
 ## Values
 
 ```typescript
-"signup" | "login" | "purchase" | Unrecognized<string>
+"account_creation" | "login" | "purchase" | Unrecognized<string>
 ```

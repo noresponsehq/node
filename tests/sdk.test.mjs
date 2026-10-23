@@ -135,9 +135,9 @@ test("create sends the contract body and headers and returns the assessment with
 test("create accepts an explicit idempotency key and the generated request shape", async () => {
   const { fetcher, calls } = fakeFetch([json(BLOCK, { headers: { "idempotent-replayed": "true" } }), json(COMPLETE)]);
   const nr = client(fetcher);
-  const first = await nr.assessments.create(REQUEST, { idempotencyKey: "signup-usr_8f2k1-0001" });
+  const first = await nr.assessments.create(REQUEST, { idempotencyKey: "account-usr_8f2k1-0001" });
   assert.equal(first.status, "complete");
-  assert.equal(first.flow, "signup");
+  assert.equal(first.flow, "account_creation");
   assert.equal(first.account.risk.decision, "block");
   assert.equal(first.account.risk.score, BLOCK.account.risk.score);
   assert.deepEqual(first.account.risk.reasons.map((reason) => reason.code), BLOCK.account.risk.reasons.map((reason) => reason.code));
@@ -145,16 +145,16 @@ test("create accepts an explicit idempotency key and the generated request shape
   assert.equal(first.detail.risk.block, true);
   assert.equal(first.detail.assessmentVersion, BLOCK.detail.assessment_version);
   assert.equal(first.meta.idempotentReplayed, true);
-  await nr.assessments.create({ body: REQUEST, idempotencyKey: "signup-usr_8f2k1-0002" });
-  assert.equal(calls[0].headers["idempotency-key"], "signup-usr_8f2k1-0001");
-  assert.equal(calls[1].headers["idempotency-key"], "signup-usr_8f2k1-0002");
+  await nr.assessments.create({ body: REQUEST, idempotencyKey: "account-usr_8f2k1-0002" });
+  assert.equal(calls[0].headers["idempotency-key"], "account-usr_8f2k1-0001");
+  assert.equal(calls[1].headers["idempotency-key"], "account-usr_8f2k1-0002");
 });
 
 test("create with an app's own login leaves auth_context out of the body", async () => {
   const { fetcher, calls } = fakeFetch([json(COMPLETE)]);
   const nr = client(fetcher);
   await nr.assessments.create({ ...REQUEST, authContext: undefined });
-  assert.deepEqual(calls[0].body, { account_id: "usr_8f2k1", flow: "signup", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } });
+  assert.deepEqual(calls[0].body, { account_id: "usr_8f2k1", flow: "account_creation", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } });
 });
 
 test("get encodes the id and response mode and exposes Retry-After", async () => {
@@ -212,7 +212,7 @@ test("accounts.get reads the current risk and a missing account is NotFoundError
   assert.equal(account.id, ACCOUNT.id);
   assert.equal(account.risk.score, ACCOUNT.risk.score);
   assert.equal(account.risk.decision, "step_up");
-  assert.deepEqual(account.decisionsByFlow, { signup: "step_up", login: "step_up", purchase: "step_up" });
+  assert.deepEqual(account.decisionsByFlow, { accountCreation: "step_up", login: "step_up", purchase: "step_up" });
   assert.equal(account.assessmentId, ACCOUNT.assessment_id);
   assert.equal(account.meta.requestId, "a".repeat(32));
   const blocked = await nr.accounts.get({ accountId: "tenant:usr|42" });
@@ -222,7 +222,7 @@ test("accounts.get reads the current risk and a missing account is NotFoundError
 });
 
 test("accounts.delete erases with DELETE and a repeat answers zero", async () => {
-  const { fetcher, calls } = fakeFetch([json(ACCOUNT_DELETION), json({ ...ACCOUNT_DELETION, assessments_deleted: 0 }), problem(403, "tenant_forbidden")]);
+  const { fetcher, calls } = fakeFetch([json(ACCOUNT_DELETION), json({ ...ACCOUNT_DELETION, assessments_deleted: 0 }), problem(403, "workspace_forbidden")]);
   const nr = client(fetcher, { baseUrl: "https://example.com" });
   const deletion = await nr.accounts.delete("acct_7f3a9c");
   assert.equal(calls[0].method, "DELETE");
@@ -235,7 +235,7 @@ test("accounts.delete erases with DELETE and a repeat answers zero", async () =>
   const repeat = await nr.accounts.delete({ accountId: "tenant:usr|42" });
   assert.equal(repeat.assessmentsDeleted, 0);
   assert.equal(calls[1].url, "https://example.com/v1/accounts/tenant%3Ausr%7C42");
-  await assert.rejects(nr.accounts.delete("acct_7f3a9c"), (error) => error instanceof PermissionDeniedError && error.code === "tenant_forbidden");
+  await assert.rejects(nr.accounts.delete("acct_7f3a9c"), (error) => error instanceof PermissionDeniedError && error.code === "workspace_forbidden");
 });
 
 test("assessments.delete deletes with DELETE and names the account's next current assessment", async () => {
@@ -441,7 +441,7 @@ test("every status maps to its error class with the problem fields", async () =>
   const cases = [
     [400, "invalid_request", BadRequestError],
     [401, "unauthorized", AuthenticationError],
-    [403, "tenant_forbidden", PermissionDeniedError],
+    [403, "workspace_forbidden", PermissionDeniedError],
     [404, "not_found", NotFoundError],
     [409, "idempotency_key_reused", ConflictError],
     [413, "payload_too_large", APIStatusError],

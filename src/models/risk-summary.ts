@@ -26,7 +26,7 @@ export type RiskSummary = {
   email?: RiskSummaryEmail | undefined;
   username?: RiskSummaryUsername | undefined;
   /**
-   * Facts about the submitted IP from the offline database and this tenant's own recent assessments. Every member is optional; absent makes no claim.
+   * Facts about the submitted IP from the offline database and this workspace's own recent assessments. Every member is optional; absent makes no claim.
    */
   ip?: IpSummary | undefined;
   /**

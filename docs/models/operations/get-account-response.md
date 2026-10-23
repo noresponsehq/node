@@ -25,7 +25,7 @@ let value: GetAccountResponse = {
       ],
     },
     decisionsByFlow: {
-      signup: "review",
+      accountCreation: "review",
       login: "review",
       purchase: "allow",
     },

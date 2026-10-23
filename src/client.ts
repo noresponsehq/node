@@ -209,7 +209,7 @@ export class Assessments {
   constructor(private readonly inner: GeneratedAssessments) {}
 
   /**
-   * Assess a signup or gateway event. Returns the assessment whether the
+   * Assess an account creation, login or purchase. Returns the assessment whether the
    * answer was 200 (complete or partial) or 202 (pending; see meta.retryAfter
    * and assessments.wait). The idempotency key is generated when omitted and
    * reused on every retry of this call.
@@ -350,7 +350,7 @@ export class Accounts {
 }
 
 /**
- * Usage of the API keys your signup gate issued to your accounts. Needs the
+ * Usage of the API keys your platform issued to your accounts. Needs the
  * `assess` scope. Most callers use `buffer()`, which batches facts and sends
  * them in the background; `record` sends one batch now.
  */

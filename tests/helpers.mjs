@@ -19,7 +19,7 @@ export const ACCOUNT_DELETION = fixture("valid/account-deletion.json");
 export const ASSESSMENT_DELETION = fixture("valid/assessment-deletion.json");
 export const ASSESSMENT_DELETION_LAST = fixture("valid/assessment-deletion-last.json");
 
-export const REQUEST = { accountId: "usr_8f2k1", flow: "signup", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } };
+export const REQUEST = { accountId: "usr_8f2k1", flow: "account_creation", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } };
 
 /** A JSON response with the headers every real answer carries. */
 export function json(body, { status = 200, headers = {} } = {}) {

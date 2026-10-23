@@ -21,7 +21,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * List the tenant's webhook endpoints.
+ * List the workspace's webhook endpoints.
  *
  * @remarks
  * Lists your webhook endpoints in every state, ordered by endpoint_id, with the ids of their signing keys and without secrets. Requires the webhooks scope.

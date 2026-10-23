@@ -1,8 +1,8 @@
 /**
  * The key usage buffer. Hand-written; not generated.
  *
- * Your API gateway calls `record` once per request made with a key your signup
- * gate issued. The buffer keeps the facts in memory and sends them to POST
+ * Your API gateway calls `record` once per request made with a key your platform
+ * issued. The buffer keeps the facts in memory and sends them to POST
  * /v1/key_usage/batches in the background: when `batchSize` facts are queued,
  * every `flushIntervalMs`, and on `flush()` or `close()`. `record` never
  * blocks and never throws. When the queue is full the oldest fact is dropped

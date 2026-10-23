@@ -1,4 +1,5 @@
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -8,13 +9,13 @@ import {
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
- * The decision for each flow: the account's score under that flow's thresholds. A flow the workspace has not set uses its signup thresholds, so the flows differ only where it set them.
+ * The decision for each flow: the account's score under that flow's thresholds. A flow the workspace has not set uses its account_creation thresholds, so the flows differ only where it set them.
  */
 export type AccountDecisionsByFlow = {
   /**
    * block when the score reached your block threshold (risk.block of the assessment), otherwise the assessment's recommendation. Your application applies it.
    */
-  signup: AccountDecision;
+  accountCreation: AccountDecision;
   /**
    * block when the score reached your block threshold (risk.block of the assessment), otherwise the assessment's recommendation. Your application applies it.
    */
@@ -29,11 +30,18 @@ export type AccountDecisionsByFlow = {
 export const AccountDecisionsByFlow$inboundSchema: z.ZodMiniType<
   AccountDecisionsByFlow,
   unknown
-> = z.object({
-  signup: AccountDecision$inboundSchema,
-  login: AccountDecision$inboundSchema,
-  purchase: AccountDecision$inboundSchema,
-});
+> = z.pipe(
+  z.object({
+    account_creation: AccountDecision$inboundSchema,
+    login: AccountDecision$inboundSchema,
+    purchase: AccountDecision$inboundSchema,
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "account_creation": "accountCreation",
+    });
+  }),
+);
 
 export function accountDecisionsByFlowFromJSON(
   jsonString: string,

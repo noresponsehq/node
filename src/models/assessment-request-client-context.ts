@@ -3,7 +3,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { Platform, Platform$outboundSchema } from "./platform.js";
 
 /**
- * Optional context observed by your signup client. The server parses these hints into coarse features, leaves raw user_agent and opaque ids out of every answer, and weighs a mismatch with the other evidence.
+ * Optional context observed by the client of the user. The server parses these hints into coarse features, leaves raw user_agent and opaque ids out of every answer, and weighs a mismatch with the other evidence.
  */
 export type AssessmentRequestClientContext = {
   /**
@@ -23,15 +23,15 @@ export type AssessmentRequestClientContext = {
    */
   appVersion?: string | undefined;
   /**
-   * The raw User-Agent header of the signup request, at most 512 characters. It is parsed into coarse features and left out of every answer.
+   * The raw User-Agent header of the request that the user sent, at most 512 characters. It is parsed into coarse features and left out of every answer.
    */
   userAgent?: string | undefined;
   /**
-   * Tenant-scoped opaque identifier your application mints and rotates when the account or device changes. Send an id of your own, not a hardware fingerprint.
+   * Workspace-scoped opaque identifier your application mints and rotates when the account or device changes. Send an id of your own, not a hardware fingerprint.
    */
   deviceId?: string | undefined;
   /**
-   * Opaque signup session identifier. It is used for tenant-scoped velocity and replay checks only.
+   * Opaque signup session identifier. It is used for workspace-scoped velocity and replay checks only.
    */
   sessionId?: string | undefined;
   /**

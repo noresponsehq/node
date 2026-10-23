@@ -5,7 +5,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Integration, Integration$inboundSchema } from "./integration.js";
 
 /**
- * GET /v1/integrations: every integration of the tenant, oldest first, at most 10. No secret is ever listed.
+ * GET /v1/integrations: every integration of the workspace, oldest first, at most 10. No secret is ever listed.
  */
 export type IntegrationList = {
   items: Array<Integration>;

@@ -7,7 +7,7 @@ import * as models from "../index.js";
 
 export type CreateAssessmentRequest = {
   /**
-   * Opaque client key, 16 to 128 characters of [A-Za-z0-9._:-] (a UUID or ULID fits). Scoped to the tenant principal and bound to the canonical body for 24 hours.
+   * Opaque client key, 16 to 128 characters of [A-Za-z0-9._:-] (a UUID or ULID fits). Scoped to the workspace principal and bound to the canonical body for 24 hours.
    */
   idempotencyKey: string;
   body: models.AssessmentRequest;

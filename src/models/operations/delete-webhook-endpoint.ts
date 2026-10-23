@@ -6,7 +6,7 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type DeleteWebhookEndpointRequest = {
   /**
-   * The endpoint's whe_ id. An id that is unknown, malformed or another tenant's answers 404.
+   * The endpoint's whe_ id. An id that is unknown, malformed or another workspace's answers 404.
    */
   endpointId: string;
 };

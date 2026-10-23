@@ -68,7 +68,7 @@ export type AccountDeleted = {
  * The workspace was deleted. Sent once per environment before its endpoints
  * are torn down: the last event this endpoint receives.
  */
-export type TenantDeleted = {
+export type WorkspaceDeleted = {
   workspaceId: string;
   environment: "live" | "test";
   deletedAt: string;
@@ -137,13 +137,13 @@ export type AccountDeletedEvent = {
   data: AccountDeleted;
 };
 
-export type TenantDeletedEvent = {
+export type WorkspaceDeletedEvent = {
   id: string;
-  type: "tenant.deleted";
+  type: "workspace.deleted";
   createdAt: string;
   /** Always false. */
   test: false;
-  data: TenantDeleted;
+  data: WorkspaceDeleted;
 };
 
 export type EndpointDisabledEvent = {
@@ -169,7 +169,7 @@ export type WebhookEvent =
   | AssessmentExpiredEvent
   | EndpointVerificationEvent
   | AccountDeletedEvent
-  | TenantDeletedEvent
+  | WorkspaceDeletedEvent
   | EndpointDisabledEvent
   | AccountRiskChangedEvent;
 
@@ -307,14 +307,14 @@ export function constructEvent(
     }
     return { id, type, createdAt: created_at, test: false, data: { accountId: account_id, assessmentsDeleted: assessments_deleted, deletedAt: deleted_at } };
   }
-  if (type === "tenant.deleted") {
+  if (type === "workspace.deleted") {
     const { workspace_id, environment, deleted_at } = data;
     if (
       typeof workspace_id !== "string" || !WORKSPACE_ID.test(workspace_id) ||
       (environment !== "live" && environment !== "test") ||
       typeof deleted_at !== "string" || !validDateTime(deleted_at)
     ) {
-      fail("invalid_payload", "Tenant deleted event is malformed");
+      fail("invalid_payload", "Workspace deleted event is malformed");
     }
     return { id, type, createdAt: created_at, test: false, data: { workspaceId: workspace_id, environment, deletedAt: deleted_at } };
   }

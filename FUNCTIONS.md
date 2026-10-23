@@ -30,10 +30,10 @@ const noResponse = new NoResponseCore({
 
 async function run() {
   const res = await assessmentsCreate(noResponse, {
-    idempotencyKey: "signup-acct_7f3a9c",
+    idempotencyKey: "account-acct_7f3a9c",
     body: {
       accountId: "acct_7f3a9c",
-      flow: "signup",
+      flow: "account_creation",
       identifiers: {
         email: "new.user@example.com",
       },

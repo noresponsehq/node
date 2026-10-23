@@ -6,7 +6,7 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type DeleteIntegrationRequest = {
   /**
-   * Path segment, matched case-sensitively. A value that does not match the integration_id shape, or another tenant's id, answers 404.
+   * Path segment, matched case-sensitively. A value that does not match the integration_id shape, or another workspace's id, answers 404.
    */
   integrationId: string;
 };

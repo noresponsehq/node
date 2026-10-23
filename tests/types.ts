@@ -33,8 +33,8 @@ const nr = new NoResponse({ apiKey: "k" });
 
 async function surface(): Promise<void> {
   const created: WithMeta<Assessment> = await nr.assessments.create(
-    { accountId: "usr_8f2k1", flow: "signup", identifiers: { email: "jordan.lee@example.com" } },
-    { idempotencyKey: "signup-usr_8f2k1-0001" },
+    { accountId: "usr_8f2k1", flow: "account_creation", identifiers: { email: "jordan.lee@example.com" } },
+    { idempotencyKey: "account-usr_8f2k1-0001" },
   );
   const requestId: string | null = created.meta.requestId;
   const current: AccountDecision | undefined = created.account?.risk.decision;
@@ -110,7 +110,7 @@ function webhooks(): void {
   } else if (event.type === "account.deleted") {
     const erased: number = event.data.assessmentsDeleted;
     void erased;
-  } else if (event.type === "tenant.deleted") {
+  } else if (event.type === "workspace.deleted") {
     const environment: "live" | "test" = event.data.environment;
     void environment;
   } else if (event.type === "webhook_endpoint.disabled") {
@@ -118,7 +118,7 @@ function webhooks(): void {
     void failingSince;
   } else if (event.type === "account.risk_changed") {
     const account: Account = event.data.account;
-    const previous: AccountDecision = event.data.previousDecisionsByFlow.signup;
+    const previous: AccountDecision = event.data.previousDecisionsByFlow.accountCreation;
     void [account, previous];
   } else {
     const challenge: string = event.data.challenge;

@@ -1,7 +1,7 @@
 /**
  * Late-result handlers. Hand-written; not generated.
  *
- * An assessment can be revised after the signup was allowed: a slow source
+ * An assessment can be revised after the account creation was allowed: a slow source
  * settles and the account's decision rises. NoResponse sends the new version as
  * a signed assessment.updated webhook. handleLateResult verifies that delivery
  * with constructEvent, picks an action from your policy, and acts through the

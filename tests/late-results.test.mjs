@@ -72,10 +72,10 @@ test("the default policy revokes on review and block and does nothing on allow, 
   assert.equal(lateResultAction({ id: "evt_x", type: "assessment.updated", createdAt: "x", data: { status: "expired", changeReason: "expired" } }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "endpoint.verification", createdAt: "x", data: {} }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "account.deleted", createdAt: "x", test: false, data: { accountId: "acct_1", assessmentsDeleted: 1, deletedAt: "x" } }), "none");
-  assert.equal(lateResultAction({ id: "evt_x", type: "tenant.deleted", createdAt: "x", test: false, data: { workspaceId: "tnt_1", environment: "live", deletedAt: "x" } }), "none");
+  assert.equal(lateResultAction({ id: "evt_x", type: "workspace.deleted", createdAt: "x", test: false, data: { workspaceId: "tnt_1", environment: "live", deletedAt: "x" } }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "webhook_endpoint.disabled", createdAt: "x", test: false, data: { endpointId: "whe_1", failingSince: "x", disabledAt: "x" } }), "none");
-  const riskChanged = { schemaVersion: "1", id: "acct_1", risk: { score: 90, decision: "block", reasons: [] }, decisionsByFlow: { signup: "block", login: "block", purchase: "block" }, assessmentId: "asm_x", updatedAt: "x" };
-  assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { signup: "allow", login: "allow", purchase: "allow" } } }), "none");
+  const riskChanged = { schemaVersion: "1", id: "acct_1", risk: { score: 90, decision: "block", reasons: [] }, decisionsByFlow: { accountCreation: "block", login: "block", purchase: "block" }, assessmentId: "asm_x", updatedAt: "x" };
+  assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { accountCreation: "allow", login: "allow", purchase: "allow" } } }), "none");
   assert.equal(lateResultAction(ev("complete", "step_up"), { step_up: "ban" }), "ban");
   assert.equal(lateResultAction(ev("complete", "block"), { block: "ban" }), "ban");
   assert.equal(lateResultAction(ev("complete", "review"), { step_up: "ban" }), "none");

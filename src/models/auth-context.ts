@@ -45,7 +45,7 @@ export type AuthContext = {
    */
   organizationId?: string | undefined;
   /**
-   * The provider tenant identifier, when distinct from organization_id.
+   * The provider workspace identifier, when distinct from organization_id.
    */
   tenantId?: string | undefined;
   /**

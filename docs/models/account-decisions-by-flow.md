@@ -1,6 +1,6 @@
 # AccountDecisionsByFlow
 
-The decision for each flow: the account's score under that flow's thresholds. A flow the workspace has not set uses its signup thresholds, so the flows differ only where it set them.
+The decision for each flow: the account's score under that flow's thresholds. A flow the workspace has not set uses its account_creation thresholds, so the flows differ only where it set them.
 
 ## Example Usage
 
@@ -8,7 +8,7 @@ The decision for each flow: the account's score under that flow's thresholds. A 
 import { AccountDecisionsByFlow } from "@noresponse/node/models";
 
 let value: AccountDecisionsByFlow = {
-  signup: "block",
+  accountCreation: "block",
   login: "step_up",
   purchase: "allow",
 };
@@ -18,6 +18,6 @@ let value: AccountDecisionsByFlow = {
 
 | Field                                                                                                                                                     | Type                                                                                                                                                      | Required                                                                                                                                                  | Description                                                                                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `signup`                                                                                                                                                  | [models.AccountDecision](../models/account-decision.md)                                                                                                   | :heavy_check_mark:                                                                                                                                        | block when the score reached your block threshold (risk.block of the assessment), otherwise the assessment's recommendation. Your application applies it. |
+| `accountCreation`                                                                                                                                         | [models.AccountDecision](../models/account-decision.md)                                                                                                   | :heavy_check_mark:                                                                                                                                        | block when the score reached your block threshold (risk.block of the assessment), otherwise the assessment's recommendation. Your application applies it. |
 | `login`                                                                                                                                                   | [models.AccountDecision](../models/account-decision.md)                                                                                                   | :heavy_check_mark:                                                                                                                                        | block when the score reached your block threshold (risk.block of the assessment), otherwise the assessment's recommendation. Your application applies it. |
 | `purchase`                                                                                                                                                | [models.AccountDecision](../models/account-decision.md)                                                                                                   | :heavy_check_mark:                                                                                                                                        | block when the score reached your block threshold (risk.block of the assessment), otherwise the assessment's recommendation. Your application applies it. |

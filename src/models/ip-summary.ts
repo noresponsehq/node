@@ -10,7 +10,7 @@ import {
 } from "./ip-summary-type.js";
 
 /**
- * Facts about the submitted IP from the offline database and this tenant's own recent assessments. Every member is optional; absent makes no claim.
+ * Facts about the submitted IP from the offline database and this workspace's own recent assessments. Every member is optional; absent makes no claim.
  */
 export type IpSummary = {
   /**
@@ -22,9 +22,9 @@ export type IpSummary = {
    */
   type?: IpSummaryType | undefined;
   /**
-   * Assessments in this tenant with the same IP in the last 24 hours, this one included. A count only.
+   * Assessments in this workspace with the same IP in the last 24 hours, this one included. A count only.
    */
-  seenInTenant?: number | undefined;
+  seenInWorkspace?: number | undefined;
 };
 
 /** @internal */
@@ -33,11 +33,11 @@ export const IpSummary$inboundSchema: z.ZodMiniType<IpSummary, unknown> = z
     z.object({
       country: types.optional(types.string()),
       type: types.optional(IpSummaryType$inboundSchema),
-      seen_in_tenant: types.optional(types.number()),
+      seen_in_workspace: types.optional(types.number()),
     }),
     z.transform((v) => {
       return remap$(v, {
-        "seen_in_tenant": "seenInTenant",
+        "seen_in_workspace": "seenInWorkspace",
       });
     }),
   );
