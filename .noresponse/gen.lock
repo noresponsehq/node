@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 526526e5582d19f3ac292a8627322dbf
+  docChecksum: 16091f4f82fad51b757ebd4ffb288274
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.20
-  configChecksum: 5399855346526a6ce597358c253ed1ed
+  releaseVersion: 2.0.21
+  configChecksum: ab288131759430c9572e7d065221844f
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -159,7 +159,7 @@ trackedFiles:
   docs/models/key-rotation-request.md:
     last_write_checksum: sha1:713fc85d09c6c88fd217a45a84fb6787a1c33b92
   docs/models/key-rotation.md:
-    last_write_checksum: sha1:55b8c1331cb28b7c1075f855136e2c237389be90
+    last_write_checksum: sha1:3e7109a8b59818eef1738b6bbddebfabb21628e3
   docs/models/lane.md:
     last_write_checksum: sha1:74153af33c5bb118d2b33f9d81fbd72d67b838db
   docs/models/line-type.md:
@@ -213,7 +213,7 @@ trackedFiles:
   docs/models/operations/record-assessment-outcome-response.md:
     last_write_checksum: sha1:f8d02b288805e01fa3cdc4df60c1aac882ad1a40
   docs/models/operations/rotate-api-key-response.md:
-    last_write_checksum: sha1:bcfe8566edc7cf4d8df79972a752bb16f40286a2
+    last_write_checksum: sha1:5f8a768b24ddcde42e41a1c9b74f217418f62e11
   docs/models/operations/rotate-integration-secret-request.md:
     last_write_checksum: sha1:9399481d58db5c42987cb76c1bd1eff489de5dc0
   docs/models/operations/rotate-integration-secret-response.md:
@@ -319,9 +319,9 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:944c48c6bdb491483bb6f4834602403570c9a9f3
+    last_write_checksum: sha1:b2d8eb932f77ab9c67597eaaf50884c3558e0f48
   package.json:
-    last_write_checksum: sha1:e6e327086ea79017c99b3c185f77009b77024e1b
+    last_write_checksum: sha1:6accb8dc745be485ad7201ee1bc5b322a1013c75
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-get.ts:
@@ -365,7 +365,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:8c068920b24d5503f11cc4b3ba71857656c9fca6
+    last_write_checksum: sha1:e95e85fba758372d7588a1fcc3adb4959e0124b6
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -515,7 +515,7 @@ trackedFiles:
   src/models/key-rotation-request.ts:
     last_write_checksum: sha1:6e123313d34f45ec5851a6ce00a2d0c29df8fd21
   src/models/key-rotation.ts:
-    last_write_checksum: sha1:120aebcbaf6424b8abc496b07a57466c69ad2bf0
+    last_write_checksum: sha1:89ec41b133f24d03831291f4789670597538ef39
   src/models/lane.ts:
     last_write_checksum: sha1:5cfb0973506aa6a52ddec17e33034a3e408e6579
   src/models/line-type.ts:
@@ -925,7 +925,7 @@ examples:
         application/json: {"overlap_seconds": 3600}
       responses:
         "201":
-          application/json: {"key": "nrk_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA", "key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "scopes": [], "created_at": "2026-10-14T09:10:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKN", "previous_key_expires_at": "2026-10-15T09:10:00.000Z"}
+          application/json: {"key": "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA", "key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "scopes": [], "created_at": "2026-10-14T09:10:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKN", "previous_key_expires_at": "2026-10-15T09:10:00.000Z"}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "webhook_url_refused", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
@@ -943,7 +943,7 @@ examples:
         application/json: {}
       responses:
         "201":
-          application/json: {"key": "nrk_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA", "key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "scopes": [], "created_at": "2026-10-14T09:10:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKN", "previous_key_expires_at": "2026-10-15T09:10:00.000Z"}
+          application/json: {"key": "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA", "key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "scopes": [], "created_at": "2026-10-14T09:10:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKN", "previous_key_expires_at": "2026-10-15T09:10:00.000Z"}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "webhook_url_refused", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
@@ -961,7 +961,7 @@ examples:
         application/json: {}
       responses:
         "201":
-          application/json: {"key": "nrk_01JA2ZC0Q1R2S3T4V5W6X7Y8Z9_0123456789abcdefghijklmnopqrstuvwxyzABCDEFA", "key_id": "01JA2ZC0Q1R2S3T4V5W6X7Y8Z9", "scopes": ["assess", "history"], "created_at": "2026-10-21T09:00:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "previous_key_expires_at": "2026-10-22T09:00:00.000Z"}
+          application/json: {"key": "nrk_live_01JA2ZC0Q1R2S3T4V5W6X7Y8Z9_0123456789abcdefghijklmnopqrstuvwxyzABCDEFA", "key_id": "01JA2ZC0Q1R2S3T4V5W6X7Y8Z9", "scopes": ["assess", "history"], "created_at": "2026-10-21T09:00:00.000Z", "previous_key_id": "01JA2Z8K6Q4V7W9XBCDEFGHJKM", "previous_key_expires_at": "2026-10-22T09:00:00.000Z"}
   createIntegration:
     auth0:
       requestBody:

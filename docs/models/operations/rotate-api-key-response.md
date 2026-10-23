@@ -11,7 +11,7 @@ let value: RotateApiKeyResponse = {
   },
   result: {
     key:
-      "nrk_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA",
+      "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA",
     keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     scopes: [
       "history",
