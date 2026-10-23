@@ -304,6 +304,39 @@ test("webhookEndpoints registers, lists, rotates, tests and deletes, and retries
   assert.deepEqual(calls[3].body, { event: "endpoint.verification" });
 });
 
+test("webhookEndpoints lists delivery attempts page by page and replays one without retrying", async () => {
+  const page = fixture("valid/webhook-delivery-list.json");
+  const last = { ...page, items: page.items.slice(0, 1), next_cursor: undefined };
+  const replayed = fixture("valid/webhook-replay.json");
+  const id = page.endpoint_id;
+  const event = page.items[0].event_id;
+  const { fetcher, calls } = fakeFetch([
+    json(page),
+    json(last),
+    json(replayed, { status: 202 }),
+    problem(503, "service_unavailable", {}, { "retry-after": "1" }),
+  ]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const first = await nr.webhookEndpoints.listDeliveries(id, { limit: 3 });
+  assert.equal(first.items.length, 3);
+  assert.equal(first.items[1].failure, "non_2xx");
+  assert.equal(first.items[1].responseCode, 500);
+  assert.equal(first.items[2].responseCode, undefined);
+  assert.equal(first.hasMore, true);
+  const second = await first.next();
+  assert.equal(second.hasMore, false);
+  const replay = await nr.webhookEndpoints.replayDelivery(id, event);
+  assert.equal(replay.eventId, event);
+  await assert.rejects(nr.webhookEndpoints.replayDelivery(id, event));
+  assert.deepEqual(calls.map((c) => `${c.method} ${c.url}`), [
+    `GET https://example.com/v1/webhooks/${id}/deliveries?limit=3`,
+    `GET https://example.com/v1/webhooks/${id}/deliveries?cursor=${page.next_cursor}&limit=3`,
+    `POST https://example.com/v1/webhooks/${id}/deliveries/${event}/replay`,
+    `POST https://example.com/v1/webhooks/${id}/deliveries/${event}/replay`,
+  ]);
+  assert.deepEqual(calls[2].body, {});
+});
+
 test("integrations create, list, rotate and delete send the contract shapes", async () => {
   const id = INTEGRATION_AUTH0.integration_id;
   const { fetcher, calls } = fakeFetch([

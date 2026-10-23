@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.29
+
+* `sdk.webhookEndpoints.listDeliveries()`: **Added**
+* `sdk.webhookEndpoints.replayDelivery()`: **Added**
+
 ## 2.0.28
 
 No changes detected.

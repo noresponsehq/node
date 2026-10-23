@@ -1,12 +1,15 @@
 import { webhookEndpointsCreate } from "../funcs/webhook-endpoints-create.js";
 import { webhookEndpointsDelete } from "../funcs/webhook-endpoints-delete.js";
+import { webhookEndpointsListDeliveries } from "../funcs/webhook-endpoints-list-deliveries.js";
 import { webhookEndpointsList } from "../funcs/webhook-endpoints-list.js";
+import { webhookEndpointsReplayDelivery } from "../funcs/webhook-endpoints-replay-delivery.js";
 import { webhookEndpointsRotateSigningKey } from "../funcs/webhook-endpoints-rotate-signing-key.js";
 import { webhookEndpointsSendTestEvent } from "../funcs/webhook-endpoints-send-test-event.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class WebhookEndpoints extends ClientSDK {
   /**
@@ -86,6 +89,42 @@ export class WebhookEndpoints extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.SendWebhookTestEventResponse> {
     return unwrapAsync(webhookEndpointsSendTestEvent(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List an endpoint's delivery attempts.
+   *
+   * @remarks
+   * Every POST the endpoint received, newest first: the event id and type, which attempt it was, whether it was a replay, delivered or failed, the response code, why it failed and how long it took. Attempts are kept for 30 days, or your retention_days when that is shorter, and are deleted with the assessment they carried. Requires the webhooks scope. Read-only and safe to retry. The cursor is opaque and bound to your tenant and the endpoint; a tampered or expired cursor answers 400 invalid_cursor.
+   */
+  async listDeliveries(
+    request: operations.ListWebhookDeliveriesRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.ListWebhookDeliveriesResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(webhookEndpointsListDeliveries(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Send one delivery again.
+   *
+   * @remarks
+   * Queues the event for the endpoint again: the same event id and body it received, with a new NR-Webhook-Timestamp and a signature from the endpoint's current signing key, retried like any other delivery and listed with replay: true. Your receiver deduplicates on the event id. The endpoint must be verified. Requires the webhooks scope. Not idempotent: each call, a retry included, sends the event again.
+   */
+  async replayDelivery(
+    request: operations.ReplayWebhookDeliveryRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ReplayWebhookDeliveryResponse> {
+    return unwrapAsync(webhookEndpointsReplayDelivery(
       this,
       request,
       options,

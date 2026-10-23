@@ -16,6 +16,8 @@ export {
   type GetOptions,
   type ListAssessmentsOptions,
   type AssessmentPage,
+  type ListDeliveriesOptions,
+  type DeliveryPage,
   type ResponseMeta,
   type WithMeta,
   type WaitOptions,

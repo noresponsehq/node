@@ -64,7 +64,23 @@ export type ListAssessmentsOptions = RequestOptions & {
   responseMode?: models.ResponseMode;
 };
 
+export type ListDeliveriesOptions = RequestOptions & {
+  /** Attempts per page, 1 to 100. Default 20. */
+  limit?: number;
+  /** nextCursor from the previous page, unchanged. */
+  cursor?: string;
+};
+
 export type { ResponseMeta, WithMeta, WaitOptions };
+
+/** One page of an endpoint's delivery attempts, newest first. `for await` over it walks every attempt across pages. */
+export type DeliveryPage = models.WebhookDeliveryList & {
+  meta: ResponseMeta;
+  hasMore: boolean;
+  /** The next page, or null on the last one. */
+  next(): Promise<DeliveryPage | null>;
+  [Symbol.asyncIterator](): AsyncIterator<models.WebhookDeliveryAttempt>;
+};
 
 /** One page of an account's assessments. `for await` over it walks every item across pages. */
 export type AssessmentPage = models.AssessmentList & {
@@ -154,6 +170,29 @@ function toPage<V extends RawResponse>(page: RawPage<V>): AssessmentPage {
     },
     async *[Symbol.asyncIterator]() {
       let current: AssessmentPage | null = out;
+      while (current !== null) {
+        yield* current.items;
+        current = await current.next();
+      }
+    },
+  };
+  return out;
+}
+
+type RawDeliveries = { headers: { [k: string]: Array<string> }; result: models.WebhookDeliveryList };
+
+function toDeliveryPage<V extends RawDeliveries>(page: V & { next: Paginator<V> }): DeliveryPage {
+  const nextCursor = page.result.nextCursor;
+  const out: DeliveryPage = {
+    ...page.result,
+    meta: toMeta(page.headers),
+    hasMore: nextCursor !== undefined && nextCursor !== "",
+    next: async () => {
+      const pending = page.next();
+      return pending === null ? null : toDeliveryPage(await pending);
+    },
+    async *[Symbol.asyncIterator]() {
+      let current: DeliveryPage | null = out;
       while (current !== null) {
         yield* current.items;
         current = await current.next();
@@ -295,8 +334,9 @@ export class Keys {
 
 /**
  * Your webhook endpoints. create and rotateSigningKey return a signing secret
- * that is shown only in that answer; none of create, rotateSigningKey and
- * sendTestEvent is retried, since a retry would register, issue or send again.
+ * that is shown only in that answer; none of create, rotateSigningKey,
+ * sendTestEvent and replayDelivery is retried, since a retry would register,
+ * issue or send again.
  */
 export class WebhookEndpoints {
   constructor(private readonly inner: GeneratedWebhookEndpoints) {}
@@ -335,6 +375,31 @@ export class WebhookEndpoints {
     options?: RequestOptions,
   ): Promise<WithMeta<models.WebhookTest>> {
     const response = await this.inner.sendTestEvent({ endpointId, body: { event } }, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /**
+   * One page of the endpoint's delivery attempts, newest first: the event,
+   * the attempt number, delivered or failed, the response code, the failure
+   * reason and the latency. Kept for 30 days, or your retention when shorter.
+   */
+  async listDeliveries(endpointId: string, options: ListDeliveriesOptions = {}): Promise<DeliveryPage> {
+    const { limit, cursor, ...rest } = options;
+    const request: operations.ListWebhookDeliveriesRequest = {
+      endpointId,
+      ...(limit !== undefined ? { limit } : {}),
+      ...(cursor !== undefined ? { cursor } : {}),
+    };
+    const page = await this.inner.listDeliveries(request, rest);
+    return toDeliveryPage(page);
+  }
+
+  /**
+   * Send one logged event to the endpoint again: the same event id and body,
+   * a fresh timestamp and signature. The endpoint must be verified.
+   */
+  async replayDelivery(endpointId: string, eventId: string, options?: RequestOptions): Promise<WithMeta<models.WebhookReplay>> {
+    const response = await this.inner.replayDelivery({ endpointId, eventId, body: {} }, options);
     return withMeta(response.result, response.headers);
   }
 }
