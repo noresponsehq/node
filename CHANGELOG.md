@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.33
+
+No changes detected.
+
 ## 2.0.32
 
 * `sdk.accounts.delete()`: **Added**
