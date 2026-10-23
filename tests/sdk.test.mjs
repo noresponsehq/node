@@ -22,7 +22,7 @@ import {
 import {
   ACCOUNT,
   ACCOUNT_BLOCK,
-  ACCOUNT_DELETION,
+  ACCOUNT_DELETION, ASSESSMENT_DELETION, ASSESSMENT_DELETION_LAST,
   COMPLETE,
   INTEGRATION_AUTH0,
   INTEGRATION_LIST,
@@ -226,6 +226,28 @@ test("accounts.delete erases with DELETE and a repeat answers zero", async () =>
   assert.equal(repeat.assessmentsDeleted, 0);
   assert.equal(calls[1].url, "https://example.com/v1/accounts/tenant%3Ausr%7C42");
   await assert.rejects(nr.accounts.delete("acct_7f3a9c"), (error) => error instanceof PermissionDeniedError && error.code === "tenant_forbidden");
+});
+
+test("assessments.delete deletes with DELETE and names the account's next current assessment", async () => {
+  const { fetcher, calls } = fakeFetch([json(ASSESSMENT_DELETION), json(ASSESSMENT_DELETION_LAST), problem(404, "not_found")]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const deletion = await nr.assessments.delete(ASSESSMENT_DELETION.id);
+  assert.equal(calls[0].method, "DELETE");
+  assert.equal(calls[0].url, `https://example.com/v1/assessments/${ASSESSMENT_DELETION.id}`);
+  assert.equal(calls[0].body, null);
+  assert.equal(deletion.id, ASSESSMENT_DELETION.id);
+  assert.equal(deletion.deleted, true);
+  assert.equal(deletion.account.id, "acct_7f3a9c");
+  assert.equal(deletion.account.currentAssessmentId, ASSESSMENT_DELETION.account.current_assessment_id);
+  assert.equal(deletion.meta.requestId, "a".repeat(32));
+  // Then the remaining one, which leaves the account with none.
+  const remaining = ASSESSMENT_DELETION.account.current_assessment_id;
+  const last = await nr.assessments.delete({ assessmentId: remaining });
+  assert.equal(calls[1].url, `https://example.com/v1/assessments/${remaining}`);
+  assert.equal(last.account.currentAssessmentId, undefined);
+  // A repeat of the first deletion answers 404.
+  await assert.rejects(nr.assessments.delete(ASSESSMENT_DELETION.id), (error) => error instanceof NotFoundError && error.code === "not_found");
+  assert.equal(calls[2].url, `https://example.com/v1/assessments/${ASSESSMENT_DELETION.id}`);
 });
 
 test("accounts.listAssessments sends the query parameters and pages by cursor", async () => {

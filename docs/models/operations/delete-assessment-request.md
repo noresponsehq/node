@@ -1,0 +1,17 @@
+# DeleteAssessmentRequest
+
+## Example Usage
+
+```typescript
+import { DeleteAssessmentRequest } from "@noresponse/node/models/operations";
+
+let value: DeleteAssessmentRequest = {
+  assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+};
+```
+
+## Fields
+
+| Field                                                                                                             | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       | Example                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `assessmentId`                                                                                                    | *string*                                                                                                          | :heavy_check_mark:                                                                                                | Path segment, matched case-sensitively. A value that does not match the assessment_id shape answers 404, not 400. | asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM                                                                                    |

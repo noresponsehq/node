@@ -134,6 +134,15 @@ const receipt = await nr.assessments.recordOutcome(assessment.assessmentId, {
 
 Outcomes take an idempotency key the same way `create` does.
 
+### Delete one assessment
+
+```ts
+const removed = await nr.assessments.delete(assessment.assessmentId);
+removed.account.currentAssessmentId; // the assessment the account's risk now comes from; absent when none is left
+```
+
+It needs the `history` scope. Afterwards `assessments.get` of it throws `NotFoundError`, and so does a repeat. To erase a whole account, use `accounts.delete`.
+
 ## Keys
 
 ```ts

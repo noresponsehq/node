@@ -1,4 +1,5 @@
 import { assessmentsCreate } from "../funcs/assessments-create.js";
+import { assessmentsDelete } from "../funcs/assessments-delete.js";
 import { assessmentsGet } from "../funcs/assessments-get.js";
 import { assessmentsQuery } from "../funcs/assessments-query.js";
 import { assessmentsRecordOutcome } from "../funcs/assessments-record-outcome.js";
@@ -37,6 +38,23 @@ export class Assessments extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetAssessmentResponse> {
     return unwrapAsync(assessmentsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete one assessment.
+   *
+   * @remarks
+   * Deletes one assessment in the environment of your key, with its versions, evidence and outcomes and the identity-graph marks its outcomes set, and scores its account again from what remains. Afterwards the assessment answers 404 and leaves the account's history. The answer names the account and the assessment its current risk now comes from; current_assessment_id is absent when the account has no assessment with a decision left. Requires the history scope. An unknown, expired or already deleted assessment answers 404, so a repeat answers 404; to erase a whole account idempotently, use accounts.delete.
+   */
+  async delete(
+    request: operations.DeleteAssessmentRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteAssessmentResponse> {
+    return unwrapAsync(assessmentsDelete(
       this,
       request,
       options,

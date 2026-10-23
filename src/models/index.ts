@@ -5,6 +5,8 @@ export * from "./account-risk-reason.js";
 export * from "./account-risk.js";
 export * from "./account.js";
 export * from "./assessment-auth-context.js";
+export * from "./assessment-deletion-account.js";
+export * from "./assessment-deletion.js";
 export * from "./assessment-flow.js";
 export * from "./assessment-list.js";
 export * from "./assessment-outcome-request.js";

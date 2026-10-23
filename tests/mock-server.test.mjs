@@ -40,6 +40,13 @@ test("accounts.delete returns the documented deletion", { skip }, async () => {
   assert.equal(typeof deletion.assessmentsDeleted, "number");
 });
 
+test("assessments.delete returns the documented deletion", { skip }, async () => {
+  const deletion = await client().assessments.delete("asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
+  assert.match(deletion.id, /^asm_/);
+  assert.equal(deletion.deleted, true);
+  assert.equal(deletion.account.id, "acct_7f3a9c");
+});
+
 test("accounts.listAssessments returns the documented page", { skip }, async () => {
   const page = await client().accounts.listAssessments("acct_7f3a9c", { limit: 20 });
   assert.equal(page.accountId, "acct_7f3a9c");

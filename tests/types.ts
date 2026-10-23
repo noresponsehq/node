@@ -10,6 +10,7 @@ import {
   type Account,
   type AccountDecision,
   type AccountDeletion,
+  type AssessmentDeletion,
   type Assessment,
   type AssessmentOutcome,
   type AssessmentPage,
@@ -46,6 +47,9 @@ async function surface(): Promise<void> {
   const history: AssessmentPage = await nr.accounts.listAssessments("usr_8f2k1", { limit: 5, responseMode: "standard" });
   const erased: WithMeta<AccountDeletion> = await nr.accounts.delete("usr_8f2k1");
   const erasedCount: number = erased.assessmentsDeleted;
+  const removed: WithMeta<AssessmentDeletion> = await nr.assessments.delete("asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
+  const nextCurrent: string | undefined = removed.account.currentAssessmentId;
+  void nextCurrent;
   void erasedCount;
   // @ts-expect-error deny is not an account decision
   const deny: AccountDecision = "deny";

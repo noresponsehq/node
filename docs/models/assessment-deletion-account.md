@@ -1,0 +1,19 @@
+# AssessmentDeletionAccount
+
+## Example Usage
+
+```typescript
+import { AssessmentDeletionAccount } from "@noresponse/node/models";
+
+let value: AssessmentDeletionAccount = {
+  id: "acct_7f3a9c",
+  currentAssessmentId: "asm_01JB3C4D5E6F7G8H9JKMNPQRST",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                         | Type                                                                                                                                                                          | Required                                                                                                                                                                      | Description                                                                                                                                                                   | Example                                                                                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                          | *string*                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                            | The account_id of the deleted assessment.                                                                                                                                     | acct_7f3a9c                                                                                                                                                                   |
+| `currentAssessmentId`                                                                                                                                                         | *string*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                            | The assessment the account's current risk now comes from. Absent when the account has no assessment with a decision left, and GET /v1/accounts/{account_id} then answers 404. | asm_01JB3C4D5E6F7G8H9JKMNPQRST                                                                                                                                                |

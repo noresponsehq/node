@@ -286,6 +286,18 @@ export class Assessments {
     const response = await this.inner.recordOutcome(generated, rest);
     return withMeta(response.result, response.headers);
   }
+
+  /**
+   * Delete one assessment and score its account again from what remains.
+   * Needs the `history` scope. `account.currentAssessmentId` names the
+   * assessment the account's risk now comes from, and is absent when none is
+   * left. An unknown or already deleted assessment answers 404 (NotFoundError).
+   */
+  async delete(assessmentId: string | operations.DeleteAssessmentRequest, options?: RequestOptions): Promise<WithMeta<models.AssessmentDeletion>> {
+    const request = typeof assessmentId === "string" ? { assessmentId } : assessmentId;
+    const response = await this.inner.delete(request, options);
+    return withMeta(response.result, response.headers);
+  }
 }
 
 /**

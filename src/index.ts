@@ -82,6 +82,8 @@ export { hashIssuedCredential } from "./issued-credential.js";
 export * from "./models/index.js";
 export type {
   CreateAssessmentRequest,
+  DeleteAccountRequest,
+  DeleteAssessmentRequest,
   GetAccountRequest,
   GetAssessmentRequest,
   ListAccountAssessmentsRequest,
