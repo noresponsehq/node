@@ -149,7 +149,42 @@ export async function handleLateResult(
 type Fetch = typeof fetch;
 type Call = { method: string; path: string; query?: Record<string, string>; body?: unknown };
 
-function caller(name: string, baseUrl: string, authorization: string, fetcher: Fetch | undefined) {
+/**
+ * Rate limits. Auth0 answers 429 when the Management API rate limit is hit,
+ * and a 429 means it did not act, so the call is safe to send again, a DELETE
+ * included. One revoke or ban waits at most RATE_LIMIT_BUDGET_MS in all, and
+ * each call retries at most RATE_LIMIT_RETRIES times: it waits Retry-After
+ * seconds, else until X-RateLimit-Reset (Unix seconds), else 250 ms, 500 ms,
+ * 1 s, 2 s. A wait that would pass the budget is not started: the 429 throws
+ * at once as ProviderActionError, the webhook answers 5xx and NoResponse
+ * delivers it again later. The budget keeps the handler inside the 5 s a
+ * delivery has to be answered.
+ */
+const RATE_LIMIT_RETRIES = 4;
+const RATE_LIMIT_BUDGET_MS = 3_000;
+const RATE_LIMIT_BACKOFF_MS = 250;
+
+/** The time spent waiting out 429s in one provider action. */
+type RateLimitBudget = { waitedMs: number };
+
+/** How long a 429 asks to wait, in milliseconds. */
+function rateLimitWaitMs(headers: Headers, retry: number): number {
+  const after = headers.get("retry-after")?.trim();
+  if (after) {
+    const seconds = Number(after);
+    if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+  }
+  const reset = headers.get("x-ratelimit-reset")?.trim();
+  if (reset) {
+    const at = Number(reset);
+    if (Number.isFinite(at)) return Math.max(0, at * 1000 - Date.now());
+  }
+  return RATE_LIMIT_BACKOFF_MS * 2 ** retry;
+}
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+function caller(name: string, baseUrl: string, authorization: string, fetcher: Fetch | undefined, rateLimit?: RateLimitBudget) {
   const base = baseUrl.replace(/\/+$/, "");
   const run = fetcher ?? globalThis.fetch;
   // Every call names a user or a session. A 404 means it is already gone, so
@@ -159,15 +194,25 @@ function caller(name: string, baseUrl: string, authorization: string, fetcher: F
     for (const [key, value] of Object.entries(query ?? {})) url.searchParams.set(key, value);
     const headers: Record<string, string> = { authorization, accept: "application/json" };
     if (body !== undefined) headers["content-type"] = "application/json";
-    const response = await run(url, { method, headers, ...(body !== undefined ? { body: JSON.stringify(body) } : {}) });
-    const text = await response.text();
-    if (response.status === 404) return undefined;
-    if (!response.ok) throw new ProviderActionError(name, response.status, `${name} ${method} ${path} answered ${response.status}`, errorCode(text));
-    if (!text) return undefined;
-    try {
-      return JSON.parse(text);
-    } catch {
-      return undefined;
+    for (let retry = 0; ; retry++) {
+      const response = await run(url, { method, headers, ...(body !== undefined ? { body: JSON.stringify(body) } : {}) });
+      const text = await response.text();
+      if (response.status === 429 && rateLimit && retry < RATE_LIMIT_RETRIES) {
+        const wait = rateLimitWaitMs(response.headers, retry);
+        if (rateLimit.waitedMs + wait <= RATE_LIMIT_BUDGET_MS) {
+          rateLimit.waitedMs += wait;
+          await sleep(wait);
+          continue;
+        }
+      }
+      if (response.status === 404) return undefined;
+      if (!response.ok) throw new ProviderActionError(name, response.status, `${name} ${method} ${path} answered ${response.status}`, errorCode(text));
+      if (!text) return undefined;
+      try {
+        return JSON.parse(text);
+      } catch {
+        return undefined;
+      }
     }
   };
 }
@@ -307,15 +352,21 @@ const notOnPlan = (error: unknown): boolean => error instanceof ProviderActionEr
  *   (PATCH blocked: true) before deleting the refresh tokens, and act
  *   reports "ban". Unblock the user in the dashboard to undo it.
  * Any other refusal, such as 403 insufficient_scope, throws.
+ *
+ * A 429 from the Management API is waited out and retried: Retry-After, else
+ * X-RateLimit-Reset, else 250 ms doubling, at most 4 retries a call and 3 s of
+ * waiting a revoke or ban. Past that the 429 throws as ProviderActionError.
  */
 export function auth0Actions(options: Auth0ActionsOptions): LateResultActor {
   if (!options?.token) throw new TypeError("auth0Actions needs token");
   const base = options.baseUrl ?? (options.domain ? `https://${options.domain}/api/v2` : undefined);
   if (!base) throw new TypeError("auth0Actions needs domain or baseUrl");
-  const call = caller("auth0", base, `Bearer ${options.token}`, options.fetch);
-  const block = (user: string) => call({ method: "PATCH", path: `/users/${user}`, body: { blocked: true } });
+  type Caller = ReturnType<typeof caller>;
+  // A fresh caller per action, so each revoke or ban has its own rate-limit budget.
+  const session = (): Caller => caller("auth0", base, `Bearer ${options.token}`, options.fetch, { waitedMs: 0 });
+  const block = (call: Caller, user: string) => call({ method: "PATCH", path: `/users/${user}`, body: { blocked: true } });
   /** End every session; false when the plan has no sessions API. */
-  const deleteSessions = async (user: string): Promise<boolean> => {
+  const deleteSessions = async (call: Caller, user: string): Promise<boolean> => {
     try {
       await call({ method: "DELETE", path: `/users/${user}/sessions` });
       return true;
@@ -324,7 +375,7 @@ export function auth0Actions(options: Auth0ActionsOptions): LateResultActor {
       throw error;
     }
   };
-  const deleteRefreshTokens = async (userId: string, user: string): Promise<void> => {
+  const deleteRefreshTokens = async (call: Caller, userId: string, user: string): Promise<void> => {
     try {
       await call({ method: "DELETE", path: `/users/${user}/refresh-tokens` });
       return;
@@ -345,18 +396,20 @@ export function auth0Actions(options: Auth0ActionsOptions): LateResultActor {
   };
   const revoke = async (userId: string): Promise<LateResultAction> => {
     const user = segment(userId);
-    const ended = await deleteSessions(user);
+    const call = session();
+    const ended = await deleteSessions(call, user);
     // Without the sessions API a login session survives; blocking is the only way to end it.
-    if (!ended) await block(user);
-    await deleteRefreshTokens(userId, user);
+    if (!ended) await block(call, user);
+    await deleteRefreshTokens(call, userId, user);
     return ended ? "revoke_sessions" : "ban";
   };
   const ban = async (userId: string): Promise<void> => {
     const user = segment(userId);
-    await block(user);
+    const call = session();
+    await block(call, user);
     // The block already ends a session the plan cannot delete.
-    await deleteSessions(user);
-    await deleteRefreshTokens(userId, user);
+    await deleteSessions(call, user);
+    await deleteRefreshTokens(call, userId, user);
   };
   return {
     name: "auth0",

@@ -45,8 +45,8 @@ async function mockProvider(route) {
       const url = new URL(req.url, "http://127.0.0.1");
       const call = { method: req.method, path: url.pathname, query: Object.fromEntries(url.searchParams), auth: req.headers.authorization, body: text ? JSON.parse(text) : undefined };
       calls.push(call);
-      const [status, body] = route(call) ?? [404, { error: "not found" }];
-      res.writeHead(status, { "content-type": "application/json" });
+      const [status, body, extra] = route(call) ?? [404, { error: "not found" }];
+      res.writeHead(status, { "content-type": "application/json", ...extra });
       res.end(body === undefined ? "" : JSON.stringify(body));
     });
   });
@@ -279,6 +279,56 @@ test("Auth0 with the refresh-token endpoint but no sessions API still blocks; a 
     assert.deepEqual(scoped.calls.map((c) => c.method), ["DELETE"]);
   } finally {
     await scoped.close();
+  }
+});
+
+const TOO_MANY = { statusCode: 429, error: "Too Many Requests", message: "Global limit has been reached", errorCode: "too_many_requests" };
+
+test("Auth0 waits out a 429 from the Management API and retries the call", async () => {
+  const escaped = "auth0%7Cabc";
+  const tenant = auth0WithoutSessionsApi(escaped);
+  // One 429 each: Retry-After, an X-RateLimit-Reset already past, and no header (the backoff).
+  const limited = new Map([
+    ["GET refresh_token", { "retry-after": "0" }],
+    ["DELETE /api/v2/device-credentials/dcr_a", { "x-ratelimit-reset": String(Math.floor(Date.now() / 1000) - 5) }],
+    ["DELETE /api/v2/device-credentials/dcr_b", {}],
+  ]);
+  const mock = await mockProvider((c) => {
+    const key = c.method === "GET" ? `GET ${c.query.type}` : `${c.method} ${c.path}`;
+    const headers = limited.get(key);
+    if (headers) {
+      limited.delete(key);
+      return [429, TOO_MANY, headers];
+    }
+    return tenant.route(c);
+  });
+  try {
+    const auth0 = auth0Actions({ baseUrl: mock.url + "/api/v2", token: "mgmt_token" });
+    const { raw, headers } = delivery(REVIEW, "auth0|abc");
+    const result = await handleLateResult(raw, headers, secrets, auth0, { now: NOW });
+    assert.equal(result.action, "ban");
+    assert.equal(tenant.state.blocked, true);
+    assert.deepEqual(tenant.state.credentials, []);
+    assert.equal(limited.size, 0);
+    const sent = mock.calls.map((c) => `${c.method} ${c.path}${c.query.type ? " " + c.query.type : ""}`);
+    assert.equal(sent.filter((x) => x === "GET /api/v2/device-credentials refresh_token").length, 2);
+    assert.equal(sent.filter((x) => x === "DELETE /api/v2/device-credentials/dcr_a").length, 2);
+    assert.equal(sent.filter((x) => x === "DELETE /api/v2/device-credentials/dcr_b").length, 2);
+  } finally {
+    await mock.close();
+  }
+});
+
+test("Auth0 throws a 429 at once when the wait it asks for passes the budget", async () => {
+  const mock = await mockProvider(() => [429, TOO_MANY, { "retry-after": "60" }]);
+  try {
+    const auth0 = auth0Actions({ baseUrl: mock.url + "/api/v2", token: "mgmt_token" });
+    const started = Date.now();
+    await assert.rejects(auth0.act("revoke_sessions", "auth0|abc"), (e) => e instanceof ProviderActionError && e.status === 429 && e.code === "too_many_requests");
+    assert.ok(Date.now() - started < 1_000);
+    assert.equal(mock.calls.length, 1);
+  } finally {
+    await mock.close();
   }
 });
 
