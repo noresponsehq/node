@@ -5,8 +5,8 @@ management:
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.26
-  configChecksum: 4edb3d06683754625baee2b89a089335
+  releaseVersion: 2.0.27
+  configChecksum: cff4bbc3165c5a91a571aa7fe459a4b7
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -319,9 +319,9 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:880d87a513647d80c3708cd5be9c314f02881d9a
+    last_write_checksum: sha1:ba137ca89cc98a89bcb25b164ffab9eed6c442bf
   package.json:
-    last_write_checksum: sha1:9e571e8fc6e2be8080a82e17c45a81624cb148cc
+    last_write_checksum: sha1:ac33b3588f690ee99cb368c3da1efa8005829259
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-get.ts:
@@ -365,7 +365,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:09a846c9c9d7b9aa365a1d62d87a4e7fd806cba0
+    last_write_checksum: sha1:d2aff78143c18e2558907bcbdc4c144c628bb6c3
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
