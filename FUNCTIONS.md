@@ -33,6 +33,7 @@ async function run() {
     idempotencyKey: "signup-acct_7f3a9c",
     body: {
       accountId: "acct_7f3a9c",
+      flow: "signup",
       identifiers: {
         email: "new.user@example.com",
       },
