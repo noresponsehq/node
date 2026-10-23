@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 5e16070b0416143c4eb4064783b46276
+  docChecksum: cb90dcc0457fc681deb74417af95c3ae
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 3.0.5
-  configChecksum: 87016d3c91a0341f0d6f7aef5c3aedf0
+  releaseVersion: 3.0.6
+  configChecksum: 1c76358effa5e4db6618138e079dd334
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -43,7 +43,7 @@ trackedFiles:
   docs/models/account-decision.md:
     last_write_checksum: sha1:a8b1f5ffb8e9394f24c629e52fb95709159c425c
   docs/models/account-decisions-by-flow.md:
-    last_write_checksum: sha1:dfd766b739bc43e85a9a92a97b4d718e53d2190b
+    last_write_checksum: sha1:f83085b0f609fffbc4a69c2e34dd2e18d380fd7f
   docs/models/account-deletion.md:
     last_write_checksum: sha1:6e85148abc22998257ef83642174b0128324a9c6
   docs/models/account-risk-reason.md:
@@ -51,7 +51,7 @@ trackedFiles:
   docs/models/account-risk.md:
     last_write_checksum: sha1:4330d9514cbcc7b4e78d01ba5aabc5c366aaaa63
   docs/models/account.md:
-    last_write_checksum: sha1:045cc660efd0d037a1f1b1395dab2ee475e46e44
+    last_write_checksum: sha1:3dc9a9bacb7a109bfcd0a22336cf60f9a24f4881
   docs/models/alternate-name-union.md:
     last_write_checksum: sha1:0e2f57f4868d3668b9da1ef84201a39c88a2e99d
   docs/models/alternate-name.md:
@@ -369,9 +369,9 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:6b0a9cce6db8eaceb18f825567c211533422c6d5
+    last_write_checksum: sha1:9eba0d2ca357dbe78b651c54e4ab44b85e97f755
   package.json:
-    last_write_checksum: sha1:5b9715794002706f3b6b29a4cce92d55fe5ec373
+    last_write_checksum: sha1:0c2c52dac16fd46c83304d51d6425d68c8d958ae
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-delete.ts:
@@ -425,7 +425,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:a33abd868a3927def9d4c5c3c733a7b1e51f7a3c
+    last_write_checksum: sha1:fe71f246775b534407f07c2ad3befac7b097cfc7
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -453,7 +453,7 @@ trackedFiles:
   src/models/account-decision.ts:
     last_write_checksum: sha1:34be61496c8c8973f273a68c2886f8ed7a11697b
   src/models/account-decisions-by-flow.ts:
-    last_write_checksum: sha1:b0430d404e9b0fd407a8dd74694748d98bbaaa14
+    last_write_checksum: sha1:c3d785a2d1fe25d8ae22ceeafb310cb7284af0db
   src/models/account-deletion.ts:
     last_write_checksum: sha1:f95944f0632109941d0ec73945de81789f040599
   src/models/account-risk-reason.ts:
@@ -461,7 +461,7 @@ trackedFiles:
   src/models/account-risk.ts:
     last_write_checksum: sha1:02a4f6deca9886744f18bb816627d4ed3617fc14
   src/models/account.ts:
-    last_write_checksum: sha1:385283933601a29e0b4d06431251dd3a6a69a84e
+    last_write_checksum: sha1:452cae4149f5063eea9a30e3c7e2162192670be8
   src/models/assessment-deletion-account.ts:
     last_write_checksum: sha1:7a67daf71b4596985ac4dc9fa2e010a4cffd4852
   src/models/assessment-deletion.ts:
