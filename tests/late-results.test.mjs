@@ -161,6 +161,125 @@ test("Auth0: review deletes sessions and refresh tokens; ban blocks first; the |
   }
 });
 
+/**
+ * An Auth0 tenant on a plan without the sessions API, as a Free tenant answers:
+ * both bulk endpoints refuse with 403 feature_not_enabled, while
+ * /device-credentials and PATCH /users/{id} work. It keeps the user's refresh
+ * tokens and blocked flag, so a repeated delivery sees what the first left.
+ */
+function auth0WithoutSessionsApi(escaped, { refreshTokensApi = false } = {}) {
+  const state = { blocked: false, credentials: [{ id: "dcr_a", type: "refresh_token" }, { id: "dcr_b", type: "refresh_token" }, { id: "dcr_r", type: "rotating_refresh_token" }] };
+  const refused = [403, { statusCode: 403, error: "Forbidden", message: "This feature is not enabled for this tenant.", errorCode: "feature_not_enabled" }];
+  const route = (c) => {
+    if (c.method === "DELETE" && c.path === `/api/v2/users/${escaped}/sessions`) return refused;
+    if (c.method === "DELETE" && c.path === `/api/v2/users/${escaped}/refresh-tokens`) {
+      if (!refreshTokensApi) return refused;
+      state.credentials = [];
+      return [202, undefined];
+    }
+    if (c.method === "PATCH" && c.path === `/api/v2/users/${escaped}`) {
+      state.blocked = c.body.blocked === true;
+      return [200, { blocked: state.blocked }];
+    }
+    if (c.method === "GET" && c.path === "/api/v2/device-credentials") return [200, state.credentials.filter((d) => d.type === c.query.type)];
+    if (c.method === "DELETE" && c.path.startsWith("/api/v2/device-credentials/")) {
+      const id = decodeURIComponent(c.path.slice("/api/v2/device-credentials/".length));
+      if (!state.credentials.some((d) => d.id === id)) return [404, { errorCode: "inexistent_device_credential" }];
+      state.credentials = state.credentials.filter((d) => d.id !== id);
+      return [204, undefined];
+    }
+  };
+  return { state, route };
+}
+
+test("Auth0 without the sessions API: revoke blocks the user, deletes refresh tokens as device credentials and reports ban", async () => {
+  const id = "auth0|64abc0de1234567890abcdef";
+  const escaped = "auth0%7C64abc0de1234567890abcdef";
+  const tenant = auth0WithoutSessionsApi(escaped);
+  const mock = await mockProvider(tenant.route);
+  try {
+    const auth0 = auth0Actions({ baseUrl: mock.url + "/api/v2", token: "mgmt_token" });
+    const { raw, headers } = delivery(REVIEW, id);
+    const result = await handleLateResult(raw, headers, secrets, auth0, { now: NOW });
+    assert.equal(result.action, "ban");
+    assert.equal(result.userId, id);
+    assert.equal(tenant.state.blocked, true);
+    assert.deepEqual(tenant.state.credentials, []);
+    assert.deepEqual(
+      mock.calls.map((c) => `${c.method} ${c.path}${c.query.type ? " " + c.query.type : ""}`),
+      [
+        `DELETE /api/v2/users/${escaped}/sessions`,
+        `PATCH /api/v2/users/${escaped}`,
+        `DELETE /api/v2/users/${escaped}/refresh-tokens`,
+        "GET /api/v2/device-credentials refresh_token",
+        "GET /api/v2/device-credentials rotating_refresh_token",
+        "DELETE /api/v2/device-credentials/dcr_a",
+        "DELETE /api/v2/device-credentials/dcr_b",
+        "DELETE /api/v2/device-credentials/dcr_r",
+      ],
+    );
+    assert.ok(mock.calls.filter((c) => c.path === "/api/v2/device-credentials").every((c) => c.query.user_id === id));
+
+    // The same delivery again: still blocked, nothing left to delete, same report.
+    mock.calls.length = 0;
+    assert.equal((await handleLateResult(raw, headers, secrets, auth0, { now: NOW })).action, "ban");
+    assert.equal(tenant.state.blocked, true);
+    assert.ok(!mock.calls.some((c) => c.method === "DELETE" && c.path.startsWith("/api/v2/device-credentials/")));
+
+    // ban blocks first, and the plan refusing the sessions endpoint is no failure.
+    tenant.state.blocked = false;
+    tenant.state.credentials.push({ id: "dcr_c", type: "refresh_token" });
+    mock.calls.length = 0;
+    assert.equal((await handleLateResult(raw, headers, secrets, auth0, { now: NOW, policy: { review: "ban" } })).action, "ban");
+    assert.equal(mock.calls[0].method, "PATCH");
+    assert.equal(tenant.state.blocked, true);
+    assert.deepEqual(tenant.state.credentials, []);
+
+    // Called directly, revokeSessions takes the same fallback.
+    tenant.state.blocked = false;
+    await auth0.revokeSessions(id);
+    assert.equal(tenant.state.blocked, true);
+  } finally {
+    await mock.close();
+  }
+});
+
+test("Auth0 with the refresh-token endpoint but no sessions API still blocks; a scope refusal never falls back", async () => {
+  const escaped = "auth0%7Cabc";
+  const tenant = auth0WithoutSessionsApi(escaped, { refreshTokensApi: true });
+  const mock = await mockProvider(tenant.route);
+  try {
+    const auth0 = auth0Actions({ baseUrl: mock.url + "/api/v2", token: "mgmt_token" });
+    const { raw, headers } = delivery(REVIEW, "auth0|abc");
+    assert.equal((await handleLateResult(raw, headers, secrets, auth0, { now: NOW })).action, "ban");
+    assert.equal(tenant.state.blocked, true);
+    assert.ok(!mock.calls.some((c) => c.path === "/api/v2/device-credentials"));
+  } finally {
+    await mock.close();
+  }
+
+  const scoped = await mockProvider((c) =>
+    c.method === "DELETE" ? [403, { statusCode: 403, error: "Forbidden", message: "Insufficient scope, expected any of: delete:sessions", errorCode: "insufficient_scope" }] : [200, {}],
+  );
+  try {
+    const auth0 = auth0Actions({ baseUrl: scoped.url + "/api/v2", token: "mgmt_token" });
+    const { raw, headers } = delivery(REVIEW, "auth0|abc");
+    await assert.rejects(handleLateResult(raw, headers, secrets, auth0, { now: NOW }), (e) => e instanceof ProviderActionError && e.status === 403 && e.code === "insufficient_scope");
+    assert.deepEqual(scoped.calls.map((c) => c.method), ["DELETE"]);
+  } finally {
+    await scoped.close();
+  }
+});
+
+test("a provider with no act reports the action asked for", async () => {
+  const done = [];
+  const custom = { name: "custom", revokeSessions: async (u) => void done.push(`revoke ${u}`), ban: async (u) => void done.push(`ban ${u}`) };
+  const { raw, headers } = delivery(REVIEW, "u_1");
+  assert.equal((await handleLateResult(raw, headers, secrets, custom, { now: NOW })).action, "revoke_sessions");
+  assert.equal((await handleLateResult(raw, headers, secrets, custom, { now: NOW, policy: { review: "ban" } })).action, "ban");
+  assert.deepEqual(done, ["revoke u_1", "ban u_1"]);
+});
+
 test("an unverified, quiet or unmapped event makes no provider call, and a provider refusal throws", async () => {
   const mock = await mockProvider((c) => (c.method === "DELETE" ? [403, { error: "insufficient_scope" }] : undefined));
   try {

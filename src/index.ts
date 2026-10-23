@@ -55,6 +55,7 @@ export {
   type LateResultAction,
   type LateResultOptions,
   type LateResultPolicy,
+  type LateResultActor,
   type LateResultProvider,
   type ClerkActionsOptions,
   type WorkOSActionsOptions,

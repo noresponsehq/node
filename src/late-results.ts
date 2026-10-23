@@ -31,6 +31,19 @@ export interface LateResultProvider {
   revokeSessions(userId: string): Promise<void>;
   /** Stop the user signing in again and end their sessions. */
   ban(userId: string): Promise<void>;
+  /**
+   * Optional. Take `action` and return the action that ran. A provider that
+   * has to do more than it was asked implements this: auth0Actions answers
+   * "ban" when the tenant's plan has no sessions API and it blocked the user
+   * to end their sessions. When absent, handleLateResult calls ban or
+   * revokeSessions and reports the action asked for.
+   */
+  act?(action: "revoke_sessions" | "ban", userId: string): Promise<LateResultAction>;
+}
+
+/** A provider that reports the action that ran, as auth0Actions does. */
+export interface LateResultActor extends LateResultProvider {
+  act(action: "revoke_sessions" | "ban", userId: string): Promise<LateResultAction>;
 }
 
 export type LateResultOptions = ConstructEventOptions & {
@@ -47,7 +60,12 @@ export type LateResultOptions = ConstructEventOptions & {
 export type LateResult = {
   /** The verified event. Answer an endpoint.verification with verificationResponse(event). */
   event: WebhookEvent;
-  /** The action taken. "none" when the policy, the event or the user id called for nothing. */
+  /**
+   * The action that ran. "none" when the policy, the event or the user id
+   * called for nothing. It can be stronger than the policy's action when the
+   * provider had to fall back: auth0Actions reports "ban" when it blocked the
+   * user because the tenant's plan cannot end sessions.
+   */
   action: LateResultAction;
   /** The provider user id acted on, when an action was taken. */
   userId?: string;
@@ -60,11 +78,14 @@ export type LateResult = {
 export class ProviderActionError extends Error {
   readonly provider: string;
   readonly status: number;
-  constructor(provider: string, status: number, message: string) {
+  /** The provider's error code from the response body, such as Auth0's errorCode "insufficient_scope", when it sent one. */
+  readonly code: string | undefined;
+  constructor(provider: string, status: number, message: string, code?: string) {
     super(message);
     this.name = "ProviderActionError";
     this.provider = provider;
     this.status = status;
+    this.code = code;
   }
 }
 
@@ -109,9 +130,11 @@ export async function handleLateResult(
   const accountId = event.data.accountId;
   const userId = resolve ? await resolve(accountId, event) : accountId;
   if (userId === null || userId === undefined || userId === "") return { event, action: "none" };
-  if (action === "ban") await provider.ban(userId);
+  let ran: LateResultAction = action;
+  if (provider.act) ran = await provider.act(action, userId);
+  else if (action === "ban") await provider.ban(userId);
   else await provider.revokeSessions(userId);
-  return { event, action, userId };
+  return { event, action: ran, userId };
 }
 
 type Fetch = typeof fetch;
@@ -130,7 +153,7 @@ function caller(name: string, baseUrl: string, authorization: string, fetcher: F
     const response = await run(url, { method, headers, ...(body !== undefined ? { body: JSON.stringify(body) } : {}) });
     const text = await response.text();
     if (response.status === 404) return undefined;
-    if (!response.ok) throw new ProviderActionError(name, response.status, `${name} ${method} ${path} answered ${response.status}`);
+    if (!response.ok) throw new ProviderActionError(name, response.status, `${name} ${method} ${path} answered ${response.status}`, errorCode(text));
     if (!text) return undefined;
     try {
       return JSON.parse(text);
@@ -138,6 +161,17 @@ function caller(name: string, baseUrl: string, authorization: string, fetcher: F
       return undefined;
     }
   };
+}
+
+/** The error code in a provider's error body: Auth0's errorCode, or a top-level code. */
+function errorCode(text: string): string | undefined {
+  try {
+    const body = JSON.parse(text) as { errorCode?: unknown; code?: unknown } | null;
+    const code = body?.errorCode ?? body?.code;
+    return typeof code === "string" && code !== "" ? code : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 const segment = (id: string): string => {
@@ -237,33 +271,96 @@ export type Auth0ActionsOptions = {
   domain?: string;
   /** The Management API base URL in place of domain. */
   baseUrl?: string;
-  /** A Management API access token with update:users, delete:sessions and delete:refresh_tokens. */
+  /**
+   * A Management API access token with update:users, delete:sessions,
+   * delete:refresh_tokens, read:device_credentials and delete:device_credentials.
+   */
   token: string;
   fetch?: Fetch;
 };
 
+/** Auth0 answers 403 with errorCode feature_not_enabled when the tenant's plan does not include an endpoint. */
+const notOnPlan = (error: unknown): boolean => error instanceof ProviderActionError && error.status === 403 && error.code === "feature_not_enabled";
+
 /**
- * Auth0 Management API. revokeSessions deletes every session
- * (DELETE /users/{id}/sessions) and refresh token
- * (DELETE /users/{id}/refresh-tokens). ban first sets blocked: true
- * (PATCH /users/{id}), then does the same.
+ * Auth0 Management API.
+ *
+ * revokeSessions deletes every session (DELETE /users/{id}/sessions) and
+ * every refresh token (DELETE /users/{id}/refresh-tokens). ban first sets
+ * blocked: true (PATCH /users/{id}), then does the same.
+ *
+ * Auth0 offers the sessions and refresh-token endpoints on Enterprise plans
+ * only; on other plans they answer 403 feature_not_enabled. Then:
+ * - refresh tokens are deleted one by one through
+ *   /device-credentials (types refresh_token and rotating_refresh_token),
+ *   which every plan has;
+ * - a login session cannot be ended, so revokeSessions blocks the user
+ *   (PATCH blocked: true) before deleting the refresh tokens, and act
+ *   reports "ban". Unblock the user in the dashboard to undo it.
+ * Any other refusal, such as 403 insufficient_scope, throws.
  */
-export function auth0Actions(options: Auth0ActionsOptions): LateResultProvider {
+export function auth0Actions(options: Auth0ActionsOptions): LateResultActor {
   if (!options?.token) throw new TypeError("auth0Actions needs token");
   const base = options.baseUrl ?? (options.domain ? `https://${options.domain}/api/v2` : undefined);
   if (!base) throw new TypeError("auth0Actions needs domain or baseUrl");
   const call = caller("auth0", base, `Bearer ${options.token}`, options.fetch);
-  const revokeSessions = async (userId: string): Promise<void> => {
+  const block = (user: string) => call({ method: "PATCH", path: `/users/${user}`, body: { blocked: true } });
+  /** End every session; false when the plan has no sessions API. */
+  const deleteSessions = async (user: string): Promise<boolean> => {
+    try {
+      await call({ method: "DELETE", path: `/users/${user}/sessions` });
+      return true;
+    } catch (error) {
+      if (notOnPlan(error)) return false;
+      throw error;
+    }
+  };
+  const deleteRefreshTokens = async (userId: string, user: string): Promise<void> => {
+    try {
+      await call({ method: "DELETE", path: `/users/${user}/refresh-tokens` });
+      return;
+    } catch (error) {
+      if (!notOnPlan(error)) throw error;
+    }
+    // Collect every id before deleting any, so the pages do not shift underneath.
+    const ids: string[] = [];
+    for (const type of ["refresh_token", "rotating_refresh_token"]) {
+      for (let page = 0; page < 10; page++) {
+        const body = await call({ method: "GET", path: "/device-credentials", query: { user_id: userId, type, page: String(page), per_page: "100" } });
+        const list = Array.isArray(body) ? (body as Array<{ id?: unknown }>) : [];
+        for (const credential of list) if (typeof credential?.id === "string" && credential.id) ids.push(credential.id);
+        if (list.length < 100) break;
+      }
+    }
+    for (const id of ids) await call({ method: "DELETE", path: `/device-credentials/${encodeURIComponent(id)}` });
+  };
+  const revoke = async (userId: string): Promise<LateResultAction> => {
     const user = segment(userId);
-    await call({ method: "DELETE", path: `/users/${user}/sessions` });
-    await call({ method: "DELETE", path: `/users/${user}/refresh-tokens` });
+    const ended = await deleteSessions(user);
+    // Without the sessions API a login session survives; blocking is the only way to end it.
+    if (!ended) await block(user);
+    await deleteRefreshTokens(userId, user);
+    return ended ? "revoke_sessions" : "ban";
+  };
+  const ban = async (userId: string): Promise<void> => {
+    const user = segment(userId);
+    await block(user);
+    // The block already ends a session the plan cannot delete.
+    await deleteSessions(user);
+    await deleteRefreshTokens(userId, user);
   };
   return {
     name: "auth0",
-    revokeSessions,
-    async ban(userId) {
-      await call({ method: "PATCH", path: `/users/${segment(userId)}`, body: { blocked: true } });
-      await revokeSessions(userId);
+    async revokeSessions(userId) {
+      await revoke(userId);
+    },
+    ban,
+    async act(action, userId) {
+      if (action === "ban") {
+        await ban(userId);
+        return "ban";
+      }
+      return revoke(userId);
     },
   };
 }
