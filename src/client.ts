@@ -4,9 +4,10 @@
  * Wraps the generated client so that construction reads the environment,
  * every method returns its model with `meta` (request id, Retry-After,
  * Location, Idempotent-Replayed), idempotency keys are generated when
- * omitted, query pages iterate their items, and assessments.wait exists.
+ * omitted, history pages iterate their items, and assessments.wait exists.
  */
 import { NoResponse as GeneratedClient } from "./sdk/sdk.js";
+import type { Accounts as GeneratedAccounts } from "./sdk/accounts.js";
 import type { Assessments as GeneratedAssessments } from "./sdk/assessments.js";
 import type { Integrations as GeneratedIntegrations } from "./sdk/integrations.js";
 import type { Keys as GeneratedKeys } from "./sdk/keys.js";
@@ -52,6 +53,14 @@ export type CreateOptions = RequestOptions & {
 };
 
 export type GetOptions = RequestOptions & {
+  responseMode?: models.ResponseMode;
+};
+
+export type ListAssessmentsOptions = RequestOptions & {
+  /** Items per page, 1 to 50. Default 20. */
+  limit?: number;
+  /** nextCursor from the previous page, unchanged. */
+  cursor?: string;
   responseMode?: models.ResponseMode;
 };
 
@@ -130,9 +139,10 @@ function newIdempotencyKey(): string {
   return globalThis.crypto.randomUUID();
 }
 
-type RawPage = operations.QueryAccountAssessmentsResponse & { next: Paginator<operations.QueryAccountAssessmentsResponse> };
+type RawResponse = { headers: { [k: string]: Array<string> }; result: models.AssessmentList };
+type RawPage<V extends RawResponse> = V & { next: Paginator<V> };
 
-function toPage(page: RawPage): AssessmentPage {
+function toPage<V extends RawResponse>(page: RawPage<V>): AssessmentPage {
   const nextCursor = page.result.nextCursor;
   const out: AssessmentPage = {
     ...page.result,
@@ -236,6 +246,40 @@ export class Assessments {
     const { idempotencyKey: _ignored, ...rest } = options;
     const response = await this.inner.recordOutcome(generated, rest);
     return withMeta(response.result, response.headers);
+  }
+}
+
+/**
+ * Your accounts. An account is the accountId you send with your assessments
+ * and holds one current risk: the risk of its latest assessment with a
+ * decision. Its assessments are its history. Both methods need the
+ * `history` scope.
+ */
+export class Accounts {
+  constructor(private readonly inner: GeneratedAccounts) {}
+
+  /** The account's current risk, with a decision for each flow. An account with no decided assessment answers 404 (NotFoundError). */
+  async get(accountId: string | operations.GetAccountRequest, options?: RequestOptions): Promise<WithMeta<models.Account>> {
+    const request = typeof accountId === "string" ? { accountId } : accountId;
+    const response = await this.inner.get(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /**
+   * One page of the account's unexpired assessments, newest first. Iterate
+   * the returned page with `for await` to walk every item across pages, or
+   * call `page.next()` yourself.
+   */
+  async listAssessments(accountId: string, options: ListAssessmentsOptions = {}): Promise<AssessmentPage> {
+    const { limit, cursor, responseMode, ...rest } = options;
+    const request: operations.ListAccountAssessmentsRequest = {
+      accountId,
+      ...(limit !== undefined ? { limit } : {}),
+      ...(cursor !== undefined ? { cursor } : {}),
+      ...(responseMode !== undefined ? { responseMode } : {}),
+    };
+    const page = await this.inner.listAssessments(request, rest);
+    return toPage(page);
   }
 }
 
@@ -357,6 +401,7 @@ export class NoResponse {
   static readonly webhooks = webhooks;
   readonly webhooks = webhooks;
   readonly assessments: Assessments;
+  readonly accounts: Accounts;
   readonly keys: Keys;
   readonly webhookEndpoints: WebhookEndpoints;
   readonly integrations: Integrations;
@@ -370,6 +415,7 @@ export class NoResponse {
     const client = new GeneratedClient(sdkOptions);
     this.baseUrl = sdkOptions.serverURL!;
     this.assessments = new Assessments(client.assessments);
+    this.accounts = new Accounts(client.accounts);
     this.keys = new Keys(client.keys);
     this.webhookEndpoints = new WebhookEndpoints(client.webhookEndpoints);
     this.integrations = new Integrations(client.integrations);

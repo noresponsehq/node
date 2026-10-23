@@ -99,6 +99,25 @@ for await (const item of page) {
 }
 ```
 
+### Read an account's current risk
+
+An account is the `accountId` you send with your assessments. It holds one current risk: the risk of its latest assessment with a decision. Every assessment updates it.
+
+```ts
+const account = await nr.accounts.get("usr_8f2k1");
+account.risk.score;              // 0 (safe) to 100 (risky)
+account.risk.decision;           // allow, step_up, review or block
+account.decisionsByFlow.login;   // a decision for signup, login and purchase
+account.assessmentId;            // the assessment the risk comes from
+
+const history = await nr.accounts.listAssessments("usr_8f2k1", { limit: 20 });
+for await (const item of history) {
+  // the same pages as assessments.query, newest first
+}
+```
+
+Both calls need the `history` scope. An account with no decided assessment throws `NotFoundError`. `listAssessments` puts the account id in the URL; use `assessments.query` to keep it in the request body.
+
 ### Record an outcome
 
 ```ts

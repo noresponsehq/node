@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 1154b96455629ed85a6987823fbb8772
+  docChecksum: 526526e5582d19f3ac292a8627322dbf
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.19
-  configChecksum: 2c1c37888e7939ca6961ea814867106c
+  releaseVersion: 2.0.20
+  configChecksum: 5399855346526a6ce597358c253ed1ed
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -40,6 +40,16 @@ trackedFiles:
     last_write_checksum: sha1:e45b854f02c357cbcfdb8c3663000e8339e16505
   docs/lib/utils/retryconfig.md:
     last_write_checksum: sha1:bc4454e196fcd219f5a78da690375a884f5ed07b
+  docs/models/account-decision.md:
+    last_write_checksum: sha1:a8b1f5ffb8e9394f24c629e52fb95709159c425c
+  docs/models/account-decisions-by-flow.md:
+    last_write_checksum: sha1:88fa134180487f486bc7f17574d2b98e11ec6599
+  docs/models/account-risk-reason.md:
+    last_write_checksum: sha1:35cb7a8faf759fcc2f84a56c7108e0e7da418622
+  docs/models/account-risk.md:
+    last_write_checksum: sha1:4330d9514cbcc7b4e78d01ba5aabc5c366aaaa63
+  docs/models/account.md:
+    last_write_checksum: sha1:160eefed3bdd8361d072f3ad09c4898de143e40f
   docs/models/alternate-name-union.md:
     last_write_checksum: sha1:0e2f57f4868d3668b9da1ef84201a39c88a2e99d
   docs/models/alternate-name.md:
@@ -47,13 +57,13 @@ trackedFiles:
   docs/models/assessment-auth-context.md:
     last_write_checksum: sha1:5670059e03b56743e31f95b349ea59a51d365673
   docs/models/assessment-list.md:
-    last_write_checksum: sha1:f5dfd4aa77e2636f6b5ee73954ffa62f9c07ab57
+    last_write_checksum: sha1:4e6615a855ae42b043e623dfb2cdc8cc66c35328
   docs/models/assessment-outcome-request.md:
     last_write_checksum: sha1:1ba77cdf344d71bcbb7d087223464053482d361b
   docs/models/assessment-outcome.md:
     last_write_checksum: sha1:66027a04266386b2c3175881cb12593532bcee02
   docs/models/assessment-query.md:
-    last_write_checksum: sha1:42fa5a4fbf868a1bc9d75a37d08d72c1cdc47ff5
+    last_write_checksum: sha1:1633f34f8728dbc0fa9ea480c60c90cc1ffd4930
   docs/models/assessment-request-client-context.md:
     last_write_checksum: sha1:2b53c8a925473471f8c9faec89a8d7dde770c8cc
   docs/models/assessment-request-identifiers.md:
@@ -63,11 +73,11 @@ trackedFiles:
   docs/models/assessment-request-policy-context.md:
     last_write_checksum: sha1:48679382fb7971de96efad00d1f524f4188f460c
   docs/models/assessment-request.md:
-    last_write_checksum: sha1:8764d55d51dc132b44eb585ceee61a7e05c0b894
+    last_write_checksum: sha1:451ad8fa71eb1bcac627d2d8cc3ff7bd6a4aeedc
   docs/models/assessment-timing.md:
     last_write_checksum: sha1:bfa6994956dd971cd35c4fb7f70ff7858303528e
   docs/models/assessment.md:
-    last_write_checksum: sha1:acd55a6f812871f58b7ed03284407df150500055
+    last_write_checksum: sha1:7cc1a28d5b77daa0c3b2a4b71dbff535eca1a02d
   docs/models/assurance-level.md:
     last_write_checksum: sha1:8d7e67d0661da2226668576dc53c1da768256398
   docs/models/auth-context-mfa.md:
@@ -180,10 +190,18 @@ trackedFiles:
     last_write_checksum: sha1:713827cc1e01ee3c30def59feceb951bd7256fba
   docs/models/operations/delete-webhook-endpoint-response.md:
     last_write_checksum: sha1:6942eaed225b3ac5ed7f8d1e30f23f0803a1d7d9
+  docs/models/operations/get-account-request.md:
+    last_write_checksum: sha1:72258d630ef0840fd78c6bbe7fe7daa7bac6c14e
+  docs/models/operations/get-account-response.md:
+    last_write_checksum: sha1:e660d89a2f3b736d1e4c5e578e83b2c9b93e4e67
   docs/models/operations/get-assessment-request.md:
     last_write_checksum: sha1:57a9463eafb34e8f14f697571cf72c54baed8ad6
   docs/models/operations/get-assessment-response.md:
     last_write_checksum: sha1:7915ae84ef73b9564fdd1dcd61ec2b4225cfedfc
+  docs/models/operations/list-account-assessments-request.md:
+    last_write_checksum: sha1:762dfde68e422e8b0752e4a91cd57cbe39712c76
+  docs/models/operations/list-account-assessments-response.md:
+    last_write_checksum: sha1:5a409eae59fdf4c426a9355cae6fe3e570890a32
   docs/models/operations/list-integrations-response.md:
     last_write_checksum: sha1:84a1878c7891e82c1fcea19e49831b9e389e31e3
   docs/models/operations/list-webhook-endpoints-response.md:
@@ -301,11 +319,15 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:b2793d9b83d82b641b3c217cfa18810f0525e08c
+    last_write_checksum: sha1:944c48c6bdb491483bb6f4834602403570c9a9f3
   package.json:
-    last_write_checksum: sha1:d6ef49911a0792d050975a7745ab1349955a0daf
+    last_write_checksum: sha1:e6e327086ea79017c99b3c185f77009b77024e1b
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
+  src/funcs/accounts-get.ts:
+    last_write_checksum: sha1:9bbd3d5425c4f6aa18e8b8ff7f7d7e4abebe9dcf
+  src/funcs/accounts-list-assessments.ts:
+    last_write_checksum: sha1:0fa71ad900c874f219f8cb0193655c9f9bdbcd55
   src/funcs/assessments-create.ts:
     last_write_checksum: sha1:50d08ba9695bba87e9caa3ea9e74d42b86eaa84f
   src/funcs/assessments-get.ts:
@@ -343,7 +365,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:056ac6c5eb541b4d406ae5dd255eafd58dcf18da
+    last_write_checksum: sha1:8c068920b24d5503f11cc4b3ba71857656c9fca6
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -368,16 +390,26 @@ trackedFiles:
     last_write_checksum: sha1:af0da5832e2d0f471fb5a7eca41362ecfdfdccee
   src/lib/url.ts:
     last_write_checksum: sha1:a0446ed8a591e5c10de53798d6bdabc83adcdbe8
+  src/models/account-decision.ts:
+    last_write_checksum: sha1:34be61496c8c8973f273a68c2886f8ed7a11697b
+  src/models/account-decisions-by-flow.ts:
+    last_write_checksum: sha1:c9a3d773278c0123bf36be42b73209a1cfc4e4ea
+  src/models/account-risk-reason.ts:
+    last_write_checksum: sha1:838a10ddaed042b116849079b77cdc7dd73b07bd
+  src/models/account-risk.ts:
+    last_write_checksum: sha1:02a4f6deca9886744f18bb816627d4ed3617fc14
+  src/models/account.ts:
+    last_write_checksum: sha1:667886804c24de446f55f833762bd2963889a0de
   src/models/assessment-auth-context.ts:
     last_write_checksum: sha1:47e0bab3b8f1cc88390cda6f4cd96a04849f827c
   src/models/assessment-list.ts:
-    last_write_checksum: sha1:9a05dbddf2de02d799d7fdeb31193ce464a763f3
+    last_write_checksum: sha1:c190a59cd0b0f2aba3c355e1b05b9d11ff3009dc
   src/models/assessment-outcome-request.ts:
     last_write_checksum: sha1:54cb5d8d49dc0a196dd6594b83f036ea9414e9fe
   src/models/assessment-outcome.ts:
     last_write_checksum: sha1:9f46047bc90ae1346a7b79e494af3e75274f0c8a
   src/models/assessment-query.ts:
-    last_write_checksum: sha1:842ef97f72ea8558eea9c100beb85daa80685133
+    last_write_checksum: sha1:4336324fb5207d6622d71d80a9e8ff7ccf13b4bc
   src/models/assessment-request-client-context.ts:
     last_write_checksum: sha1:506a77b3800d8146db89e63d72304a162289f185
   src/models/assessment-request-identifiers.ts:
@@ -387,11 +419,11 @@ trackedFiles:
   src/models/assessment-request-policy-context.ts:
     last_write_checksum: sha1:9ccb7d49d3ce3a051144bae60c04b688263e1cae
   src/models/assessment-request.ts:
-    last_write_checksum: sha1:09d2676edde9e58e18d05a2e4e43fe8fc0fb2297
+    last_write_checksum: sha1:0bdee3863c33c84d9e1d4aa607294d3999b305b7
   src/models/assessment-timing.ts:
     last_write_checksum: sha1:007a488a41cf549f0b814f343807a0d81368c5dd
   src/models/assessment.ts:
-    last_write_checksum: sha1:e2eb416cf0ff6f935e6e5ee68f1331c0da3a3c29
+    last_write_checksum: sha1:7732c0e5b3429bf924f4d638ad92b842f6bbb280
   src/models/assurance-level.ts:
     last_write_checksum: sha1:f5f8c285620335151fbb62e375b2510cf7060f49
   src/models/auth-context-mfa.ts:
@@ -463,7 +495,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:d20f1b4e39b25e882ea4913b8f4505b602c6bc51
   src/models/index.ts:
-    last_write_checksum: sha1:e274a1acec1c688e931b55903bbeac04add7b1f7
+    last_write_checksum: sha1:85401e9c51eda69b465df4197403e5b926e021c3
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -500,10 +532,14 @@ trackedFiles:
     last_write_checksum: sha1:4e4378527f917780ac75957ef3f5e555748c6596
   src/models/operations/delete-webhook-endpoint.ts:
     last_write_checksum: sha1:f624120e538f145581d04eaa98d840c81115d0cf
+  src/models/operations/get-account.ts:
+    last_write_checksum: sha1:94ccf5e0e2b7d7adc1d07ff14387509789496661
   src/models/operations/get-assessment.ts:
     last_write_checksum: sha1:fc989a767d917999e384db8774178b693460a0be
   src/models/operations/index.ts:
-    last_write_checksum: sha1:79b02ca15d7f7522a4cd2508fbaa0a65978d4165
+    last_write_checksum: sha1:861f5af217d8b737c13de12cdb4c99689f2baf10
+  src/models/operations/list-account-assessments.ts:
+    last_write_checksum: sha1:fd0adca3c8afbfa4b8d19700b06b8aa643301c1f
   src/models/operations/list-integrations.ts:
     last_write_checksum: sha1:ad5ef86d5fc3fa658db51560c05d108b392f4cfc
   src/models/operations/list-webhook-endpoints.ts:
@@ -598,6 +634,8 @@ trackedFiles:
     last_write_checksum: sha1:8505868e7f7c2a4d07f491f3b5e95fb257a4194e
   src/models/webhook-test.ts:
     last_write_checksum: sha1:70ecabc6de8d282c36512fe3122a6cf2905cd41c
+  src/sdk/accounts.ts:
+    last_write_checksum: sha1:de8d94389081dcea6a7bf9fe3b5402068541c06a
   src/sdk/assessments.ts:
     last_write_checksum: sha1:51c6e0af2dea66de40a95628a9025c7bac74e1f7
   src/sdk/index.ts:
@@ -607,7 +645,7 @@ trackedFiles:
   src/sdk/keys.ts:
     last_write_checksum: sha1:2b416568ccfe02c0608307a416a517ff136dfd2c
   src/sdk/sdk.ts:
-    last_write_checksum: sha1:a442a5a3b73dfb433df59a3034f7613c522d16a5
+    last_write_checksum: sha1:8831a8ea9ebda1b2704f4a252bcc8f07937b51eb
   src/sdk/webhook-endpoints.ts:
     last_write_checksum: sha1:71e3c67ff4eb8c1c8846e5b993a45674f2f4fcfc
   src/types/async.ts:
@@ -853,6 +891,31 @@ examples:
     page:
       requestBody:
         application/json: {"account_id": "acct_7f3a9c", "limit": 20, "cursor": "eyJvIjoyMH0"}
+      responses:
+        "200":
+          application/json: {"schema_version": "1", "account_id": "acct_7f3a9c", "items": [{"schema_version": "1", "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-14-0001", "status": "complete", "recommendation": "step_up", "confidence": "medium", "signals": [{"type": "account_presence", "identifier": "email", "outcome": "found", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}, {"type": "breach_exposure", "identifier": "email", "outcome": "found", "source_id": "breach.corpus", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKP", "observed_at": "2025-03-02T00:00:00Z", "last_checked_at": "2026-10-14T09:00:00.150Z", "freshness": "stale"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-14T09:00:00.000Z", "updated_at": "2026-10-14T09:00:00.412Z", "expires_at": "2027-10-14T09:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}, {"schema_version": "1", "assessment_id": "asm_01JA2Z9Y3R5T6V7W8X9ZABCDEF", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-01-0007", "status": "complete", "recommendation": "allow", "confidence": "high", "signals": [{"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-01T12:00:00Z", "updated_at": "2026-10-01T12:00:05Z", "expires_at": "2027-10-01T12:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}], "next_cursor": "eyJiIjoiY2hrXzAxIn0", "retention_days": 365}
+  getAccount:
+    current:
+      parameters:
+        path:
+          account_id: "acct_7f3a9c"
+      responses:
+        "200":
+          application/json: {"schema_version": "1", "id": "acct_7f3a9c", "risk": {"score": 35, "decision": "step_up", "reasons": [{"code": "new_email", "weight": 20, "identifier": "email"}, {"code": "proxy_ip", "weight": 15, "identifier": "ip"}]}, "decisions_by_flow": {"signup": "step_up", "login": "step_up", "purchase": "step_up"}, "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "updated_at": "2026-10-14T09:00:00.412Z"}
+    blocked:
+      parameters:
+        path:
+          account_id: "acct_7f3a9c"
+      responses:
+        "200":
+          application/json: {"schema_version": "1", "id": "acct_7f3a9c", "risk": {"score": 90, "decision": "block", "reasons": [{"code": "disposable_email", "weight": 40, "identifier": "email"}, {"code": "proxy_ip", "weight": 30, "identifier": "ip"}, {"code": "many_recent_signups", "weight": 20}]}, "decisions_by_flow": {"signup": "block", "login": "block", "purchase": "block"}, "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "updated_at": "2026-10-14T09:00:00.412Z"}
+  listAccountAssessments:
+    page:
+      parameters:
+        path:
+          account_id: "acct_7f3a9c"
+        query:
+          limit: 20
       responses:
         "200":
           application/json: {"schema_version": "1", "account_id": "acct_7f3a9c", "items": [{"schema_version": "1", "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-14-0001", "status": "complete", "recommendation": "step_up", "confidence": "medium", "signals": [{"type": "account_presence", "identifier": "email", "outcome": "found", "source_id": "github", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN", "observed_at": "2026-10-14T09:00:00.210Z", "last_checked_at": "2026-10-14T09:00:00.210Z", "freshness": "fresh"}, {"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}, {"type": "breach_exposure", "identifier": "email", "outcome": "found", "source_id": "breach.corpus", "evidence_ref": "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKP", "observed_at": "2025-03-02T00:00:00Z", "last_checked_at": "2026-10-14T09:00:00.150Z", "freshness": "stale"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-14T09:00:00.000Z", "updated_at": "2026-10-14T09:00:00.412Z", "expires_at": "2027-10-14T09:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}, {"schema_version": "1", "assessment_id": "asm_01JA2Z9Y3R5T6V7W8X9ZABCDEF", "account_id": "acct_7f3a9c", "request_id": "req-2026-10-01-0007", "status": "complete", "recommendation": "allow", "confidence": "high", "signals": [{"type": "account_presence", "identifier": "username", "outcome": "not_found", "source_id": "gitlab", "last_checked_at": "2026-10-14T09:00:00.190Z", "freshness": "fresh"}], "incomplete_sources": [], "policy_version": "heuristic-2026-10.1", "policy_basis": "heuristic_unvalidated", "assessment_version": 2, "created_at": "2026-10-01T12:00:00Z", "updated_at": "2026-10-01T12:00:05Z", "expires_at": "2027-10-01T12:00:00.000Z", "timing": {"deadline_ms": 300, "elapsed_ms": 287}}], "next_cursor": "eyJiIjoiY2hrXzAxIn0", "retention_days": 365}

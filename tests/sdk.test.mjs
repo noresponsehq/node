@@ -20,6 +20,8 @@ import {
   SDK_METADATA,
 } from "../dist/esm/index.js";
 import {
+  ACCOUNT,
+  ACCOUNT_BLOCK,
   COMPLETE,
   INTEGRATION_AUTH0,
   INTEGRATION_LIST,
@@ -179,6 +181,50 @@ test("query posts the account id in the body and pages to exhaustion", async () 
   assert.equal(last.nextCursor, undefined);
   assert.equal(await last.next(), null);
   assert.equal(calls.length, 5, "next() after the walk fetches again; pages are not cached");
+});
+
+test("accounts.get reads the current risk and a missing account is NotFoundError", async () => {
+  const { fetcher, calls } = fakeFetch([json(ACCOUNT), json(ACCOUNT_BLOCK), problem(404, "not_found")]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const account = await nr.accounts.get("acct_7f3a9c");
+  assert.equal(calls[0].method, "GET");
+  assert.equal(calls[0].url, "https://example.com/v1/accounts/acct_7f3a9c");
+  assert.equal(calls[0].body, null);
+  assert.equal(account.id, ACCOUNT.id);
+  assert.equal(account.risk.score, ACCOUNT.risk.score);
+  assert.equal(account.risk.decision, "step_up");
+  assert.deepEqual(account.decisionsByFlow, { signup: "step_up", login: "step_up", purchase: "step_up" });
+  assert.equal(account.assessmentId, ACCOUNT.assessment_id);
+  assert.equal(account.meta.requestId, "a".repeat(32));
+  const blocked = await nr.accounts.get({ accountId: "tenant:usr|42" });
+  assert.equal(blocked.risk.decision, "block");
+  assert.equal(calls[1].url, "https://example.com/v1/accounts/tenant%3Ausr%7C42");
+  await assert.rejects(nr.accounts.get("acct_missing"), (error) => error instanceof NotFoundError && error.code === "not_found");
+});
+
+test("accounts.listAssessments sends the query parameters and pages by cursor", async () => {
+  const pages = {
+    null: { ...LIST, items: [COMPLETE], next_cursor: "cursor-two" },
+    "cursor-two": { ...LIST, items: [PENDING], next_cursor: undefined },
+  };
+  const { fetcher, calls } = fakeFetch((call) => json(pages[new URL(call.url).searchParams.get("cursor")]));
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const page = await nr.accounts.listAssessments("usr_8f2k1", { limit: 10, responseMode: "detailed" });
+  const first = new URL(calls[0].url);
+  assert.equal(calls[0].method, "GET");
+  assert.equal(first.pathname, "/v1/accounts/usr_8f2k1/assessments");
+  assert.deepEqual(Object.fromEntries(first.searchParams), { limit: "10", response_mode: "detailed" });
+  assert.equal(page.hasMore, true);
+  assert.equal(page.meta.requestId, "a".repeat(32));
+  const seen = [];
+  for await (const assessment of page) seen.push(assessment.assessmentId);
+  assert.deepEqual(seen, [COMPLETE.assessment_id, PENDING.assessment_id]);
+  assert.equal(calls.length, 2);
+  assert.equal(new URL(calls[1].url).searchParams.get("cursor"), "cursor-two");
+  assert.equal(new URL(calls[1].url).searchParams.get("limit"), "10");
+  const resumed = await nr.accounts.listAssessments("usr_8f2k1", { cursor: "cursor-two" });
+  assert.equal(resumed.hasMore, false);
+  assert.equal(await resumed.next(), null);
 });
 
 test("recordOutcome posts under its Idempotency-Key in both call shapes", async () => {

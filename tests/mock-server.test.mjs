@@ -25,3 +25,16 @@ test("get returns the documented assessment", { skip }, async () => {
   const assessment = await client().assessments.get("asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
   assert.match(assessment.assessmentId, /^asm_/);
 });
+
+test("accounts.get returns the documented account", { skip }, async () => {
+  const account = await client().accounts.get("acct_7f3a9c");
+  assert.equal(account.id, "acct_7f3a9c");
+  assert.match(account.assessmentId, /^asm_/);
+  assert.equal(account.decisionsByFlow.signup, account.risk.decision);
+});
+
+test("accounts.listAssessments returns the documented page", { skip }, async () => {
+  const page = await client().accounts.listAssessments("acct_7f3a9c", { limit: 20 });
+  assert.equal(page.accountId, "acct_7f3a9c");
+  assert.ok(Array.isArray(page.items));
+});

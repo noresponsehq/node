@@ -5,6 +5,7 @@
 export {
   NoResponse,
   Assessments,
+  Accounts,
   Keys,
   WebhookEndpoints,
   Integrations,
@@ -13,6 +14,7 @@ export {
   type NoResponseOptions,
   type CreateOptions,
   type GetOptions,
+  type ListAssessmentsOptions,
   type AssessmentPage,
   type ResponseMeta,
   type WithMeta,
@@ -71,7 +73,13 @@ export {
 export { DEFAULT_WAIT_TIMEOUT_MS, MIN_POLL_INTERVAL_MS } from "./wait.js";
 export { hashIssuedCredential } from "./issued-credential.js";
 export * from "./models/index.js";
-export type { CreateAssessmentRequest, GetAssessmentRequest, RecordAssessmentOutcomeRequest } from "./models/operations/index.js";
+export type {
+  CreateAssessmentRequest,
+  GetAccountRequest,
+  GetAssessmentRequest,
+  ListAccountAssessmentsRequest,
+  RecordAssessmentOutcomeRequest,
+} from "./models/operations/index.js";
 export { SDK_METADATA, ServerList, type SDKOptions } from "./lib/config.js";
 export { HTTPClient, type Fetcher, type HTTPClientOptions } from "./lib/http.js";
 export type { Logger } from "./lib/logger.js";

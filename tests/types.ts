@@ -7,6 +7,8 @@ import {
   constructEvent,
   isExpiredEvent,
   fromClerk,
+  type Account,
+  type AccountDecision,
   type Assessment,
   type AssessmentOutcome,
   type AssessmentPage,
@@ -38,6 +40,12 @@ async function surface(): Promise<void> {
     void id;
   }
   const next: AssessmentPage | null = await page.next();
+  const account: WithMeta<Account> = await nr.accounts.get("usr_8f2k1");
+  const decision: AccountDecision = account.decisionsByFlow.purchase;
+  const history: AssessmentPage = await nr.accounts.listAssessments("usr_8f2k1", { limit: 5, responseMode: "standard" });
+  // @ts-expect-error deny is not an account decision
+  const deny: AccountDecision = "deny";
+  void [decision, history, deny];
   const receipt: AssessmentOutcome = await nr.assessments.recordOutcome(created.assessmentId, { outcome: "chargeback" });
   const rotation = await nr.keys.rotate({ overlapSeconds: 3600 });
   const key: string = rotation.key;
