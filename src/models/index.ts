@@ -1,3 +1,4 @@
+export * from "./assessment-auth-context.js";
 export * from "./assessment-list.js";
 export * from "./assessment-outcome-request.js";
 export * from "./assessment-outcome.js";

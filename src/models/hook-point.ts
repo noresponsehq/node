@@ -1,8 +1,9 @@
 import * as z from "zod/v4-mini";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
- * The provider event a provider_hook context was sent for. pre_registration runs before the user exists, so subject and the request's account_id may be absent there. Sent only with transport provider_hook.
+ * The provider event a provider_hook context was sent for; absent for any other transport.
  */
 export const HookPoint = {
   PreRegistration: "pre_registration",
@@ -12,11 +13,13 @@ export const HookPoint = {
   TokenIssuance: "token_issuance",
 } as const;
 /**
- * The provider event a provider_hook context was sent for. pre_registration runs before the user exists, so subject and the request's account_id may be absent there. Sent only with transport provider_hook.
+ * The provider event a provider_hook context was sent for; absent for any other transport.
  */
-export type HookPoint = ClosedEnum<typeof HookPoint>;
+export type HookPoint = OpenEnum<typeof HookPoint>;
 
 /** @internal */
-export const HookPoint$outboundSchema: z.ZodMiniEnum<typeof HookPoint> = z.enum(
-  HookPoint,
-);
+export const HookPoint$inboundSchema: z.ZodMiniType<HookPoint, unknown> =
+  openEnums.inboundSchema(HookPoint);
+/** @internal */
+export const HookPoint$outboundSchema: z.ZodMiniType<string, HookPoint> =
+  openEnums.outboundSchema(HookPoint);

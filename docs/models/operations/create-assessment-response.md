@@ -6,7 +6,15 @@
 import { CreateAssessmentResponse } from "@noresponse/node/models/operations";
 
 let value: CreateAssessmentResponse = {
-  headers: {},
+  headers: {
+    "key": [
+      "example 1",
+      "example 2",
+    ],
+    "key1": [
+      "example 1",
+    ],
+  },
   result: {
     schemaVersion: "1",
     assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -126,6 +134,15 @@ let value: CreateAssessmentResponse = {
     timing: {
       deadlineMs: 443549,
       elapsedMs: 197967,
+    },
+    authContext: {
+      provider: "clerk",
+      issuer: "https://example-app.clerk.accounts.dev",
+      subject: "user_2EXAMPLE",
+      sessionId: "sess_2EXAMPLE",
+      organizationId: "org_2EXAMPLE",
+      verified: true,
+      transport: "backend",
     },
   },
 };

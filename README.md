@@ -229,6 +229,8 @@ async function handler(req, res) {
   if (event.type === "endpoint.verification") return res.json(verificationResponse(event));
   if (isExpiredEvent(event)) {
     forget(event.data.assessmentId); // GET now answers 404
+  } else if (event.test) {
+    // sendTestEvent's fixed example assessment: apply nothing
   } else if (isNewer(event.data)) {  // keep the highest assessmentVersion per assessment
     apply(event.data);              // the full assessment, as assessments.get returns it
   }
@@ -249,7 +251,7 @@ const provider = clerkActions({ secretKey: process.env.CLERK_SECRET_KEY! });
 const result = await handleLateResult(rawBody, request.headers, secrets, provider, { policy: { review: "ban" } });
 ```
 
-The default policy revokes sessions on `review` and does nothing otherwise. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it.
+The default policy revokes sessions on `review` and does nothing otherwise. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
 
 ## Auth adapters
 

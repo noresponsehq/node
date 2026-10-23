@@ -23,8 +23,8 @@ const STEP_UP = fixture("valid/assessment-complete.json");
 const PENDING = fixture("valid/assessment-pending.json");
 const EXPIRED = fixture("valid/webhook-assessment-expired.json");
 
-function delivery(data, accountId) {
-  const body = { id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ2", type: "assessment.updated", created_at: "2026-10-18T11:00:04Z", data: accountId ? { ...data, account_id: accountId } : data };
+function delivery(data, accountId, extra = {}) {
+  const body = { id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ2", type: "assessment.updated", created_at: "2026-10-18T11:00:04Z", ...extra, data: accountId ? { ...data, account_id: accountId } : data };
   const raw = Buffer.from(JSON.stringify(body), "utf8");
   const stamp = String(NOW);
   const digest = createHmac("sha256", SECRET).update(stamp).update(".").update(raw).digest("hex");
@@ -175,6 +175,68 @@ test("an unverified, quiet or unmapped event makes no provider call, and a provi
     assert.equal(mock.calls.length, 0);
     await assert.rejects(handleLateResult(raw, headers, secrets, auth0, { now: NOW }), (e) => e instanceof ProviderActionError && e.status === 403 && e.provider === "auth0");
     assert.equal(mock.calls.length, 1);
+  } finally {
+    await mock.close();
+  }
+});
+
+test("a webhook test event acts on nothing, whatever the policy and user id", async () => {
+  const mock = await mockProvider(() => [200, {}]);
+  try {
+    const workos = workosActions({ apiKey: "sk_test_workos", baseUrl: mock.url });
+    const { raw, headers } = delivery(STEP_UP, "acct_7f3a9c", { test: true });
+    let resolved = 0;
+    const result = await handleLateResult(raw, headers, secrets, workos, {
+      now: NOW,
+      policy: { allow: "ban", step_up: "ban", review: "ban" },
+      userId: () => (resolved++, "user_01WORKOS"),
+    });
+    assert.equal(result.event.test, true);
+    assert.equal(result.action, "none");
+    assert.equal(result.userId, undefined);
+    assert.equal(resolved, 0);
+    assert.equal(mock.calls.length, 0);
+    assert.equal(lateResultAction(result.event, { step_up: "ban" }), "none");
+  } finally {
+    await mock.close();
+  }
+});
+
+test("a repeated delivery is safe: a provider 404 for a gone user or session counts as done", async () => {
+  // Every user and session is already gone, as after a first WorkOS ban deleted the user.
+  const mock = await mockProvider((c) => [404, { error: "not_found", path: c.path }]);
+  try {
+    const { raw, headers } = delivery(REVIEW, "user_gone");
+    const providers = [
+      workosActions({ apiKey: "sk_test_workos", baseUrl: mock.url }),
+      clerkActions({ secretKey: "sk_test_mock", baseUrl: mock.url + "/v1" }),
+      auth0Actions({ baseUrl: mock.url + "/api/v2", token: "mgmt_token" }),
+    ];
+    for (const provider of providers) {
+      for (const review of ["ban", "revoke_sessions"]) {
+        for (let attempt = 0; attempt < 2; attempt++) {
+          const result = await handleLateResult(raw, headers, secrets, provider, { now: NOW, policy: { review } });
+          assert.equal(result.action, review, `${provider.name} ${review} attempt ${attempt}`);
+        }
+      }
+    }
+    assert.ok(mock.calls.length > 0);
+  } finally {
+    await mock.close();
+  }
+});
+
+test("a repeated Clerk revoke tolerates a session that went between list and revoke; other refusals still throw", async () => {
+  const mock = await mockProvider((c) => {
+    if (c.method === "GET" && c.path === "/v1/sessions") return [200, [{ id: "sess_1", status: "active" }]];
+    if (c.method === "POST" && c.path === "/v1/sessions/sess_1/revoke") return [404, { errors: [{ code: "resource_not_found" }] }];
+    if (c.method === "POST" && c.path === "/v1/users/user_2EXAMPLE/ban") return [500, { error: "boom" }];
+  });
+  try {
+    const clerk = clerkActions({ secretKey: "sk_test_mock", baseUrl: mock.url + "/v1" });
+    const { raw, headers } = delivery(REVIEW, "user_2EXAMPLE");
+    assert.equal((await handleLateResult(raw, headers, secrets, clerk, { now: NOW })).action, "revoke_sessions");
+    await assert.rejects(handleLateResult(raw, headers, secrets, clerk, { now: NOW, policy: { review: "ban" } }), (e) => e instanceof ProviderActionError && e.status === 500);
   } finally {
     await mock.close();
   }

@@ -8,8 +8,10 @@
  * auth provider's admin API: revoke the user's sessions or ban the user.
  *
  * The handler verifies the delivery itself, so it never acts on an unverified
- * event. The provider calls are thin: you pass the credentials, and each
- * action is the provider's documented admin endpoint.
+ * event, and it never acts on a test event from webhookEndpoints.sendTestEvent.
+ * The provider calls are thin: you pass the credentials, and each action is
+ * the provider's documented admin endpoint. A provider 404 for a user or
+ * session that is already gone counts as done, so a repeated delivery is safe.
  */
 import { constructEvent, type ConstructEventOptions, type HeaderInput, type WebhookEvent, type WebhookSecrets } from "./webhooks.js";
 
@@ -51,7 +53,10 @@ export type LateResult = {
   userId?: string;
 };
 
-/** Thrown when the provider's admin API refuses a call. Answer the webhook with a 5xx so NoResponse retries it. */
+/**
+ * Thrown when the provider's admin API refuses a call. Answer the webhook with a 5xx so NoResponse retries it.
+ * A 404 is never thrown: the user or session is already gone, so the action is done.
+ */
 export class ProviderActionError extends Error {
   readonly provider: string;
   readonly status: number;
@@ -65,9 +70,13 @@ export class ProviderActionError extends Error {
 
 const ACTIONS: readonly string[] = ["none", "revoke_sessions", "ban"];
 
-/** The action your policy names for a verified event. Only a served assessment with a recommendation can act. */
+/**
+ * The action your policy names for a verified event. Only a served assessment with a recommendation can act;
+ * a test event from webhookEndpoints.sendTestEvent never does.
+ */
 export function lateResultAction(event: WebhookEvent, policy: LateResultPolicy = DEFAULT_LATE_RESULT_POLICY): LateResultAction {
   if (event.type !== "assessment.updated" || event.data.status === "expired") return "none";
+  if ("test" in event && event.test === true) return "none";
   const data = event.data as { recommendation?: string; risk?: { recommendation?: string } };
   const recommendation = data.recommendation ?? data.risk?.recommendation;
   if (recommendation !== "allow" && recommendation !== "step_up" && recommendation !== "review") return "none";
@@ -82,7 +91,8 @@ export function lateResultAction(event: WebhookEvent, policy: LateResultPolicy =
  *
  * `payload`, `headers`, `secrets` and the tolerance options are exactly what
  * constructEvent takes; a delivery that fails verification throws
- * WebhookVerificationError before any provider call. Deduplicate on
+ * WebhookVerificationError before any provider call. A test event acts on
+ * nothing. Revoke and ban are safe to repeat, but deduplicate on
  * `result.event.id` and ignore versions older than one you have acted on.
  */
 export async function handleLateResult(
@@ -105,19 +115,21 @@ export async function handleLateResult(
 }
 
 type Fetch = typeof fetch;
-type Call = { method: string; path: string; query?: Record<string, string>; body?: unknown; allow404?: boolean };
+type Call = { method: string; path: string; query?: Record<string, string>; body?: unknown };
 
 function caller(name: string, baseUrl: string, authorization: string, fetcher: Fetch | undefined) {
   const base = baseUrl.replace(/\/+$/, "");
   const run = fetcher ?? globalThis.fetch;
-  return async ({ method, path, query, body, allow404 }: Call): Promise<unknown> => {
+  // Every call names a user or a session. A 404 means it is already gone, so
+  // revoke and ban count it as done and a repeated delivery does not fail.
+  return async ({ method, path, query, body }: Call): Promise<unknown> => {
     const url = new URL(base + path);
     for (const [key, value] of Object.entries(query ?? {})) url.searchParams.set(key, value);
     const headers: Record<string, string> = { authorization, accept: "application/json" };
     if (body !== undefined) headers["content-type"] = "application/json";
     const response = await run(url, { method, headers, ...(body !== undefined ? { body: JSON.stringify(body) } : {}) });
     const text = await response.text();
-    if (allow404 && response.status === 404) return undefined;
+    if (response.status === 404) return undefined;
     if (!response.ok) throw new ProviderActionError(name, response.status, `${name} ${method} ${path} answered ${response.status}`);
     if (!text) return undefined;
     try {
@@ -215,7 +227,7 @@ export function workosActions(options: WorkOSActionsOptions): LateResultProvider
     revokeSessions,
     async ban(userId) {
       await revokeSessions(userId);
-      await call({ method: "DELETE", path: `/user_management/users/${segment(userId)}`, allow404: true });
+      await call({ method: "DELETE", path: `/user_management/users/${segment(userId)}` });
     },
   };
 }

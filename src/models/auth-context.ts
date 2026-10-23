@@ -89,11 +89,11 @@ export type AuthContext = {
    */
   impersonated?: boolean | undefined;
   /**
-   * Where this context was derived. Backend is the trusted integration path; browser values are treated as weak hints. provider_hook is a hosted provider hook (an Auth0 or WorkOS Action) calling at hook_point; it needs hook_point and verified false, and its authentication facts are not scored.
+   * Where the context was derived: backend (also when the request named no transport), browser, or provider_hook for a hosted provider hook.
    */
   transport?: Transport | undefined;
   /**
-   * The provider event a provider_hook context was sent for. pre_registration runs before the user exists, so subject and the request's account_id may be absent there. Sent only with transport provider_hook.
+   * The provider event a provider_hook context was sent for; absent for any other transport.
    */
   hookPoint?: HookPoint | undefined;
   /**

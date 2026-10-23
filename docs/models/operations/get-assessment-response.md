@@ -131,6 +131,15 @@ let value: GetAssessmentResponse = {
       deadlineMs: 443549,
       elapsedMs: 197967,
     },
+    authContext: {
+      provider: "clerk",
+      issuer: "https://example-app.clerk.accounts.dev",
+      subject: "user_2EXAMPLE",
+      sessionId: "sess_2EXAMPLE",
+      organizationId: "org_2EXAMPLE",
+      verified: true,
+      transport: "backend",
+    },
   },
 };
 ```

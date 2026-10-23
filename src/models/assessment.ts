@@ -4,6 +4,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  AssessmentAuthContext,
+  AssessmentAuthContext$inboundSchema,
+} from "./assessment-auth-context.js";
+import {
   AssessmentTiming,
   AssessmentTiming$inboundSchema,
 } from "./assessment-timing.js";
@@ -91,6 +95,10 @@ export type Assessment = {
    */
   assessmentUrl?: string | undefined;
   timing: AssessmentTiming;
+  /**
+   * The identity fields of the auth context the assessment was made with, echoed for the tenant's own correlation: the request's auth_context, or the one a hosted provider hook (POST /hooks/{integration_id}) built, with transport provider_hook and its hook_point. Present exactly when the request carried an auth_context, and the same on every revision of the assessment. Values are as the request or the hook sent them; tokens, timestamps, roles and scopes are not echoed, and the echo does not change the score.
+   */
+  authContext?: AssessmentAuthContext | undefined;
 };
 
 /** @internal */
@@ -115,6 +123,7 @@ export const Assessment$inboundSchema: z.ZodMiniType<Assessment, unknown> = z
       expires_at: types.string(),
       assessment_url: types.optional(types.string()),
       timing: AssessmentTiming$inboundSchema,
+      auth_context: types.optional(AssessmentAuthContext$inboundSchema),
     }),
     z.transform((v) => {
       return remap$(v, {
@@ -130,6 +139,7 @@ export const Assessment$inboundSchema: z.ZodMiniType<Assessment, unknown> = z
         "updated_at": "updatedAt",
         "expires_at": "expiresAt",
         "assessment_url": "assessmentUrl",
+        "auth_context": "authContext",
       });
     }),
   );

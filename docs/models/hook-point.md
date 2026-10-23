@@ -1,6 +1,6 @@
 # HookPoint
 
-The provider event a provider_hook context was sent for. pre_registration runs before the user exists, so subject and the request's account_id may be absent there. Sent only with transport provider_hook.
+The provider event a provider_hook context was sent for; absent for any other transport.
 
 ## Example Usage
 
@@ -8,10 +8,12 @@ The provider event a provider_hook context was sent for. pre_registration runs b
 import { HookPoint } from "@noresponse/node/models";
 
 let value: HookPoint = "post_registration";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
 
 ```typescript
-"pre_registration" | "post_registration" | "pre_login" | "post_login" | "token_issuance"
+"pre_registration" | "post_registration" | "pre_login" | "post_login" | "token_issuance" | Unrecognized<string>
 ```
