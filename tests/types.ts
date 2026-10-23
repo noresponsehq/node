@@ -14,6 +14,9 @@ import {
   type Assessment,
   type AssessmentDetail,
   type AssessmentOutcome,
+  type KeyUsageBatch,
+  type KeyUsageBuffer,
+  type KeyUsageStats,
   type AssessmentPage,
   type AuthContext,
   type Outcome,
@@ -61,6 +64,14 @@ async function surface(): Promise<void> {
   const deny: AccountDecision = "deny";
   void [decision, history, deny];
   const receipt: AssessmentOutcome = await nr.assessments.recordOutcome(created.id, { outcome: "chargeback" });
+  const batch: WithMeta<KeyUsageBatch> = await nr.keyUsage.record({ events: [{ keySha256: "0".repeat(64), ip: "203.0.113.24", occurredAt: "2026-10-23T09:14:07Z" }] });
+  const usage: KeyUsageBuffer = nr.keyUsage.buffer({ batchSize: 200, sampleRate: 0.5 });
+  usage.record({ key: "issued-key", ip: "203.0.113.24", model: "gpt-4o-mini", inputTokens: 10 });
+  // @ts-expect-error ip is required
+  usage.record({ keySha256: "0".repeat(64) });
+  const usageStats: KeyUsageStats = usage.stats();
+  await usage.close();
+  void [batch, usageStats];
   const rotation = await nr.keys.rotate({ overlapSeconds: 3600 });
   const key: string = rotation.key;
   const mode: ResponseMode = "detailed";

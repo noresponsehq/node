@@ -7,6 +7,7 @@ export {
   Assessments,
   Accounts,
   Keys,
+  KeyUsage,
   WebhookEndpoints,
   Integrations,
   DEFAULT_BASE_URL,
@@ -79,6 +80,18 @@ export {
 } from "./auth.js";
 export { DEFAULT_WAIT_TIMEOUT_MS, MIN_POLL_INTERVAL_MS } from "./wait.js";
 export { hashIssuedCredential } from "./issued-credential.js";
+export {
+  KeyUsageBuffer,
+  MAX_BATCH_EVENTS,
+  MAX_BATCH_BYTES,
+  DEFAULT_BATCH_SIZE,
+  DEFAULT_FLUSH_INTERVAL_MS,
+  DEFAULT_MAX_QUEUE,
+  type KeyUsageFact,
+  type KeyUsageBufferOptions,
+  type KeyUsageStats,
+  type KeyUsageSender,
+} from "./key-usage.js";
 export * from "./models/index.js";
 export type {
   CreateAssessmentRequest,
@@ -88,6 +101,7 @@ export type {
   GetAssessmentRequest,
   ListAccountAssessmentsRequest,
   RecordAssessmentOutcomeRequest,
+  RecordKeyUsageRequest,
 } from "./models/operations/index.js";
 export { SDK_METADATA, ServerList, type SDKOptions } from "./lib/config.js";
 export { HTTPClient, type Fetcher, type HTTPClientOptions } from "./lib/http.js";

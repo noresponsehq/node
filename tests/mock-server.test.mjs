@@ -49,6 +49,12 @@ test("assessments.delete returns the documented deletion", { skip }, async () =>
   assert.equal(deletion.account.id, "acct_7f3a9c");
 });
 
+test("keyUsage.record returns the documented batch", { skip }, async () => {
+  const batch = await client().keyUsage.record({ events: [{ keySha256: "2bdbf5c72f2a36df0ef40fb92203612274d4546f56dba946070a6a79c2401a1b", ip: "203.0.113.24", occurredAt: "2026-10-23T09:14:07Z" }] });
+  assert.match(batch.id, /^kub_/);
+  assert.equal(typeof batch.accepted, "number");
+});
+
 test("accounts.listAssessments returns the documented page", { skip }, async () => {
   const page = await client().accounts.listAssessments("acct_7f3a9c", { limit: 20 });
   assert.equal(page.accountId, "acct_7f3a9c");

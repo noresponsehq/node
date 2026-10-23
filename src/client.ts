@@ -4,12 +4,14 @@
  * Wraps the generated client so that construction reads the environment,
  * every method returns its model with `meta` (request id, Retry-After,
  * Location, Idempotent-Replayed), idempotency keys are generated when
- * omitted, history pages iterate their items, and assessments.wait exists.
+ * omitted, history pages iterate their items, assessments.wait exists and
+ * keyUsage.buffer batches key usage in the background.
  */
 import { NoResponse as GeneratedClient } from "./sdk/sdk.js";
 import type { Accounts as GeneratedAccounts } from "./sdk/accounts.js";
 import type { Assessments as GeneratedAssessments } from "./sdk/assessments.js";
 import type { Integrations as GeneratedIntegrations } from "./sdk/integrations.js";
+import type { KeyUsage as GeneratedKeyUsage } from "./sdk/key-usage.js";
 import type { Keys as GeneratedKeys } from "./sdk/keys.js";
 import type { WebhookEndpoints as GeneratedWebhookEndpoints } from "./sdk/webhook-endpoints.js";
 import type { NoResponseCore } from "./core.js";
@@ -23,6 +25,7 @@ import type * as operations from "./models/operations/index.js";
 import type { Paginator } from "./types/operations.js";
 import { toMeta, withMeta, type ResponseMeta, type WithMeta } from "./meta.js";
 import { waitForAssessment, type WaitOptions } from "./wait.js";
+import { KeyUsageBuffer, type KeyUsageBufferOptions } from "./key-usage.js";
 import { constructEvent, verificationResponse } from "./webhooks.js";
 
 export const DEFAULT_BASE_URL = "https://api.noresponse.org";
@@ -346,6 +349,39 @@ export class Accounts {
   }
 }
 
+/**
+ * Usage of the API keys your signup gate issued to your accounts. Needs the
+ * `assess` scope. Most callers use `buffer()`, which batches facts and sends
+ * them in the background; `record` sends one batch now.
+ */
+export class KeyUsage {
+  constructor(private readonly inner: GeneratedKeyUsage) {}
+
+  /**
+   * Send one batch of 1 to 500 events (at most 256 KiB). The idempotency key
+   * is generated when omitted and reused on every retry of this call, so a
+   * retried batch is counted once.
+   */
+  async record(
+    request: models.KeyUsageBatchRequest | operations.RecordKeyUsageRequest,
+    options: CreateOptions = {},
+  ): Promise<WithMeta<models.KeyUsageBatch>> {
+    const { idempotencyKey, ...rest } = options;
+    const envelope = "body" in request ? request : undefined;
+    const generated: operations.RecordKeyUsageRequest = {
+      body: envelope ? envelope.body : (request as models.KeyUsageBatchRequest),
+      idempotencyKey: envelope?.idempotencyKey ?? idempotencyKey ?? newIdempotencyKey(),
+    };
+    const response = await this.inner.record(generated, rest);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** A buffer that sends recorded facts in the background. Keep one per process and close it on shutdown. */
+  buffer(options: KeyUsageBufferOptions = {}): KeyUsageBuffer {
+    return new KeyUsageBuffer(this, options);
+  }
+}
+
 export class Keys {
   constructor(private readonly inner: GeneratedKeys) {}
 
@@ -492,6 +528,7 @@ export class NoResponse {
   readonly assessments: Assessments;
   readonly accounts: Accounts;
   readonly keys: Keys;
+  readonly keyUsage: KeyUsage;
   readonly webhookEndpoints: WebhookEndpoints;
   readonly integrations: Integrations;
   /** The generated client, for the standalone functions under `@noresponse/node/funcs/*`. */
@@ -506,6 +543,7 @@ export class NoResponse {
     this.assessments = new Assessments(client.assessments);
     this.accounts = new Accounts(client.accounts);
     this.keys = new Keys(client.keys);
+    this.keyUsage = new KeyUsage(client.keyUsage);
     this.webhookEndpoints = new WebhookEndpoints(client.webhookEndpoints);
     this.integrations = new Integrations(client.integrations);
     this.core = client;

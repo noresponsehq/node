@@ -234,6 +234,30 @@ import { hashIssuedCredential } from "@noresponse/node";
 const sha256 = hashIssuedCredential(issuedKey); // 64 lower-case hex characters
 ```
 
+## Key usage
+
+Report each request made with an issued key, and NoResponse ties the key's usage back to the account it was issued to. A key used from 20 or more IP addresses, or 3 or more countries, within 24 hours puts `shared_api_key` in that account's risk. Keep one buffer per process in your API gateway and record every request; it needs a key with the `assess` scope.
+
+```ts
+const usage = nr.keyUsage.buffer(); // sends every 5 s, or once 100 facts are queued
+
+app.use((req, res, next) => {
+  usage.record({
+    key: req.header("authorization")?.replace(/^Bearer /, ""), // hashed here; the key is not sent
+    ip: req.ip,
+    userAgent: req.header("user-agent"),
+    model: req.body?.model,
+  });
+  next();
+});
+
+process.on("SIGTERM", async () => {
+  await usage.close(); // sends what is queued
+});
+```
+
+`record` does not block and does not throw. Pass `keySha256` instead of `key` when you already hold the hash, and `inputTokens`, `outputTokens` and `occurredAt` when you have them. Options: `batchSize` (default 100, at most 500), `flushIntervalMs` (default 5000; the timer does not keep the process alive), `maxQueue` (default 10 000; when full, the oldest fact is dropped), `sampleRate` (record a share of requests, such as 0.1), and `onError` (called when a batch fails after retries). `stats()` returns `{ queued, sent, dropped, failed, invalid }`. Each batch carries its own `Idempotency-Key`, sent again on every retry, so a retried batch is counted once. `nr.keyUsage.record({ events })` sends one batch yourself.
+
 ## Webhooks
 
 Register your endpoint with a key that has the `webhooks` scope. The signing secret is shown only in this answer, so store it, then send the verification challenge:

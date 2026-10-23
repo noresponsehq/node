@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.3
+
+* `sdk.keyUsage.record()`: **Added**
+* `sdk.assessments.create()`:  `response.account.risk.reasons[].code.enum(sharedApiKey)` **Added**
+* `sdk.assessments.get()`:  `response.account.risk.reasons[].code.enum(sharedApiKey)` **Added**
+* `sdk.assessments.query()`:  `response.items[].risk.reasons[].code.enum(sharedApiKey)` **Added**
+* `sdk.accounts.get()`:  `response.risk.reasons[].code.enum(sharedApiKey)` **Added**
+* `sdk.accounts.listAssessments()`:  `response.items[].risk.reasons[].code.enum(sharedApiKey)` **Added**
+
 ## 3.0.2
 
 No changes detected.

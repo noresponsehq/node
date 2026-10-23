@@ -13,6 +13,7 @@ export * from "./list-webhook-deliveries.js";
 export * from "./list-webhook-endpoints.js";
 export * from "./query-account-assessments.js";
 export * from "./record-assessment-outcome.js";
+export * from "./record-key-usage.js";
 export * from "./replay-webhook-delivery.js";
 export * from "./rotate-api-key.js";
 export * from "./rotate-integration-secret.js";

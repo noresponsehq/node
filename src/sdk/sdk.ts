@@ -2,6 +2,7 @@ import { ClientSDK } from "../lib/sdks.js";
 import { Accounts } from "./accounts.js";
 import { Assessments } from "./assessments.js";
 import { Integrations } from "./integrations.js";
+import { KeyUsage } from "./key-usage.js";
 import { Keys } from "./keys.js";
 import { WebhookEndpoints } from "./webhook-endpoints.js";
 
@@ -14,6 +15,11 @@ export class NoResponse extends ClientSDK {
   private _accounts?: Accounts;
   get accounts(): Accounts {
     return (this._accounts ??= new Accounts(this._options));
+  }
+
+  private _keyUsage?: KeyUsage;
+  get keyUsage(): KeyUsage {
+    return (this._keyUsage ??= new KeyUsage(this._options));
   }
 
   private _keys?: Keys;

@@ -4,6 +4,7 @@ src/errors.ts
 src/webhooks.ts
 src/auth.ts
 src/issued-credential.ts
+src/key-usage.ts
 src/late-results.ts
 src/claim-map.ts
 src/wait.ts

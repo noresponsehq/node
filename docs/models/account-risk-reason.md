@@ -6,7 +6,7 @@
 import { AccountRiskReason } from "@noresponse/node/models";
 
 let value: AccountRiskReason = {
-  code: "prior_abuse_link",
+  code: "test_scenario",
   weight: 959506,
 };
 ```
