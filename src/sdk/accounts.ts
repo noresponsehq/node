@@ -1,3 +1,4 @@
+import { accountsDelete } from "../funcs/accounts-delete.js";
 import { accountsGet } from "../funcs/accounts-get.js";
 import { accountsListAssessments } from "../funcs/accounts-list-assessments.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -17,6 +18,23 @@ export class Accounts extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetAccountResponse> {
     return unwrapAsync(accountsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Erase an account and its history.
+   *
+   * @remarks
+   * Erases the account in the environment of your key, for an erasure request from your user: every assessment of it, with its revisions, evidence and outcomes, and the identity-graph marks its outcomes set. An assessment of the account begun before the call is refused or stopped. Afterwards the account and each erased assessment answer 404 and the history is empty. When the call deleted at least one assessment, an account.deleted event goes to your verified webhook endpoints. Requires the history scope. Idempotent and safe to retry: a repeat, or an account with nothing to erase, answers 200 with assessments_deleted 0 and sends no event. The account_id can be assessed again later, as a new account.
+   */
+  async delete(
+    request: operations.DeleteAccountRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteAccountResponse> {
+    return unwrapAsync(accountsDelete(
       this,
       request,
       options,

@@ -88,6 +88,28 @@ test("the expired event is typed and terminal, and endpoint.verification echoes 
   assert.deepEqual(NoResponse.webhooks.verificationResponse(verification), { challenge: ping.data.challenge });
 });
 
+test("account.deleted is typed and carries the erased account", () => {
+  const erased = fixture("valid/webhook-account-deleted.json");
+  const d = signed(erased, "secret", String(now), erased.id);
+  const event = constructEvent(d.raw, d.headers, { whk_sdktest01: "secret" }, { now });
+  assert.equal(event.type, "account.deleted");
+  assert.equal(event.test, false);
+  assert.deepEqual(event.data, { accountId: "acct_7f3a9c", assessmentsDeleted: 3, deletedAt: "2026-10-23T09:00:00.000Z" });
+  assert.equal(isExpiredEvent(event), false);
+  assert.throws(() => verificationResponse(event), WebhookVerificationError);
+  for (const mutate of [
+    (body) => { body.data.assessments_deleted = 0; },
+    (body) => { body.data.assessments_deleted = 1.5; },
+    (body) => { body.data.account_id = "jane@example.com"; },
+    (body) => { delete body.data.deleted_at; },
+  ]) {
+    const body = structuredClone(erased);
+    mutate(body);
+    const bad = signed(body, "secret", String(now), body.id);
+    code(() => constructEvent(bad.raw, bad.headers, { whk_sdktest01: "secret" }, { now }), "invalid_payload");
+  }
+});
+
 // The API adds fields without a new version, so keys this SDK does not know
 // must not stop a signed event from verifying.
 test("unknown fields are accepted", () => {
@@ -95,6 +117,7 @@ test("unknown fields are accepted", () => {
     "invalid/webhook-tenant-id.json",
     "invalid/webhook-identifier-leak.json",
     "invalid/webhook-expired-with-assessment-url.json",
+    "invalid/webhook-account-deleted-assessment-id.json",
   ]) {
     const body = fixture(name);
     const signedBody = signed(body, "secret", String(now), body.id);
@@ -109,6 +132,7 @@ test("the contract-invalid webhook fixtures and malformed identifiers are refuse
     "invalid/webhook-update-pointer-only.json",
     "invalid/webhook-update-with-expired-status.json",
     "invalid/webhook-verification-without-challenge.json",
+    "invalid/webhook-account-deleted-none.json",
   ]) {
     const body = fixture(name);
     const signedBody = signed(body, "secret", String(now), body.id);

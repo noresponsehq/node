@@ -291,7 +291,7 @@ export class Assessments {
 /**
  * Your accounts. An account is the accountId you send with your assessments
  * and holds one current risk: the risk of its latest assessment with a
- * decision. Its assessments are its history. Both methods need the
+ * decision. Its assessments are its history. Every method needs the
  * `history` scope.
  */
 export class Accounts {
@@ -301,6 +301,18 @@ export class Accounts {
   async get(accountId: string | operations.GetAccountRequest, options?: RequestOptions): Promise<WithMeta<models.Account>> {
     const request = typeof accountId === "string" ? { accountId } : accountId;
     const response = await this.inner.get(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /**
+   * Erase the account in your key's environment: every assessment of it,
+   * with its evidence and outcomes. Needs the `history` scope. Idempotent: a
+   * repeat answers assessmentsDeleted 0. An account.deleted webhook follows
+   * when something was deleted.
+   */
+  async delete(accountId: string | operations.DeleteAccountRequest, options?: RequestOptions): Promise<WithMeta<models.AccountDeletion>> {
+    const request = typeof accountId === "string" ? { accountId } : accountId;
+    const response = await this.inner.delete(request, options);
     return withMeta(response.result, response.headers);
   }
 

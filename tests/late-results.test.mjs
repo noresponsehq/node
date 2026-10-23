@@ -60,6 +60,7 @@ test("the default policy revokes on review and does nothing on allow, step_up, p
   assert.equal(lateResultAction(ev({ status: "pending" })), "none");
   assert.equal(lateResultAction(ev({ status: "expired", changeReason: "expired" })), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "endpoint.verification", createdAt: "x", data: {} }), "none");
+  assert.equal(lateResultAction({ id: "evt_x", type: "account.deleted", createdAt: "x", test: false, data: { accountId: "acct_1", assessmentsDeleted: 1, deletedAt: "x" } }), "none");
   assert.equal(lateResultAction(ev({ status: "complete", recommendation: "step_up" }), { step_up: "ban" }), "ban");
   assert.equal(lateResultAction(ev({ status: "complete", recommendation: "review" }), { step_up: "ban" }), "none");
   assert.throws(() => lateResultAction(ev({ status: "complete", recommendation: "review" }), { review: "delete" }), TypeError);

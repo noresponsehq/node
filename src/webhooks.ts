@@ -52,6 +52,15 @@ export type EndpointVerification = {
   challenge: string;
 };
 
+/** An account you erased with accounts.delete: delete what you hold for it. */
+export type AccountDeleted = {
+  accountId: string;
+  /** How many assessments the erasure deleted, at least 1. */
+  assessmentsDeleted: number;
+  /** When the erasure took effect, as deletedAt in the accounts.delete answer. */
+  deletedAt: string;
+};
+
 export type AssessmentUpdatedEvent = {
   id: string;
   type: "assessment.updated";
@@ -84,7 +93,16 @@ export type EndpointVerificationEvent = {
   data: EndpointVerification;
 };
 
-export type WebhookEvent = AssessmentUpdatedEvent | AssessmentExpiredEvent | EndpointVerificationEvent;
+export type AccountDeletedEvent = {
+  id: string;
+  type: "account.deleted";
+  createdAt: string;
+  /** Always false. */
+  test: false;
+  data: AccountDeleted;
+};
+
+export type WebhookEvent = AssessmentUpdatedEvent | AssessmentExpiredEvent | EndpointVerificationEvent | AccountDeletedEvent;
 
 export type WebhookErrorCode =
   | "missing_header"
@@ -208,6 +226,17 @@ export function constructEvent(
       fail("invalid_payload", "Endpoint verification event is malformed");
     }
     return { id, type, createdAt: created_at, test: false, data: { endpointId: endpoint_id, challenge } };
+  }
+  if (type === "account.deleted") {
+    const { account_id, assessments_deleted, deleted_at } = data;
+    if (
+      typeof account_id !== "string" || !ACCOUNT_ID.test(account_id) ||
+      typeof assessments_deleted !== "number" || !Number.isInteger(assessments_deleted) || assessments_deleted < 1 ||
+      typeof deleted_at !== "string" || !validDateTime(deleted_at)
+    ) {
+      fail("invalid_payload", "Account deleted event is malformed");
+    }
+    return { id, type, createdAt: created_at, test: false, data: { accountId: account_id, assessmentsDeleted: assessments_deleted, deletedAt: deleted_at } };
   }
   if (type !== "assessment.updated") fail("invalid_payload", "Unknown webhook event type");
   if (data["status"] === "expired") {

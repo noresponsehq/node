@@ -1,5 +1,6 @@
 export * from "./account-decision.js";
 export * from "./account-decisions-by-flow.js";
+export * from "./account-deletion.js";
 export * from "./account-risk-reason.js";
 export * from "./account-risk.js";
 export * from "./account.js";

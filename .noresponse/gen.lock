@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 7b124caf22372a7e20c96529d8229f8c
+  docChecksum: 9bd7ee37d081bba6f43984ed182bb88e
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.31
-  configChecksum: d7087a24087894951c80e3f0ca720016
+  releaseVersion: 2.0.32
+  configChecksum: 06a5a99e9f5182275090dc1a22adc474
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -44,6 +44,8 @@ trackedFiles:
     last_write_checksum: sha1:a8b1f5ffb8e9394f24c629e52fb95709159c425c
   docs/models/account-decisions-by-flow.md:
     last_write_checksum: sha1:88fa134180487f486bc7f17574d2b98e11ec6599
+  docs/models/account-deletion.md:
+    last_write_checksum: sha1:6e85148abc22998257ef83642174b0128324a9c6
   docs/models/account-risk-reason.md:
     last_write_checksum: sha1:598be7104f84da9f698b59df9849a05b80a70aaa
   docs/models/account-risk.md:
@@ -190,6 +192,10 @@ trackedFiles:
     last_write_checksum: sha1:d937c80f98edf28058962cc14aa3c88d490a5d07
   docs/models/operations/create-webhook-endpoint-response.md:
     last_write_checksum: sha1:59c66574a5e576f0a13d649628ef9b50acd345df
+  docs/models/operations/delete-account-request.md:
+    last_write_checksum: sha1:4918e7878e89c0b788b55870440d48502b1b2c90
+  docs/models/operations/delete-account-response.md:
+    last_write_checksum: sha1:cdc2053026efe8088b25a5683c5e68e116cf3f0b
   docs/models/operations/delete-integration-request.md:
     last_write_checksum: sha1:43a6af1879bf828274d44772106de153d85d379f
   docs/models/operations/delete-integration-response.md:
@@ -345,11 +351,13 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:525e803bb0b38c57ff08d21309c6e14a6b7bbb48
+    last_write_checksum: sha1:fb9590fda3ed65f1fbd12f7ba79d1a3fd261b56e
   package.json:
-    last_write_checksum: sha1:d27fa5864e128721b5f54e177c38426eb5dbf778
+    last_write_checksum: sha1:8dc2071ea83bc57fc5d6a055b0a08f42aff7f4e4
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
+  src/funcs/accounts-delete.ts:
+    last_write_checksum: sha1:8391939b1050f016de6bdd8dff3a1ab925db0141
   src/funcs/accounts-get.ts:
     last_write_checksum: sha1:9bbd3d5425c4f6aa18e8b8ff7f7d7e4abebe9dcf
   src/funcs/accounts-list-assessments.ts:
@@ -395,7 +403,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:7167db71c03b948447a7dda52ef4636c256e97fc
+    last_write_checksum: sha1:4912b6c975a8dfc6c62341e08b080062d6d93d5c
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -424,6 +432,8 @@ trackedFiles:
     last_write_checksum: sha1:34be61496c8c8973f273a68c2886f8ed7a11697b
   src/models/account-decisions-by-flow.ts:
     last_write_checksum: sha1:c9a3d773278c0123bf36be42b73209a1cfc4e4ea
+  src/models/account-deletion.ts:
+    last_write_checksum: sha1:f95944f0632109941d0ec73945de81789f040599
   src/models/account-risk-reason.ts:
     last_write_checksum: sha1:838a10ddaed042b116849079b77cdc7dd73b07bd
   src/models/account-risk.ts:
@@ -533,7 +543,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:d20f1b4e39b25e882ea4913b8f4505b602c6bc51
   src/models/index.ts:
-    last_write_checksum: sha1:a2ed10954b03bfadf7555f8234ee6e7339fb5d4d
+    last_write_checksum: sha1:31fdf41f1c0246101c03fe121b0a08b2e0f4ec7e
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -566,6 +576,8 @@ trackedFiles:
     last_write_checksum: sha1:43ba0c430c7ece0e031ab6b44611f0e80656f32c
   src/models/operations/create-webhook-endpoint.ts:
     last_write_checksum: sha1:f6868129da1a679dbfa2fdba9219d126dfb035d1
+  src/models/operations/delete-account.ts:
+    last_write_checksum: sha1:6511f632e74734068e47c7ff51e7aa4173928cce
   src/models/operations/delete-integration.ts:
     last_write_checksum: sha1:4e4378527f917780ac75957ef3f5e555748c6596
   src/models/operations/delete-webhook-endpoint.ts:
@@ -575,7 +587,7 @@ trackedFiles:
   src/models/operations/get-assessment.ts:
     last_write_checksum: sha1:fc989a767d917999e384db8774178b693460a0be
   src/models/operations/index.ts:
-    last_write_checksum: sha1:233a95f9ddf8fd1f3d1731a3a0eee8859efe8e7b
+    last_write_checksum: sha1:f1379d2d65f0a9675bd8414e3c979f56eaa5110f
   src/models/operations/list-account-assessments.ts:
     last_write_checksum: sha1:fd0adca3c8afbfa4b8d19700b06b8aa643301c1f
   src/models/operations/list-integrations.ts:
@@ -687,7 +699,7 @@ trackedFiles:
   src/models/webhook-test.ts:
     last_write_checksum: sha1:70ecabc6de8d282c36512fe3122a6cf2905cd41c
   src/sdk/accounts.ts:
-    last_write_checksum: sha1:de8d94389081dcea6a7bf9fe3b5402068541c06a
+    last_write_checksum: sha1:e0454f8b059efd389c20f664d1c739446637d39a
   src/sdk/assessments.ts:
     last_write_checksum: sha1:51c6e0af2dea66de40a95628a9025c7bac74e1f7
   src/sdk/index.ts:
@@ -961,6 +973,21 @@ examples:
       responses:
         "200":
           application/json: {"schema_version": "1", "id": "acct_7f3a9c", "risk": {"score": 90, "decision": "block", "reasons": [{"code": "disposable_email", "weight": 40, "identifier": "email"}, {"code": "proxy_ip", "weight": 30, "identifier": "ip"}, {"code": "many_recent_signups", "weight": 20}]}, "decisions_by_flow": {"signup": "block", "login": "block", "purchase": "block"}, "assessment_id": "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "updated_at": "2026-10-14T09:00:00.412Z"}
+  deleteAccount:
+    erased:
+      parameters:
+        path:
+          account_id: "acct_7f3a9c"
+      responses:
+        "200":
+          application/json: {"schema_version": "1", "id": "acct_7f3a9c", "deleted": true, "assessments_deleted": 3, "deleted_at": "2026-10-23T09:00:00.000Z"}
+    repeat:
+      parameters:
+        path:
+          account_id: "acct_7f3a9c"
+      responses:
+        "200":
+          application/json: {"schema_version": "1", "id": "acct_7f3a9c", "deleted": true, "assessments_deleted": 0, "deleted_at": "2026-10-23T09:00:05.000Z"}
   listAccountAssessments:
     page:
       parameters:

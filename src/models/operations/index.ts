@@ -1,6 +1,7 @@
 export * from "./create-assessment.js";
 export * from "./create-integration.js";
 export * from "./create-webhook-endpoint.js";
+export * from "./delete-account.js";
 export * from "./delete-integration.js";
 export * from "./delete-webhook-endpoint.js";
 export * from "./get-account.js";

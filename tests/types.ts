@@ -9,6 +9,7 @@ import {
   fromClerk,
   type Account,
   type AccountDecision,
+  type AccountDeletion,
   type Assessment,
   type AssessmentOutcome,
   type AssessmentPage,
@@ -43,6 +44,9 @@ async function surface(): Promise<void> {
   const account: WithMeta<Account> = await nr.accounts.get("usr_8f2k1");
   const decision: AccountDecision = account.decisionsByFlow.purchase;
   const history: AssessmentPage = await nr.accounts.listAssessments("usr_8f2k1", { limit: 5, responseMode: "standard" });
+  const erased: WithMeta<AccountDeletion> = await nr.accounts.delete("usr_8f2k1");
+  const erasedCount: number = erased.assessmentsDeleted;
+  void erasedCount;
   // @ts-expect-error deny is not an account decision
   const deny: AccountDecision = "deny";
   void [decision, history, deny];
@@ -81,6 +85,9 @@ function webhooks(): void {
   } else if (event.type === "assessment.updated") {
     const assessment: Assessment = event.data;
     void assessment;
+  } else if (event.type === "account.deleted") {
+    const erased: number = event.data.assessmentsDeleted;
+    void erased;
   } else {
     const challenge: string = event.data.challenge;
     void challenge;

@@ -33,6 +33,13 @@ test("accounts.get returns the documented account", { skip }, async () => {
   assert.equal(account.decisionsByFlow.signup, account.risk.decision);
 });
 
+test("accounts.delete returns the documented deletion", { skip }, async () => {
+  const deletion = await client().accounts.delete("acct_7f3a9c");
+  assert.equal(deletion.id, "acct_7f3a9c");
+  assert.equal(deletion.deleted, true);
+  assert.equal(typeof deletion.assessmentsDeleted, "number");
+});
+
 test("accounts.listAssessments returns the documented page", { skip }, async () => {
   const page = await client().accounts.listAssessments("acct_7f3a9c", { limit: 20 });
   assert.equal(page.accountId, "acct_7f3a9c");

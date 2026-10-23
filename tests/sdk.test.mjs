@@ -22,6 +22,7 @@ import {
 import {
   ACCOUNT,
   ACCOUNT_BLOCK,
+  ACCOUNT_DELETION,
   COMPLETE,
   INTEGRATION_AUTH0,
   INTEGRATION_LIST,
@@ -208,6 +209,23 @@ test("accounts.get reads the current risk and a missing account is NotFoundError
   assert.equal(blocked.risk.decision, "block");
   assert.equal(calls[1].url, "https://example.com/v1/accounts/tenant%3Ausr%7C42");
   await assert.rejects(nr.accounts.get("acct_missing"), (error) => error instanceof NotFoundError && error.code === "not_found");
+});
+
+test("accounts.delete erases with DELETE and a repeat answers zero", async () => {
+  const { fetcher, calls } = fakeFetch([json(ACCOUNT_DELETION), json({ ...ACCOUNT_DELETION, assessments_deleted: 0 }), problem(403, "tenant_forbidden")]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const deletion = await nr.accounts.delete("acct_7f3a9c");
+  assert.equal(calls[0].method, "DELETE");
+  assert.equal(calls[0].url, "https://example.com/v1/accounts/acct_7f3a9c");
+  assert.equal(calls[0].body, null);
+  assert.equal(deletion.id, "acct_7f3a9c");
+  assert.equal(deletion.deleted, true);
+  assert.equal(deletion.assessmentsDeleted, 3);
+  assert.equal(deletion.meta.requestId, "a".repeat(32));
+  const repeat = await nr.accounts.delete({ accountId: "tenant:usr|42" });
+  assert.equal(repeat.assessmentsDeleted, 0);
+  assert.equal(calls[1].url, "https://example.com/v1/accounts/tenant%3Ausr%7C42");
+  await assert.rejects(nr.accounts.delete("acct_7f3a9c"), (error) => error instanceof PermissionDeniedError && error.code === "tenant_forbidden");
 });
 
 test("accounts.listAssessments sends the query parameters and pages by cursor", async () => {

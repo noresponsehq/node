@@ -114,6 +114,10 @@ const history = await nr.accounts.listAssessments("usr_8f2k1", { limit: 20 });
 for await (const item of history) {
   // the same pages as assessments.query, newest first
 }
+
+// An erasure request from your user: every assessment of the account goes.
+const erased = await nr.accounts.delete("usr_8f2k1");
+erased.assessmentsDeleted;       // 0 on a repeat
 ```
 
 Both calls need the `history` scope. An account with no decided assessment throws `NotFoundError`. `listAssessments` puts the account id in the URL; use `assessments.query` to keep it in the request body.
@@ -246,6 +250,12 @@ async function handler(req, res) {
     throw error;
   }
   if (event.type === "endpoint.verification") return res.json(verificationResponse(event));
+  if (event.type === "account.deleted") {
+    // You erased it with accounts.delete: drop what was created at or before deletedAt,
+    // and ignore late updates of those assessments. A newer assessment of the account stays.
+    forgetAccount(event.data.accountId, event.data.deletedAt);
+    return res.status(204).end();
+  }
   if (isExpiredEvent(event)) {
     forget(event.data.assessmentId); // GET now answers 404
   } else if (event.test) {
