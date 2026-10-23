@@ -139,6 +139,13 @@ test("create accepts an explicit idempotency key and the generated request shape
   assert.equal(calls[1].headers["idempotency-key"], "signup-usr_8f2k1-0002");
 });
 
+test("create with an app's own login leaves auth_context out of the body", async () => {
+  const { fetcher, calls } = fakeFetch([json(COMPLETE)]);
+  const nr = client(fetcher);
+  await nr.assessments.create({ ...REQUEST, authContext: undefined });
+  assert.deepEqual(calls[0].body, { account_id: "usr_8f2k1", identifiers: { email: "jordan.lee@example.com", name: "Jordan Lee" } });
+});
+
 test("get encodes the id and response mode and exposes Retry-After", async () => {
   const { fetcher, calls } = fakeFetch([json(PENDING, { headers: { "retry-after": "3" } }), json(COMPLETE)]);
   const nr = client(fetcher, { baseUrl: "https://example.com" });

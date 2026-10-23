@@ -44,6 +44,7 @@ export {
   clerkActions,
   workosActions,
   auth0Actions,
+  logOnlyActions,
   ProviderActionError,
   DEFAULT_LATE_RESULT_POLICY,
   type LateResult,
@@ -54,6 +55,7 @@ export {
   type ClerkActionsOptions,
   type WorkOSActionsOptions,
   type Auth0ActionsOptions,
+  type LogOnlyActionsOptions,
 } from "./late-results.js";
 export {
   fromAuth0,

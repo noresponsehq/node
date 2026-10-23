@@ -8,6 +8,7 @@ import {
   DEFAULT_LATE_RESULT_POLICY,
   handleLateResult,
   lateResultAction,
+  logOnlyActions,
   ProviderActionError,
   WebhookVerificationError,
   workosActions,
@@ -240,4 +241,31 @@ test("a repeated Clerk revoke tolerates a session that went between list and rev
   } finally {
     await mock.close();
   }
+});
+
+test("the log-only provider logs what it would revoke or ban and calls nothing", async (t) => {
+  t.mock.method(globalThis, "fetch", () => {
+    throw new Error("the log-only provider must not call out");
+  });
+  const lines = [];
+  const logOnly = logOnlyActions({ log: (message, details) => lines.push({ message, details }) });
+  assert.equal(logOnly.name, "log_only");
+  const { raw, headers } = delivery(REVIEW, "usr_8f2k1");
+  const revoked = await handleLateResult(raw, headers, secrets, logOnly, { now: NOW });
+  assert.deepEqual([revoked.action, revoked.userId], ["revoke_sessions", "usr_8f2k1"]);
+  const banned = await handleLateResult(raw, headers, secrets, logOnly, { now: NOW, policy: { review: "ban" } });
+  assert.equal(banned.action, "ban");
+  assert.deepEqual(lines, [
+    { message: "NoResponse late result (log only): would revoke every session of user usr_8f2k1", details: { action: "revoke_sessions", userId: "usr_8f2k1" } },
+    { message: "NoResponse late result (log only): would ban user usr_8f2k1 and end their sessions", details: { action: "ban", userId: "usr_8f2k1" } },
+  ]);
+  const test = delivery(REVIEW, "usr_8f2k1", { test: true });
+  assert.equal((await handleLateResult(test.raw, test.headers, secrets, logOnly, { now: NOW })).action, "none");
+  assert.equal(lines.length, 2);
+  await assert.rejects(logOnly.ban(""), TypeError);
+  assert.equal(globalThis.fetch.mock.callCount(), 0);
+
+  const info = t.mock.method(console, "info", () => {});
+  await logOnlyActions().revokeSessions("usr_8f2k1");
+  assert.deepEqual(info.mock.calls.map((call) => call.arguments), [["NoResponse late result (log only): would revoke every session of user usr_8f2k1"]]);
 });

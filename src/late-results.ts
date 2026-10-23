@@ -267,3 +267,32 @@ export function auth0Actions(options: Auth0ActionsOptions): LateResultProvider {
     },
   };
 }
+
+export type LogOnlyActionsOptions = {
+  /**
+   * Receives one line per action the handler would take, with the action and
+   * the user id. Defaults to console.info.
+   */
+  log?: (message: string, details: { action: Exclude<LateResultAction, "none">; userId: string }) => void;
+};
+
+/**
+ * A provider for an app with its own login, or for trying the handler before
+ * you wire up a real one. revokeSessions and ban each log what they would do
+ * and call nothing: no request leaves your process. Replace it with your own
+ * LateResultProvider once you know what revoking and banning mean in your app.
+ */
+export function logOnlyActions(options: LogOnlyActionsOptions = {}): LateResultProvider {
+  const log = options.log ?? ((message: string) => console.info(message));
+  return {
+    name: "log_only",
+    async revokeSessions(userId) {
+      segment(userId);
+      log(`NoResponse late result (log only): would revoke every session of user ${userId}`, { action: "revoke_sessions", userId });
+    },
+    async ban(userId) {
+      segment(userId);
+      log(`NoResponse late result (log only): would ban user ${userId} and end their sessions`, { action: "ban", userId });
+    },
+  };
+}

@@ -272,6 +272,8 @@ const result = await handleLateResult(rawBody, request.headers, secrets, provide
 
 The default policy revokes sessions on `review` and does nothing otherwise. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
 
+If your app has its own login, `logOnlyActions()` logs what it would revoke or ban (`console.info` by default, or pass `log`) and calls nothing. Use it to try the handler, then write your own `LateResultProvider`: a `name` and the two methods `revokeSessions(userId)` and `ban(userId)`.
+
 ## Auth adapters
 
 Map a session your backend has already verified into `authContext`:
