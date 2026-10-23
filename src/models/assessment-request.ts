@@ -45,7 +45,7 @@ export type AssessmentRequest = {
    */
   requestId?: string | undefined;
   /**
-   * Optional tighter budget, 50 to 500 ms, measured from the moment the request reaches NoResponse. Absent means the 500 ms ceiling; a value above it is refused with 400 rather than clamped.
+   * Optional tighter budget, 50 to 3000 ms, measured from the moment the request reaches NoResponse. Absent means the 3000 ms ceiling; a value above it is refused with 400 rather than clamped.
    */
   deadlineMs?: number | undefined;
   /**

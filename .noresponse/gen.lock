@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 0ba8c72441139f7cb0de6724ef1f48af
+  docChecksum: 1154b96455629ed85a6987823fbb8772
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 2.0.17
-  configChecksum: a0d7ccc6713973516fe5b9f7f5a22e79
+  releaseVersion: 2.0.18
+  configChecksum: 2dbf54b21f16e99d8347ef873ebbe6bb
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -63,7 +63,7 @@ trackedFiles:
   docs/models/assessment-request-policy-context.md:
     last_write_checksum: sha1:48679382fb7971de96efad00d1f524f4188f460c
   docs/models/assessment-request.md:
-    last_write_checksum: sha1:c8eec2bfb13cc3228e6580e6ad5b83abd86a83e3
+    last_write_checksum: sha1:8764d55d51dc132b44eb585ceee61a7e05c0b894
   docs/models/assessment-timing.md:
     last_write_checksum: sha1:bfa6994956dd971cd35c4fb7f70ff7858303528e
   docs/models/assessment.md:
@@ -301,13 +301,13 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:b99feca6276153e7d5a5b54d9d10401cd9c0b00b
+    last_write_checksum: sha1:c75e16a848ab6d3d50bfa725ee276959cbf69180
   package.json:
-    last_write_checksum: sha1:d032d5f242a19645bce26dc69a849ffa9ce6a460
+    last_write_checksum: sha1:057c994a79c482ed05823509eb8e68d6c287149e
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/assessments-create.ts:
-    last_write_checksum: sha1:611e23fafbff82ef0f4558fca5ff1062a933ed9a
+    last_write_checksum: sha1:50d08ba9695bba87e9caa3ea9e74d42b86eaa84f
   src/funcs/assessments-get.ts:
     last_write_checksum: sha1:2e27b0ac5dfae07ceddf3440b71d9b212f4e77c5
   src/funcs/assessments-query.ts:
@@ -343,7 +343,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:a7194b81701f7316fa35472999a68e20a5975115
+    last_write_checksum: sha1:bd0943eabf391dd726c8b527ba76a40029ef3608
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -387,7 +387,7 @@ trackedFiles:
   src/models/assessment-request-policy-context.ts:
     last_write_checksum: sha1:9ccb7d49d3ce3a051144bae60c04b688263e1cae
   src/models/assessment-request.ts:
-    last_write_checksum: sha1:b78ac55d766431866af5b247afa1f45bf98c9ef6
+    last_write_checksum: sha1:09d2676edde9e58e18d05a2e4e43fe8fc0fb2297
   src/models/assessment-timing.ts:
     last_write_checksum: sha1:007a488a41cf549f0b814f343807a0d81368c5dd
   src/models/assessment.ts:
@@ -599,7 +599,7 @@ trackedFiles:
   src/models/webhook-test.ts:
     last_write_checksum: sha1:70ecabc6de8d282c36512fe3122a6cf2905cd41c
   src/sdk/assessments.ts:
-    last_write_checksum: sha1:a4c1d6ec82160ed2902d7f85aec3afcfb8ce4ba5
+    last_write_checksum: sha1:51c6e0af2dea66de40a95628a9025c7bac74e1f7
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
   src/sdk/integrations.ts:
