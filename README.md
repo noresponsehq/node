@@ -276,18 +276,18 @@ await nr.webhookEndpoints.sendTestEvent(endpoint.endpointId, "assessment.updated
 Verify the exact bytes you received, then act on the typed event. `secrets` maps each `whk_` key id to its secret; hold both during a rotation.
 
 ```ts
-import { constructEvent, isExpiredEvent, verificationResponse, WebhookVerificationError } from "@noresponse/node";
+import { constructEvent, WebhookVerificationError } from "@noresponse/node";
 
 // Express: app.post("/webhooks/noresponse", express.raw({ type: "*/*" }), handler)
 async function handler(req, res) {
   let event;
   try {
-    event = constructEvent(req.body, req.headers, { [process.env.NORESPONSE_WEBHOOK_KEY_ID]: process.env.NORESPONSE_WEBHOOK_SECRET });
+    event = await constructEvent(req.body, req.headers, { [process.env.NORESPONSE_WEBHOOK_KEY_ID]: process.env.NORESPONSE_WEBHOOK_SECRET });
   } catch (error) {
     if (error instanceof WebhookVerificationError) return res.status(400).end();
     throw error;
   }
-  if (event.type === "endpoint.verification") return res.json(verificationResponse(event));
+  if (event.type === "endpoint.verification") return res.json({ challenge: event.data.challenge });
   if (event.type === "account.deleted") {
     // You erased it with accounts.delete: drop what was created at or before deletedAt,
     // and ignore late updates of those assessments. A newer assessment of the account stays.
@@ -310,8 +310,8 @@ async function handler(req, res) {
     applyDecisions(event.data.account.id, event.data.account.decisionsByFlow);
     return res.status(204).end();
   }
-  if (isExpiredEvent(event)) {
-    forget(event.data.assessmentId); // GET now answers 404
+  if ("assessmentId" in event.data) {
+    forget(event.data.assessmentId); // the terminal expiry notice: GET now answers 404
   } else if (event.test) {
     // sendTestEvent's fixed example assessment: apply nothing
   } else if (isNewer(event.data)) {  // keep the highest detail.assessmentVersion per assessment
@@ -321,7 +321,7 @@ async function handler(req, res) {
 }
 ```
 
-`constructEvent(payload, headers, secrets, { toleranceSeconds })` takes the raw body (a `Buffer`, `Uint8Array` or the exact text), any header object (Fetch `Headers`, Node `IncomingHttpHeaders`, a plain object or entries) and refuses a repeated signature header, a delivery older than 300 seconds, an unknown key id or a bad signature with a `WebhookVerificationError` whose `code` says which. Deliveries are at least once: deduplicate on `event.id`. The same functions are on `NoResponse.webhooks` and `nr.webhooks`. This module uses `node:crypto`.
+`constructEvent(payload, headers, secrets, { toleranceSeconds })` returns a promise. It takes the raw body (a `Buffer`, `Uint8Array` or the exact text), any header object (Fetch `Headers`, Node `IncomingHttpHeaders`, a plain object or entries) and refuses a repeated signature header, a delivery older than 300 seconds, an unknown key id or a bad signature with a `WebhookVerificationError` whose `code` says which. Deliveries are at least once: deduplicate on `event.id`. The same function is on `NoResponse.webhooks` and `nr.webhooks`. It uses Web Crypto.
 
 ### Late results
 

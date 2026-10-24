@@ -2,7 +2,7 @@
 
 {
   "name": "@noresponse/node",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    
