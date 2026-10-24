@@ -27,7 +27,7 @@ let value: AccountRiskChangedEvent = {
       },
       decisionsByFlow: {
         accountCreation: "review",
-        login: "review",
+        login: "block",
         purchase: "allow",
       },
       assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -35,8 +35,8 @@ let value: AccountRiskChangedEvent = {
       riskVersion: 960150,
     },
     previousDecisionsByFlow: {
-      accountCreation: "step_up",
-      login: "block",
+      accountCreation: "review",
+      login: "held",
       purchase: "step_up",
     },
   },

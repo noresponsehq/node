@@ -28,7 +28,7 @@ let value: Assessment = {
     },
     decisionsByFlow: {
       accountCreation: "review",
-      login: "review",
+      login: "block",
       purchase: "allow",
     },
     assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
