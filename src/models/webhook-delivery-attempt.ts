@@ -16,7 +16,7 @@ export type WebhookDeliveryAttempt = {
    */
   eventId: string;
   /**
-   * The event's type, as its body's type: assessment.updated, account.deleted or account.risk_changed.
+   * The event's type, as its body's type: assessment.updated, endpoint.verification, account.deleted, workspace.deleted, webhook_endpoint.disabled, account.risk_changed, or a type added later.
    */
   eventType: string;
   /**
