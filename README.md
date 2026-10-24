@@ -323,20 +323,34 @@ async function handler(req, res) {
 
 `constructEvent(payload, headers, secrets, { toleranceSeconds })` returns a promise. It takes the raw body (a `Buffer`, `Uint8Array` or the exact text), any header object (Fetch `Headers`, Node `IncomingHttpHeaders`, a plain object or entries) and refuses a repeated signature header, a delivery older than 300 seconds, an unknown key id or a bad signature with a `WebhookVerificationError` whose `code` says which. Deliveries are at least once: deduplicate on `event.id`. The same function is on `NoResponse.webhooks` and `nr.webhooks`. It uses Web Crypto.
 
-### Late results
+### Late enforcement
 
-An assessment can be revised after you allowed the account creation. `handleLateResult` verifies the delivery with `constructEvent`, applies your policy and acts through your auth provider's admin API:
+A decision can rise after you admitted the account, once a slow source settles. `account.risk_changed` wakes your handler; `handleRiskChange` verifies it, reads the account's current risk (the event's own copy is ignored), asks you where the account is in your flow, and enforces it through your identity provider:
 
 ```ts
-import { clerkActions, handleLateResult } from "@noresponse/node"; // or workosActions, auth0Actions
+import { handleRiskChange, identityProvider } from "@noresponse/node";
 
-const provider = clerkActions({ secretKey: process.env.CLERK_SECRET_KEY! });
-const result = await handleLateResult(rawBody, request.headers, secrets, provider, { policy: { review: "ban" } });
+const clerk = identityProvider("clerk", { token: process.env.CLERK_SECRET_KEY! }); // or "workos", or "auth0" with domain
+const result = await handleRiskChange(nr, rawBody, request.headers, secrets, {
+  provider: clerk,
+  getAccountState: async (account) => {
+    const user = await users.find(account.id); // your store
+    return user ? { state: user.state, userId: user.clerkId, enforcedRiskVersion: user.enforcedRiskVersion } : null;
+  },
+  flows: { login: { reinstate: true } }, // lift a restriction once login is allow again (off by default)
+});
+if (result.riskVersion !== undefined) await users.update(result.account!.id, { enforcedRiskVersion: result.riskVersion });
 ```
 
-The policy maps the account's decision (`account.risk.decision`) to an action. The default revokes sessions on `review` and `block` and does nothing otherwise. A pending assessment acts on nothing: its account decision comes from an earlier assessment. `ban` blocks the user in Clerk and Auth0; WorkOS has no block, so its ban deletes the user permanently. Pass `userId` when the provider's user id is not your `accountId`. A test event from `sendTestEvent` acts on nothing. An `account.risk_changed` event acts on its new `login` decision when that decision changed; one that moved only another flow's decision acts on nothing. A refused provider call throws `ProviderActionError`; answer the webhook with a 5xx so we retry it. A provider 404 means the user or session is already gone and counts as done, so a repeated delivery is safe.
+| State | Flow | Decision | Actions |
+|---|---|---|---|
+| `onboarding` | `account_creation` | `review`, `block` | `fail_onboarding`, `revoke_sessions` |
+| `provisional` | `account_creation` | `review`, `block` | `reject_activation`, `revoke_sessions` |
+| `active` | `login` | `review` | `revoke_sessions` |
+| `active` | `login` | `block` | `restrict`, `revoke_sessions` |
+| `restricted` | `login` | `allow` | `unrestrict`, only with `reinstate` |
 
-If your app has its own login, `logOnlyActions()` logs what it would revoke or ban (`console.info` by default, or pass `log`) and calls nothing. Use it to try the handler, then write your own `LateResultProvider`: a `name` and the two methods `revokeSessions(userId)` and `ban(userId)`.
+Nothing deletes a user. Clerk bans (and unbans), Auth0 sets `blocked`, and WorkOS, which has no block, writes `noresponse_state` to the user's metadata (gate sign-in on it) and revokes every session. On an Auth0 plan without the sessions API the revoke blocks the user too and reports `restrict`. Each action, or `none` when nothing is needed, is recorded with `accounts.recordEnforcement` at the `riskVersion` read, and `result.enforcements` lists them. A refused action is recorded as `failed` and throws `ProviderActionError`: answer 5xx so the delivery is retried. A test event, an erased account and an account at or below `enforcedRiskVersion` act on nothing (`result.skipped`). To catch up after dropped deliveries, pass each account of `nr.accounts.listChanged({ unenforced: true })` to `enforceAccount`. For your own user store, `customProvider({ restrict: async (userId) => ..., revoke_sessions: async (userId) => ... })` takes one function per action you support; an action without one is recorded as failed.
 
 ## Auth adapters
 

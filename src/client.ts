@@ -347,6 +347,28 @@ export class Accounts {
     const page = await this.inner.listAssessments(request, rest);
     return toPage(page);
   }
+
+  /**
+   * Accounts whose risk changed since `changedSince` (a previous answer's
+   * nextCursor), oldest change first. `unenforced: true` keeps only accounts
+   * with no applied enforcement at their current riskVersion. nextCursor is
+   * always set: pass it back to poll.
+   */
+  async listChanged(request: operations.ListAccountsRequest = {}, options?: RequestOptions): Promise<WithMeta<models.AccountList>> {
+    const response = await this.inner.listChanged(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /**
+   * Record what you did to the account in your identity provider for one
+   * flow's decision at one riskVersion. Kept once per account, riskVersion,
+   * flow and action, so a retry is safe; an applied report replaces a failed
+   * one. handleRiskChange and enforceAccount call this for you.
+   */
+  async recordEnforcement(accountId: string, body: models.EnforcementRequest, options?: RequestOptions): Promise<WithMeta<models.Enforcement>> {
+    const response = await this.inner.recordEnforcement({ accountId, body }, options);
+    return withMeta(response.result, response.headers);
+  }
 }
 
 /**
