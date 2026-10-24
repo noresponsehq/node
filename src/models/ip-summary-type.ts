@@ -24,3 +24,8 @@ export const IpSummaryType$inboundSchema: z.ZodMiniType<
   IpSummaryType,
   unknown
 > = openEnums.inboundSchema(IpSummaryType);
+/** @internal */
+export const IpSummaryType$outboundSchema: z.ZodMiniType<
+  string,
+  IpSummaryType
+> = openEnums.outboundSchema(IpSummaryType);

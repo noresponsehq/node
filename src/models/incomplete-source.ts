@@ -5,8 +5,9 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   IncompleteReason,
   IncompleteReason$inboundSchema,
+  IncompleteReason$outboundSchema,
 } from "./incomplete-reason.js";
-import { Lane, Lane$inboundSchema } from "./lane.js";
+import { Lane, Lane$inboundSchema, Lane$outboundSchema } from "./lane.js";
 
 /**
  * One evidence lane that did not settle, and why. It names a lane, not a source. A lane that missed its deadline is timed_out rather than not_found.
@@ -30,7 +31,28 @@ export const IncompleteSource$inboundSchema: z.ZodMiniType<
   lane: Lane$inboundSchema,
   reason: IncompleteReason$inboundSchema,
 });
+/** @internal */
+export type IncompleteSource$Outbound = {
+  lane: string;
+  reason: string;
+};
 
+/** @internal */
+export const IncompleteSource$outboundSchema: z.ZodMiniType<
+  IncompleteSource$Outbound,
+  IncompleteSource
+> = z.object({
+  lane: Lane$outboundSchema,
+  reason: IncompleteReason$outboundSchema,
+});
+
+export function incompleteSourceToJSON(
+  incompleteSource: IncompleteSource,
+): string {
+  return JSON.stringify(
+    IncompleteSource$outboundSchema.parse(incompleteSource),
+  );
+}
 export function incompleteSourceFromJSON(
   jsonString: string,
 ): SafeParseResult<IncompleteSource, SDKValidationError> {

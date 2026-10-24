@@ -3,10 +3,15 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { ReasonCode, ReasonCode$inboundSchema } from "./reason-code.js";
+import {
+  ReasonCode,
+  ReasonCode$inboundSchema,
+  ReasonCode$outboundSchema,
+} from "./reason-code.js";
 import {
   ReasonIdentifier,
   ReasonIdentifier$inboundSchema,
+  ReasonIdentifier$outboundSchema,
 } from "./reason-identifier.js";
 
 export type RiskReason = {
@@ -28,7 +33,26 @@ export const RiskReason$inboundSchema: z.ZodMiniType<RiskReason, unknown> = z
     weight: types.number(),
     identifier: types.optional(ReasonIdentifier$inboundSchema),
   });
+/** @internal */
+export type RiskReason$Outbound = {
+  code: string;
+  weight: number;
+  identifier?: string | undefined;
+};
 
+/** @internal */
+export const RiskReason$outboundSchema: z.ZodMiniType<
+  RiskReason$Outbound,
+  RiskReason
+> = z.object({
+  code: ReasonCode$outboundSchema,
+  weight: z.int(),
+  identifier: z.optional(ReasonIdentifier$outboundSchema),
+});
+
+export function riskReasonToJSON(riskReason: RiskReason): string {
+  return JSON.stringify(RiskReason$outboundSchema.parse(riskReason));
+}
 export function riskReasonFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskReason, SDKValidationError> {

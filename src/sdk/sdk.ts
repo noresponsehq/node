@@ -1,4 +1,8 @@
+import { validateWebhook } from "../funcs/validate-webhook.js";
 import { ClientSDK } from "../lib/sdks.js";
+import * as models from "../models/index.js";
+import { unwrapAsync } from "../types/fp.js";
+import { WebhookSecrets } from "../webhooks.js";
 import { Accounts } from "./accounts.js";
 import { Assessments } from "./assessments.js";
 import { Integrations } from "./integrations.js";
@@ -35,5 +39,23 @@ export class NoResponse extends ClientSDK {
   private _webhookEndpoints?: WebhookEndpoints;
   get webhookEndpoints(): WebhookEndpoints {
     return (this._webhookEndpoints ??= new WebhookEndpoints(this._options));
+  }
+
+  async validateWebhook({
+    request,
+    secret,
+  }: {
+    request: {
+      body: string;
+      headers: Record<string, string> | Headers;
+      url: string;
+      method: string;
+    } | Request;
+    secret: WebhookSecrets;
+  }): Promise<models.WebhookEvent> {
+    return unwrapAsync(validateWebhook(
+      this,
+      { request, secret },
+    ));
   }
 }

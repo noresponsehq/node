@@ -6,6 +6,8 @@ import * as types from "../types/primitives.js";
 import {
   BreachSummary,
   BreachSummary$inboundSchema,
+  BreachSummary$Outbound,
+  BreachSummary$outboundSchema,
 } from "./breach-summary.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
@@ -35,7 +37,35 @@ export const RiskSummaryUsername$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type RiskSummaryUsername$Outbound = {
+  accounts_found?: number | undefined;
+  breach?: BreachSummary$Outbound | undefined;
+};
 
+/** @internal */
+export const RiskSummaryUsername$outboundSchema: z.ZodMiniType<
+  RiskSummaryUsername$Outbound,
+  RiskSummaryUsername
+> = z.pipe(
+  z.object({
+    accountsFound: z.optional(z.int()),
+    breach: z.optional(BreachSummary$outboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      accountsFound: "accounts_found",
+    });
+  }),
+);
+
+export function riskSummaryUsernameToJSON(
+  riskSummaryUsername: RiskSummaryUsername,
+): string {
+  return JSON.stringify(
+    RiskSummaryUsername$outboundSchema.parse(riskSummaryUsername),
+  );
+}
 export function riskSummaryUsernameFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskSummaryUsername, SDKValidationError> {

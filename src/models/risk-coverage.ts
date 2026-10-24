@@ -29,7 +29,26 @@ export const RiskCoverage$inboundSchema: z.ZodMiniType<RiskCoverage, unknown> =
     failed: types.number(),
     pending: types.number(),
   });
+/** @internal */
+export type RiskCoverage$Outbound = {
+  answered: number;
+  failed: number;
+  pending: number;
+};
 
+/** @internal */
+export const RiskCoverage$outboundSchema: z.ZodMiniType<
+  RiskCoverage$Outbound,
+  RiskCoverage
+> = z.object({
+  answered: z.int(),
+  failed: z.int(),
+  pending: z.int(),
+});
+
+export function riskCoverageToJSON(riskCoverage: RiskCoverage): string {
+  return JSON.stringify(RiskCoverage$outboundSchema.parse(riskCoverage));
+}
 export function riskCoverageFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskCoverage, SDKValidationError> {

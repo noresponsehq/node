@@ -13,9 +13,10 @@
  * the provider's documented admin endpoint. A provider 404 for a user or
  * session that is already gone counts as done, so a repeated delivery is safe.
  */
+import type { AccountRiskChanged } from "./models/account-risk-changed.js";
 import type { Assessment } from "./models/assessment.js";
-import type { AccountRiskChanged } from "./webhooks.js";
-import { constructEvent, type ConstructEventOptions, type HeaderInput, type WebhookEvent, type WebhookSecrets } from "./webhooks.js";
+import type { WebhookEvent } from "./models/webhook-event.js";
+import { constructEvent, type ConstructEventOptions, type HeaderInput, type WebhookSecrets } from "./webhooks.js";
 
 /** What to do to the user. "ban" also ends every session. */
 export type LateResultAction = "none" | "revoke_sessions" | "ban";
@@ -65,7 +66,7 @@ export type LateResultOptions = ConstructEventOptions & {
 };
 
 export type LateResult = {
-  /** The verified event. Answer an endpoint.verification with verificationResponse(event). */
+  /** The verified event. Answer an endpoint.verification with a WebhookVerificationResponse echoing its challenge. */
   event: WebhookEvent;
   /**
    * The action that ran. "none" when the policy, the event or the user id
@@ -106,7 +107,7 @@ const ACTIONS: readonly string[] = ["none", "revoke_sessions", "ban"];
 export function lateResultAction(event: WebhookEvent, policy: LateResultPolicy = DEFAULT_LATE_RESULT_POLICY): LateResultAction {
   if (event.type !== "assessment.updated" && event.type !== "account.risk_changed") return "none";
   if (event.type === "assessment.updated" && event.data.status === "expired") return "none";
-  if ("test" in event && event.test === true) return "none";
+  if (event.type === "assessment.updated" && event.test === true) return "none";
   const data = event.data as Assessment;
   // A pending answer carries an earlier assessment's decision; acting on it would repeat that action.
   if (event.type === "assessment.updated" && data.status === "pending") return "none";
@@ -143,7 +144,7 @@ export async function handleLateResult(
   options: LateResultOptions = {},
 ): Promise<LateResult> {
   const { policy, userId: resolve, ...verify } = options;
-  const event = constructEvent(payload, headers, secrets, verify);
+  const event = await constructEvent(payload, headers, secrets, verify);
   const action = lateResultAction(event, policy);
   if (action === "none") return { event, action: "none" };
   const accountId = event.type === "account.risk_changed"

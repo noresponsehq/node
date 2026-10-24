@@ -20,3 +20,8 @@ export const Recommendation$inboundSchema: z.ZodMiniType<
   Recommendation,
   unknown
 > = openEnums.inboundSchema(Recommendation);
+/** @internal */
+export const Recommendation$outboundSchema: z.ZodMiniType<
+  string,
+  Recommendation
+> = openEnums.outboundSchema(Recommendation);

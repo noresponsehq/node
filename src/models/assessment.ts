@@ -3,15 +3,26 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { Account, Account$inboundSchema } from "./account.js";
+import {
+  Account,
+  Account$inboundSchema,
+  Account$Outbound,
+  Account$outboundSchema,
+} from "./account.js";
 import {
   AssessmentDetail,
   AssessmentDetail$inboundSchema,
+  AssessmentDetail$Outbound,
+  AssessmentDetail$outboundSchema,
 } from "./assessment-detail.js";
-import { Depth, Depth$inboundSchema } from "./depth.js";
+import { Depth, Depth$inboundSchema, Depth$outboundSchema } from "./depth.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { Flow, Flow$inboundSchema } from "./flow.js";
-import { Status, Status$inboundSchema } from "./status.js";
+import { Flow, Flow$inboundSchema, Flow$outboundSchema } from "./flow.js";
+import {
+  Status,
+  Status$inboundSchema,
+  Status$outboundSchema,
+} from "./status.js";
 
 /**
  * One assessment, as POST /v1/assessments, GET /v1/assessments/{assessment_id} and the assessment.updated webhook return it. account is the account's one current risk: its score, the decision for this assessment's flow, the reasons and the decision for each flow. detail holds this assessment's own facts. status says whether the assessment is final (complete), usable with a source still running (partial) or not yet usable (pending). While the account's first assessment is pending, account is absent; wait for the webhook or poll the assessment. Keep the highest detail.assessment_version.
@@ -65,7 +76,41 @@ export const Assessment$inboundSchema: z.ZodMiniType<Assessment, unknown> = z
       });
     }),
   );
+/** @internal */
+export type Assessment$Outbound = {
+  schema_version: "1";
+  id: string;
+  status: string;
+  flow: string;
+  depth: string;
+  account?: Account$Outbound | undefined;
+  detail: AssessmentDetail$Outbound;
+};
 
+/** @internal */
+export const Assessment$outboundSchema: z.ZodMiniType<
+  Assessment$Outbound,
+  Assessment
+> = z.pipe(
+  z.object({
+    schemaVersion: z.literal("1"),
+    id: z.string(),
+    status: Status$outboundSchema,
+    flow: Flow$outboundSchema,
+    depth: Depth$outboundSchema,
+    account: z.optional(Account$outboundSchema),
+    detail: AssessmentDetail$outboundSchema,
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      schemaVersion: "schema_version",
+    });
+  }),
+);
+
+export function assessmentToJSON(assessment: Assessment): string {
+  return JSON.stringify(Assessment$outboundSchema.parse(assessment));
+}
 export function assessmentFromJSON(
   jsonString: string,
 ): SafeParseResult<Assessment, SDKValidationError> {

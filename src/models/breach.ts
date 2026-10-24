@@ -6,11 +6,17 @@ import * as types from "../types/primitives.js";
 import {
   BreachExposed,
   BreachExposed$inboundSchema,
+  BreachExposed$outboundSchema,
 } from "./breach-exposed.js";
-import { BreachKind, BreachKind$inboundSchema } from "./breach-kind.js";
+import {
+  BreachKind,
+  BreachKind$inboundSchema,
+  BreachKind$outboundSchema,
+} from "./breach-kind.js";
 import {
   BreachSelector,
   BreachSelector$inboundSchema,
+  BreachSelector$outboundSchema,
 } from "./breach-selector.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
@@ -64,7 +70,41 @@ export const Breach$inboundSchema: z.ZodMiniType<Breach, unknown> = z.pipe(
     });
   }),
 );
+/** @internal */
+export type Breach$Outbound = {
+  name: string;
+  domain?: string | undefined;
+  category?: string | undefined;
+  kind: string;
+  year?: number | undefined;
+  month?: number | undefined;
+  matched_on: string;
+  exposed?: Array<string> | undefined;
+};
 
+/** @internal */
+export const Breach$outboundSchema: z.ZodMiniType<Breach$Outbound, Breach> = z
+  .pipe(
+    z.object({
+      name: z.string(),
+      domain: z.optional(z.string()),
+      category: z.optional(z.string()),
+      kind: BreachKind$outboundSchema,
+      year: z.optional(z.int()),
+      month: z.optional(z.int()),
+      matchedOn: BreachSelector$outboundSchema,
+      exposed: z.optional(z.array(BreachExposed$outboundSchema)),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        matchedOn: "matched_on",
+      });
+    }),
+  );
+
+export function breachToJSON(breach: Breach): string {
+  return JSON.stringify(Breach$outboundSchema.parse(breach));
+}
 export function breachFromJSON(
   jsonString: string,
 ): SafeParseResult<Breach, SDKValidationError> {

@@ -2,20 +2,36 @@ import * as z from "zod/v4-mini";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { Consistency, Consistency$inboundSchema } from "./consistency.js";
+import {
+  Consistency,
+  Consistency$inboundSchema,
+  Consistency$Outbound,
+  Consistency$outboundSchema,
+} from "./consistency.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { IpSummary, IpSummary$inboundSchema } from "./ip-summary.js";
+import {
+  IpSummary,
+  IpSummary$inboundSchema,
+  IpSummary$Outbound,
+  IpSummary$outboundSchema,
+} from "./ip-summary.js";
 import {
   RiskSummaryEmail,
   RiskSummaryEmail$inboundSchema,
+  RiskSummaryEmail$Outbound,
+  RiskSummaryEmail$outboundSchema,
 } from "./risk-summary-email.js";
 import {
   RiskSummaryPhone,
   RiskSummaryPhone$inboundSchema,
+  RiskSummaryPhone$Outbound,
+  RiskSummaryPhone$outboundSchema,
 } from "./risk-summary-phone.js";
 import {
   RiskSummaryUsername,
   RiskSummaryUsername$inboundSchema,
+  RiskSummaryUsername$Outbound,
+  RiskSummaryUsername$outboundSchema,
 } from "./risk-summary-username.js";
 
 /**
@@ -44,7 +60,30 @@ export const RiskSummary$inboundSchema: z.ZodMiniType<RiskSummary, unknown> = z
     ip: types.optional(IpSummary$inboundSchema),
     consistency: types.optional(Consistency$inboundSchema),
   });
+/** @internal */
+export type RiskSummary$Outbound = {
+  phone?: RiskSummaryPhone$Outbound | undefined;
+  email?: RiskSummaryEmail$Outbound | undefined;
+  username?: RiskSummaryUsername$Outbound | undefined;
+  ip?: IpSummary$Outbound | undefined;
+  consistency?: Consistency$Outbound | undefined;
+};
 
+/** @internal */
+export const RiskSummary$outboundSchema: z.ZodMiniType<
+  RiskSummary$Outbound,
+  RiskSummary
+> = z.object({
+  phone: z.optional(RiskSummaryPhone$outboundSchema),
+  email: z.optional(RiskSummaryEmail$outboundSchema),
+  username: z.optional(RiskSummaryUsername$outboundSchema),
+  ip: z.optional(IpSummary$outboundSchema),
+  consistency: z.optional(Consistency$outboundSchema),
+});
+
+export function riskSummaryToJSON(riskSummary: RiskSummary): string {
+  return JSON.stringify(RiskSummary$outboundSchema.parse(riskSummary));
+}
 export function riskSummaryFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskSummary, SDKValidationError> {

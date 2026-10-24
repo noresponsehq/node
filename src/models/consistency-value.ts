@@ -21,3 +21,8 @@ export const ConsistencyValue$inboundSchema: z.ZodMiniType<
   ConsistencyValue,
   unknown
 > = openEnums.inboundSchema(ConsistencyValue);
+/** @internal */
+export const ConsistencyValue$outboundSchema: z.ZodMiniType<
+  string,
+  ConsistencyValue
+> = openEnums.outboundSchema(ConsistencyValue);

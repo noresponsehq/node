@@ -7,19 +7,28 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   FailureReason,
   FailureReason$inboundSchema,
+  FailureReason$outboundSchema,
 } from "./failure-reason.js";
-import { Freshness, Freshness$inboundSchema } from "./freshness.js";
+import {
+  Freshness,
+  Freshness$inboundSchema,
+  Freshness$outboundSchema,
+} from "./freshness.js";
 import {
   IdentifierKind,
   IdentifierKind$inboundSchema,
+  IdentifierKind$outboundSchema,
 } from "./identifier-kind.js";
 import {
   PhoneEnrichment,
   PhoneEnrichment$inboundSchema,
+  PhoneEnrichment$Outbound,
+  PhoneEnrichment$outboundSchema,
 } from "./phone-enrichment.js";
 import {
   SignalOutcome,
   SignalOutcome$inboundSchema,
+  SignalOutcome$outboundSchema,
 } from "./signal-outcome.js";
 
 export type Signal = {
@@ -88,7 +97,48 @@ export const Signal$inboundSchema: z.ZodMiniType<Signal, unknown> = z.pipe(
     });
   }),
 );
+/** @internal */
+export type Signal$Outbound = {
+  type: string;
+  identifier: string;
+  outcome: string;
+  source_id: string;
+  reason?: string | undefined;
+  evidence_ref?: string | undefined;
+  observed_at?: string | undefined;
+  last_checked_at?: string | undefined;
+  freshness: string;
+  enrichment?: PhoneEnrichment$Outbound | undefined;
+};
 
+/** @internal */
+export const Signal$outboundSchema: z.ZodMiniType<Signal$Outbound, Signal> = z
+  .pipe(
+    z.object({
+      type: z.string(),
+      identifier: IdentifierKind$outboundSchema,
+      outcome: SignalOutcome$outboundSchema,
+      sourceId: z.string(),
+      reason: z.optional(FailureReason$outboundSchema),
+      evidenceRef: z.optional(z.string()),
+      observedAt: z.optional(z.string()),
+      lastCheckedAt: z.optional(z.string()),
+      freshness: Freshness$outboundSchema,
+      enrichment: z.optional(PhoneEnrichment$outboundSchema),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        sourceId: "source_id",
+        evidenceRef: "evidence_ref",
+        observedAt: "observed_at",
+        lastCheckedAt: "last_checked_at",
+      });
+    }),
+  );
+
+export function signalToJSON(signal: Signal): string {
+  return JSON.stringify(Signal$outboundSchema.parse(signal));
+}
 export function signalFromJSON(
   jsonString: string,
 ): SafeParseResult<Signal, SDKValidationError> {

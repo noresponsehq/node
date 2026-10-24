@@ -5,8 +5,13 @@ import * as types from "../types/primitives.js";
 import {
   ConsistencyValue,
   ConsistencyValue$inboundSchema,
+  ConsistencyValue$outboundSchema,
 } from "./consistency-value.js";
-import { Country, Country$inboundSchema } from "./country.js";
+import {
+  Country,
+  Country$inboundSchema,
+  Country$outboundSchema,
+} from "./country.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
@@ -39,7 +44,28 @@ export const Consistency$inboundSchema: z.ZodMiniType<Consistency, unknown> = z
     ip: types.optional(ConsistencyValue$inboundSchema),
     country: types.optional(Country$inboundSchema),
   });
+/** @internal */
+export type Consistency$Outbound = {
+  name?: string | undefined;
+  phone?: string | undefined;
+  ip?: string | undefined;
+  country?: string | undefined;
+};
 
+/** @internal */
+export const Consistency$outboundSchema: z.ZodMiniType<
+  Consistency$Outbound,
+  Consistency
+> = z.object({
+  name: z.optional(ConsistencyValue$outboundSchema),
+  phone: z.optional(ConsistencyValue$outboundSchema),
+  ip: z.optional(ConsistencyValue$outboundSchema),
+  country: z.optional(Country$outboundSchema),
+});
+
+export function consistencyToJSON(consistency: Consistency): string {
+  return JSON.stringify(Consistency$outboundSchema.parse(consistency));
+}
 export function consistencyFromJSON(
   jsonString: string,
 ): SafeParseResult<Consistency, SDKValidationError> {

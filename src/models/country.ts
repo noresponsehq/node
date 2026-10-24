@@ -18,3 +18,6 @@ export type Country = OpenEnum<typeof Country>;
 /** @internal */
 export const Country$inboundSchema: z.ZodMiniType<Country, unknown> = openEnums
   .inboundSchema(Country);
+/** @internal */
+export const Country$outboundSchema: z.ZodMiniType<string, Country> = openEnums
+  .outboundSchema(Country);

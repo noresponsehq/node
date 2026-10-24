@@ -32,7 +32,36 @@ export const AssessmentDetailTiming$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type AssessmentDetailTiming$Outbound = {
+  deadline_ms: number;
+  elapsed_ms: number;
+};
 
+/** @internal */
+export const AssessmentDetailTiming$outboundSchema: z.ZodMiniType<
+  AssessmentDetailTiming$Outbound,
+  AssessmentDetailTiming
+> = z.pipe(
+  z.object({
+    deadlineMs: z.int(),
+    elapsedMs: z.int(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      deadlineMs: "deadline_ms",
+      elapsedMs: "elapsed_ms",
+    });
+  }),
+);
+
+export function assessmentDetailTimingToJSON(
+  assessmentDetailTiming: AssessmentDetailTiming,
+): string {
+  return JSON.stringify(
+    AssessmentDetailTiming$outboundSchema.parse(assessmentDetailTiming),
+  );
+}
 export function assessmentDetailTimingFromJSON(
   jsonString: string,
 ): SafeParseResult<AssessmentDetailTiming, SDKValidationError> {

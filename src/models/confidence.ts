@@ -19,3 +19,6 @@ export type Confidence = OpenEnum<typeof Confidence>;
 /** @internal */
 export const Confidence$inboundSchema: z.ZodMiniType<Confidence, unknown> =
   openEnums.inboundSchema(Confidence);
+/** @internal */
+export const Confidence$outboundSchema: z.ZodMiniType<string, Confidence> =
+  openEnums.outboundSchema(Confidence);

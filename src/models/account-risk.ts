@@ -5,10 +5,13 @@ import * as types from "../types/primitives.js";
 import {
   AccountDecision,
   AccountDecision$inboundSchema,
+  AccountDecision$outboundSchema,
 } from "./account-decision.js";
 import {
   AccountRiskReason,
   AccountRiskReason$inboundSchema,
+  AccountRiskReason$Outbound,
+  AccountRiskReason$outboundSchema,
 } from "./account-risk-reason.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
@@ -34,7 +37,26 @@ export const AccountRisk$inboundSchema: z.ZodMiniType<AccountRisk, unknown> = z
     decision: AccountDecision$inboundSchema,
     reasons: z.array(AccountRiskReason$inboundSchema),
   });
+/** @internal */
+export type AccountRisk$Outbound = {
+  score: number;
+  decision: string;
+  reasons: Array<AccountRiskReason$Outbound>;
+};
 
+/** @internal */
+export const AccountRisk$outboundSchema: z.ZodMiniType<
+  AccountRisk$Outbound,
+  AccountRisk
+> = z.object({
+  score: z.int(),
+  decision: AccountDecision$outboundSchema,
+  reasons: z.array(AccountRiskReason$outboundSchema),
+});
+
+export function accountRiskToJSON(accountRisk: AccountRisk): string {
+  return JSON.stringify(AccountRisk$outboundSchema.parse(accountRisk));
+}
 export function accountRiskFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountRisk, SDKValidationError> {

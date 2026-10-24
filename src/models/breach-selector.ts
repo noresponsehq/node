@@ -20,3 +20,8 @@ export const BreachSelector$inboundSchema: z.ZodMiniType<
   BreachSelector,
   unknown
 > = openEnums.inboundSchema(BreachSelector);
+/** @internal */
+export const BreachSelector$outboundSchema: z.ZodMiniType<
+  string,
+  BreachSelector
+> = openEnums.outboundSchema(BreachSelector);

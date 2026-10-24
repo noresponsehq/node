@@ -5,6 +5,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountDecision,
   AccountDecision$inboundSchema,
+  AccountDecision$outboundSchema,
 } from "./account-decision.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
@@ -42,7 +43,37 @@ export const AccountDecisionsByFlow$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type AccountDecisionsByFlow$Outbound = {
+  account_creation: string;
+  login: string;
+  purchase: string;
+};
 
+/** @internal */
+export const AccountDecisionsByFlow$outboundSchema: z.ZodMiniType<
+  AccountDecisionsByFlow$Outbound,
+  AccountDecisionsByFlow
+> = z.pipe(
+  z.object({
+    accountCreation: AccountDecision$outboundSchema,
+    login: AccountDecision$outboundSchema,
+    purchase: AccountDecision$outboundSchema,
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      accountCreation: "account_creation",
+    });
+  }),
+);
+
+export function accountDecisionsByFlowToJSON(
+  accountDecisionsByFlow: AccountDecisionsByFlow,
+): string {
+  return JSON.stringify(
+    AccountDecisionsByFlow$outboundSchema.parse(accountDecisionsByFlow),
+  );
+}
 export function accountDecisionsByFlowFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountDecisionsByFlow, SDKValidationError> {

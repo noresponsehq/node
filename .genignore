@@ -1,7 +1,6 @@
 # Hand-written files beside the generated client. The generator leaves them alone.
 src/client.ts
 src/errors.ts
-src/webhooks.ts
 src/auth.ts
 src/issued-credential.ts
 src/key-usage.ts

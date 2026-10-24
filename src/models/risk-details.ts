@@ -3,15 +3,24 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { Breach, Breach$inboundSchema } from "./breach.js";
+import {
+  Breach,
+  Breach$inboundSchema,
+  Breach$Outbound,
+  Breach$outboundSchema,
+} from "./breach.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   RiskDetailsBreachName,
   RiskDetailsBreachName$inboundSchema,
+  RiskDetailsBreachName$Outbound,
+  RiskDetailsBreachName$outboundSchema,
 } from "./risk-details-breach-name.js";
 import {
   RiskDetailsPhoneName,
   RiskDetailsPhoneName$inboundSchema,
+  RiskDetailsPhoneName$Outbound,
+  RiskDetailsPhoneName$outboundSchema,
 } from "./risk-details-phone-name.js";
 
 /**
@@ -46,7 +55,34 @@ export const RiskDetails$inboundSchema: z.ZodMiniType<RiskDetails, unknown> = z
       });
     }),
   );
+/** @internal */
+export type RiskDetails$Outbound = {
+  phone_names?: Array<RiskDetailsPhoneName$Outbound> | undefined;
+  breaches?: Array<Breach$Outbound> | undefined;
+  breach_names?: Array<RiskDetailsBreachName$Outbound> | undefined;
+};
 
+/** @internal */
+export const RiskDetails$outboundSchema: z.ZodMiniType<
+  RiskDetails$Outbound,
+  RiskDetails
+> = z.pipe(
+  z.object({
+    phoneNames: z.optional(z.array(RiskDetailsPhoneName$outboundSchema)),
+    breaches: z.optional(z.array(Breach$outboundSchema)),
+    breachNames: z.optional(z.array(RiskDetailsBreachName$outboundSchema)),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      phoneNames: "phone_names",
+      breachNames: "breach_names",
+    });
+  }),
+);
+
+export function riskDetailsToJSON(riskDetails: RiskDetails): string {
+  return JSON.stringify(RiskDetails$outboundSchema.parse(riskDetails));
+}
 export function riskDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskDetails, SDKValidationError> {

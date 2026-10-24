@@ -5,6 +5,8 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   PhoneEnrichmentFields,
   PhoneEnrichmentFields$inboundSchema,
+  PhoneEnrichmentFields$Outbound,
+  PhoneEnrichmentFields$outboundSchema,
 } from "./phone-enrichment-fields.js";
 
 /**
@@ -21,7 +23,24 @@ export const PhoneEnrichment$inboundSchema: z.ZodMiniType<
 > = z.object({
   fields: PhoneEnrichmentFields$inboundSchema,
 });
+/** @internal */
+export type PhoneEnrichment$Outbound = {
+  fields: PhoneEnrichmentFields$Outbound;
+};
 
+/** @internal */
+export const PhoneEnrichment$outboundSchema: z.ZodMiniType<
+  PhoneEnrichment$Outbound,
+  PhoneEnrichment
+> = z.object({
+  fields: PhoneEnrichmentFields$outboundSchema,
+});
+
+export function phoneEnrichmentToJSON(
+  phoneEnrichment: PhoneEnrichment,
+): string {
+  return JSON.stringify(PhoneEnrichment$outboundSchema.parse(phoneEnrichment));
+}
 export function phoneEnrichmentFromJSON(
   jsonString: string,
 ): SafeParseResult<PhoneEnrichment, SDKValidationError> {

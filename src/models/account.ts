@@ -6,8 +6,15 @@ import * as types from "../types/primitives.js";
 import {
   AccountDecisionsByFlow,
   AccountDecisionsByFlow$inboundSchema,
+  AccountDecisionsByFlow$Outbound,
+  AccountDecisionsByFlow$outboundSchema,
 } from "./account-decisions-by-flow.js";
-import { AccountRisk, AccountRisk$inboundSchema } from "./account-risk.js";
+import {
+  AccountRisk,
+  AccountRisk$inboundSchema,
+  AccountRisk$Outbound,
+  AccountRisk$outboundSchema,
+} from "./account-risk.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
@@ -62,7 +69,43 @@ export const Account$inboundSchema: z.ZodMiniType<Account, unknown> = z.pipe(
     });
   }),
 );
+/** @internal */
+export type Account$Outbound = {
+  schema_version: "1";
+  id: string;
+  risk: AccountRisk$Outbound;
+  decisions_by_flow: AccountDecisionsByFlow$Outbound;
+  assessment_id: string;
+  updated_at: string;
+  risk_version: number;
+};
 
+/** @internal */
+export const Account$outboundSchema: z.ZodMiniType<Account$Outbound, Account> =
+  z.pipe(
+    z.object({
+      schemaVersion: z.literal("1"),
+      id: z.string(),
+      risk: AccountRisk$outboundSchema,
+      decisionsByFlow: AccountDecisionsByFlow$outboundSchema,
+      assessmentId: z.string(),
+      updatedAt: z.string(),
+      riskVersion: z.int(),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        schemaVersion: "schema_version",
+        decisionsByFlow: "decisions_by_flow",
+        assessmentId: "assessment_id",
+        updatedAt: "updated_at",
+        riskVersion: "risk_version",
+      });
+    }),
+  );
+
+export function accountToJSON(account: Account): string {
+  return JSON.stringify(Account$outboundSchema.parse(account));
+}
 export function accountFromJSON(
   jsonString: string,
 ): SafeParseResult<Account, SDKValidationError> {

@@ -25,7 +25,35 @@ export const RiskDetailsPhoneName$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type RiskDetailsPhoneName$Outbound = {
+  value: string;
+  seen_by: number;
+};
 
+/** @internal */
+export const RiskDetailsPhoneName$outboundSchema: z.ZodMiniType<
+  RiskDetailsPhoneName$Outbound,
+  RiskDetailsPhoneName
+> = z.pipe(
+  z.object({
+    value: z.string(),
+    seenBy: z.int(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      seenBy: "seen_by",
+    });
+  }),
+);
+
+export function riskDetailsPhoneNameToJSON(
+  riskDetailsPhoneName: RiskDetailsPhoneName,
+): string {
+  return JSON.stringify(
+    RiskDetailsPhoneName$outboundSchema.parse(riskDetailsPhoneName),
+  );
+}
 export function riskDetailsPhoneNameFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskDetailsPhoneName, SDKValidationError> {

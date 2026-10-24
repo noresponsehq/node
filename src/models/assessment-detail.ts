@@ -6,24 +6,49 @@ import * as types from "../types/primitives.js";
 import {
   AssessmentDetailAuthContext,
   AssessmentDetailAuthContext$inboundSchema,
+  AssessmentDetailAuthContext$Outbound,
+  AssessmentDetailAuthContext$outboundSchema,
 } from "./assessment-detail-auth-context.js";
 import {
   AssessmentDetailTiming,
   AssessmentDetailTiming$inboundSchema,
+  AssessmentDetailTiming$Outbound,
+  AssessmentDetailTiming$outboundSchema,
 } from "./assessment-detail-timing.js";
-import { Confidence, Confidence$inboundSchema } from "./confidence.js";
+import {
+  Confidence,
+  Confidence$inboundSchema,
+  Confidence$outboundSchema,
+} from "./confidence.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   IncompleteSource,
   IncompleteSource$inboundSchema,
+  IncompleteSource$Outbound,
+  IncompleteSource$outboundSchema,
 } from "./incomplete-source.js";
 import {
   Recommendation,
   Recommendation$inboundSchema,
+  Recommendation$outboundSchema,
 } from "./recommendation.js";
-import { Risk, Risk$inboundSchema } from "./risk.js";
-import { Signal, Signal$inboundSchema } from "./signal.js";
-import { Status, Status$inboundSchema } from "./status.js";
+import {
+  Risk,
+  Risk$inboundSchema,
+  Risk$Outbound,
+  Risk$outboundSchema,
+} from "./risk.js";
+import {
+  Signal,
+  Signal$inboundSchema,
+  Signal$Outbound,
+  Signal$outboundSchema,
+} from "./signal.js";
+import {
+  Status,
+  Status$inboundSchema,
+  Status$outboundSchema,
+} from "./status.js";
 
 /**
  * One assessment's own facts: its score and recommendation, the signals behind them, the lanes still running and its timing. risk here is this assessment's own score; the account's current risk is the account member of the assessment. risk and recommendation are present for complete and partial; assessment_url is present for pending.
@@ -145,7 +170,81 @@ export const AssessmentDetail$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type AssessmentDetail$Outbound = {
+  schema_version: "1";
+  assessment_id: string;
+  account_id: string;
+  request_id?: string | undefined;
+  status: string;
+  recommendation?: string | undefined;
+  confidence: string;
+  risk?: Risk$Outbound | undefined;
+  signals?: Array<Signal$Outbound> | undefined;
+  incomplete_sources: Array<IncompleteSource$Outbound>;
+  policy_version: string;
+  policy_basis: "heuristic_unvalidated";
+  assessment_version: number;
+  created_at: string;
+  updated_at: string;
+  expires_at: string;
+  assessment_url?: string | undefined;
+  timing: AssessmentDetailTiming$Outbound;
+  auth_context?: AssessmentDetailAuthContext$Outbound | undefined;
+};
 
+/** @internal */
+export const AssessmentDetail$outboundSchema: z.ZodMiniType<
+  AssessmentDetail$Outbound,
+  AssessmentDetail
+> = z.pipe(
+  z.object({
+    schemaVersion: z.literal("1"),
+    assessmentId: z.string(),
+    accountId: z.string(),
+    requestId: z.optional(z.string()),
+    status: Status$outboundSchema,
+    recommendation: z.optional(Recommendation$outboundSchema),
+    confidence: Confidence$outboundSchema,
+    risk: z.optional(Risk$outboundSchema),
+    signals: z.optional(z.array(Signal$outboundSchema)),
+    incompleteSources: z.array(IncompleteSource$outboundSchema),
+    policyVersion: z.string(),
+    policyBasis: z.literal("heuristic_unvalidated"),
+    assessmentVersion: z.int(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    expiresAt: z.string(),
+    assessmentUrl: z.optional(z.string()),
+    timing: AssessmentDetailTiming$outboundSchema,
+    authContext: z.optional(AssessmentDetailAuthContext$outboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      schemaVersion: "schema_version",
+      assessmentId: "assessment_id",
+      accountId: "account_id",
+      requestId: "request_id",
+      incompleteSources: "incomplete_sources",
+      policyVersion: "policy_version",
+      policyBasis: "policy_basis",
+      assessmentVersion: "assessment_version",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+      expiresAt: "expires_at",
+      assessmentUrl: "assessment_url",
+      authContext: "auth_context",
+    });
+  }),
+);
+
+export function assessmentDetailToJSON(
+  assessmentDetail: AssessmentDetail,
+): string {
+  return JSON.stringify(
+    AssessmentDetail$outboundSchema.parse(assessmentDetail),
+  );
+}
 export function assessmentDetailFromJSON(
   jsonString: string,
 ): SafeParseResult<AssessmentDetail, SDKValidationError> {

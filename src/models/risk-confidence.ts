@@ -20,3 +20,8 @@ export const RiskConfidence$inboundSchema: z.ZodMiniType<
   RiskConfidence,
   unknown
 > = openEnums.inboundSchema(RiskConfidence);
+/** @internal */
+export const RiskConfidence$outboundSchema: z.ZodMiniType<
+  string,
+  RiskConfidence
+> = openEnums.outboundSchema(RiskConfidence);

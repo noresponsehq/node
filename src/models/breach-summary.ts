@@ -6,6 +6,7 @@ import * as types from "../types/primitives.js";
 import {
   BreachExposed,
   BreachExposed$inboundSchema,
+  BreachExposed$outboundSchema,
 } from "./breach-exposed.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
@@ -66,7 +67,47 @@ export const BreachSummary$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type BreachSummary$Outbound = {
+  found: boolean;
+  breach_count?: number | undefined;
+  first_year?: number | undefined;
+  last_year?: number | undefined;
+  exposed?: Array<string> | undefined;
+  in_credential_lists?: boolean | undefined;
+  recent_password_exposure?: boolean | undefined;
+  truncated?: boolean | undefined;
+};
 
+/** @internal */
+export const BreachSummary$outboundSchema: z.ZodMiniType<
+  BreachSummary$Outbound,
+  BreachSummary
+> = z.pipe(
+  z.object({
+    found: z.boolean(),
+    breachCount: z.optional(z.int()),
+    firstYear: z.optional(z.int()),
+    lastYear: z.optional(z.int()),
+    exposed: z.optional(z.array(BreachExposed$outboundSchema)),
+    inCredentialLists: z.optional(z.boolean()),
+    recentPasswordExposure: z.optional(z.boolean()),
+    truncated: z.optional(z.boolean()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      breachCount: "breach_count",
+      firstYear: "first_year",
+      lastYear: "last_year",
+      inCredentialLists: "in_credential_lists",
+      recentPasswordExposure: "recent_password_exposure",
+    });
+  }),
+);
+
+export function breachSummaryToJSON(breachSummary: BreachSummary): string {
+  return JSON.stringify(BreachSummary$outboundSchema.parse(breachSummary));
+}
 export function breachSummaryFromJSON(
   jsonString: string,
 ): SafeParseResult<BreachSummary, SDKValidationError> {

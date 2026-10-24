@@ -4,8 +4,16 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { HookPoint, HookPoint$inboundSchema } from "./hook-point.js";
-import { Transport, Transport$inboundSchema } from "./transport.js";
+import {
+  HookPoint,
+  HookPoint$inboundSchema,
+  HookPoint$outboundSchema,
+} from "./hook-point.js";
+import {
+  Transport,
+  Transport$inboundSchema,
+  Transport$outboundSchema,
+} from "./transport.js";
 
 /**
  * The identity fields of the auth context the assessment was made with, echoed for the workspace's own correlation: the request's auth_context, or the one a hosted provider hook (POST /hooks/{integration_id}) built, with transport provider_hook and its hook_point. Present exactly when the request carried an auth_context, and the same on every revision of the assessment. Values are as the request or the hook sent them; tokens, timestamps, roles and scopes are not echoed, and the echo does not change the score.
@@ -68,7 +76,51 @@ export const AssessmentDetailAuthContext$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type AssessmentDetailAuthContext$Outbound = {
+  provider: string;
+  issuer: string;
+  subject?: string | undefined;
+  session_id?: string | undefined;
+  organization_id?: string | undefined;
+  verified: boolean;
+  transport: string;
+  hook_point?: string | undefined;
+};
 
+/** @internal */
+export const AssessmentDetailAuthContext$outboundSchema: z.ZodMiniType<
+  AssessmentDetailAuthContext$Outbound,
+  AssessmentDetailAuthContext
+> = z.pipe(
+  z.object({
+    provider: z.string(),
+    issuer: z.string(),
+    subject: z.optional(z.string()),
+    sessionId: z.optional(z.string()),
+    organizationId: z.optional(z.string()),
+    verified: z.boolean(),
+    transport: Transport$outboundSchema,
+    hookPoint: z.optional(HookPoint$outboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      sessionId: "session_id",
+      organizationId: "organization_id",
+      hookPoint: "hook_point",
+    });
+  }),
+);
+
+export function assessmentDetailAuthContextToJSON(
+  assessmentDetailAuthContext: AssessmentDetailAuthContext,
+): string {
+  return JSON.stringify(
+    AssessmentDetailAuthContext$outboundSchema.parse(
+      assessmentDetailAuthContext,
+    ),
+  );
+}
 export function assessmentDetailAuthContextFromJSON(
   jsonString: string,
 ): SafeParseResult<AssessmentDetailAuthContext, SDKValidationError> {

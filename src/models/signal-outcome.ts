@@ -22,3 +22,8 @@ export const SignalOutcome$inboundSchema: z.ZodMiniType<
   SignalOutcome,
   unknown
 > = openEnums.inboundSchema(SignalOutcome);
+/** @internal */
+export const SignalOutcome$outboundSchema: z.ZodMiniType<
+  string,
+  SignalOutcome
+> = openEnums.outboundSchema(SignalOutcome);

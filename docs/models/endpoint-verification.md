@@ -1,0 +1,19 @@
+# EndpointVerification
+
+## Example Usage
+
+```typescript
+import { EndpointVerification } from "@noresponse/node/models";
+
+let value: EndpointVerification = {
+  endpointId: "whe_01JA2Z0A1B2C3D4E5F6G7H8J9K",
+  challenge: "q3Jt8mV0x2Yb7Lk9Pz4Rw6Hn1Sd5Fg8Ja0Tc3Ue7Wi4",
+};
+```
+
+## Fields
+
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               | Example                                                                                                   |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `endpointId`                                                                                              | *string*                                                                                                  | :heavy_check_mark:                                                                                        | Opaque id of the endpoint registration being verified.                                                    | whe_01JA2Z0A1B2C3D4E5F6G7H8J9K                                                                            |
+| `challenge`                                                                                               | *string*                                                                                                  | :heavy_check_mark:                                                                                        | Endpoint verification nonce: 32 random bytes, unpadded base64url (43 characters). Fresh per verification. | q3Jt8mV0x2Yb7Lk9Pz4Rw6Hn1Sd5Fg8Ja0Tc3Ue7Wi4                                                               |

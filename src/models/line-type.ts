@@ -14,3 +14,6 @@ export type LineType = OpenEnum<typeof LineType>;
 /** @internal */
 export const LineType$inboundSchema: z.ZodMiniType<LineType, unknown> =
   openEnums.inboundSchema(LineType);
+/** @internal */
+export const LineType$outboundSchema: z.ZodMiniType<string, LineType> =
+  openEnums.outboundSchema(LineType);

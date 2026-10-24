@@ -22,3 +22,6 @@ export type BreachKind = OpenEnum<typeof BreachKind>;
 /** @internal */
 export const BreachKind$inboundSchema: z.ZodMiniType<BreachKind, unknown> =
   openEnums.inboundSchema(BreachKind);
+/** @internal */
+export const BreachKind$outboundSchema: z.ZodMiniType<string, BreachKind> =
+  openEnums.outboundSchema(BreachKind);

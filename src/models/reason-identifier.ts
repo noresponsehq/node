@@ -23,3 +23,8 @@ export const ReasonIdentifier$inboundSchema: z.ZodMiniType<
   ReasonIdentifier,
   unknown
 > = openEnums.inboundSchema(ReasonIdentifier);
+/** @internal */
+export const ReasonIdentifier$outboundSchema: z.ZodMiniType<
+  string,
+  ReasonIdentifier
+> = openEnums.outboundSchema(ReasonIdentifier);

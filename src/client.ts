@@ -26,7 +26,7 @@ import type { Paginator } from "./types/operations.js";
 import { toMeta, withMeta, type ResponseMeta, type WithMeta } from "./meta.js";
 import { waitForAssessment, type WaitOptions } from "./wait.js";
 import { KeyUsageBuffer, type KeyUsageBufferOptions } from "./key-usage.js";
-import { constructEvent, verificationResponse } from "./webhooks.js";
+import { constructEvent } from "./webhooks.js";
 
 export const DEFAULT_BASE_URL = "https://api.noresponse.org";
 export const DEFAULT_TIMEOUT_MS = 10_000;
@@ -520,7 +520,7 @@ export class Integrations {
   }
 }
 
-const webhooks = { constructEvent, verificationResponse } as const;
+const webhooks = { constructEvent } as const;
 
 export class NoResponse {
   static readonly webhooks = webhooks;

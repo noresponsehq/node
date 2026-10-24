@@ -19,3 +19,6 @@ export type Lane = OpenEnum<typeof Lane>;
 /** @internal */
 export const Lane$inboundSchema: z.ZodMiniType<Lane, unknown> = openEnums
   .inboundSchema(Lane);
+/** @internal */
+export const Lane$outboundSchema: z.ZodMiniType<string, Lane> = openEnums
+  .outboundSchema(Lane);

@@ -18,3 +18,6 @@ export type Status = OpenEnum<typeof Status>;
 /** @internal */
 export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = openEnums
   .inboundSchema(Status);
+/** @internal */
+export const Status$outboundSchema: z.ZodMiniType<string, Status> = openEnums
+  .outboundSchema(Status);

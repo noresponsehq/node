@@ -23,3 +23,8 @@ export const IncompleteReason$inboundSchema: z.ZodMiniType<
   IncompleteReason,
   unknown
 > = openEnums.inboundSchema(IncompleteReason);
+/** @internal */
+export const IncompleteReason$outboundSchema: z.ZodMiniType<
+  string,
+  IncompleteReason
+> = openEnums.outboundSchema(IncompleteReason);

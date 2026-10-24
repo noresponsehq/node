@@ -7,6 +7,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   IpSummaryType,
   IpSummaryType$inboundSchema,
+  IpSummaryType$outboundSchema,
 } from "./ip-summary-type.js";
 
 /**
@@ -41,7 +42,33 @@ export const IpSummary$inboundSchema: z.ZodMiniType<IpSummary, unknown> = z
       });
     }),
   );
+/** @internal */
+export type IpSummary$Outbound = {
+  country?: string | undefined;
+  type?: string | undefined;
+  seen_in_workspace?: number | undefined;
+};
 
+/** @internal */
+export const IpSummary$outboundSchema: z.ZodMiniType<
+  IpSummary$Outbound,
+  IpSummary
+> = z.pipe(
+  z.object({
+    country: z.optional(z.string()),
+    type: z.optional(IpSummaryType$outboundSchema),
+    seenInWorkspace: z.optional(z.int()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      seenInWorkspace: "seen_in_workspace",
+    });
+  }),
+);
+
+export function ipSummaryToJSON(ipSummary: IpSummary): string {
+  return JSON.stringify(IpSummary$outboundSchema.parse(ipSummary));
+}
 export function ipSummaryFromJSON(
   jsonString: string,
 ): SafeParseResult<IpSummary, SDKValidationError> {

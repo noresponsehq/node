@@ -24,3 +24,8 @@ export const FailureReason$inboundSchema: z.ZodMiniType<
   FailureReason,
   unknown
 > = openEnums.inboundSchema(FailureReason);
+/** @internal */
+export const FailureReason$outboundSchema: z.ZodMiniType<
+  string,
+  FailureReason
+> = openEnums.outboundSchema(FailureReason);

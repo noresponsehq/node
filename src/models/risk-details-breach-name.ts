@@ -25,7 +25,35 @@ export const RiskDetailsBreachName$inboundSchema: z.ZodMiniType<
     });
   }),
 );
+/** @internal */
+export type RiskDetailsBreachName$Outbound = {
+  value: string;
+  seen_in: number;
+};
 
+/** @internal */
+export const RiskDetailsBreachName$outboundSchema: z.ZodMiniType<
+  RiskDetailsBreachName$Outbound,
+  RiskDetailsBreachName
+> = z.pipe(
+  z.object({
+    value: z.string(),
+    seenIn: z.int(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      seenIn: "seen_in",
+    });
+  }),
+);
+
+export function riskDetailsBreachNameToJSON(
+  riskDetailsBreachName: RiskDetailsBreachName,
+): string {
+  return JSON.stringify(
+    RiskDetailsBreachName$outboundSchema.parse(riskDetailsBreachName),
+  );
+}
 export function riskDetailsBreachNameFromJSON(
   jsonString: string,
 ): SafeParseResult<RiskDetailsBreachName, SDKValidationError> {

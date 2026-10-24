@@ -3,20 +3,42 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { Band, Band$inboundSchema } from "./band.js";
+import { Band, Band$inboundSchema, Band$outboundSchema } from "./band.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
   Recommendation,
   Recommendation$inboundSchema,
+  Recommendation$outboundSchema,
 } from "./recommendation.js";
 import {
   RiskConfidence,
   RiskConfidence$inboundSchema,
+  RiskConfidence$outboundSchema,
 } from "./risk-confidence.js";
-import { RiskCoverage, RiskCoverage$inboundSchema } from "./risk-coverage.js";
-import { RiskDetails, RiskDetails$inboundSchema } from "./risk-details.js";
-import { RiskReason, RiskReason$inboundSchema } from "./risk-reason.js";
-import { RiskSummary, RiskSummary$inboundSchema } from "./risk-summary.js";
+import {
+  RiskCoverage,
+  RiskCoverage$inboundSchema,
+  RiskCoverage$Outbound,
+  RiskCoverage$outboundSchema,
+} from "./risk-coverage.js";
+import {
+  RiskDetails,
+  RiskDetails$inboundSchema,
+  RiskDetails$Outbound,
+  RiskDetails$outboundSchema,
+} from "./risk-details.js";
+import {
+  RiskReason,
+  RiskReason$inboundSchema,
+  RiskReason$Outbound,
+  RiskReason$outboundSchema,
+} from "./risk-reason.js";
+import {
+  RiskSummary,
+  RiskSummary$inboundSchema,
+  RiskSummary$Outbound,
+  RiskSummary$outboundSchema,
+} from "./risk-summary.js";
 
 /**
  * The one risk decision for this event. score is 0 (safe) to 100 (risky): the sum of the weights of the reasons that fired, clamped to 0 to 100, from hand-set versioned weights. Every answer with a recommendation carries it, and the top-level recommendation equals risk.recommendation. It names no source or provider.
@@ -93,7 +115,50 @@ export const Risk$inboundSchema: z.ZodMiniType<Risk, unknown> = z.pipe(
     });
   }),
 );
+/** @internal */
+export type Risk$Outbound = {
+  score: number;
+  band: string;
+  recommendation: string;
+  block?: boolean | undefined;
+  block_threshold?: number | undefined;
+  confidence: string;
+  policy_version: string;
+  policy_basis: "heuristic_unvalidated";
+  reasons: Array<RiskReason$Outbound>;
+  summary?: RiskSummary$Outbound | undefined;
+  coverage: RiskCoverage$Outbound;
+  details?: RiskDetails$Outbound | undefined;
+};
 
+/** @internal */
+export const Risk$outboundSchema: z.ZodMiniType<Risk$Outbound, Risk> = z.pipe(
+  z.object({
+    score: z.int(),
+    band: Band$outboundSchema,
+    recommendation: Recommendation$outboundSchema,
+    block: z.optional(z.boolean()),
+    blockThreshold: z.optional(z.int()),
+    confidence: RiskConfidence$outboundSchema,
+    policyVersion: z.string(),
+    policyBasis: z.literal("heuristic_unvalidated"),
+    reasons: z.array(RiskReason$outboundSchema),
+    summary: z.optional(RiskSummary$outboundSchema),
+    coverage: RiskCoverage$outboundSchema,
+    details: z.optional(RiskDetails$outboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      blockThreshold: "block_threshold",
+      policyVersion: "policy_version",
+      policyBasis: "policy_basis",
+    });
+  }),
+);
+
+export function riskToJSON(risk: Risk): string {
+  return JSON.stringify(Risk$outboundSchema.parse(risk));
+}
 export function riskFromJSON(
   jsonString: string,
 ): SafeParseResult<Risk, SDKValidationError> {

@@ -18,3 +18,6 @@ export type Freshness = OpenEnum<typeof Freshness>;
 /** @internal */
 export const Freshness$inboundSchema: z.ZodMiniType<Freshness, unknown> =
   openEnums.inboundSchema(Freshness);
+/** @internal */
+export const Freshness$outboundSchema: z.ZodMiniType<string, Freshness> =
+  openEnums.outboundSchema(Freshness);

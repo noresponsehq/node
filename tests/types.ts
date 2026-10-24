@@ -5,7 +5,6 @@ import {
   RateLimitError,
   APITimeoutError,
   constructEvent,
-  isExpiredEvent,
   fromClerk,
   type Account,
   type AccountDecision,
@@ -98,15 +97,18 @@ function errors(error: unknown): void {
   if (error instanceof APITimeoutError) void error.message;
 }
 
-function webhooks(): void {
-  const event: WebhookEvent = constructEvent(rawBody, headers, { whk_abcdefgh: "secret" });
-  if (isExpiredEvent(event)) {
-    const version: number = event.data.assessmentVersion;
-    void version;
-  } else if (event.type === "assessment.updated") {
-    const assessment: Assessment = event.data;
-    const version: number = assessment.detail.assessmentVersion;
-    void [assessment, version];
+async function webhooks(): Promise<void> {
+  const event: WebhookEvent = await constructEvent(rawBody, headers, { whk_abcdefgh: "secret" });
+  if (event.type === "assessment.updated") {
+    const data = event.data;
+    if ("assessmentId" in data) {
+      const version: number = data.assessmentVersion;
+      void version;
+    } else {
+      const assessment: Assessment = data;
+      const version: number = assessment.detail.assessmentVersion;
+      void [assessment, version];
+    }
   } else if (event.type === "account.deleted") {
     const erased: number = event.data.assessmentsDeleted;
     void erased;

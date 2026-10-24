@@ -21,3 +21,8 @@ export const AccountDecision$inboundSchema: z.ZodMiniType<
   AccountDecision,
   unknown
 > = openEnums.inboundSchema(AccountDecision);
+/** @internal */
+export const AccountDecision$outboundSchema: z.ZodMiniType<
+  string,
+  AccountDecision
+> = openEnums.outboundSchema(AccountDecision);

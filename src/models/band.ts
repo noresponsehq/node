@@ -19,3 +19,6 @@ export type Band = OpenEnum<typeof Band>;
 /** @internal */
 export const Band$inboundSchema: z.ZodMiniType<Band, unknown> = openEnums
   .inboundSchema(Band);
+/** @internal */
+export const Band$outboundSchema: z.ZodMiniType<string, Band> = openEnums
+  .outboundSchema(Band);

@@ -52,3 +52,6 @@ export type ReasonCode = OpenEnum<typeof ReasonCode>;
 /** @internal */
 export const ReasonCode$inboundSchema: z.ZodMiniType<ReasonCode, unknown> =
   openEnums.inboundSchema(ReasonCode);
+/** @internal */
+export const ReasonCode$outboundSchema: z.ZodMiniType<string, ReasonCode> =
+  openEnums.outboundSchema(ReasonCode);
