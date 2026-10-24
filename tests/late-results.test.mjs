@@ -74,7 +74,7 @@ test("the default policy revokes on review and block and does nothing on allow, 
   assert.equal(lateResultAction({ id: "evt_x", type: "account.deleted", createdAt: "x", test: false, data: { accountId: "acct_1", assessmentsDeleted: 1, deletedAt: "x" } }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "workspace.deleted", createdAt: "x", test: false, data: { workspaceId: "tnt_1", environment: "live", deletedAt: "x" } }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "webhook_endpoint.disabled", createdAt: "x", test: false, data: { endpointId: "whe_1", failingSince: "x", disabledAt: "x" } }), "none");
-  const riskChanged = { schemaVersion: "1", id: "acct_1", risk: { score: 90, decision: "block", reasons: [] }, decisionsByFlow: { accountCreation: "block", login: "block", purchase: "block" }, assessmentId: "asm_x", updatedAt: "x" };
+  const riskChanged = { schemaVersion: "1", id: "acct_1", risk: { score: 90, decision: "block", reasons: [] }, decisionsByFlow: { accountCreation: "block", login: "block", purchase: "block" }, assessmentId: "asm_x", updatedAt: "x", riskVersion: 3 };
   assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { accountCreation: "allow", login: "allow", purchase: "allow" } } }), "revoke_sessions");
   // A change to another flow with the login decision as it was acts on nothing.
   assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { accountCreation: "allow", login: "block", purchase: "allow" } } }), "none");

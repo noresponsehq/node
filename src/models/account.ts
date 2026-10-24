@@ -35,6 +35,10 @@ export type Account = {
    * updated_at of that assessment's latest revision.
    */
   updatedAt: string;
+  /**
+   * The version of the account's current risk. It increases every time the account's current risk or decisions_by_flow changes, and does not decrease. Of two copies of an account, the one with the higher risk_version is newer. account.risk_changed carries the risk_version that its change made.
+   */
+  riskVersion: number;
 };
 
 /** @internal */
@@ -46,6 +50,7 @@ export const Account$inboundSchema: z.ZodMiniType<Account, unknown> = z.pipe(
     decisions_by_flow: AccountDecisionsByFlow$inboundSchema,
     assessment_id: types.string(),
     updated_at: types.string(),
+    risk_version: types.number(),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -53,6 +58,7 @@ export const Account$inboundSchema: z.ZodMiniType<Account, unknown> = z.pipe(
       "decisions_by_flow": "decisionsByFlow",
       "assessment_id": "assessmentId",
       "updated_at": "updatedAt",
+      "risk_version": "riskVersion",
     });
   }),
 );

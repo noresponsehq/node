@@ -15,13 +15,18 @@ let value: AssessmentDetail = {
   status: "pending",
   confidence: "low",
   risk: {
-    score: 749093,
-    band: "high",
-    recommendation: "review",
-    confidence: "low",
+    score: 569726,
+    band: "critical",
+    recommendation: "allow",
+    confidence: "medium",
     policyVersion: "risk-2026-10.3",
     policyBasis: "heuristic_unvalidated",
-    reasons: [],
+    reasons: [
+      {
+        code: "breach_name_mismatch",
+        weight: 197967,
+      },
+    ],
     summary: {
       phone: {
         country: "AU",
@@ -32,15 +37,15 @@ let value: AssessmentDetail = {
       },
     },
     coverage: {
-      answered: 679809,
-      failed: 443549,
-      pending: 197967,
+      answered: 150748,
+      failed: 165380,
+      pending: 583889,
     },
     details: {
       phoneNames: [
         {
           value: "Alex Example",
-          seenBy: 150748,
+          seenBy: 571629,
         },
       ],
       breaches: [
@@ -49,13 +54,13 @@ let value: AssessmentDetail = {
           domain: "forum.example.com",
           category: "forum",
           kind: "credential_list",
-          matchedOn: "username",
+          matchedOn: "ip",
         },
       ],
       breachNames: [
         {
           value: "Alex Example",
-          seenIn: 571629,
+          seenIn: 309976,
         },
       ],
     },
@@ -63,8 +68,8 @@ let value: AssessmentDetail = {
   signals: [
     {
       type: "account_presence",
-      identifier: "username",
-      outcome: "blocked",
+      identifier: "phone",
+      outcome: "inconclusive",
       sourceId: "github",
       evidenceRef: "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
       observedAt: "2026-10-14T09:00:00.210Z",
@@ -124,8 +129,8 @@ let value: AssessmentDetail = {
   expiresAt: "2027-10-14T09:00:00.000Z",
   assessmentUrl: "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   timing: {
-    deadlineMs: 591072,
-    elapsedMs: 436508,
+    deadlineMs: 385520,
+    elapsedMs: 25209,
   },
   authContext: {
     provider: "clerk",
@@ -134,7 +139,7 @@ let value: AssessmentDetail = {
     sessionId: "sess_2EXAMPLE",
     organizationId: "org_2EXAMPLE",
     verified: true,
-    transport: "browser",
+    transport: "backend",
   },
 };
 ```

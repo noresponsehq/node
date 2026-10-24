@@ -9,6 +9,8 @@ let value: GetAccountResponse = {
   headers: {
     "key": [
       "example 1",
+      "example 2",
+      "example 3",
     ],
   },
   result: {
@@ -31,6 +33,7 @@ let value: GetAccountResponse = {
     },
     assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     updatedAt: "2026-10-14T09:00:00.412Z",
+    riskVersion: 262679,
   },
 };
 ```
