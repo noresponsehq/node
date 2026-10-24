@@ -13,5 +13,5 @@ let value: Scope = "assess";
 ## Values
 
 ```typescript
-"assess" | "history" | "webhooks" | "detailed" | "integrations" | Unrecognized<string>
+"assess" | "history" | "delete" | "webhooks" | "detailed" | "integrations" | Unrecognized<string>
 ```

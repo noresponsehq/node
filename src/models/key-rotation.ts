@@ -10,6 +10,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 export const Scope = {
   Assess: "assess",
   History: "history",
+  Delete: "delete",
   Webhooks: "webhooks",
   Detailed: "detailed",
   Integrations: "integrations",

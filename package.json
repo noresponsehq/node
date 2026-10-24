@@ -1,6 +1,6 @@
 {
   "name": "@noresponse/node",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "author": "NoResponse",
   "bugs": {
     "url": "https://github.com/noresponsehq/node/issues"
@@ -27,8 +27,8 @@
   ],
   "license": "Apache-2.0",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/noresponsehq/node.git"
+    "url": "git+https://github.com/noresponsehq/node.git",
+    "type": "git"
   },
   "type": "module",
   "tshy": {

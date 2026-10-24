@@ -14,6 +14,7 @@
  * session that is already gone counts as done, so a repeated delivery is safe.
  */
 import type { Assessment } from "./models/assessment.js";
+import type { AccountRiskChanged } from "./webhooks.js";
 import { constructEvent, type ConstructEventOptions, type HeaderInput, type WebhookEvent, type WebhookSecrets } from "./webhooks.js";
 
 /** What to do to the user. "ban" also ends every session. */
@@ -103,12 +104,21 @@ const ACTIONS: readonly string[] = ["none", "revoke_sessions", "ban"];
  * webhookEndpoints.sendTestEvent never do.
  */
 export function lateResultAction(event: WebhookEvent, policy: LateResultPolicy = DEFAULT_LATE_RESULT_POLICY): LateResultAction {
-  if (event.type !== "assessment.updated" || event.data.status === "expired") return "none";
+  if (event.type !== "assessment.updated" && event.type !== "account.risk_changed") return "none";
+  if (event.type === "assessment.updated" && event.data.status === "expired") return "none";
   if ("test" in event && event.test === true) return "none";
   const data = event.data as Assessment;
   // A pending answer carries an earlier assessment's decision; acting on it would repeat that action.
-  if (data.status === "pending") return "none";
-  const decision: string | undefined = data.account?.risk.decision;
+  if (event.type === "assessment.updated" && data.status === "pending") return "none";
+  if (event.type === "account.risk_changed") {
+    // The event is sent when any flow's decision changes; sessions are about the login
+    // decision, so an unchanged login decision acts on nothing.
+    const changed = event.data as AccountRiskChanged;
+    if (changed.previousDecisionsByFlow.login === changed.account.decisionsByFlow.login) return "none";
+  }
+  const decision: string | undefined = event.type === "account.risk_changed"
+    ? (event.data as AccountRiskChanged).account.decisionsByFlow.login
+    : data.account?.risk.decision;
   if (decision !== "allow" && decision !== "step_up" && decision !== "review" && decision !== "block") return "none";
   const action = Object.prototype.hasOwnProperty.call(policy, decision) ? policy[decision] : undefined;
   if (action === undefined) return "none";
@@ -135,8 +145,10 @@ export async function handleLateResult(
   const { policy, userId: resolve, ...verify } = options;
   const event = constructEvent(payload, headers, secrets, verify);
   const action = lateResultAction(event, policy);
-  if (action === "none" || event.type !== "assessment.updated") return { event, action: "none" };
-  const accountId = (event.data as Assessment).detail.accountId;
+  if (action === "none") return { event, action: "none" };
+  const accountId = event.type === "account.risk_changed"
+    ? event.data.account.id
+    : (event.data as Assessment).detail.accountId;
   const userId = resolve ? await resolve(accountId, event) : accountId;
   if (userId === null || userId === undefined || userId === "") return { event, action: "none" };
   let ran: LateResultAction = action;

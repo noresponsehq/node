@@ -75,7 +75,9 @@ test("the default policy revokes on review and block and does nothing on allow, 
   assert.equal(lateResultAction({ id: "evt_x", type: "workspace.deleted", createdAt: "x", test: false, data: { workspaceId: "tnt_1", environment: "live", deletedAt: "x" } }), "none");
   assert.equal(lateResultAction({ id: "evt_x", type: "webhook_endpoint.disabled", createdAt: "x", test: false, data: { endpointId: "whe_1", failingSince: "x", disabledAt: "x" } }), "none");
   const riskChanged = { schemaVersion: "1", id: "acct_1", risk: { score: 90, decision: "block", reasons: [] }, decisionsByFlow: { accountCreation: "block", login: "block", purchase: "block" }, assessmentId: "asm_x", updatedAt: "x" };
-  assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { accountCreation: "allow", login: "allow", purchase: "allow" } } }), "none");
+  assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { accountCreation: "allow", login: "allow", purchase: "allow" } } }), "revoke_sessions");
+  // A change to another flow with the login decision as it was acts on nothing.
+  assert.equal(lateResultAction({ id: "evt_x", type: "account.risk_changed", createdAt: "x", test: false, data: { account: riskChanged, previousDecisionsByFlow: { accountCreation: "allow", login: "block", purchase: "allow" } } }), "none");
   assert.equal(lateResultAction(ev("complete", "step_up"), { step_up: "ban" }), "ban");
   assert.equal(lateResultAction(ev("complete", "block"), { block: "ban" }), "ban");
   assert.equal(lateResultAction(ev("complete", "review"), { step_up: "ban" }), "none");
@@ -358,9 +360,10 @@ test("an unverified, quiet or unmapped event makes no provider call, and a provi
       const d = delivery(data);
       assert.equal((await handleLateResult(d.raw, d.headers, secrets, auth0, { now: NOW })).action, "none");
     }
-    // account.risk_changed is verified and typed, and acts on nothing: the assessment.updated that moved the decision does.
+    // account.risk_changed carries an independently changed login decision.
     const changed = delivery(RISK_CHANGED.data, undefined, { type: RISK_CHANGED.type });
-    const ignored = await handleLateResult(changed.raw, changed.headers, secrets, auth0, { now: NOW });
+    const ignored = await handleLateResult(changed.raw, changed.headers, secrets, auth0, { now: NOW, userId: () => null });
+    assert.equal(lateResultAction(ignored.event), "revoke_sessions");
     assert.equal(ignored.action, "none");
     assert.equal(ignored.event.type, "account.risk_changed");
     assert.equal(ignored.event.data.account.decisionsByFlow.login, "review");

@@ -14,7 +14,7 @@ let value: RotateApiKeyResponse = {
       "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM_k3Yx8pQ2mN7vR4tW6zB9cD1eF5gH0jL4sP9uV2wX7yA",
     keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     scopes: [
-      "history",
+      "delete",
     ],
     createdAt: "2026-10-14T09:10:00.000Z",
     previousKeyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKN",

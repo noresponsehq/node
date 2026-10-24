@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: e4d69448d4839c3abf8b322ee25be141
+  docChecksum: 772dfc7ca18c75df8d328df1a97623df
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 5.0.2
-  configChecksum: a267793fa234fd23b95b45d10700d8f7
+  releaseVersion: 5.1.0
+  configChecksum: 192b533cd1128885e75ff844471a3fef
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -251,7 +251,7 @@ trackedFiles:
   docs/models/operations/replay-webhook-delivery-response.md:
     last_write_checksum: sha1:8331f26d9f346ac5d8e591437c23188632e87885
   docs/models/operations/rotate-api-key-response.md:
-    last_write_checksum: sha1:5f8a768b24ddcde42e41a1c9b74f217418f62e11
+    last_write_checksum: sha1:a65133f4a41e786a804ff3cc494c678bf19d5b6f
   docs/models/operations/rotate-integration-secret-request.md:
     last_write_checksum: sha1:b67487329e851ca1a6659d6645e5bff3aa985aa5
   docs/models/operations/rotate-integration-secret-response.md:
@@ -309,7 +309,7 @@ trackedFiles:
   docs/models/risk.md:
     last_write_checksum: sha1:73aa5834d8dbadc711222d387ffc1b716408b0f8
   docs/models/scope.md:
-    last_write_checksum: sha1:90f932f67f6190d378972ad413e44e422a92129c
+    last_write_checksum: sha1:01b50e04bb6055f70cc8b4de43e4c75f75a11bc2
   docs/models/security.md:
     last_write_checksum: sha1:3355dd53014e4a23a9d5fc2f8c679ce76046b281
   docs/models/signal-outcome.md:
@@ -367,9 +367,9 @@ trackedFiles:
   docs/models/website.md:
     last_write_checksum: sha1:020749824693a211799b0c1e2a9b5342c9082c33
   jsr.json:
-    last_write_checksum: sha1:4b04e68b866be661bbb70b99da98ea2b546674b8
+    last_write_checksum: sha1:48e4de319caa6575fde94e2611e1a0ea28eae3d4
   package.json:
-    last_write_checksum: sha1:1d15e2db63328bb3451bf19b0c170bdedb614e49
+    last_write_checksum: sha1:6f33a58ebdf86e0438b41897b14e462c9cea39df
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-delete.ts:
@@ -423,7 +423,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:7e4aab3b3fc4003b1206914fe502cf2f487e91d5
+    last_write_checksum: sha1:d4c1451190ee072b41e1c32ce983d36cb7e45640
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -585,7 +585,7 @@ trackedFiles:
   src/models/key-rotation-request.ts:
     last_write_checksum: sha1:7e6c5df38c7d92cce4b8d9978c4fd87457676a7b
   src/models/key-rotation.ts:
-    last_write_checksum: sha1:89ec41b133f24d03831291f4789670597538ef39
+    last_write_checksum: sha1:fcab436a48004dbc3d5276e6ef817aba6e004cc0
   src/models/key-usage-batch-request.ts:
     last_write_checksum: sha1:288dc24c040861e43e05dd36a50cc9d17082030f
   src/models/key-usage-batch.ts:
