@@ -1,12 +1,31 @@
 import { accountsDelete } from "../funcs/accounts-delete.js";
 import { accountsGet } from "../funcs/accounts-get.js";
 import { accountsListAssessments } from "../funcs/accounts-list-assessments.js";
+import { accountsListChanged } from "../funcs/accounts-list-changed.js";
+import { accountsRecordEnforcement } from "../funcs/accounts-record-enforcement.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Accounts extends ClientSDK {
+  /**
+   * Poll the accounts whose risk changed.
+   *
+   * @remarks
+   * Your accounts whose risk changed, oldest change first, each as accounts.get answers it. Every page carries next_cursor: pass it back as changed_since to read the changes made after that page; without changed_since the list starts from the oldest change. When nothing changed, items is empty and next_cursor is the cursor you sent, so poll by calling again with the latest next_cursor. An account appears again each time its risk changes, with a higher risk_version; keep the copy with the highest. unenforced=true lists only accounts with a decision other than allow for some flow and no applied enforcement at their current risk_version; such a page can hold fewer than limit items, or none, while later changes exist, so keep polling with next_cursor. Requires the history scope. Read-only and safe to retry. A tampered or foreign cursor answers 400 invalid_cursor.
+   */
+  async listChanged(
+    request?: operations.ListAccountsRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.ListAccountsResponse> {
+    return unwrapAsync(accountsListChanged(
+      this,
+      request,
+      options,
+    ));
+  }
+
   /**
    * Read an account's one current risk.
    *
@@ -54,6 +73,23 @@ export class Accounts extends ClientSDK {
     PageIterator<operations.ListAccountAssessmentsResponse, { cursor: string }>
   > {
     return unwrapResultIterator(accountsListAssessments(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Record what you did to an account in your identity provider.
+   *
+   * @remarks
+   * Records what you did to the account in your identity provider for one flow's decision at one risk_version: the action (or none), the account's state before it, the provider and whether it was applied or failed. It is your action, not an outcome, and it leaves the account's risk unchanged. A record is kept once per account, risk_version, flow and action: the first report answers 201, and a repeat answers 200 with the stored record unchanged, so retries are safe without an Idempotency-Key. An applied report after a failed one replaces the failed record, keeping its id and created_at, and answers 201. A risk_version older than the account's current one is accepted and stored, but only an applied record at the current risk_version takes the account out of listChanged with unenforced=true; a newer one answers 409 risk_version_ahead. An account with no current risk answers 404 not_found. error_code is allowed only with status failed. Requires the history scope.
+   */
+  async recordEnforcement(
+    request: operations.RecordEnforcementRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RecordEnforcementResponse> {
+    return unwrapAsync(accountsRecordEnforcement(
       this,
       request,
       options,

@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.0.2
+
+* `sdk.accounts.listChanged()`: **Added**
+* `sdk.accounts.recordEnforcement()`: **Added**
+* `sdk.assessments.create()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.assessments.get()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.assessments.delete()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.assessments.recordOutcome()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.assessments.query()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.accounts.get()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.accounts.delete()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.accounts.listAssessments()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.keyUsage.record()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.keys.rotate()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.integrations.create()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.integrations.list()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.integrations.delete()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.integrations.rotate()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.list()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.create()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.delete()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.rotateSigningKey()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.sendTestEvent()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.listDeliveries()`:  `error.code.enum(riskVersionAhead)` **Added**
+* `sdk.webhookEndpoints.replayDelivery()`:  `error.code.enum(riskVersionAhead)` **Added**
+
 ## 6.0.1
 
 No changes detected.
