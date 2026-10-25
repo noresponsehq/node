@@ -14,7 +14,7 @@ import { Lane, Lane$inboundSchema, Lane$outboundSchema } from "./lane.js";
  */
 export type IncompleteSource = {
   /**
-   * An evidence lane: accounts (account presence for email and username), phone, breach and ip.
+   * An evidence lane: accounts (account presence for email and username), phone, breach, domain (the email domain's registration) and ip.
    */
   lane: Lane;
   /**
