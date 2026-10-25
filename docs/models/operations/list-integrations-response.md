@@ -19,7 +19,7 @@ let value: ListIntegrationsResponse = {
     items: [
       {
         integrationId: "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        platform: "workos",
+        platform: "auth0",
         hookPoints: [
           "post_login",
         ],

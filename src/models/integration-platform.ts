@@ -8,6 +8,7 @@ import { OpenEnum } from "../types/enums.js";
 export const IntegrationPlatform = {
   Workos: "workos",
   Auth0: "auth0",
+  Supabase: "supabase",
 } as const;
 /**
  * The authentication provider that calls the endpoint.

@@ -7,7 +7,7 @@ The authentication provider that calls the endpoint.
 ```typescript
 import { IntegrationPlatform } from "@noresponse/node/models";
 
-let value: IntegrationPlatform = "auth0";
+let value: IntegrationPlatform = "supabase";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: IntegrationPlatform = "auth0";
 ## Values
 
 ```typescript
-"workos" | "auth0" | Unrecognized<string>
+"workos" | "auth0" | "supabase" | Unrecognized<string>
 ```
