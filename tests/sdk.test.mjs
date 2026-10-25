@@ -314,6 +314,44 @@ test("keys.rotate posts the overlap and returns the new key once", async () => {
   assert.equal(calls[0].headers["idempotency-key"], undefined);
 });
 
+test("keys and settings manage the signing key's environment with a management key", async () => {
+  const created = fixture("valid/key-created-by-management-key.json");
+  const listed = fixture("valid/key-list.json");
+  const revoked = fixture("valid/key-revoked.json");
+  const settings = fixture("valid/settings.json");
+  const workspace = created.workspace_id;
+  const { fetcher, calls } = fakeFetch([
+    json(created, { status: 201 }),
+    json(listed),
+    json(revoked),
+    json(settings),
+    json(settings),
+    problem(409, "self_revocation"),
+  ]);
+  const nr = client(fetcher, { baseUrl: "https://example.com" });
+  const key = await nr.keys.create(workspace, { environment: "live", scopes: ["assess", "management"] });
+  assert.equal(key.key, created.key);
+  assert.equal(key.createdBy, created.created_by);
+  assert.deepEqual(calls[0].body, { environment: "live", scopes: ["assess", "management"] });
+  assert.equal(calls[0].url, `https://example.com/v1/workspaces/${workspace}/keys`);
+  assert.equal((await nr.keys.list(workspace)).items.length, listed.items.length);
+  assert.equal(calls[1].method, "GET");
+  assert.equal((await nr.keys.revoke(workspace, revoked.id)).status, "revoked");
+  assert.equal(calls[2].method, "DELETE");
+  assert.equal(calls[2].url, `https://example.com/v1/workspaces/${workspace}/keys/${revoked.id}`);
+  assert.equal((await nr.settings.get(workspace, "live")).retentionDays, settings.retention_days);
+  assert.equal(calls[3].url, `https://example.com/v1/workspaces/${workspace}/settings/live`);
+  await nr.settings.update(workspace, "live", { retentionDays: 30, flows: { login: { stepUp: 25 } } });
+  assert.equal(calls[4].method, "PATCH");
+  assert.deepEqual(calls[4].body, { retention_days: 30, flows: { login: { step_up: 25 } } });
+  for (const call of calls) assert.equal(call.headers["nr-acting-user"], undefined);
+  await assert.rejects(nr.keys.revoke(workspace, revoked.id), (error) => error instanceof ConflictError && error.code === "self_revocation");
+  // Creating a key is never retried: a retry would mint a second key.
+  const once = fakeFetch([problem(503, "service_unavailable", {}, { "retry-after": "1" })]);
+  await assert.rejects(client(once.fetcher, { baseUrl: "https://example.com" }).keys.create(workspace, { environment: "live", scopes: ["assess"] }));
+  assert.equal(once.calls.length, 1);
+});
+
 test("webhookEndpoints registers, lists, rotates, tests and deletes, and retries none of the writes", async () => {
   const created = fixture("valid/webhook-endpoint-created.json");
   const listed = fixture("valid/webhook-endpoint-list.json");

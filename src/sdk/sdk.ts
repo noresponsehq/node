@@ -8,6 +8,7 @@ import { Assessments } from "./assessments.js";
 import { Integrations } from "./integrations.js";
 import { KeyUsage } from "./key-usage.js";
 import { Keys } from "./keys.js";
+import { Settings } from "./settings.js";
 import { WebhookEndpoints } from "./webhook-endpoints.js";
 
 export class NoResponse extends ClientSDK {
@@ -39,6 +40,11 @@ export class NoResponse extends ClientSDK {
   private _webhookEndpoints?: WebhookEndpoints;
   get webhookEndpoints(): WebhookEndpoints {
     return (this._webhookEndpoints ??= new WebhookEndpoints(this._options));
+  }
+
+  private _settings?: Settings;
+  get settings(): Settings {
+    return (this._settings ??= new Settings(this._options));
   }
 
   async validateWebhook({

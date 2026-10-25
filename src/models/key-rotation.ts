@@ -7,15 +7,16 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
-export const Scope = {
+export const KeyRotationScope = {
   Assess: "assess",
   History: "history",
   Delete: "delete",
   Webhooks: "webhooks",
   Detailed: "detailed",
   Integrations: "integrations",
+  Management: "management",
 } as const;
-export type Scope = OpenEnum<typeof Scope>;
+export type KeyRotationScope = OpenEnum<typeof KeyRotationScope>;
 
 /**
  * The 201 answer of POST /v1/keys/rotate: the new key, shown once, and when the key that was presented stops working. The new key has the scopes and the environment of the presented key.
@@ -32,7 +33,7 @@ export type KeyRotation = {
   /**
    * The scopes of the new key: those of the presented key.
    */
-  scopes: Array<Scope>;
+  scopes: Array<KeyRotationScope>;
   createdAt: string;
   /**
    * The id of the key that signed this request.
@@ -45,8 +46,10 @@ export type KeyRotation = {
 };
 
 /** @internal */
-export const Scope$inboundSchema: z.ZodMiniType<Scope, unknown> = openEnums
-  .inboundSchema(Scope);
+export const KeyRotationScope$inboundSchema: z.ZodMiniType<
+  KeyRotationScope,
+  unknown
+> = openEnums.inboundSchema(KeyRotationScope);
 
 /** @internal */
 export const KeyRotation$inboundSchema: z.ZodMiniType<KeyRotation, unknown> = z
@@ -54,7 +57,7 @@ export const KeyRotation$inboundSchema: z.ZodMiniType<KeyRotation, unknown> = z
     z.object({
       key: types.string(),
       key_id: types.string(),
-      scopes: z.array(Scope$inboundSchema),
+      scopes: z.array(KeyRotationScope$inboundSchema),
       created_at: types.string(),
       previous_key_id: types.string(),
       previous_key_expires_at: types.string(),

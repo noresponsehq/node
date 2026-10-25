@@ -1,0 +1,21 @@
+# KeyRequest
+
+POST /v1/workspaces/{workspace_id}/keys body. Creates an API key in one environment of the workspace with the scopes named, and returns its secret once. A live key needs the admin or owner role; a test key needs developer or above. An API key with the management scope creates keys in its own environment with scopes it holds itself. Each scope may appear once.
+
+## Example Usage
+
+```typescript
+import { KeyRequest } from "@noresponse/node/models";
+
+let value: KeyRequest = {
+  environment: "live",
+  scopes: [],
+};
+```
+
+## Fields
+
+| Field                                                                                                                           | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `environment`                                                                                                                   | [models.KeyEnvironment](../models/key-environment.md)                                                                           | :heavy_check_mark:                                                                                                              | The environment the key belongs to. A live key assesses with live sources; a test key answers from the deterministic simulator. |
+| `scopes`                                                                                                                        | [models.KeyRequestScope](../models/key-request-scope.md)[]                                                                      | :heavy_check_mark:                                                                                                              | The key's scopes, each at most once.                                                                                            |

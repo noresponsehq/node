@@ -7,6 +7,7 @@ export {
   Assessments,
   Accounts,
   Keys,
+  Settings,
   KeyUsage,
   WebhookEndpoints,
   Integrations,

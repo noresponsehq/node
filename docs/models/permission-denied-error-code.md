@@ -7,7 +7,7 @@ Machine codes an HTTP 403 answer can carry.
 ```typescript
 import { PermissionDeniedErrorCode } from "@noresponse/node/models";
 
-let value: PermissionDeniedErrorCode = "workspace_forbidden";
+let value: PermissionDeniedErrorCode = "role_forbidden";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: PermissionDeniedErrorCode = "workspace_forbidden";
 ## Values
 
 ```typescript
-"workspace_forbidden" | Unrecognized<string>
+"workspace_forbidden" | "role_forbidden" | Unrecognized<string>
 ```

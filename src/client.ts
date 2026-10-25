@@ -13,6 +13,7 @@ import type { Assessments as GeneratedAssessments } from "./sdk/assessments.js";
 import type { Integrations as GeneratedIntegrations } from "./sdk/integrations.js";
 import type { KeyUsage as GeneratedKeyUsage } from "./sdk/key-usage.js";
 import type { Keys as GeneratedKeys } from "./sdk/keys.js";
+import type { Settings as GeneratedSettings } from "./sdk/settings.js";
 import type { WebhookEndpoints as GeneratedWebhookEndpoints } from "./sdk/webhook-endpoints.js";
 import type { NoResponseCore } from "./core.js";
 import { SDK_METADATA, type SDKOptions } from "./lib/config.js";
@@ -412,6 +413,54 @@ export class Keys {
     const response = await this.inner.rotate(request, options);
     return withMeta(response.result, response.headers);
   }
+
+  /**
+   * Create a key in the signing key's environment, with scopes the signing
+   * key holds. Needs the `management` scope. The secret is in `key`, shown
+   * once. Not idempotent, so never retried.
+   */
+  async create(workspaceId: string, request: models.KeyRequest, options?: RequestOptions): Promise<WithMeta<models.Key>> {
+    const response = await this.inner.create({ workspaceId, body: request }, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** The keys of the signing key's environment, newest first, without secrets. Needs the `management` scope. */
+  async list(workspaceId: string, options?: RequestOptions): Promise<WithMeta<models.KeyList>> {
+    const response = await this.inner.list({ workspaceId }, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Revoke a key of the signing key's environment at once. A key cannot revoke itself. Needs the `management` scope. */
+  async revoke(workspaceId: string, keyId: string, options?: RequestOptions): Promise<WithMeta<models.Key>> {
+    const response = await this.inner.revoke({ workspaceId, keyId }, options);
+    return withMeta(response.result, response.headers);
+  }
+}
+
+/**
+ * The settings of the signing key's environment: retention, each flow's
+ * thresholds, default depth and admission, and the refused sources. Every
+ * method needs the `management` scope; the other environment answers 404.
+ */
+export class Settings {
+  constructor(private readonly inner: GeneratedSettings) {}
+
+  /** Read the environment's settings. */
+  async get(workspaceId: string, environment: models.KeyEnvironment, options?: RequestOptions): Promise<WithMeta<models.Settings>> {
+    const response = await this.inner.get({ workspaceId, environment }, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Change only what `change` names, in one transaction. */
+  async update(
+    workspaceId: string,
+    environment: models.KeyEnvironment,
+    change: models.SettingsRequest,
+    options?: RequestOptions,
+  ): Promise<WithMeta<models.Settings>> {
+    const response = await this.inner.update({ workspaceId, environment, body: change }, options);
+    return withMeta(response.result, response.headers);
+  }
 }
 
 /**
@@ -550,6 +599,7 @@ export class NoResponse {
   readonly assessments: Assessments;
   readonly accounts: Accounts;
   readonly keys: Keys;
+  readonly settings: Settings;
   readonly keyUsage: KeyUsage;
   readonly webhookEndpoints: WebhookEndpoints;
   readonly integrations: Integrations;
@@ -565,6 +615,7 @@ export class NoResponse {
     this.assessments = new Assessments(client.assessments);
     this.accounts = new Accounts(client.accounts);
     this.keys = new Keys(client.keys);
+    this.settings = new Settings(client.settings);
     this.keyUsage = new KeyUsage(client.keyUsage);
     this.webhookEndpoints = new WebhookEndpoints(client.webhookEndpoints);
     this.integrations = new Integrations(client.integrations);

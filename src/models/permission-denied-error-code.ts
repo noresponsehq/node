@@ -7,6 +7,7 @@ import { OpenEnum } from "../types/enums.js";
  */
 export const PermissionDeniedErrorCode = {
   WorkspaceForbidden: "workspace_forbidden",
+  RoleForbidden: "role_forbidden",
 } as const;
 /**
  * Machine codes an HTTP 403 answer can carry.
