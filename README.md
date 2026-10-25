@@ -305,18 +305,14 @@ async function handler(req, res) {
     return res.status(204).end();
   }
   if (event.type === "account.risk_changed") {
-    // The account's decision for at least one flow changed. data.account is the Account
-    // accounts.get returns; data.previousDecisionsByFlow holds the decisions it replaced.
-    applyDecisions(event.data.account.id, event.data.account.decisionsByFlow);
+    // The one event to act on: a flow's decision changed, at data.account.riskVersion.
+    // This verifier alone does not enforce it: use handleRiskChange (below) as this endpoint's receiver.
     return res.status(204).end();
   }
   if ("assessmentId" in event.data) {
     forget(event.data.assessmentId); // the terminal expiry notice: GET now answers 404
-  } else if (event.test) {
-    // sendTestEvent's fixed example assessment: apply nothing
-  } else if (isNewer(event.data)) {  // keep the highest detail.assessmentVersion per assessment
-    apply(event.data);              // the full assessment, as assessments.get returns it
   }
+  // Any other assessment.updated reports progress only: apply nothing.
   res.status(204).end();
 }
 ```
@@ -351,6 +347,8 @@ if (result.riskVersion !== undefined) await users.update(result.account!.id, { e
 | `restricted` | `login` | `allow` | `unrestrict`, only with `reinstate` |
 
 Nothing deletes a user. Clerk bans (and unbans), Auth0 sets `blocked`, and WorkOS, which has no block, writes `noresponse_state` to the user's metadata (gate sign-in on it) and revokes every session. On an Auth0 plan without the sessions API the revoke blocks the user too and reports `restrict`. Each action, or `none` when nothing is needed, is recorded with `accounts.recordEnforcement` at the `riskVersion` read, and `result.enforcements` lists them. A refused action is recorded as `failed` and throws `ProviderActionError`: answer 5xx so the delivery is retried. A test event, an erased account and an account at or below `enforcedRiskVersion` act on nothing (`result.skipped`). To catch up after dropped deliveries, pass each account of `nr.accounts.listChanged({ unenforced: true })` to `enforceAccount`. For your own user store, `customProvider({ restrict: async (userId) => ..., revoke_sessions: async (userId) => ... })` takes one function per action you support; an action without one is recorded as failed.
+
+A held flow (workspace settings `admission: held`) answers `held` until its investigation completes or `hold_seconds` pass, and the handler records `none` for it. When the final decision arrives as `account.risk_changed`, an `onboarding` or `provisional` account fails onboarding or is refused activation on `review` or `block`. On `allow` the handler does nothing, so admit the account yourself from the result's account. See https://docs.noresponse.org/guides/late-results.
 
 ## Auth adapters
 
