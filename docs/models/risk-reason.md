@@ -6,7 +6,7 @@
 import { RiskReason } from "@noresponse/node/models";
 
 let value: RiskReason = {
-  code: "seen_before",
+  code: "shared_ip",
   weight: 702196,
 };
 ```
