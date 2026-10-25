@@ -1,10 +1,14 @@
-<img src="https://raw.githubusercontent.com/noresponsehq/.github/main/profile/sdk-header.png" alt="NoResponse" width="100%">
+<a href="https://noresponse.org"><img src="https://raw.githubusercontent.com/noresponsehq/.github/main/profile/sdk-header.png" alt="NoResponse · Identity Intelligence" width="100%"></a>
 
-# @noresponse/node
+# NoResponse for TypeScript and Node.js
 
-The NoResponse client for Node.js. It assesses an account creation, login or purchase, polls a pending assessment, pages through an account's history, records what you later learned, rotates your API key and verifies webhooks.
+Assess sign-ups, logins and purchases with the NoResponse Identity Intelligence API.
 
-Node.js 20 or later. ESM and CommonJS. TypeScript types included. The client is generated from the NoResponse OpenAPI document; webhooks, auth adapters and the wait helper are hand-written.
+Node.js 20+ · ESM and CommonJS · TypeScript types included.
+
+[Documentation](https://docs.noresponse.org/sdks/typescript) · [API reference](https://docs.noresponse.org/api-reference) · [Releases](https://github.com/noresponsehq/node/releases)
+
+## Install
 
 ```sh
 npm install @noresponse/node
@@ -33,6 +37,19 @@ if (assessment.account) {
 ```
 
 Keep the API key on your server. The client throws at construction without one.
+
+## Go further
+
+| Task | Guide |
+| --- | --- |
+| Configure this client and explore its methods | [TypeScript and Node.js SDK guide](https://docs.noresponse.org/sdks/typescript) |
+| Act when an account's decision changes | [Late results](https://docs.noresponse.org/guides/late-results) |
+| Explore request and response fields | [API reference](https://docs.noresponse.org/api-reference) |
+
+<details>
+<summary><strong>SDK reference</strong> · configuration, methods, errors and webhooks</summary>
+
+[Configuration](#configuration) · [Assessments](#assessments) · [Keys](#keys) · [Integrations](#integrations) · [Response metadata](#response-metadata) · [Errors](#errors) · [Retries](#retries) · [Issued keys](#issued-keys) · [Key usage](#key-usage) · [Webhooks](#webhooks) · [Auth adapters](#auth-adapters) · [Logging](#logging) · [Standalone functions](#standalone-functions)
 
 ## Configuration
 
@@ -384,8 +401,11 @@ const result = await assessmentsCreate(new NoResponseCore({ apiKey }), { idempot
 if (result.ok) console.log(result.value.result.status);
 ```
 
+</details>
+
 ## Support
 
-Documentation: https://docs.noresponse.org. Issues: https://github.com/noresponsehq/node/issues. Quote `meta.requestId` or `error.requestId` when you write to us.
+[Open an issue](https://github.com/noresponsehq/node/issues) and include the request ID from the response or error.
+Keep API keys and personal data out of issues.
 
-Apache-2.0.
+[Apache-2.0](LICENSE).
