@@ -16,7 +16,7 @@ let value: Risk = {
   policyBasis: "heuristic_unvalidated",
   reasons: [
     {
-      code: "breach_phone_mismatch",
+      code: "recent_password_exposure",
       weight: 197967,
     },
   ],
