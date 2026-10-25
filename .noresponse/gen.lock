@@ -5,8 +5,8 @@ management:
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 7.0.4
-  configChecksum: 099da6dbba92a4c95b6c853d6040e8bb
+  releaseVersion: 7.0.5
+  configChecksum: 1909c6f2ef374fb07c266ea3f1d040be
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -423,9 +423,9 @@ trackedFiles:
   docs/models/workspace-deleted.md:
     last_write_checksum: sha1:e9baed52df3118b359e0f9b40836b268918ee269
   jsr.json:
-    last_write_checksum: sha1:235e9ed4fe18c8b6f79b74fd1ecfc6ce37e3494f
+    last_write_checksum: sha1:fa88d4561a49c4588c2e31ea32f028355c7e9fb2
   package.json:
-    last_write_checksum: sha1:70708a02ca787cb96de02348bcd877382f524a53
+    last_write_checksum: sha1:aa6abf93d441f3abc66bad5529d91238899cdd59
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-delete.ts:
@@ -485,7 +485,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:5567146264d7d938ba4e1f735e35e6a741d4bf52
+    last_write_checksum: sha1:5b7e5a7149d1aaf8cbe83c405999a5b37bfe004d
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
