@@ -10,7 +10,7 @@ let value: RecordEnforcementRequest = {
   body: {
     riskVersion: 255844,
     flow: "purchase",
-    action: "unrestrict",
+    action: "fail_onboarding",
     stateBefore: "provisional",
     status: "failed",
     provider: "workos",

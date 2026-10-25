@@ -1,6 +1,6 @@
 # EnforcementAction
 
-What the workspace did in its identity provider: revoke_sessions (signed the account out everywhere), restrict (limited what the account can do), unrestrict (lifted an earlier restriction), fail_onboarding (stopped an account that was still onboarding), reject_activation (refused to activate a provisional account) or none (decided to take no action).
+What the workspace did in its identity provider: revoke_sessions (signed the account out everywhere), restrict (limited what the account can do), unrestrict (lifted an earlier restriction), fail_onboarding (stopped an account that was still onboarding), reject_activation (refused to activate a provisional account), activate (let a held onboarding or provisional account in) or none (decided to take no action).
 
 ## Example Usage
 
@@ -15,5 +15,5 @@ let value: EnforcementAction = "fail_onboarding";
 ## Values
 
 ```typescript
-"revoke_sessions" | "restrict" | "unrestrict" | "fail_onboarding" | "reject_activation" | "none" | Unrecognized<string>
+"revoke_sessions" | "restrict" | "unrestrict" | "fail_onboarding" | "reject_activation" | "activate" | "none" | Unrecognized<string>
 ```
