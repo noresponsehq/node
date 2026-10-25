@@ -6,7 +6,7 @@
 import { AccountRiskReason } from "@noresponse/node/models";
 
 let value: AccountRiskReason = {
-  code: "forum_sanctioned",
+  code: "nationality_mismatch",
   weight: 959506,
 };
 ```

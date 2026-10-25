@@ -34,7 +34,7 @@ let value: ListAccountAssessmentsResponse = {
           policyBasis: "heuristic_unvalidated",
           reasons: [
             {
-              code: "recent_password_exposure",
+              code: "no_breach_history",
               weight: 197967,
             },
           ],

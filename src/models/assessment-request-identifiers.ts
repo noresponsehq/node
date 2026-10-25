@@ -17,7 +17,7 @@ export type AssessmentRequestIdentifiers = {
    */
   phone?: string | undefined;
   /**
-   * The full name as the user typed it, 1 to 128 characters with no control or invisible characters. It is used only to match names in the evidence.
+   * The full name as the user typed it, 1 to 128 characters with no control or invisible characters. It is searched in breach data and matched against names in the evidence. A row holding the signup's own email or username confirms the name; rows sharing another identifier add to the identity's history.
    */
   name?: string | undefined;
   /**
