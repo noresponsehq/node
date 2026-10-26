@@ -16,14 +16,15 @@ let value: Account = {
     reasons: [
       {
         code: "no_digital_footprint",
-        weight: 898586,
+        direction: "neutral",
+        impact: "medium",
       },
     ],
   },
   decisionsByFlow: {
-    accountCreation: "review",
-    login: "block",
-    purchase: "allow",
+    accountCreation: "block",
+    login: "allow",
+    purchase: "held",
   },
   assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   updatedAt: "2026-10-14T09:00:00.412Z",

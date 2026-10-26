@@ -17,6 +17,12 @@ import {
   RiskDetailsBreachName$outboundSchema,
 } from "./risk-details-breach-name.js";
 import {
+  RiskDetailsEvent,
+  RiskDetailsEvent$inboundSchema,
+  RiskDetailsEvent$Outbound,
+  RiskDetailsEvent$outboundSchema,
+} from "./risk-details-event.js";
+import {
   RiskDetailsPhoneName,
   RiskDetailsPhoneName$inboundSchema,
   RiskDetailsPhoneName$Outbound,
@@ -36,6 +42,10 @@ export type RiskDetails = {
    * Names found next to the identifiers in breach records, merged, with the number of distinct tables each was seen in.
    */
   breachNames?: Array<RiskDetailsBreachName> | undefined;
+  /**
+   * The identity's dated footprint events, newest first, at most 100: the year and month, what happened (created, last_active, breached), the site, its category, the kind of evidence and the identifier it belongs to. No breach value: dates are coarsened to the month.
+   */
+  events?: Array<RiskDetailsEvent> | undefined;
 };
 
 /** @internal */
@@ -47,6 +57,7 @@ export const RiskDetails$inboundSchema: z.ZodMiniType<RiskDetails, unknown> = z
       breach_names: types.optional(
         z.array(RiskDetailsBreachName$inboundSchema),
       ),
+      events: types.optional(z.array(RiskDetailsEvent$inboundSchema)),
     }),
     z.transform((v) => {
       return remap$(v, {
@@ -60,6 +71,7 @@ export type RiskDetails$Outbound = {
   phone_names?: Array<RiskDetailsPhoneName$Outbound> | undefined;
   breaches?: Array<Breach$Outbound> | undefined;
   breach_names?: Array<RiskDetailsBreachName$Outbound> | undefined;
+  events?: Array<RiskDetailsEvent$Outbound> | undefined;
 };
 
 /** @internal */
@@ -71,6 +83,7 @@ export const RiskDetails$outboundSchema: z.ZodMiniType<
     phoneNames: z.optional(z.array(RiskDetailsPhoneName$outboundSchema)),
     breaches: z.optional(z.array(Breach$outboundSchema)),
     breachNames: z.optional(z.array(RiskDetailsBreachName$outboundSchema)),
+    events: z.optional(z.array(RiskDetailsEvent$outboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {

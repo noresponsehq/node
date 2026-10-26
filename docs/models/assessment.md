@@ -22,18 +22,19 @@ let value: Assessment = {
       reasons: [
         {
           code: "no_digital_footprint",
-          weight: 898586,
+          direction: "neutral",
+          impact: "medium",
         },
       ],
     },
     decisionsByFlow: {
-      accountCreation: "review",
-      login: "block",
-      purchase: "allow",
+      accountCreation: "block",
+      login: "allow",
+      purchase: "held",
     },
     assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     updatedAt: "2026-10-14T09:00:00.412Z",
-    riskVersion: 960150,
+    riskVersion: 698486,
   },
   detail: {
     schemaVersion: "1",
@@ -43,18 +44,13 @@ let value: Assessment = {
     status: "pending",
     confidence: "high",
     risk: {
-      score: 569726,
-      band: "critical",
-      recommendation: "allow",
-      confidence: "medium",
+      score: 935384,
+      band: "low",
+      recommendation: "step_up",
+      confidence: "high",
       policyVersion: "risk-2026-10.3",
       policyBasis: "heuristic_unvalidated",
-      reasons: [
-        {
-          code: "no_breach_history",
-          weight: 197967,
-        },
-      ],
+      reasons: [],
       summary: {
         phone: {
           country: "AU",
@@ -65,15 +61,15 @@ let value: Assessment = {
         },
       },
       coverage: {
-        answered: 150748,
-        failed: 165380,
-        pending: 583889,
+        answered: 197967,
+        failed: 150748,
+        pending: 165380,
       },
       details: {
         phoneNames: [
           {
             value: "Alex Example",
-            seenBy: 571629,
+            seenBy: 583889,
           },
         ],
         breaches: [
@@ -81,14 +77,24 @@ let value: Assessment = {
             name: "Example Forum",
             domain: "forum.example.com",
             category: "forum",
-            kind: "credential_list",
-            matchedOn: "ip",
+            kind: "hacking_forum",
+            matchedOn: "email",
           },
         ],
         breachNames: [
           {
             value: "Alex Example",
-            seenIn: 309976,
+            seenIn: 714857,
+          },
+        ],
+        events: [
+          {
+            year: 309976,
+            kind: "last_active",
+            site: "example.com",
+            category: "site_breach",
+            family: "breach",
+            identifier: "email",
           },
         ],
       },
@@ -96,13 +102,13 @@ let value: Assessment = {
     signals: [
       {
         type: "account_presence",
-        identifier: "phone",
+        identifier: "ip",
         outcome: "inconclusive",
         sourceId: "github",
         evidenceRef: "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         observedAt: "2026-10-14T09:00:00.210Z",
         lastCheckedAt: "2026-10-14T09:00:00.210Z",
-        freshness: "fresh",
+        freshness: "stale",
         enrichment: {
           fields: {
             phone: "+61412345678",
@@ -148,22 +154,17 @@ let value: Assessment = {
         },
       },
     ],
-    incompleteSources: [
-      {
-        lane: "breach",
-        reason: "blocked",
-      },
-    ],
+    incompleteSources: [],
     policyVersion: "heuristic-2026-10.1",
     policyBasis: "heuristic_unvalidated",
-    assessmentVersion: 32467,
+    assessmentVersion: 385520,
     createdAt: "2026-10-14T09:00:00.000Z",
     updatedAt: "2026-10-14T09:00:00.412Z",
     expiresAt: "2027-10-14T09:00:00.000Z",
     assessmentUrl: "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     timing: {
-      deadlineMs: 385520,
-      elapsedMs: 25209,
+      deadlineMs: 25209,
+      elapsedMs: 144766,
     },
     authContext: {
       provider: "clerk",
@@ -172,7 +173,7 @@ let value: Assessment = {
       sessionId: "sess_2EXAMPLE",
       organizationId: "org_2EXAMPLE",
       verified: true,
-      transport: "backend",
+      transport: "browser",
     },
   },
 };

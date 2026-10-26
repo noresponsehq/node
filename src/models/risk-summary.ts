@@ -10,6 +10,12 @@ import {
 } from "./consistency.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  Footprint,
+  Footprint$inboundSchema,
+  Footprint$Outbound,
+  Footprint$outboundSchema,
+} from "./footprint.js";
+import {
   IpSummary,
   IpSummary$inboundSchema,
   IpSummary$Outbound,
@@ -49,6 +55,10 @@ export type RiskSummary = {
    * Cross-identifier agreement, computed from facts only. Every member is optional; absent makes no claim.
    */
   consistency?: Consistency | undefined;
+  /**
+   * How long and how widely the signup's email and username have existed, and how far independent sources agree on the person behind them, in years and counts only. families are the kinds of evidence that found either identifier. Omitted when nothing found them: a footprint lookup that failed makes no claim, and absence is no_digital_footprint's to state.
+   */
+  footprint?: Footprint | undefined;
 };
 
 /** @internal */
@@ -59,6 +69,7 @@ export const RiskSummary$inboundSchema: z.ZodMiniType<RiskSummary, unknown> = z
     username: types.optional(RiskSummaryUsername$inboundSchema),
     ip: types.optional(IpSummary$inboundSchema),
     consistency: types.optional(Consistency$inboundSchema),
+    footprint: types.optional(Footprint$inboundSchema),
   });
 /** @internal */
 export type RiskSummary$Outbound = {
@@ -67,6 +78,7 @@ export type RiskSummary$Outbound = {
   username?: RiskSummaryUsername$Outbound | undefined;
   ip?: IpSummary$Outbound | undefined;
   consistency?: Consistency$Outbound | undefined;
+  footprint?: Footprint$Outbound | undefined;
 };
 
 /** @internal */
@@ -79,6 +91,7 @@ export const RiskSummary$outboundSchema: z.ZodMiniType<
   username: z.optional(RiskSummaryUsername$outboundSchema),
   ip: z.optional(IpSummary$outboundSchema),
   consistency: z.optional(Consistency$outboundSchema),
+  footprint: z.optional(Footprint$outboundSchema),
 });
 
 export function riskSummaryToJSON(riskSummary: RiskSummary): string {

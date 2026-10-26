@@ -57,7 +57,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1",
-  sdkVersion: "7.1.7",
+  sdkVersion: "7.1.8",
   genVersion: "internal",
-  userAgent: "noresponse-sdk/typescript 7.1.7 internal 1 @noresponse/node",
+  userAgent: "noresponse-sdk/typescript 7.1.8 internal 1 @noresponse/node",
 } as const;
