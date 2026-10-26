@@ -8,7 +8,7 @@ POST /v1/integrations/{integration_id}/rotate body. For an Auth0 integration sen
 import { IntegrationRotationRequest } from "@noresponse/node/models";
 
 let value: IntegrationRotationRequest = {
-  signingSecret: "wos_action_secret_Z9cD1eF5gH0jL4sP",
+  signingSecret: undefined,
 };
 ```
 

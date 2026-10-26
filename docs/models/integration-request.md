@@ -9,7 +9,7 @@ import { IntegrationRequest } from "@noresponse/node/models";
 
 let value: IntegrationRequest = {
   platform: "supabase",
-  signingSecret: "wos_action_secret_k3Yx8pQ2mN7vR4tW",
+  signingSecret: undefined,
 };
 ```
 

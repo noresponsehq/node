@@ -9,7 +9,7 @@ import { AssessmentQuery } from "@noresponse/node/models";
 
 let value: AssessmentQuery = {
   accountId: "acct_7f3a9c",
-  cursor: "eyJvIjoyMH0",
+  cursor: undefined,
 };
 ```
 

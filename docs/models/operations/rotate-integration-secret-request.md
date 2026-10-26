@@ -8,7 +8,7 @@ import { RotateIntegrationSecretRequest } from "@noresponse/node/models/operatio
 let value: RotateIntegrationSecretRequest = {
   integrationId: "int_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   body: {
-    signingSecret: "wos_action_secret_Z9cD1eF5gH0jL4sP",
+    signingSecret: undefined,
   },
 };
 ```

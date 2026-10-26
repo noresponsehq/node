@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 0a59a3bc4b8b13baeea2fb888f597720
+  docChecksum: b4bf7f0b389145966b947a76a669ec27
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 8.0.0
-  configChecksum: 3f7fd6b05b6285c03f353a366821fa09
+  releaseVersion: 8.0.1
+  configChecksum: 759aeb458b2ac3cdd277c44e9211559c
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -93,7 +93,7 @@ trackedFiles:
   docs/models/assessment-outcome.md:
     last_write_checksum: sha1:e83cf306e3d35efd7d1012e0495b2430514fce6b
   docs/models/assessment-query.md:
-    last_write_checksum: sha1:1a4bfabfd3fffae921e11c02005a5078b3ce03f5
+    last_write_checksum: sha1:c12cb617a15127f9c8b5dcaad3e6e8b0783013cd
   docs/models/assessment-request-client-context.md:
     last_write_checksum: sha1:d739629f06ba0b36bd8baf9df0ea04756c1d6f71
   docs/models/assessment-request-identifiers.md:
@@ -223,9 +223,9 @@ trackedFiles:
   docs/models/integration-platform.md:
     last_write_checksum: sha1:595d5a8a7b2b5293e2c348251dbc59d7c39d7687
   docs/models/integration-request.md:
-    last_write_checksum: sha1:39cf3eab8ddb1ebcdb6ec56dfd36fb1cc36d6e5b
+    last_write_checksum: sha1:e171aaa5a10fa16bd111d4bc19efc62b689662b9
   docs/models/integration-rotation-request.md:
-    last_write_checksum: sha1:32dab89dc963b16ef5f6d76daf312c15274c053e
+    last_write_checksum: sha1:80336894ce341d1905ec4ec7d0987a3fe1f2209f
   docs/models/integration.md:
     last_write_checksum: sha1:3771cecdf2592fbaa1268daf926a8c7c0b59a190
   docs/models/ip-summary-type.md:
@@ -359,7 +359,7 @@ trackedFiles:
   docs/models/operations/rotate-api-key-response.md:
     last_write_checksum: sha1:a65133f4a41e786a804ff3cc494c678bf19d5b6f
   docs/models/operations/rotate-integration-secret-request.md:
-    last_write_checksum: sha1:b67487329e851ca1a6659d6645e5bff3aa985aa5
+    last_write_checksum: sha1:b9c0b0ccf9bcb5e6741258528948d8887c3cde2b
   docs/models/operations/rotate-integration-secret-response.md:
     last_write_checksum: sha1:276ab553c81edb2703db9a240936d05c0ec7c215
   docs/models/operations/rotate-webhook-signing-key-request.md:
@@ -501,9 +501,9 @@ trackedFiles:
   docs/models/workspace-deleted.md:
     last_write_checksum: sha1:e9baed52df3118b359e0f9b40836b268918ee269
   jsr.json:
-    last_write_checksum: sha1:8892ac972dd239c30c5a79c3fa90d6e9fc0d7633
+    last_write_checksum: sha1:5b903bcd33473fa487e6851eacdcd8124c9de92e
   package.json:
-    last_write_checksum: sha1:ebbb40d695875f22f8e3c1453e4aad08f7069dca
+    last_write_checksum: sha1:c1ad319a93cbbf8ecc5120cffe32257d5c25c153
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-delete.ts:
@@ -573,7 +573,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:31454b3d97e071033cba290d06fff57b8bdc7718
+    last_write_checksum: sha1:39734dcacae3a33a4d70a035897d53c100266556
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
