@@ -38,12 +38,6 @@ export type AccountRiskReason = {
    * The submitted identifier or client context field a reason concerns; absent when it concerns the whole assessment. Client context is a claimed hint, not a device fingerprint.
    */
   identifier?: ReasonIdentifier | undefined;
-  /**
-   * Deprecated and always 0: the policy's weights are not published. It is sent so that SDK versions that require it keep reading reasons. Read direction and impact.
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  weight?: 0 | undefined;
 };
 
 /** @internal */
@@ -55,7 +49,6 @@ export const AccountRiskReason$inboundSchema: z.ZodMiniType<
   direction: Direction$inboundSchema,
   impact: Impact$inboundSchema,
   identifier: types.optional(ReasonIdentifier$inboundSchema),
-  weight: types.optional(types.literal(0)),
 });
 /** @internal */
 export type AccountRiskReason$Outbound = {
@@ -63,7 +56,6 @@ export type AccountRiskReason$Outbound = {
   direction: string;
   impact: string;
   identifier?: string | undefined;
-  weight?: 0 | undefined;
 };
 
 /** @internal */
@@ -75,7 +67,6 @@ export const AccountRiskReason$outboundSchema: z.ZodMiniType<
   direction: Direction$outboundSchema,
   impact: Impact$outboundSchema,
   identifier: z.optional(ReasonIdentifier$outboundSchema),
-  weight: z.optional(z.literal(0)),
 });
 
 export function accountRiskReasonToJSON(
