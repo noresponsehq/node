@@ -23,6 +23,10 @@ export type IpSummary = {
    */
   type?: IpSummaryType | undefined;
   /**
+   * Autonomous system number of the network that announces the address, from the offline database. Absent when unknown.
+   */
+  asn?: number | undefined;
+  /**
    * Assessments in this workspace with the same IP in the last 24 hours, this one included. A count only.
    */
   seenInWorkspace?: number | undefined;
@@ -34,6 +38,7 @@ export const IpSummary$inboundSchema: z.ZodMiniType<IpSummary, unknown> = z
     z.object({
       country: types.optional(types.string()),
       type: types.optional(IpSummaryType$inboundSchema),
+      asn: types.optional(types.number()),
       seen_in_workspace: types.optional(types.number()),
     }),
     z.transform((v) => {
@@ -46,6 +51,7 @@ export const IpSummary$inboundSchema: z.ZodMiniType<IpSummary, unknown> = z
 export type IpSummary$Outbound = {
   country?: string | undefined;
   type?: string | undefined;
+  asn?: number | undefined;
   seen_in_workspace?: number | undefined;
 };
 
@@ -57,6 +63,7 @@ export const IpSummary$outboundSchema: z.ZodMiniType<
   z.object({
     country: z.optional(z.string()),
     type: z.optional(IpSummaryType$outboundSchema),
+    asn: z.optional(z.int()),
     seenInWorkspace: z.optional(z.int()),
   }),
   z.transform((v) => {
