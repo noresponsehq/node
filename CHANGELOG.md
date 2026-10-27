@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.1.1
+
+* `sdk.webhookEndpoints.list()`:  `response.items[]` **Changed**
+* `sdk.webhookEndpoints.create()`:  `response.endpoint` **Changed**
+
 ## 8.1.0
 
 No changes detected.

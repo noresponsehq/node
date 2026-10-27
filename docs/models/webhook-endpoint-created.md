@@ -15,6 +15,9 @@ let value: WebhookEndpointCreated = {
     responseMode: "standard",
     createdAt: "2026-10-22T09:00:00.000Z",
     verifiedAt: "2026-10-22T09:00:05.000Z",
+    failingSince: "2026-10-20T09:58:31.000Z",
+    lastFailureAt: "2026-10-23T10:00:00.000Z",
+    disabledAt: "2026-10-23T10:00:00.000Z",
     signingKeys: [
       {
         keyId: "whk_01JA2ZD1M2N3P4Q5R6S7T8V9W0",

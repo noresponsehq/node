@@ -37,6 +37,18 @@ export type WebhookEndpoint = {
    */
   verifiedAt?: string | undefined;
   /**
+   * The first failed delivery attempt of the endpoint's current failure streak. Absent while its latest attempt succeeded, before any attempt failed, and after it is verified again.
+   */
+  failingSince?: string | undefined;
+  /**
+   * The latest failed delivery attempt of the current failure streak; present exactly when failing_since is. A failure more than 2 hours after it starts a new streak.
+   */
+  lastFailureAt?: string | undefined;
+  /**
+   * When the endpoint was disabled after failing continuously for 72 hours, as in the webhook_endpoint.disabled event. Present while state is disabled; absent before and after it is verified again.
+   */
+  disabledAt?: string | undefined;
+  /**
    * The keys a receiver may see in NR-Webhook-Key-Id, oldest first. The last one signs every new delivery; an older one keeps verifying until its expires_at.
    */
   signingKeys: Array<SigningKey>;
@@ -54,6 +66,9 @@ export const WebhookEndpoint$inboundSchema: z.ZodMiniType<
     response_mode: ResponseMode$inboundSchema,
     created_at: types.string(),
     verified_at: types.optional(types.string()),
+    failing_since: types.optional(types.string()),
+    last_failure_at: types.optional(types.string()),
+    disabled_at: types.optional(types.string()),
     signing_keys: z.array(SigningKey$inboundSchema),
   }),
   z.transform((v) => {
@@ -62,6 +77,9 @@ export const WebhookEndpoint$inboundSchema: z.ZodMiniType<
       "response_mode": "responseMode",
       "created_at": "createdAt",
       "verified_at": "verifiedAt",
+      "failing_since": "failingSince",
+      "last_failure_at": "lastFailureAt",
+      "disabled_at": "disabledAt",
       "signing_keys": "signingKeys",
     });
   }),

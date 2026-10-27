@@ -372,6 +372,8 @@ test("webhookEndpoints registers, lists, rotates, tests and deletes, and retries
   assert.equal(endpoint.endpoint.state, "unverified");
   const all = await nr.webhookEndpoints.list();
   assert.equal(all.items[0].signingKeys.length, 2);
+  assert.deepEqual([all.items[1].failingSince, all.items[1].lastFailureAt, all.items[1].disabledAt], [listed.items[1].failing_since, listed.items[1].last_failure_at, listed.items[1].disabled_at]);
+  assert.equal(all.items[0].disabledAt, undefined);
   const rotation = await nr.webhookEndpoints.rotateSigningKey(id);
   assert.equal(rotation.previousKeyId, rotated.previous_key_id);
   const test = await nr.webhookEndpoints.sendTestEvent(id, "endpoint.verification");
