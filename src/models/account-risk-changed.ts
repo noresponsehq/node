@@ -2,6 +2,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AccountDecisionsByFlow,
   AccountDecisionsByFlow$inboundSchema,
@@ -17,7 +18,7 @@ import {
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
- * The account's decision for at least one flow changed. account is the account as GET /v1/accounts/{account_id} answers it for the revision that made the change: its new score, decision, reasons and decisions_by_flow, and the assessment the risk comes from. previous_decisions_by_flow are the decisions it replaced, so account.decisions_by_flow differs from them for at least one flow. On the account's first decision, previous_decisions_by_flow is allow for every flow. Events of one account are not ordered: account.risk_version orders them, so keep the account with the highest risk_version and ignore an event whose account is older than the one held.
+ * The account's decision for at least one flow changed. account is the account as GET /v1/accounts/{account_id} answers it for the revision that made the change: its new score, decision, reasons and decisions_by_flow, and the assessment the risk comes from. previous_decisions_by_flow are the decisions it replaced, so account.decisions_by_flow differs from them for at least one flow, and previous_risk_version is the risk_version they were announced at. On the account's first event no decision was announced before: previous_risk_version is absent and previous_decisions_by_flow is allow for every flow, the decisions an account has before its first event. Events of one account are not ordered: account.risk_version orders them, so keep the account with the highest risk_version and ignore an event whose account is older than the one held.
  */
 export type AccountRiskChanged = {
   /**
@@ -28,6 +29,10 @@ export type AccountRiskChanged = {
    * The decision for each flow: the account's score under that flow's thresholds. A flow the workspace has not set uses its account_creation thresholds, so the flows differ only where it set them. The flow of the current assessment is held while that flow's admission is held and the assessment's investigation has not completed.
    */
   previousDecisionsByFlow: AccountDecisionsByFlow;
+  /**
+   * The account's risk_version when previous_decisions_by_flow were announced, always lower than account.risk_version. Absent on the account's first event, when no decision was announced before, and on the first event after the account was deleted.
+   */
+  previousRiskVersion?: number | undefined;
 };
 
 /** @internal */
@@ -38,10 +43,12 @@ export const AccountRiskChanged$inboundSchema: z.ZodMiniType<
   z.object({
     account: Account$inboundSchema,
     previous_decisions_by_flow: AccountDecisionsByFlow$inboundSchema,
+    previous_risk_version: types.optional(types.number()),
   }),
   z.transform((v) => {
     return remap$(v, {
       "previous_decisions_by_flow": "previousDecisionsByFlow",
+      "previous_risk_version": "previousRiskVersion",
     });
   }),
 );
@@ -49,6 +56,7 @@ export const AccountRiskChanged$inboundSchema: z.ZodMiniType<
 export type AccountRiskChanged$Outbound = {
   account: Account$Outbound;
   previous_decisions_by_flow: AccountDecisionsByFlow$Outbound;
+  previous_risk_version?: number | undefined;
 };
 
 /** @internal */
@@ -59,10 +67,12 @@ export const AccountRiskChanged$outboundSchema: z.ZodMiniType<
   z.object({
     account: Account$outboundSchema,
     previousDecisionsByFlow: AccountDecisionsByFlow$outboundSchema,
+    previousRiskVersion: z.optional(z.int()),
   }),
   z.transform((v) => {
     return remap$(v, {
       previousDecisionsByFlow: "previous_decisions_by_flow",
+      previousRiskVersion: "previous_risk_version",
     });
   }),
 );
