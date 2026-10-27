@@ -23,6 +23,7 @@ let value: AccountRiskChangedEvent = {
             code: "no_digital_footprint",
             direction: "neutral",
             impact: "medium",
+            listEntryId: "lst_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
           },
         ],
       },

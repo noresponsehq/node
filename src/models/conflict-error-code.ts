@@ -14,6 +14,8 @@ export const ConflictErrorCode = {
   RiskVersionAhead: "risk_version_ahead",
   KeyLimitReached: "key_limit_reached",
   SelfRevocation: "self_revocation",
+  ListEntryExists: "list_entry_exists",
+  ListLimitReached: "list_limit_reached",
 } as const;
 /**
  * Machine codes an HTTP 409 answer can carry.

@@ -19,6 +19,7 @@ let value: Risk = {
       code: "bot_or_automation",
       direction: "neutral",
       impact: "low",
+      listEntryId: "lst_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
     },
   ],
   summary: {

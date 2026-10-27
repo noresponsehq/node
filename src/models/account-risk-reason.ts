@@ -1,4 +1,5 @@
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
@@ -38,36 +39,57 @@ export type AccountRiskReason = {
    * The submitted identifier or client context field a reason concerns; absent when it concerns the whole assessment. Client context is a claimed hint, not a device fingerprint.
    */
   identifier?: ReasonIdentifier | undefined;
+  /**
+   * The list entry a list_match reason applied. No other reason carries it.
+   */
+  listEntryId?: string | undefined;
 };
 
 /** @internal */
 export const AccountRiskReason$inboundSchema: z.ZodMiniType<
   AccountRiskReason,
   unknown
-> = z.object({
-  code: ReasonCode$inboundSchema,
-  direction: Direction$inboundSchema,
-  impact: Impact$inboundSchema,
-  identifier: types.optional(ReasonIdentifier$inboundSchema),
-});
+> = z.pipe(
+  z.object({
+    code: ReasonCode$inboundSchema,
+    direction: Direction$inboundSchema,
+    impact: Impact$inboundSchema,
+    identifier: types.optional(ReasonIdentifier$inboundSchema),
+    list_entry_id: types.optional(types.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "list_entry_id": "listEntryId",
+    });
+  }),
+);
 /** @internal */
 export type AccountRiskReason$Outbound = {
   code: string;
   direction: string;
   impact: string;
   identifier?: string | undefined;
+  list_entry_id?: string | undefined;
 };
 
 /** @internal */
 export const AccountRiskReason$outboundSchema: z.ZodMiniType<
   AccountRiskReason$Outbound,
   AccountRiskReason
-> = z.object({
-  code: ReasonCode$outboundSchema,
-  direction: Direction$outboundSchema,
-  impact: Impact$outboundSchema,
-  identifier: z.optional(ReasonIdentifier$outboundSchema),
-});
+> = z.pipe(
+  z.object({
+    code: ReasonCode$outboundSchema,
+    direction: Direction$outboundSchema,
+    impact: Impact$outboundSchema,
+    identifier: z.optional(ReasonIdentifier$outboundSchema),
+    listEntryId: z.optional(z.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      listEntryId: "list_entry_id",
+    });
+  }),
+);
 
 export function accountRiskReasonToJSON(
   accountRiskReason: AccountRiskReason,
