@@ -39,6 +39,12 @@ import {
   Risk$outboundSchema,
 } from "./risk.js";
 import {
+  SentIdentifiers,
+  SentIdentifiers$inboundSchema,
+  SentIdentifiers$Outbound,
+  SentIdentifiers$outboundSchema,
+} from "./sent-identifiers.js";
+import {
   Signal,
   Signal$inboundSchema,
   Signal$Outbound,
@@ -66,6 +72,10 @@ export type AssessmentDetail = {
    * Your own opaque identifier for the account being checked, scoped to your workspace. Use an id you mint, with no direct identifier (email, phone, name or national id) in it. '|' is accepted so an Auth0 user id such as 'auth0|64abc' passes unchanged; '@', '+', '$' and whitespace are refused by the pattern, as is an exact-shape JWT; a hex digest such as a SHA-256 is allowed, because hashing an internal id is a common pseudonymous scheme. A value such as '07700900123' or 'jane.doe.gmail.com' cannot be told apart from an opaque id. It travels in bodies, and in a URL only as the path segment of GET /v1/accounts/{account_id} and its /assessments. An assessment requested by a provider hook at pre_registration, which has no account yet, carries the server-issued account_id pre: followed by its assessment_id.
    */
   accountId: string;
+  /**
+   * The identifiers an assessment was sent: each member of the request's identifiers object exactly as received, before the server normalised it (the email domain keeps its case, the name its Unicode form). A member the request did not send is absent. NoResponse keeps them encrypted under the workspace's own key, does not index or log them, and deletes them with the assessment: on DELETE of the assessment or its account, at its expires_at, and with the workspace.
+   */
+  identifiers?: SentIdentifiers | undefined;
   /**
    * An optional provider correlation id, echoed back. It is not an idempotency key. Refuses an exact-shape JWT or a bare 40, 64 or 128 character hex digest; a UUID is accepted.
    */
@@ -135,6 +145,7 @@ export const AssessmentDetail$inboundSchema: z.ZodMiniType<
     schema_version: types.literal("1"),
     assessment_id: types.string(),
     account_id: types.string(),
+    identifiers: types.optional(SentIdentifiers$inboundSchema),
     request_id: types.optional(types.string()),
     status: Status$inboundSchema,
     recommendation: types.optional(Recommendation$inboundSchema),
@@ -175,6 +186,7 @@ export type AssessmentDetail$Outbound = {
   schema_version: "1";
   assessment_id: string;
   account_id: string;
+  identifiers?: SentIdentifiers$Outbound | undefined;
   request_id?: string | undefined;
   status: string;
   recommendation?: string | undefined;
@@ -202,6 +214,7 @@ export const AssessmentDetail$outboundSchema: z.ZodMiniType<
     schemaVersion: z.literal("1"),
     assessmentId: z.string(),
     accountId: z.string(),
+    identifiers: z.optional(SentIdentifiers$outboundSchema),
     requestId: z.optional(z.string()),
     status: Status$outboundSchema,
     recommendation: z.optional(Recommendation$outboundSchema),

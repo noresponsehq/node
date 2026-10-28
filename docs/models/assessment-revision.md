@@ -17,6 +17,13 @@ let value: AssessmentRevision = {
     schemaVersion: "1",
     assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     accountId: "acct_7f3a9c",
+    identifiers: {
+      email: "New.User@Example.com",
+      username: "new.user",
+      phone: "+61412345678",
+      name: "Alex Example",
+      ip: "203.0.113.45",
+    },
     requestId: "req-2026-10-14-0001",
     status: "pending",
     confidence: "high",

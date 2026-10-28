@@ -148,6 +148,7 @@ export * from "./risk-summary-username.js";
 export * from "./risk-summary.js";
 export * from "./risk.js";
 export * from "./security.js";
+export * from "./sent-identifiers.js";
 export * from "./settings-flows.js";
 export * from "./settings-request-flows.js";
 export * from "./settings-request.js";

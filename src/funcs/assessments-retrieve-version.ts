@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Retrieve an exact assessment revision
  *
  * @remarks
- * Retrieve a retained assessment version with its original decision, policy, flow and depth. This response excludes the current account decision. Current retention and response-mode permissions still apply.
+ * Retrieve a retained assessment version with its original decision, policy, flow and depth. This response excludes the current account decision. Current retention and response-mode permissions still apply. detail.identifiers holds the identifiers the assessment was sent, exactly as received.
  */
 export function assessmentsRetrieveVersion(
   client: NoResponseCore,
