@@ -6,6 +6,7 @@ export {
   NoResponse,
   Assessments,
   Accounts,
+  Requests,
   Keys,
   Settings,
   KeyUsage,
@@ -15,6 +16,7 @@ export {
   DEFAULT_TIMEOUT_MS,
   type NoResponseOptions,
   type CreateOptions,
+  type AccountOutcomeInput,
   type GetOptions,
   type ListAssessmentsOptions,
   type AssessmentPage,
@@ -90,6 +92,16 @@ export type {
   ListAccountAssessmentsRequest,
   RecordAssessmentOutcomeRequest,
   RecordKeyUsageRequest,
+  GetAssessmentVersionRequest,
+  BindProvisionalAccountRequest,
+  RecordAccountOutcomeRequest,
+  ListAccountOutcomesRequest,
+  GetAccountDecisionRequest,
+  AssociateCredentialRequest,
+  ListAccountCredentialsRequest,
+  RetireAccountCredentialRequest,
+  ExportAccountRequest,
+  ListRequestDiagnosticsRequest,
 } from "./models/operations/index.js";
 export { SDK_METADATA, ServerList, type SDKOptions } from "./lib/config.js";
 export { HTTPClient, type Fetcher, type HTTPClientOptions } from "./lib/http.js";

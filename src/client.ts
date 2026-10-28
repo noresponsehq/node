@@ -9,6 +9,7 @@
  */
 import { NoResponse as GeneratedClient } from "./sdk/sdk.js";
 import type { Accounts as GeneratedAccounts } from "./sdk/accounts.js";
+import type { Requests as GeneratedRequests } from "./sdk/requests.js";
 import type { Assessments as GeneratedAssessments } from "./sdk/assessments.js";
 import type { Integrations as GeneratedIntegrations } from "./sdk/integrations.js";
 import type { KeyUsage as GeneratedKeyUsage } from "./sdk/key-usage.js";
@@ -55,6 +56,8 @@ export type CreateOptions = RequestOptions & {
   /** 16 to 128 characters of [A-Za-z0-9._:-]. Generated (a UUID) when omitted and reused on every retry of this call. */
   idempotencyKey?: string;
 };
+
+export type AccountOutcomeInput = Omit<operations.RecordAccountOutcomeRequest, "idempotencyKey"> & { idempotencyKey?: string };
 
 export type GetOptions = RequestOptions & {
   responseMode?: models.ResponseMode;
@@ -209,6 +212,25 @@ function toDeliveryPage<V extends RawDeliveries>(page: V & { next: Paginator<V> 
 export class Assessments {
   constructor(private readonly inner: GeneratedAssessments) {}
 
+  /** Search this environment's retained assessment decisions, with an authenticated cursor. */
+  async search(request: models.AssessmentSearchRequest, options?: RequestOptions): Promise<WithMeta<models.AssessmentSearchPage>> {
+    const response = await this.inner.search(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Read the exact revision, without attaching today's account decision. */
+  async retrieveVersion(request: operations.GetAssessmentVersionRequest, options?: RequestOptions): Promise<WithMeta<models.AssessmentRevision>> {
+    const response = await this.inner.retrieveVersion(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Bind a provisional signup once. Repeating its target returns the original receipt. */
+  async bindAccount(request: operations.BindProvisionalAccountRequest, options?: RequestOptions): Promise<WithMeta<models.AccountBinding>> {
+    const response = await this.inner.bindAccount(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+
   /**
    * Assess an account creation, login or purchase. Returns the assessment whether the
    * answer was 200 (complete or partial) or 202 (pending; see meta.retryAfter
@@ -307,11 +329,65 @@ export class Assessments {
 /**
  * Your accounts. An account is the accountId you send with your assessments
  * and holds one current risk: the risk of its latest assessment with a
- * decision. Its assessments are its history. Every method needs the
- * `history` scope.
+ * decision. Reads need `history`; outcome reports and associations need
+ * `assess`; credential retirement needs `delete`.
  */
 export class Accounts {
   constructor(private readonly inner: GeneratedAccounts) {}
+
+  /** Report factual knowledge or explicitly correct a report; this is not enforcement. */
+  recordOutcome(accountId: string, params: models.AccountOutcomeRequest, options?: CreateOptions): Promise<WithMeta<models.AccountOutcome>>;
+  recordOutcome(request: AccountOutcomeInput, options?: CreateOptions): Promise<WithMeta<models.AccountOutcome>>;
+  async recordOutcome(
+    first: string | AccountOutcomeInput,
+    second?: models.AccountOutcomeRequest | CreateOptions,
+    third: CreateOptions = {},
+  ): Promise<WithMeta<models.AccountOutcome>> {
+    const options = typeof first === "string" ? third : (second as CreateOptions | undefined) ?? {};
+    const generated: operations.RecordAccountOutcomeRequest = typeof first === "string"
+      ? { accountId: first, body: second as models.AccountOutcomeRequest, idempotencyKey: options.idempotencyKey ?? newIdempotencyKey() }
+      : { ...first, idempotencyKey: first.idempotencyKey ?? options.idempotencyKey ?? newIdempotencyKey() };
+    const { idempotencyKey: _ignored, ...rest } = options;
+    const response = await this.inner.recordOutcome(generated, rest);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Read immutable outcome receipts and the current effective report. */
+  async listOutcomes(request: operations.ListAccountOutcomesRequest, options?: RequestOptions): Promise<WithMeta<models.AccountOutcomePage>> {
+    const response = await this.inner.listOutcomes(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Retrieve the account decision at the exact recorded risk version. */
+  async retrieveDecision(request: operations.GetAccountDecisionRequest, options?: RequestOptions): Promise<WithMeta<models.AccountDecisionSnapshot>> {
+    const response = await this.inner.retrieveDecision(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Associate a high-entropy customer-issued key by SHA-256; never send the key. */
+  async associateCredential(request: operations.AssociateCredentialRequest, options?: RequestOptions): Promise<WithMeta<models.CredentialAssociation>> {
+    const response = await this.inner.associateCredential(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** List retained credential associations, without their hashes or secrets. */
+  async listCredentials(request: operations.ListAccountCredentialsRequest, options?: RequestOptions): Promise<WithMeta<models.CredentialPage>> {
+    const response = await this.inner.listCredentials(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Retire this association, not the actual provider key. Requires delete scope. */
+  async retireCredential(request: operations.RetireAccountCredentialRequest, options?: RequestOptions): Promise<WithMeta<models.CredentialAssociation>> {
+    const response = await this.inner.retireCredential(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
+  /** Read one complete retained snapshot, or fail rather than return a truncated export. */
+  async export(request: operations.ExportAccountRequest, options?: RequestOptions): Promise<WithMeta<models.AccountExport>> {
+    const response = await this.inner.export(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
 
   /** The account's current risk, with a decision for each flow. An account with no decided assessment answers 404 (NotFoundError). */
   async get(accountId: string | operations.GetAccountRequest, options?: RequestOptions): Promise<WithMeta<models.Account>> {
@@ -591,6 +667,16 @@ export class Integrations {
   }
 }
 
+/** Safe, bounded request diagnostics; request bodies and credentials are never returned. */
+export class Requests {
+  constructor(private readonly inner: GeneratedRequests) {}
+
+  async list(request: operations.ListRequestDiagnosticsRequest, options?: RequestOptions): Promise<WithMeta<models.RequestDiagnosticPage>> {
+    const response = await this.inner.list(request, options);
+    return withMeta(response.result, response.headers);
+  }
+}
+
 const webhooks = { constructEvent } as const;
 
 export class NoResponse {
@@ -598,6 +684,7 @@ export class NoResponse {
   readonly webhooks = webhooks;
   readonly assessments: Assessments;
   readonly accounts: Accounts;
+  readonly requests: Requests;
   readonly keys: Keys;
   readonly settings: Settings;
   readonly keyUsage: KeyUsage;
@@ -614,6 +701,7 @@ export class NoResponse {
     this.baseUrl = sdkOptions.serverURL!;
     this.assessments = new Assessments(client.assessments);
     this.accounts = new Accounts(client.accounts);
+    this.requests = new Requests(client.requests);
     this.keys = new Keys(client.keys);
     this.settings = new Settings(client.settings);
     this.keyUsage = new KeyUsage(client.keyUsage);

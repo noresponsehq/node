@@ -7,7 +7,7 @@ Machine codes an HTTP 409 answer can carry.
 ```typescript
 import { ConflictErrorCode } from "@noresponse/node/models";
 
-let value: ConflictErrorCode = "webhook_endpoint_unverified";
+let value: ConflictErrorCode = "too_many_integrations";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: ConflictErrorCode = "webhook_endpoint_unverified";
 ## Values
 
 ```typescript
-"idempotency_key_reused" | "key_rotation_in_progress" | "webhook_endpoint_limit_reached" | "webhook_endpoint_unverified" | "too_many_integrations" | "risk_version_ahead" | "key_limit_reached" | "self_revocation" | "list_entry_exists" | "list_limit_reached" | "list_entry_too_broad" | Unrecognized<string>
+"idempotency_key_reused" | "key_rotation_in_progress" | "webhook_endpoint_limit_reached" | "webhook_endpoint_unverified" | "too_many_integrations" | "risk_version_ahead" | "key_limit_reached" | "self_revocation" | "outcome_conflict" | "credential_conflict" | "binding_conflict" | "list_entry_exists" | "list_limit_reached" | "list_entry_too_broad" | Unrecognized<string>
 ```

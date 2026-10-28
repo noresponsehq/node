@@ -9,6 +9,7 @@ import { Integrations } from "./integrations.js";
 import { KeyUsage } from "./key-usage.js";
 import { Keys } from "./keys.js";
 import { Lists } from "./lists.js";
+import { Requests } from "./requests.js";
 import { Settings } from "./settings.js";
 import { WebhookEndpoints } from "./webhook-endpoints.js";
 
@@ -46,6 +47,11 @@ export class NoResponse extends ClientSDK {
   private _settings?: Settings;
   get settings(): Settings {
     return (this._settings ??= new Settings(this._options));
+  }
+
+  private _requests?: Requests;
+  get requests(): Requests {
+    return (this._requests ??= new Requests(this._options));
   }
 
   private _lists?: Lists;

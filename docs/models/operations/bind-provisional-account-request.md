@@ -1,0 +1,21 @@
+# BindProvisionalAccountRequest
+
+## Example Usage
+
+```typescript
+import { BindProvisionalAccountRequest } from "@noresponse/node/models/operations";
+
+let value: BindProvisionalAccountRequest = {
+  assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+  body: {
+    accountId: "acct_7f3a9c",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                             | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       | Example                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `assessmentId`                                                                                                    | *string*                                                                                                          | :heavy_check_mark:                                                                                                | Path segment, matched case-sensitively. A value that does not match the assessment_id shape answers 404, not 400. | asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM                                                                                    |
+| `body`                                                                                                            | [models.AccountBindingRequest](../../models/account-binding-request.md)                                           | :heavy_check_mark:                                                                                                | N/A                                                                                                               |                                                                                                                   |

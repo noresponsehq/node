@@ -1,8 +1,15 @@
+import { accountsAssociateCredential } from "../funcs/accounts-associate-credential.js";
 import { accountsDelete } from "../funcs/accounts-delete.js";
+import { accountsExport } from "../funcs/accounts-export.js";
 import { accountsGet } from "../funcs/accounts-get.js";
 import { accountsListAssessments } from "../funcs/accounts-list-assessments.js";
 import { accountsListChanged } from "../funcs/accounts-list-changed.js";
+import { accountsListCredentials } from "../funcs/accounts-list-credentials.js";
+import { accountsListOutcomes } from "../funcs/accounts-list-outcomes.js";
 import { accountsRecordEnforcement } from "../funcs/accounts-record-enforcement.js";
+import { accountsRecordOutcome } from "../funcs/accounts-record-outcome.js";
+import { accountsRetireCredential } from "../funcs/accounts-retire-credential.js";
+import { accountsRetrieveDecision } from "../funcs/accounts-retrieve-decision.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -90,6 +97,125 @@ export class Accounts extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.RecordEnforcementResponse> {
     return unwrapAsync(accountsRecordEnforcement(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Record or correct an account outcome
+   *
+   * @remarks
+   * Record a factual report, not an enforcement action. A known outcome replaces the effective report. unknown alone records uncertainty without changing it; unknown with supersedes explicitly retracts it. supersedes must name the current effective report or the request answers 409 outcome_conflict. Reports remain append-only. Idempotency-Key is required. observed_at defaults to receipt time and cannot be over five minutes ahead.
+   */
+  async recordOutcome(
+    request: operations.RecordAccountOutcomeRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RecordAccountOutcomeResponse> {
+    return unwrapAsync(accountsRecordOutcome(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List retained account feedback
+   *
+   * @remarks
+   * List retained account reports, newest first. The page-level effective outcome id names the current report. Each receipt preserves the effective report and risk version from its original write. Page with the returned cursor.
+   */
+  async listOutcomes(
+    request: operations.ListAccountOutcomesRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ListAccountOutcomesResponse> {
+    return unwrapAsync(accountsListOutcomes(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Retrieve an exact historical account decision
+   *
+   * @remarks
+   * Retrieve the account decision at one recorded risk version. The answer uses the original assessment and account-specific risk inputs. Earlier versions that were not captured return 404. The assessment version, policy version and account calculation version identify the decision.
+   */
+  async retrieveDecision(
+    request: operations.GetAccountDecisionRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetAccountDecisionResponse> {
+    return unwrapAsync(accountsRetrieveDecision(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Associate a customer-issued API key
+   *
+   * @remarks
+   * Associate the SHA-256 of a high-entropy key issued by your service. Send the hash instead of the key. Repeating a hash returns its original association, including its retirement state. A hash associated with another account returns a conflict.
+   */
+  async associateCredential(
+    request: operations.AssociateCredentialRequest,
+    options?: RequestOptions,
+  ): Promise<operations.AssociateCredentialResponse> {
+    return unwrapAsync(accountsAssociateCredential(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List issued credential associations
+   *
+   * @remarks
+   * Retained credential associations, ordered by id. Page with the authenticated cursor. Associations are removed on account erasure.
+   */
+  async listCredentials(
+    request: operations.ListAccountCredentialsRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ListAccountCredentialsResponse> {
+    return unwrapAsync(accountsListCredentials(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Retire an issued credential association
+   *
+   * @remarks
+   * Mark this association retired, idempotently. This does not revoke the actual key. Requires delete scope.
+   */
+  async retireCredential(
+    request: operations.RetireAccountCredentialRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RetireAccountCredentialResponse> {
+    return unwrapAsync(accountsRetireCredential(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Export an account
+   *
+   * @remarks
+   * Retrieve one consistent snapshot of retained customer-accessible records, including assessment revisions, account decisions, feedback, key associations, enforcements and request diagnostics. Secrets, restricted source information, other customers' data and legacy free-text notes are excluded. The same standard/detailed permissions apply. An export exceeding 10000 records or 8 MiB returns export_too_large without a partial result. Historical decisions that were not captured are identified as an exclusion.
+   */
+  async export(
+    request: operations.ExportAccountRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ExportAccountResponse> {
+    return unwrapAsync(accountsExport(
       this,
       request,
       options,

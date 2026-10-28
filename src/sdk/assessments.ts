@@ -1,8 +1,11 @@
+import { assessmentsBindAccount } from "../funcs/assessments-bind-account.js";
 import { assessmentsCreate } from "../funcs/assessments-create.js";
 import { assessmentsDelete } from "../funcs/assessments-delete.js";
 import { assessmentsGet } from "../funcs/assessments-get.js";
 import { assessmentsQuery } from "../funcs/assessments-query.js";
 import { assessmentsRecordOutcome } from "../funcs/assessments-record-outcome.js";
+import { assessmentsRetrieveVersion } from "../funcs/assessments-retrieve-version.js";
+import { assessmentsSearch } from "../funcs/assessments-search.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -91,6 +94,57 @@ export class Assessments extends ClientSDK {
     PageIterator<operations.QueryAccountAssessmentsResponse, { cursor: string }>
   > {
     return unwrapResultIterator(assessmentsQuery(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Search assessments across this environment
+   *
+   * @remarks
+   * Search retained assessments created in [from,to), over at most 366 days. Filters use each assessment decision, rather than the current account decision. Results can change between pages. Keep the assessment version to retrieve the exact decision later. This read does not require an idempotency key.
+   */
+  async search(
+    request: models.AssessmentSearchRequest,
+    options?: RequestOptions,
+  ): Promise<operations.SearchAssessmentsResponse> {
+    return unwrapAsync(assessmentsSearch(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Retrieve an exact assessment revision
+   *
+   * @remarks
+   * Retrieve a retained assessment version with its original decision, policy, flow and depth. This response excludes the current account decision. Current retention and response-mode permissions still apply.
+   */
+  async retrieveVersion(
+    request: operations.GetAssessmentVersionRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetAssessmentVersionResponse> {
+    return unwrapAsync(assessmentsRetrieveVersion(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Bind a provisional signup account
+   *
+   * @remarks
+   * One-time association to an opaque stable customer account. The assessment is its natural idempotency key. Repeating the same binding returns its first receipt; a conflicting target is refused. No arbitrary account merging.
+   */
+  async bindAccount(
+    request: operations.BindProvisionalAccountRequest,
+    options?: RequestOptions,
+  ): Promise<operations.BindProvisionalAccountResponse> {
+    return unwrapAsync(assessmentsBindAccount(
       this,
       request,
       options,
