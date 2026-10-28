@@ -28,7 +28,7 @@ import * as types$ from "../types/primitives.js";
  * Remove an entry from an environment's list.
  *
  * @remarks
- * Removes an entry from the signing key's environment's list and re-decides every account it matched, each sending account.risk_changed when its decision changes. An unknown or already removed entry answers 404 not_found. Requires the management scope.
+ * Removes an entry from the signing key's environment's list and re-decides the accounts it matched, the 5,000 most recently assessed at most, each sending account.risk_changed when its decision changes. An unknown or already removed entry answers 404 not_found. Requires the management scope.
  */
 export function listsDelete(
   client: NoResponseCore,
