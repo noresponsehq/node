@@ -1,6 +1,6 @@
 # Decision
 
-The decision of the assessment's latest stored revision: block when its stored risk.block is true, otherwise its recommendation. This is not the account's current decision or held-admission state. Combined with recommendation using AND.
+An assessment's own decision: block when its stored risk.block is true, otherwise its recommendation. It is not the account's decision or held-admission state.
 
 ## Example Usage
 
@@ -8,10 +8,12 @@ The decision of the assessment's latest stored revision: block when its stored r
 import { Decision } from "@noresponse/node/models";
 
 let value: Decision = "allow";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
 ```
 
 ## Values
 
 ```typescript
-"allow" | "step_up" | "review" | "block"
+"allow" | "step_up" | "review" | "block" | Unrecognized<string>
 ```

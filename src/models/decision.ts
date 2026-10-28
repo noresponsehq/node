@@ -1,8 +1,9 @@
 import * as z from "zod/v4-mini";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 /**
- * The decision of the assessment's latest stored revision: block when its stored risk.block is true, otherwise its recommendation. This is not the account's current decision or held-admission state. Combined with recommendation using AND.
+ * An assessment's own decision: block when its stored risk.block is true, otherwise its recommendation. It is not the account's decision or held-admission state.
  */
 export const Decision = {
   Allow: "allow",
@@ -11,11 +12,13 @@ export const Decision = {
   Block: "block",
 } as const;
 /**
- * The decision of the assessment's latest stored revision: block when its stored risk.block is true, otherwise its recommendation. This is not the account's current decision or held-admission state. Combined with recommendation using AND.
+ * An assessment's own decision: block when its stored risk.block is true, otherwise its recommendation. It is not the account's decision or held-admission state.
  */
-export type Decision = ClosedEnum<typeof Decision>;
+export type Decision = OpenEnum<typeof Decision>;
 
 /** @internal */
-export const Decision$outboundSchema: z.ZodMiniEnum<typeof Decision> = z.enum(
-  Decision,
-);
+export const Decision$inboundSchema: z.ZodMiniType<Decision, unknown> =
+  openEnums.inboundSchema(Decision);
+/** @internal */
+export const Decision$outboundSchema: z.ZodMiniType<string, Decision> =
+  openEnums.outboundSchema(Decision);

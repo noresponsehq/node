@@ -1,5 +1,9 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
+import {
+  AnswerRevision,
+  AnswerRevision$outboundSchema,
+} from "./answer-revision.js";
 import { Decision, Decision$outboundSchema } from "./decision.js";
 import { Flow, Flow$outboundSchema } from "./flow.js";
 import {
@@ -41,9 +45,13 @@ export type AssessmentSearchRequest = {
    */
   responseMode?: ResponseMode | undefined;
   /**
-   * The decision of the assessment's latest stored revision: block when its stored risk.block is true, otherwise its recommendation. This is not the account's current decision or held-admission state. Combined with recommendation using AND.
+   * An assessment's own decision: block when its stored risk.block is true, otherwise its recommendation. It is not the account's decision or held-admission state.
    */
   decision?: Decision | undefined;
+  /**
+   * Which answer of each assessment the filters describe: latest, the latest stored revision, or first, the first answer, as served when the assessment was first answered (POST /v1/assessments/aggregate counts first answers). A cell of an aggregate drills down to POST /v1/assessments/search with the same filters, revision first and the cell's bucket as from and to.
+   */
+  revision?: AnswerRevision | undefined;
 };
 
 /** @internal */
@@ -58,6 +66,7 @@ export type AssessmentSearchRequest$Outbound = {
   cursor?: string | undefined;
   response_mode?: string | undefined;
   decision?: string | undefined;
+  revision?: string | undefined;
 };
 
 /** @internal */
@@ -76,6 +85,7 @@ export const AssessmentSearchRequest$outboundSchema: z.ZodMiniType<
     cursor: z.optional(z.string()),
     responseMode: z.optional(ResponseMode$outboundSchema),
     decision: z.optional(Decision$outboundSchema),
+    revision: z.optional(AnswerRevision$outboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {

@@ -15,6 +15,8 @@ const sha256 = "f".repeat(64);
 const cases = [
   ["search", "POST", "/v1/assessments/search", 200,
     nr => nr.assessments.search({ from, to, decision: "block", limit: 1, cursor: "next_fixture" })],
+  ["aggregate", "POST", "/v1/assessments/aggregate", 200,
+    nr => nr.assessments.aggregate({ from, to, bucket: "day", groupBy: ["decision", "reason"], metrics: ["count", "late_flips"], revision: "first" })],
   ["revision", "GET", `/v1/assessments/${assessmentId}/versions/1`, 200,
     nr => nr.assessments.retrieveVersion({ assessmentId, version: 1, responseMode: "standard" })],
   ["binding", "POST", `/v1/assessments/${assessmentId}/bind`, 201,
@@ -52,6 +54,11 @@ for (const [name, method, pathname, status, call] of cases) {
     if (name === "search") {
       assert.deepEqual(calls[0].body, { from, to, decision: "block", limit: 1, cursor: "next_fixture" });
       assert.equal(result.items[0].detail.assessmentVersion, examples.revision.detail.assessment_version);
+    }
+    if (name === "aggregate") {
+      assert.deepEqual(calls[0].body, { from, to, bucket: "day", group_by: ["decision", "reason"], metrics: ["count", "late_flips"], limit: 20, revision: "first" });
+      assert.equal(result.buckets[0].groups[0].reason, "aged_identity");
+      assert.equal(result.buckets[0].lateFlips[0].to, "review");
     }
     if (name === "outcome") {
       assert.equal(calls[0].headers["idempotency-key"], idempotencyKey);

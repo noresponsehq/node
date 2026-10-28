@@ -218,6 +218,16 @@ export class Assessments {
     return withMeta(response.result, response.headers);
   }
 
+  /**
+   * Count this environment's first answers per hour, day or week, grouped by up
+   * to two dimensions, with optional score histogram and late flips. The
+   * filters are search's: drill down with assessments.search and revision "first".
+   */
+  async aggregate(request: models.AssessmentAggregateRequest, options?: RequestOptions): Promise<WithMeta<models.AssessmentAggregate>> {
+    const response = await this.inner.aggregate(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
   /** Read the exact revision, without attaching today's account decision. */
   async retrieveVersion(request: operations.GetAssessmentVersionRequest, options?: RequestOptions): Promise<WithMeta<models.AssessmentRevision>> {
     const response = await this.inner.retrieveVersion(request, options);

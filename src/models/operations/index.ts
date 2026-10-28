@@ -1,3 +1,4 @@
+export * from "./aggregate-assessments.js";
 export * from "./associate-credential.js";
 export * from "./bind-provisional-account.js";
 export * from "./create-assessment.js";
