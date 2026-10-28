@@ -35,7 +35,7 @@ import {
 export type RiskDetails = {
   phoneNames?: Array<RiskDetailsPhoneName> | undefined;
   /**
-   * The matching breach tables, newest first, at most 50.
+   * The matching breach tables, newest first, at most 100.
    */
   breaches?: Array<Breach> | undefined;
   /**
@@ -43,7 +43,7 @@ export type RiskDetails = {
    */
   breachNames?: Array<RiskDetailsBreachName> | undefined;
   /**
-   * The identity's dated footprint events, newest first, at most 100: the year and month, what happened (created, last_active, breached), the site, its category, the kind of evidence and the identifier it belongs to. No breach value: dates are coarsened to the month.
+   * The identity's dated footprint events, newest first, at most 300: the year and month, what happened (created, last_active, breached), the site, its category, the kind of evidence and the identifier it belongs to. No breach value: dates are coarsened to the month.
    */
   events?: Array<RiskDetailsEvent> | undefined;
 };

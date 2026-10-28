@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 706615fc2a298d8b1a8d2c29fb2ffe49
+  docChecksum: c7633ce527060e650571dab1ee1e88d6
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 8.4.0
-  configChecksum: b810a612e855dd80990dc902f1e297df
+  releaseVersion: 8.4.1
+  configChecksum: 6b57a1ad0f850fc34f383da594222cce
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -549,7 +549,7 @@ trackedFiles:
   docs/models/risk-details-phone-name.md:
     last_write_checksum: sha1:14f5db49121b58433611c033a03c8c37ba12a9b8
   docs/models/risk-details.md:
-    last_write_checksum: sha1:ff23a13398cb01b380b4f39be59ec12073dda6d6
+    last_write_checksum: sha1:aa6daa122c8d3f9b3b3e434bac44433a89621b6f
   docs/models/risk-reason.md:
     last_write_checksum: sha1:932b8b7d19b9b0bfea24d7a0750ac173022af6e6
   docs/models/risk-summary-email.md:
@@ -643,9 +643,9 @@ trackedFiles:
   docs/models/workspace-deleted.md:
     last_write_checksum: sha1:e9baed52df3118b359e0f9b40836b268918ee269
   jsr.json:
-    last_write_checksum: sha1:99e561b948d0a9d9849bc890b9061a3fcdfe9f69
+    last_write_checksum: sha1:c200bd31f3b180356f26319b059aa3d6e2688615
   package.json:
-    last_write_checksum: sha1:da58fb4b07ba0674c8003fe64f2008ad785c4928
+    last_write_checksum: sha1:2cf5aded1fd5fb55d798520d6a5ce139c9581386
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -745,7 +745,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:810f68c351f8185266b1fb7b45fd3ad7ab0a0558
+    last_write_checksum: sha1:cfdad960c35c030eeb36d341d267c371e5c1170e
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1193,7 +1193,7 @@ trackedFiles:
   src/models/risk-details-phone-name.ts:
     last_write_checksum: sha1:0bc90b5e5ccdee306b49e2659cff169efcac69e0
   src/models/risk-details.ts:
-    last_write_checksum: sha1:6db94e4a00a49f915002e90c4a5283af44d5e4c6
+    last_write_checksum: sha1:37434ce71216c3a013582f12edb11e464e802490
   src/models/risk-reason.ts:
     last_write_checksum: sha1:8d6bf393540b51f960449fc280f5cd1b18e22226
   src/models/risk-summary-email.ts:
