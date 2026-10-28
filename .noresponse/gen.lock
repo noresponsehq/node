@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: bd7a39251380c8052bb2a358d7847156
+  docChecksum: 706615fc2a298d8b1a8d2c29fb2ffe49
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 8.3.0
-  configChecksum: c331150f33f1d003c5d821001ebb52c2
+  releaseVersion: 8.4.0
+  configChecksum: b810a612e855dd80990dc902f1e297df
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -87,7 +87,7 @@ trackedFiles:
   docs/models/admission.md:
     last_write_checksum: sha1:b5d521cea8e7fb50607001518248010d6f71ed0d
   docs/models/aggregate-bucket.md:
-    last_write_checksum: sha1:1c7b04af702867091f70468259a05698b31a7a82
+    last_write_checksum: sha1:d4b838f50f73f088084641e726c0045bc0af8daa
   docs/models/aggregate-dimension.md:
     last_write_checksum: sha1:80d9f5acf1cb13e543ec189352c2f165b95c314c
   docs/models/aggregate-group.md:
@@ -96,6 +96,8 @@ trackedFiles:
     last_write_checksum: sha1:0b81ea2555f2e7955e415e274f35ad9b97ee4347
   docs/models/aggregate-score-count.md:
     last_write_checksum: sha1:133a13b9c66157cdd18d53bd0c7bfa3275c73bd0
+  docs/models/aggregate-score-outcome.md:
+    last_write_checksum: sha1:29c3b6aa24f343c805237f10533eff07f40d174f
   docs/models/agreement.md:
     last_write_checksum: sha1:0ef266de487b171d54dc2f7b5f0f0b14bc578bf7
   docs/models/alternate-name-union.md:
@@ -105,11 +107,11 @@ trackedFiles:
   docs/models/answer-revision.md:
     last_write_checksum: sha1:acd0b50c139c730a46b27a7517d4566c0c6903d9
   docs/models/assessment-aggregate-metric.md:
-    last_write_checksum: sha1:127420c91b0f07c63996054f3d417c38c41d9de2
+    last_write_checksum: sha1:e1e8e37f94525912abb50625447964e00b7ccc40
   docs/models/assessment-aggregate-request-metric.md:
-    last_write_checksum: sha1:c8f4f3d825299bcedd3b4769176e9bda750799f2
+    last_write_checksum: sha1:a9fb454b241f226281978682dac0ce210623b12c
   docs/models/assessment-aggregate-request.md:
-    last_write_checksum: sha1:f3ae56c0500f7ac014ece160ad253de40354d6a9
+    last_write_checksum: sha1:4d220e95a9ee3f5a83f83361cfc0bfb85b6509e2
   docs/models/assessment-aggregate.md:
     last_write_checksum: sha1:cc146b383a9f586184f8449264931a5876d09d70
   docs/models/assessment-deletion-account.md:
@@ -641,9 +643,9 @@ trackedFiles:
   docs/models/workspace-deleted.md:
     last_write_checksum: sha1:e9baed52df3118b359e0f9b40836b268918ee269
   jsr.json:
-    last_write_checksum: sha1:041aecebdb25ef1a7a8deaf901851aed0b31506a
+    last_write_checksum: sha1:99e561b948d0a9d9849bc890b9061a3fcdfe9f69
   package.json:
-    last_write_checksum: sha1:0ca58aa478faa4608bf830b1bb14522e5f717846
+    last_write_checksum: sha1:da58fb4b07ba0674c8003fe64f2008ad785c4928
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -671,7 +673,7 @@ trackedFiles:
   src/funcs/accounts-retrieve-decision.ts:
     last_write_checksum: sha1:d141e15c87846f8d50bd786bb35534a67969e47e
   src/funcs/assessments-aggregate.ts:
-    last_write_checksum: sha1:e40934ebbdef062af7aa433737cdba242622ad91
+    last_write_checksum: sha1:1002679b2d58ab8c51b976ecd878865021e8ac37
   src/funcs/assessments-bind-account.ts:
     last_write_checksum: sha1:3464b52cc7dea10331a0df7ebedb3b61b00e1a8a
   src/funcs/assessments-create.ts:
@@ -743,7 +745,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:aa1db254be2e5bdd6f74a0e016683bda1fca0dbb
+    last_write_checksum: sha1:810f68c351f8185266b1fb7b45fd3ad7ab0a0558
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -811,7 +813,7 @@ trackedFiles:
   src/models/admission.ts:
     last_write_checksum: sha1:43cb7b63a47d15d04f5889f719ce06837080011e
   src/models/aggregate-bucket.ts:
-    last_write_checksum: sha1:1e74d36ee1c798ab9e215e66e3b951bfdc037a6e
+    last_write_checksum: sha1:8ff2b02ab8333ef58f6d2f7b3ad762a950c92481
   src/models/aggregate-dimension.ts:
     last_write_checksum: sha1:93b9696369f23c5a47074e33c87625a4ef4bcb27
   src/models/aggregate-group.ts:
@@ -820,14 +822,16 @@ trackedFiles:
     last_write_checksum: sha1:67753e29b0a1df35bff797548cca8b93960878cf
   src/models/aggregate-score-count.ts:
     last_write_checksum: sha1:a97ee6f33504b27d9f363437e14c81798ceb1ad1
+  src/models/aggregate-score-outcome.ts:
+    last_write_checksum: sha1:050de06d666835efc833d73c8b41851276138aa7
   src/models/agreement.ts:
     last_write_checksum: sha1:91a0b16ab1eaa7dba83391ea96976a13120b29e0
   src/models/answer-revision.ts:
     last_write_checksum: sha1:e8ad46b8cf9b5ad11cd59af7120509706df628af
   src/models/assessment-aggregate-request.ts:
-    last_write_checksum: sha1:e16f412a5b9bf9b047882ee89a63e1a4b6e390bc
+    last_write_checksum: sha1:885907b43daf78a603b1d8b200e8281e0c8056d0
   src/models/assessment-aggregate.ts:
-    last_write_checksum: sha1:2a3b6edf089e906bda34d782c38b75410acfc209
+    last_write_checksum: sha1:a8e14c9b11d33731c0e1b7e8abc395b91a38927b
   src/models/assessment-deletion-account.ts:
     last_write_checksum: sha1:7a67daf71b4596985ac4dc9fa2e010a4cffd4852
   src/models/assessment-deletion.ts:
@@ -1005,7 +1009,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:3a010772fe5eb8cbe0dc163dba90e0f77974ae8c
   src/models/index.ts:
-    last_write_checksum: sha1:72887ee8c6051d5c0297e62e17536c1f43b4a99f
+    last_write_checksum: sha1:e29e116d91d029cd45f4492ef35c4af9e1276f87
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -1273,7 +1277,7 @@ trackedFiles:
   src/sdk/accounts.ts:
     last_write_checksum: sha1:d95486bf0b7b4a9119cc1b96d00f11d0108f76a1
   src/sdk/assessments.ts:
-    last_write_checksum: sha1:a944e39d0631891e0e6f5bdb2717b0c1bd426dac
+    last_write_checksum: sha1:0fcb050de5993c2bbfe8d24458574af05de41f78
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
   src/sdk/integrations.ts:

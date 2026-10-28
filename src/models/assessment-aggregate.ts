@@ -19,6 +19,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 export const AssessmentAggregateMetric = {
   Count: "count",
   ScoreHistogram: "score_histogram",
+  ScoreOutcomes: "score_outcomes",
   LateFlips: "late_flips",
 } as const;
 export type AssessmentAggregateMetric = OpenEnum<

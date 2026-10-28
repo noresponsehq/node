@@ -24,6 +24,7 @@ export * from "./aggregate-dimension.js";
 export * from "./aggregate-group.js";
 export * from "./aggregate-late-flip.js";
 export * from "./aggregate-score-count.js";
+export * from "./aggregate-score-outcome.js";
 export * from "./agreement.js";
 export * from "./answer-revision.js";
 export * from "./assessment-aggregate-request.js";

@@ -13,5 +13,5 @@ let value: AssessmentAggregateMetric = "count";
 ## Values
 
 ```typescript
-"count" | "score_histogram" | "late_flips" | Unrecognized<string>
+"count" | "score_histogram" | "score_outcomes" | "late_flips" | Unrecognized<string>
 ```

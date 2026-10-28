@@ -5,11 +5,11 @@
 ```typescript
 import { AssessmentAggregateRequestMetric } from "@noresponse/node/models";
 
-let value: AssessmentAggregateRequestMetric = "late_flips";
+let value: AssessmentAggregateRequestMetric = "score_outcomes";
 ```
 
 ## Values
 
 ```typescript
-"count" | "score_histogram" | "late_flips"
+"count" | "score_histogram" | "score_outcomes" | "late_flips"
 ```

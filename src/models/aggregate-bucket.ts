@@ -15,6 +15,10 @@ import {
   AggregateScoreCount,
   AggregateScoreCount$inboundSchema,
 } from "./aggregate-score-count.js";
+import {
+  AggregateScoreOutcome,
+  AggregateScoreOutcome$inboundSchema,
+} from "./aggregate-score-outcome.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 export type AggregateBucket = {
@@ -28,6 +32,10 @@ export type AggregateBucket = {
    */
   groups?: Array<AggregateGroup> | undefined;
   scoreHistogram?: Array<AggregateScoreCount> | undefined;
+  /**
+   * With metric score_outcomes: the score_histogram's first answers whose assessment has a reported outcome, by its latest. A bin's count less its score_outcomes is the first answers with none reported.
+   */
+  scoreOutcomes?: Array<AggregateScoreOutcome> | undefined;
   lateFlips?: Array<AggregateLateFlip> | undefined;
 };
 
@@ -41,11 +49,15 @@ export const AggregateBucket$inboundSchema: z.ZodMiniType<
     count: types.optional(types.number()),
     groups: types.optional(z.array(AggregateGroup$inboundSchema)),
     score_histogram: types.optional(z.array(AggregateScoreCount$inboundSchema)),
+    score_outcomes: types.optional(
+      z.array(AggregateScoreOutcome$inboundSchema),
+    ),
     late_flips: types.optional(z.array(AggregateLateFlip$inboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {
       "score_histogram": "scoreHistogram",
+      "score_outcomes": "scoreOutcomes",
       "late_flips": "lateFlips",
     });
   }),
