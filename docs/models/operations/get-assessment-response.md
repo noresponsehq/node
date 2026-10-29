@@ -97,6 +97,9 @@ let value: GetAssessmentResponse = {
             {
               value: "Alex Example",
               seenIn: 714857,
+              sites: [
+                "forum.example.com",
+              ],
             },
           ],
           events: [

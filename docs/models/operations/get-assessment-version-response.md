@@ -69,6 +69,9 @@ let value: GetAssessmentVersionResponse = {
             {
               value: "Alex Example",
               seenIn: 714857,
+              sites: [
+                "forum.example.com",
+              ],
             },
           ],
           events: [

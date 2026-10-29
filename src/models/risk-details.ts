@@ -39,7 +39,7 @@ export type RiskDetails = {
    */
   breaches?: Array<Breach> | undefined;
   /**
-   * Names found next to the identifiers in breach records, merged, with the number of distinct tables each was seen in.
+   * Names found next to the identifiers in breach records, merged, with the number of distinct tables each was seen in and the sites of those tables.
    */
   breachNames?: Array<RiskDetailsBreachName> | undefined;
   /**
