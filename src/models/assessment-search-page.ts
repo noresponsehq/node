@@ -4,20 +4,28 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  AssessmentRevision,
-  AssessmentRevision$inboundSchema,
-} from "./assessment-revision.js";
+  AssessmentSearchItem,
+  AssessmentSearchItem$inboundSchema,
+} from "./assessment-search-item.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
- * A bounded page of latest assessment revisions, newest creation first. Each revision identifies the exact result found; no current account risk is attached.
+ * A bounded page of latest assessment revisions, newest creation first, with how many assessments match the filters. Each item is the revision found and its first answer's decision; no current account risk is attached.
  */
 export type AssessmentSearchPage = {
   /**
    * Version of the body shape.
    */
   schemaVersion: "1";
-  items: Array<AssessmentRevision>;
+  items: Array<AssessmentSearchItem>;
+  /**
+   * How many assessments match the filters over every page, counted when this page was read: exact up to 10000. At 10000 or more it is 10000 and total_capped is true. The cursor does not change it; a later page can count differently, as results are live.
+   */
+  total: number;
+  /**
+   * True when at least 10000 assessments match, so total is 10000 and not the exact count.
+   */
+  totalCapped: boolean;
   /**
    * Opaque, expiring cursor bound to this environment, operation and every filter. Keep the filters unchanged.
    */
@@ -35,13 +43,16 @@ export const AssessmentSearchPage$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     schema_version: types.literal("1"),
-    items: z.array(AssessmentRevision$inboundSchema),
+    items: z.array(AssessmentSearchItem$inboundSchema),
+    total: types.number(),
+    total_capped: types.boolean(),
     next_cursor: types.optional(types.string()),
     retention_days: z._default(types.number(), 365),
   }),
   z.transform((v) => {
     return remap$(v, {
       "schema_version": "schemaVersion",
+      "total_capped": "totalCapped",
       "next_cursor": "nextCursor",
       "retention_days": "retentionDays",
     });

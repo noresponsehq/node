@@ -51,6 +51,7 @@ export * from "./assessment-request-issued-credential.js";
 export * from "./assessment-request-policy-context.js";
 export * from "./assessment-request.js";
 export * from "./assessment-revision.js";
+export * from "./assessment-search-item.js";
 export * from "./assessment-search-page.js";
 export * from "./assessment-search-request.js";
 export * from "./assessment-updated-data.js";

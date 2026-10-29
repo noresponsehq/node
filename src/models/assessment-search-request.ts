@@ -29,6 +29,10 @@ export type AssessmentSearchRequest = {
    */
   accountId?: string | undefined;
   /**
+   * Assessments of every account that one of its retained admitted assessments sent this mailbox as identifiers.email, matched as lists match an email entry: case-insensitive, a +tag removed and, at gmail.com and googlemail.com, the dots of the local part ignored. Only assessments stored since email list matching began carry the mailbox. An address that is not a valid mailbox is refused with 400.
+   */
+  email?: string | undefined;
+  /**
    * The event an assessment is made for: account_creation (a user creates an account), login (a user returns to an existing account) or purchase (a payment or a credit grant). The account's risk is reported with the decision for this flow.
    */
   flow?: Flow | undefined;
@@ -84,6 +88,10 @@ export type AssessmentSearchRequest = {
    * The list action captured at the first answer. Requires revision first. Older answers without captured list state do not match, including none.
    */
   listMatch?: ListMatch | undefined;
+  /**
+   * true returns only assessments whose latest stored revision's decision differs from their first answer's decision (see decision); false only the others. An assessment whose first answer or latest revision has no decision yet is not changed. Cannot be combined with revision first.
+   */
+  changed?: boolean | undefined;
 };
 
 /** @internal */
@@ -91,6 +99,7 @@ export type AssessmentSearchRequest$Outbound = {
   from: string;
   to: string;
   account_id?: string | undefined;
+  email?: string | undefined;
   flow?: string | undefined;
   status?: string | undefined;
   recommendation?: string | undefined;
@@ -108,6 +117,7 @@ export type AssessmentSearchRequest$Outbound = {
   score_min?: number | undefined;
   score_max?: number | undefined;
   list_match?: string | undefined;
+  changed?: boolean | undefined;
 };
 
 /** @internal */
@@ -119,6 +129,7 @@ export const AssessmentSearchRequest$outboundSchema: z.ZodMiniType<
     from: z.string(),
     to: z.string(),
     accountId: z.optional(z.string()),
+    email: z.optional(z.string()),
     flow: z.optional(Flow$outboundSchema),
     status: z.optional(Status$outboundSchema),
     recommendation: z.optional(Recommendation$outboundSchema),
@@ -136,6 +147,7 @@ export const AssessmentSearchRequest$outboundSchema: z.ZodMiniType<
     scoreMin: z.optional(z.int()),
     scoreMax: z.optional(z.int()),
     listMatch: z.optional(ListMatch$outboundSchema),
+    changed: z.optional(z.boolean()),
   }),
   z.transform((v) => {
     return remap$(v, {

@@ -9,11 +9,20 @@ let value: SearchAssessmentsResponse = {
   headers: {
     "key": [
       "example 1",
+      "example 2",
+      "example 3",
     ],
+    "key1": [
+      "example 1",
+      "example 2",
+    ],
+    "key2": [],
   },
   result: {
     schemaVersion: "1",
     items: [],
+    total: 396158,
+    totalCapped: true,
     nextCursor:
       "eyJ0IjoxNzY3MjI1NjAwMDAwMDAwLCJpIjoiYXNtX2V4YW1wbGUiLCJlIjoxNzY3MjI5MjAwfQ",
   },
