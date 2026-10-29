@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.4.2
+
+* `sdk.accounts.search()`: **Added**
+
 ## 9.4.1
 
 No changes detected.

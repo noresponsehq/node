@@ -88,6 +88,7 @@ export * from "./revoke-key.js";
 export * from "./rotate-api-key.js";
 export * from "./rotate-integration-secret.js";
 export * from "./rotate-webhook-signing-key.js";
+export * from "./search-accounts.js";
 export * from "./search-assessments.js";
 export * from "./send-webhook-test-event.js";
 export * from "./summarize-workspace-operations.js";

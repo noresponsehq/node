@@ -12,7 +12,9 @@ import { accountsRecordEnforcement } from "../funcs/accounts-record-enforcement.
 import { accountsRecordOutcome } from "../funcs/accounts-record-outcome.js";
 import { accountsRetireCredential } from "../funcs/accounts-retire-credential.js";
 import { accountsRetrieveDecision } from "../funcs/accounts-retrieve-decision.js";
+import { accountsSearch } from "../funcs/accounts-search.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { PageIterator, unwrapResultIterator } from "../types/operations.js";
@@ -260,6 +262,23 @@ export class Accounts extends ClientSDK {
     PageIterator<operations.ListAccountDecisionsResponse, { cursor: string }>
   > {
     return unwrapResultIterator(accountsListDecisions(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Search distinct accounts by email or account ID
+   *
+   * @remarks
+   * Search distinct accounts observed in retained assessments in this environment. Match an exact account_id or canonical email; an email matches any retained assessment belonging to the account. The response contains one row per account with its newest retained assessment, current decision when available, per-account assessment count, and total distinct-account count. Send next_cursor with unchanged filters to continue. Totals are exact below 10000 and capped at 10000. Results are live across pages. Requires history access and identifier access for email. Read-only and safe to retry.
+   */
+  async search(
+    request: models.AccountDirectorySearchRequest,
+    options?: RequestOptions,
+  ): Promise<operations.SearchAccountsResponse> {
+    return unwrapAsync(accountsSearch(
       this,
       request,
       options,
