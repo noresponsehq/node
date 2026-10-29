@@ -24,6 +24,10 @@ export type ListReviewsRequest = {
    * Filter by immutable member ID. Mutually exclusive with assignee and unassigned=true.
    */
   assigneePrincipalId?: string | undefined;
+  /**
+   * Only reviews of this exact account in the authenticated workspace and environment. Applied before pagination and bound into the cursor.
+   */
+  accountId?: string | undefined;
 };
 
 export type ListReviewsResponse = {
@@ -42,6 +46,7 @@ export type ListReviewsRequest$Outbound = {
   assignee?: string | undefined;
   unassigned?: boolean | undefined;
   assignee_principal_id?: string | undefined;
+  account_id?: string | undefined;
 };
 
 /** @internal */
@@ -59,11 +64,13 @@ export const ListReviewsRequest$outboundSchema: z.ZodMiniType<
     assignee: z.optional(z.string()),
     unassigned: z.optional(z.boolean()),
     assigneePrincipalId: z.optional(z.string()),
+    accountId: z.optional(z.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
       workspaceId: "workspace_id",
       assigneePrincipalId: "assignee_principal_id",
+      accountId: "account_id",
     });
   }),
 );

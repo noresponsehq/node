@@ -24,7 +24,7 @@ export class Reviews extends ClientSDK {
    * List retained account reviews.
    *
    * @remarks
-   * List retained investigation reviews using filters and an authenticated cursor.
+   * List retained investigation reviews using filters and an authenticated cursor. Optional account_id selects one exact account in this environment before pagination. All filters are bound into the cursor.
    */
   async list(
     request: operations.ListReviewsRequest,
