@@ -41,11 +41,15 @@ export type AssessmentAggregate = {
   from: string;
   to: string;
   /**
-   * The period each count covers, in UTC; a week starts on Monday.
+   * The period each count covers: an hour, or a day or a week (from Monday) in time_zone. Hour buckets are whole UTC hours in any time zone.
    */
   bucket: Bucket;
   groupBy: Array<AggregateDimension>;
   metrics: Array<AssessmentAggregateMetric>;
+  /**
+   * The time zone whose local midnight started each day and week bucket, as requested; UTC when the request named none.
+   */
+  timeZone: string;
   /**
    * The calling workspace's configured retention period in days. Default 365 (12 months), which is also the maximum: a workspace may only shorten it, to at least 1 day. Each record expires from its own created_at; see assessment expires_at.
    */
@@ -79,6 +83,7 @@ export const AssessmentAggregate$inboundSchema: z.ZodMiniType<
     bucket: Bucket$inboundSchema,
     group_by: z.array(AggregateDimension$inboundSchema),
     metrics: z.array(AssessmentAggregateMetric$inboundSchema),
+    time_zone: types.string(),
     retention_days: z._default(types.number(), 365),
     groups_truncated: types.boolean(),
     coverage: types.optional(AssessmentAggregateCoverage$inboundSchema),
@@ -88,6 +93,7 @@ export const AssessmentAggregate$inboundSchema: z.ZodMiniType<
     return remap$(v, {
       "schema_version": "schemaVersion",
       "group_by": "groupBy",
+      "time_zone": "timeZone",
       "retention_days": "retentionDays",
       "groups_truncated": "groupsTruncated",
     });
