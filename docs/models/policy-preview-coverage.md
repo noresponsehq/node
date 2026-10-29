@@ -1,0 +1,29 @@
+# PolicyPreviewCoverage
+
+## Example Usage
+
+```typescript
+import { PolicyPreviewCoverage } from "@noresponse/node/models";
+
+let value: PolicyPreviewCoverage = {
+  scanned: 188411,
+  eligible: 706573,
+  missingScore: 696681,
+  unsupported: 58228,
+  truncated: true,
+  completeRetainedWindow: false,
+  historicalPopulationKnown: false,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                 | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scanned`                                                                                                                                             | *number*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| `eligible`                                                                                                                                            | *number*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| `missingScore`                                                                                                                                        | *number*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| `unsupported`                                                                                                                                         | *number*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| `truncated`                                                                                                                                           | *boolean*                                                                                                                                             | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| `completeRetainedWindow`                                                                                                                              | *boolean*                                                                                                                                             | :heavy_check_mark:                                                                                                                                    | N/A                                                                                                                                                   |
+| `historicalPopulationKnown`                                                                                                                           | *false*                                                                                                                                               | :heavy_check_mark:                                                                                                                                    | Deleted, expired and uncaptured records cannot be reconstructed. Counts describe retained evidence and provide no causal estimate of fraud prevented. |

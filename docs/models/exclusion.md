@@ -13,5 +13,5 @@ let value: Exclusion = "cross_customer_data";
 ## Values
 
 ```typescript
-"expired_or_erased_records" | "secrets_and_credential_digests" | "private_source_and_work_payloads" | "cross_customer_data" | "legacy_outcome_notes" | "uncaptured_historical_decisions" | Unrecognized<string>
+"expired_or_erased_records" | "secrets_and_credential_digests" | "private_source_and_work_payloads" | "cross_customer_data" | "legacy_outcome_notes" | "uncaptured_historical_decisions" | "investigator_reviews_require_review_export" | Unrecognized<string>
 ```

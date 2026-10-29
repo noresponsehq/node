@@ -13,6 +13,7 @@ let value: AccountDeletion = {
   deleted: true,
   assessmentsDeleted: 530006,
   deletedAt: "2026-10-23T09:00:00.000Z",
+  erasureId: "0123456789abcdef0123456789abcdef",
 };
 ```
 
@@ -25,3 +26,4 @@ let value: AccountDeletion = {
 | `deleted`                                                                                                | *true*                                                                                                   | :heavy_check_mark:                                                                                       | N/A                                                                                                      |                                                                                                          |
 | `assessmentsDeleted`                                                                                     | *number*                                                                                                 | :heavy_check_mark:                                                                                       | How many assessments this call deleted. 0 when the account had none left, so a repeat answers 0.         |                                                                                                          |
 | `deletedAt`                                                                                              | *string*                                                                                                 | :heavy_check_mark:                                                                                       | When the erasure took effect. An assessment of the account begun before this time is refused or stopped. | 2026-10-23T09:00:00.000Z                                                                                 |
+| `erasureId`                                                                                              | *string*                                                                                                 | :heavy_minus_sign:                                                                                       | Receipt for GET /v1/erasures/{erasure_id}, when durable storage issued one.                              | 0123456789abcdef0123456789abcdef                                                                         |

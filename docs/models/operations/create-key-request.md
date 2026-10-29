@@ -10,6 +10,10 @@ let value: CreateKeyRequest = {
   body: {
     environment: "test",
     scopes: [],
+    name: "Gateway production key",
+    purpose: "Serve account creation checks",
+    expiresAt: "2026-01-01T00:00:00Z",
+    requestId: "issue_gateway_key_1",
   },
 };
 ```

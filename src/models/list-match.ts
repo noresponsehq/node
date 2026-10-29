@@ -1,19 +1,20 @@
 import * as z from "zod/v4-mini";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The action of the list entry that decided the account.
+ * The list action captured at the first answer. Requires revision first. Older answers without captured list state do not match, including none.
  */
 export const ListMatch = {
-  Block: "block",
   Allow: "allow",
+  Block: "block",
+  None: "none",
 } as const;
 /**
- * The action of the list entry that decided the account.
+ * The list action captured at the first answer. Requires revision first. Older answers without captured list state do not match, including none.
  */
-export type ListMatch = OpenEnum<typeof ListMatch>;
+export type ListMatch = ClosedEnum<typeof ListMatch>;
 
 /** @internal */
-export const ListMatch$inboundSchema: z.ZodMiniType<ListMatch, unknown> =
-  openEnums.inboundSchema(ListMatch);
+export const ListMatch$outboundSchema: z.ZodMiniEnum<typeof ListMatch> = z.enum(
+  ListMatch,
+);

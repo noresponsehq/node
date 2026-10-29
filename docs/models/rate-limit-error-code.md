@@ -7,7 +7,7 @@ Machine codes an HTTP 429 answer can carry.
 ```typescript
 import { RateLimitErrorCode } from "@noresponse/node/models";
 
-let value: RateLimitErrorCode = "rate_limited";
+let value: RateLimitErrorCode = "export_limit_reached";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: RateLimitErrorCode = "rate_limited";
 ## Values
 
 ```typescript
-"rate_limited" | Unrecognized<string>
+"rate_limited" | "assessment_budget_exhausted" | "export_limit_reached" | Unrecognized<string>
 ```

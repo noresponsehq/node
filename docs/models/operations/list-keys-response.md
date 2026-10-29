@@ -30,7 +30,7 @@ let value: ListKeysResponse = {
         environment: "test",
         prefix: "nrk_live_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
         scopes: [
-          "management",
+          "members",
         ],
         status: "expired",
         createdAt: "2026-10-23T09:14:12.000Z",
@@ -40,6 +40,11 @@ let value: ListKeysResponse = {
         revokedBy: "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         key:
           "nrk_live_01JA2ZE4K5M6N7P8Q9R0S1T2V3_N0tARealSecretJustTheShapeOfOneAAAAAAAAAAAA",
+        name: "Gateway production key",
+        purpose: "Serve account creation checks",
+        ownerUserId: "usr_customer_admin",
+        rotatedTo: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        lastUsedAt: "2026-10-23T09:30:00.000Z",
       },
     ],
   },

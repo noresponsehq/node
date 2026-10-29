@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Read an environment's settings.
  *
  * @remarks
- * Reads the settings of the signing key's environment: retention in days; per flow (account_creation, login, purchase) the step_up, review and block thresholds, the default depth and the admission; and the sources the environment refuses. A flow without thresholds of its own shows account_creation's with inherits_account_creation true. Requires the management scope; the other environment answers 404 not_found. Read-only and safe to retry.
+ * Read this environment retention, source selection and effective flow policies. A flow without its own thresholds inherits account_creation. Requires settings or management. Another environment answers404. Read-only and safe to retry.
  */
 export function settingsGet(
   client: NoResponseCore,

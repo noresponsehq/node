@@ -1,0 +1,32 @@
+# Outcomes
+
+Accounts whose current completed assessment was created in the selected window and remains retained at as_of. The effective account feedback head is observed at as_of, including explicit unknown reports. Customer-reported labels and unlabelled accounts have separate counts. Superseded labels are excluded.
+
+## Example Usage
+
+```typescript
+import { Outcomes } from "@noresponse/node/models";
+
+let value: Outcomes = {
+  population: "retained_current_accounts_by_current_assessment_created_at",
+  denominator: 649587,
+  reported: 16460,
+  unreported: 71188,
+  labelCoverage: {
+    numerator: 508522,
+    denominator: 469340,
+  },
+  byOutcome: {},
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                          | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `population`                                                                                                                                                                   | *"retained_current_accounts_by_current_assessment_created_at"*                                                                                                                 | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `denominator`                                                                                                                                                                  | *number*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `reported`                                                                                                                                                                     | *number*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `unreported`                                                                                                                                                                   | *number*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `labelCoverage`                                                                                                                                                                | [models.Coverage](../models/coverage.md)                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | Counts only; a zero denominator means no eligible retained records and does not imply a zero rate.                                                                             |
+| `byOutcome`                                                                                                                                                                    | [models.OutcomesByOutcome](../models/outcomes-by-outcome.md)                                                                                                                   | :heavy_check_mark:                                                                                                                                                             | Current customer-reported labels, not independently established ground truth. Missing keys mean zero. Unknown is an explicit report; absent or expired feedback is unreported. |

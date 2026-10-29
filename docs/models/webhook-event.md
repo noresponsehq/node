@@ -269,3 +269,34 @@ const value: models.AccountRiskChangedEvent = {
 };
 ```
 
+### `models.AuditEventEvent`
+
+```typescript
+const value: models.AuditEventEvent = {
+  id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
+  createdAt: "2026-10-14T09:00:02.000Z",
+  type: "audit.event",
+  data: {
+    id: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    environment: "live",
+    action: "member.role_changed",
+    outcome: "succeeded",
+    actor: {
+      type: "api_key",
+      keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    },
+    target: {
+      type: "invite",
+      id: "mem_01JA2ZB4C5D6E7F8G9H0JKMNPQ",
+    },
+    detail: {
+      "key": "test",
+      "key1": "test",
+    },
+    createdAt: "2026-10-23T09:10:00.000Z",
+    requestId: "0123456789abcdef0123456789abcdef",
+  },
+};
+```
+

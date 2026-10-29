@@ -5,12 +5,21 @@ import { unwrapAsync } from "../types/fp.js";
 import { WebhookSecrets } from "../webhooks.js";
 import { Accounts } from "./accounts.js";
 import { Assessments } from "./assessments.js";
+import { Audit } from "./audit.js";
+import { Erasures } from "./erasures.js";
+import { Evaluations } from "./evaluations.js";
+import { Exports } from "./exports.js";
 import { Integrations } from "./integrations.js";
+import { Invites } from "./invites.js";
 import { KeyUsage } from "./key-usage.js";
 import { Keys } from "./keys.js";
 import { Lists } from "./lists.js";
+import { Members } from "./members.js";
+import { Operations } from "./operations.js";
 import { Requests } from "./requests.js";
+import { Reviews } from "./reviews.js";
 import { Settings } from "./settings.js";
+import { Usage } from "./usage.js";
 import { WebhookEndpoints } from "./webhook-endpoints.js";
 
 export class NoResponse extends ClientSDK {
@@ -44,6 +53,26 @@ export class NoResponse extends ClientSDK {
     return (this._webhookEndpoints ??= new WebhookEndpoints(this._options));
   }
 
+  private _members?: Members;
+  get members(): Members {
+    return (this._members ??= new Members(this._options));
+  }
+
+  private _audit?: Audit;
+  get audit(): Audit {
+    return (this._audit ??= new Audit(this._options));
+  }
+
+  private _usage?: Usage;
+  get usage(): Usage {
+    return (this._usage ??= new Usage(this._options));
+  }
+
+  private _invites?: Invites;
+  get invites(): Invites {
+    return (this._invites ??= new Invites(this._options));
+  }
+
   private _settings?: Settings;
   get settings(): Settings {
     return (this._settings ??= new Settings(this._options));
@@ -57,6 +86,31 @@ export class NoResponse extends ClientSDK {
   private _lists?: Lists;
   get lists(): Lists {
     return (this._lists ??= new Lists(this._options));
+  }
+
+  private _reviews?: Reviews;
+  get reviews(): Reviews {
+    return (this._reviews ??= new Reviews(this._options));
+  }
+
+  private _erasures?: Erasures;
+  get erasures(): Erasures {
+    return (this._erasures ??= new Erasures(this._options));
+  }
+
+  private _exports?: Exports;
+  get exports(): Exports {
+    return (this._exports ??= new Exports(this._options));
+  }
+
+  private _evaluations?: Evaluations;
+  get evaluations(): Evaluations {
+    return (this._evaluations ??= new Evaluations(this._options));
+  }
+
+  private _operations?: Operations;
+  get operations(): Operations {
+    return (this._operations ??= new Operations(this._options));
   }
 
   async validateWebhook({

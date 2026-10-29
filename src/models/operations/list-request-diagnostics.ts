@@ -34,6 +34,10 @@ export type ListRequestDiagnosticsRequest = {
    * Optional filter or paging parameter.
    */
   cursor?: string | undefined;
+  /**
+   * Filter by the public authenticated API key identifier; older unattributed rows do not match.
+   */
+  apiKeyId?: string | undefined;
 };
 
 export type ListRequestDiagnosticsResponse = {
@@ -50,6 +54,7 @@ export type ListRequestDiagnosticsRequest$Outbound = {
   status?: number | undefined;
   limit: number;
   cursor?: string | undefined;
+  api_key_id?: string | undefined;
 };
 
 /** @internal */
@@ -65,10 +70,12 @@ export const ListRequestDiagnosticsRequest$outboundSchema: z.ZodMiniType<
     status: z.optional(z.int()),
     limit: z._default(z.int(), 50),
     cursor: z.optional(z.string()),
+    apiKeyId: z.optional(z.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
       requestId: "request_id",
+      apiKeyId: "api_key_id",
     });
   }),
 );

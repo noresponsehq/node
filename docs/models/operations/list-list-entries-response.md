@@ -24,8 +24,11 @@ let value: ListListEntriesResponse = {
         note: "Signup burst from one domain",
         createdAt: "2026-10-23T09:14:12.000Z",
         createdBy: "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        expiresAt: "2026-01-01T00:00:00Z",
       },
     ],
+    nextCursor:
+      "eyJ0IjoxNzY3MjI1NjAwMDAwMDAwLCJpIjoiYXNtX2V4YW1wbGUiLCJlIjoxNzY3MjI5MjAwfQ",
   },
 };
 ```

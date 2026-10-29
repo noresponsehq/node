@@ -54,6 +54,10 @@ export type ListEntry = {
    * The external user id of the member who added the entry through the console, or the prefix (nrk_<environment>_<key id>) of the management key that added it.
    */
   createdBy: string;
+  /**
+   * Optional expiry. An expired entry stops matching immediately; bounded maintenance removes it and propagates account risk changes.
+   */
+  expiresAt?: string | undefined;
 };
 
 /** @internal */
@@ -69,12 +73,14 @@ export const ListEntry$inboundSchema: z.ZodMiniType<ListEntry, unknown> = z
       note: types.optional(types.string()),
       created_at: types.string(),
       created_by: types.string(),
+      expires_at: types.optional(types.string()),
     }),
     z.transform((v) => {
       return remap$(v, {
         "workspace_id": "workspaceId",
         "created_at": "createdAt",
         "created_by": "createdBy",
+        "expires_at": "expiresAt",
       });
     }),
   );

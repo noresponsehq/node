@@ -1,6 +1,6 @@
 # ListEntryList
 
-GET /v1/workspaces/{workspace_id}/lists/{environment}: every entry of the environment's list, newest first. An environment holds at most 10,000 entries.
+Newest first. Without a query, returns every active entry for compatibility. With limit or cursor, returns up to 100 entries and an authenticated workspace/environment-bound cursor. Expired entries are omitted.
 
 ## Example Usage
 
@@ -19,13 +19,17 @@ let value: ListEntryList = {
       note: "Signup burst from one domain",
       createdAt: "2026-10-23T09:14:12.000Z",
       createdBy: "nrk_live_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      expiresAt: "2026-01-01T00:00:00Z",
     },
   ],
+  nextCursor:
+    "eyJ0IjoxNzY3MjI1NjAwMDAwMDAwLCJpIjoiYXNtX2V4YW1wbGUiLCJlIjoxNzY3MjI5MjAwfQ",
 };
 ```
 
 ## Fields
 
-| Field                                         | Type                                          | Required                                      | Description                                   |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| `items`                                       | [models.ListEntry](../models/list-entry.md)[] | :heavy_check_mark:                            | N/A                                           |
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                | Example                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `items`                                                                    | [models.ListEntry](../models/list-entry.md)[]                              | :heavy_check_mark:                                                         | N/A                                                                        |                                                                            |
+| `nextCursor`                                                               | *string*                                                                   | :heavy_minus_sign:                                                         | N/A                                                                        | eyJ0IjoxNzY3MjI1NjAwMDAwMDAwLCJpIjoiYXNtX2V4YW1wbGUiLCJlIjoxNzY3MjI5MjAwfQ |

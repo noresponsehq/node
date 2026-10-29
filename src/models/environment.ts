@@ -1,21 +1,17 @@
 import * as z from "zod/v4-mini";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
-/**
- * The environment whose endpoints receive this event: live, or test for the workspace's test environment.
- */
 export const Environment = {
   Live: "live",
   Test: "test",
+  Workspace: "workspace",
 } as const;
-/**
- * The environment whose endpoints receive this event: live, or test for the workspace's test environment.
- */
-export type Environment = ClosedEnum<typeof Environment>;
+export type Environment = OpenEnum<typeof Environment>;
 
 /** @internal */
-export const Environment$inboundSchema: z.ZodMiniEnum<typeof Environment> = z
-  .enum(Environment);
+export const Environment$inboundSchema: z.ZodMiniType<Environment, unknown> =
+  openEnums.inboundSchema(Environment);
 /** @internal */
-export const Environment$outboundSchema: z.ZodMiniEnum<typeof Environment> =
-  Environment$inboundSchema;
+export const Environment$outboundSchema: z.ZodMiniType<string, Environment> =
+  openEnums.outboundSchema(Environment);

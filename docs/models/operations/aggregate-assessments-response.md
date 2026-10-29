@@ -19,17 +19,18 @@ let value: AggregateAssessmentsResponse = {
       "count",
     ],
     groupsTruncated: true,
-    buckets: [
-      {
-        start: "2026-10-19T00:00:00.000Z",
-        groups: [
-          {
-            country: "GB",
-            count: 956627,
-          },
-        ],
-      },
-    ],
+    coverage: {
+      asOf: "2026-01-01T00:00:00Z",
+      firstAnswersStartedAt: "2026-01-01T00:00:00Z",
+      scoreOutcomesStartedAt: "2026-01-01T00:00:00Z",
+      retainedFrom: "2026-01-01T00:00:00Z",
+      population: "retained_first_answers",
+      erasedRecordsIncluded: false,
+      overlappingGroups: true,
+      lateFlipUnit: "decision_transitions",
+      historicalBackfill: false,
+    },
+    buckets: [],
   },
 };
 ```

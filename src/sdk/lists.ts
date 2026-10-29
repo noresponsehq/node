@@ -1,22 +1,28 @@
+import { listsChange } from "../funcs/lists-change.js";
 import { listsCreate } from "../funcs/lists-create.js";
 import { listsDelete } from "../funcs/lists-delete.js";
+import { listsGetChange } from "../funcs/lists-get-change.js";
 import { listsList } from "../funcs/lists-list.js";
+import { listsPreview } from "../funcs/lists-preview.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Lists extends ClientSDK {
   /**
    * List an environment's list entries.
    *
    * @remarks
-   * Lists every entry of the signing key's environment's list, newest first: each an email or an email domain that decides the accounts it matches, block or allow, whatever their score. Requires the management scope; the other environment answers 404 not_found. Read-only and safe to retry.
+   * Page through this environment allow and block entries, with canonical values, reasons and optional expiry. Requires settings or management. Follow the returned cursor until exhausted; a page is not the complete list. The cursor is bound to the environment and current filters.
    */
   async list(
     request: operations.ListListEntriesRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListListEntriesResponse> {
-    return unwrapAsync(listsList(
+  ): Promise<
+    PageIterator<operations.ListListEntriesResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(listsList(
       this,
       request,
       options,
@@ -27,7 +33,7 @@ export class Lists extends ClientSDK {
    * Add an entry to an environment's list.
    *
    * @remarks
-   * Adds an exact email (kind email) or an email domain (kind email_domain) to the signing key's environment's list with the action block or allow, and answers the entry with its value in canonical form. An account matches when one of its assessments sent the email, or an email of the domain: a block entry decides block for every flow and an allow entry allow, block winning when both match, and the account's risk carries list_match with the entry's id while its score is unchanged. Every matching account is re-decided at once and sends account.risk_changed when its decision changes. A value already on the list answers 409 list_entry_exists, a full list 409 list_limit_reached, and an entry matching more than 5,000 accounts 409 list_entry_too_broad. Requires the management scope; the other environment answers 404 not_found.
+   * Add a canonical email or email-domain override with a reason and optional expiry. Requires settings plus policy_publish, or legacy management. Block wins over allow when both match. A small single-entry change retains the documented synchronous match budget; use lists.change for larger changes, whose account propagation is durable and resumable.
    */
   async create(
     request: operations.CreateListEntryRequest,
@@ -44,13 +50,64 @@ export class Lists extends ClientSDK {
    * Remove an entry from an environment's list.
    *
    * @remarks
-   * Removes an entry from the signing key's environment's list and re-decides the accounts it matched, the 5,000 most recently assessed at most, each sending account.risk_changed when its decision changes. An unknown or already removed entry answers 404 not_found. Requires the management scope.
+   * Remove an override with settings plus policy_publish, or legacy management. The removal takes effect for new decisions and schedules resumable propagation across matching retained accounts. An unknown or already removed entry answers404. Account risk events announce changed decisions as propagation runs.
    */
   async delete(
     request: operations.DeleteListEntryRequest,
     options?: RequestOptions,
   ): Promise<operations.DeleteListEntryResponse | undefined> {
     return unwrapAsync(listsDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Preview a list override change without side effects.
+   *
+   * @remarks
+   * Preview canonical list matches and current override effects with settings or management. The result states its bounded coverage and changes no list entries.
+   */
+  async preview(
+    request: operations.PreviewListRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PreviewListResponse> {
+    return unwrapAsync(listsPreview(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Apply an idempotent atomic bulk list change.
+   *
+   * @remarks
+   * Atomically add and remove a bounded batch of entries with an idempotency key. Requires settings plus policy_publish, or legacy management. The receipt exposes durable account propagation beyond the synchronous single-entry budget; poll lists.getChange until completion.
+   */
+  async change(
+    request: operations.ChangeListsRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ChangeListsResponse> {
+    return unwrapAsync(listsChange(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Read a bulk list change and propagation progress.
+   *
+   * @remarks
+   * Read retained propagation progress for a list change with settings or management.
+   */
+  async getChange(
+    request: operations.GetListChangeRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetListChangeResponse> {
+    return unwrapAsync(listsGetChange(
       this,
       request,
       options,

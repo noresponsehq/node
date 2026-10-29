@@ -13,6 +13,7 @@ let value: CreateListEntryRequest = {
     value: "throwaway.example",
     action: "allow",
     note: "Signup burst from one domain",
+    expiresAt: "2026-01-01T00:00:00Z",
   },
 };
 ```

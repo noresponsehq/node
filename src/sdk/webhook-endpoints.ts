@@ -1,3 +1,4 @@
+import { webhookEndpointsAggregate } from "../funcs/webhook-endpoints-aggregate.js";
 import { webhookEndpointsCreate } from "../funcs/webhook-endpoints-create.js";
 import { webhookEndpointsDelete } from "../funcs/webhook-endpoints-delete.js";
 import { webhookEndpointsListDeliveries } from "../funcs/webhook-endpoints-list-deliveries.js";
@@ -125,6 +126,23 @@ export class WebhookEndpoints extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ReplayWebhookDeliveryResponse> {
     return unwrapAsync(webhookEndpointsReplayDelivery(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Summarise retained webhook attempts and delivery queue
+   *
+   * @remarks
+   * Count retained webhook delivery attempts within thirty days and report current retained queue state.
+   */
+  async aggregate(
+    request: models.WebhookAggregateRequest,
+    options?: RequestOptions,
+  ): Promise<operations.AggregateWebhooksResponse> {
+    return unwrapAsync(webhookEndpointsAggregate(
       this,
       request,
       options,

@@ -7,7 +7,7 @@ Machine codes an HTTP 409 answer can carry.
 ```typescript
 import { ConflictErrorCode } from "@noresponse/node/models";
 
-let value: ConflictErrorCode = "too_many_integrations";
+let value: ConflictErrorCode = "outcome_conflict";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: ConflictErrorCode = "too_many_integrations";
 ## Values
 
 ```typescript
-"idempotency_key_reused" | "key_rotation_in_progress" | "webhook_endpoint_limit_reached" | "webhook_endpoint_unverified" | "too_many_integrations" | "risk_version_ahead" | "key_limit_reached" | "self_revocation" | "outcome_conflict" | "credential_conflict" | "binding_conflict" | "list_entry_exists" | "list_limit_reached" | "list_entry_too_broad" | Unrecognized<string>
+"idempotency_key_reused" | "key_rotation_in_progress" | "webhook_endpoint_limit_reached" | "webhook_endpoint_unverified" | "too_many_integrations" | "risk_version_ahead" | "key_limit_reached" | "self_revocation" | "outcome_conflict" | "credential_conflict" | "binding_conflict" | "list_entry_exists" | "list_limit_reached" | "list_entry_too_broad" | "policy_version_conflict" | "review_version_conflict" | "review_exists" | "review_limit_reached" | "export_conflict" | "evaluation_conflict" | "evaluation_no_proposal" | "evaluation_limit_reached" | "already_member" | "member_limit_reached" | Unrecognized<string>
 ```

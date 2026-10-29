@@ -27,6 +27,10 @@ export type AssessmentDeletion = {
    * When the deletion took effect.
    */
   deletedAt: string;
+  /**
+   * Receipt for GET /v1/erasures/{erasure_id}, when durable storage issued one.
+   */
+  erasureId?: string | undefined;
 };
 
 /** @internal */
@@ -40,11 +44,13 @@ export const AssessmentDeletion$inboundSchema: z.ZodMiniType<
     deleted: types.literal(true),
     account: AssessmentDeletionAccount$inboundSchema,
     deleted_at: types.string(),
+    erasure_id: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
       "schema_version": "schemaVersion",
       "deleted_at": "deletedAt",
+      "erasure_id": "erasureId",
     });
   }),
 );

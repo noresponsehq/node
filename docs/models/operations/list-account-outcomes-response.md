@@ -34,6 +34,9 @@ let value: ListAccountOutcomesResponse = {
         actor: {
           type: "api_key",
           keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          externalUserId: "usr_customer_admin",
+          consoleCredentialId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          principalId: "mem_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         },
         riskVersionBefore: 422694,
         riskVersion: 834394,

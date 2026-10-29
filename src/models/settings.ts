@@ -31,7 +31,7 @@ export type Settings = {
    */
   retentionDays: number;
   /**
-   * How many times this environment's policy has changed; 0 while the defaults apply. A served risk.policy_version ends in +t<policy_version> once it is above 0.
+   * The monotonic settings configuration epoch, including retention changes. Zero while defaults apply. Historical assessments keep their frozen policy version; the active version reaches new assessments within a minute.
    */
   policyVersion: number;
   /**

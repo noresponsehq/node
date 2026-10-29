@@ -5,6 +5,8 @@ import { accountsGet } from "../funcs/accounts-get.js";
 import { accountsListAssessments } from "../funcs/accounts-list-assessments.js";
 import { accountsListChanged } from "../funcs/accounts-list-changed.js";
 import { accountsListCredentials } from "../funcs/accounts-list-credentials.js";
+import { accountsListDecisions } from "../funcs/accounts-list-decisions.js";
+import { accountsListEnforcements } from "../funcs/accounts-list-enforcements.js";
 import { accountsListOutcomes } from "../funcs/accounts-list-outcomes.js";
 import { accountsRecordEnforcement } from "../funcs/accounts-record-enforcement.js";
 import { accountsRecordOutcome } from "../funcs/accounts-record-outcome.js";
@@ -104,6 +106,25 @@ export class Accounts extends ClientSDK {
   }
 
   /**
+   * Page through account enforcements
+   *
+   * @remarks
+   * List retained enforcement reports for one account with an authenticated cursor.
+   */
+  async listEnforcements(
+    request: operations.ListAccountEnforcementsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.ListAccountEnforcementsResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(accountsListEnforcements(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Record or correct an account outcome
    *
    * @remarks
@@ -129,8 +150,10 @@ export class Accounts extends ClientSDK {
   async listOutcomes(
     request: operations.ListAccountOutcomesRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListAccountOutcomesResponse> {
-    return unwrapAsync(accountsListOutcomes(
+  ): Promise<
+    PageIterator<operations.ListAccountOutcomesResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(accountsListOutcomes(
       this,
       request,
       options,
@@ -180,8 +203,10 @@ export class Accounts extends ClientSDK {
   async listCredentials(
     request: operations.ListAccountCredentialsRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListAccountCredentialsResponse> {
-    return unwrapAsync(accountsListCredentials(
+  ): Promise<
+    PageIterator<operations.ListAccountCredentialsResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(accountsListCredentials(
       this,
       request,
       options,
@@ -216,6 +241,25 @@ export class Accounts extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ExportAccountResponse> {
     return unwrapAsync(accountsExport(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Page through recorded account decisions
+   *
+   * @remarks
+   * List retained immutable risk decisions for one account with an authenticated cursor.
+   */
+  async listDecisions(
+    request: operations.ListAccountDecisionsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.ListAccountDecisionsResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(accountsListDecisions(
       this,
       request,
       options,

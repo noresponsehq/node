@@ -3,13 +3,16 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import {
+  AggregateGroupListMatch,
+  AggregateGroupListMatch$inboundSchema,
+} from "./aggregate-group-list-match.js";
 import { Band, Band$inboundSchema } from "./band.js";
 import { Decision, Decision$inboundSchema } from "./decision.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Flow, Flow$inboundSchema } from "./flow.js";
 import { Impact, Impact$inboundSchema } from "./impact.js";
 import { Lane, Lane$inboundSchema } from "./lane.js";
-import { ListMatch, ListMatch$inboundSchema } from "./list-match.js";
 import { ReasonCode, ReasonCode$inboundSchema } from "./reason-code.js";
 import {
   Recommendation,
@@ -32,18 +35,18 @@ export type AggregateGroup = {
    * The recommended action: allow, step_up or review. Your application applies it.
    */
   recommendation?: Recommendation | undefined;
-  /**
-   * low 0-29, medium 30-59, high 60-84, critical 85-100.
-   */
   band?: Band | undefined;
   /**
-   * The action of the list entry that decided the account.
+   * The list action captured with the first answer. none means no matching entry was found. For retained_first_answers an absent field means the older assessment did not capture list state; this remains a separate group.
    */
-  listMatch?: ListMatch | undefined;
+  listMatch?: AggregateGroupListMatch | undefined;
   /**
    * A stable reason code. New codes may appear; ignore any you do not know.
    */
   reason?: ReasonCode | undefined;
+  /**
+   * The selected reason's served impact band. Requires reason.
+   */
   impact?: Impact | undefined;
   /**
    * An evidence lane: accounts (account presence for email and username), phone, breach, domain (the email domain's registration) and ip.
@@ -64,7 +67,7 @@ export const AggregateGroup$inboundSchema: z.ZodMiniType<
     flow: types.optional(Flow$inboundSchema),
     recommendation: types.optional(Recommendation$inboundSchema),
     band: types.optional(Band$inboundSchema),
-    list_match: types.optional(ListMatch$inboundSchema),
+    list_match: types.optional(AggregateGroupListMatch$inboundSchema),
     reason: types.optional(ReasonCode$inboundSchema),
     impact: types.optional(Impact$inboundSchema),
     lane: types.optional(Lane$inboundSchema),

@@ -7,12 +7,10 @@ import { RecordAccountOutcomeResponse } from "@noresponse/node/models/operations
 
 let value: RecordAccountOutcomeResponse = {
   headers: {
-    "key": [
+    "key": [],
+    "key1": [
       "example 1",
-      "example 2",
-      "example 3",
     ],
-    "key1": [],
     "key2": [
       "example 1",
     ],
@@ -29,9 +27,12 @@ let value: RecordAccountOutcomeResponse = {
     actor: {
       type: "api_key",
       keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      externalUserId: "usr_customer_admin",
+      consoleCredentialId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      principalId: "mem_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     },
-    riskVersionBefore: 29024,
-    riskVersion: 843280,
+    riskVersionBefore: 843280,
+    riskVersion: 928105,
     effectiveOutcomeId: "out_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   },
 };

@@ -1,4 +1,5 @@
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../lib/primitives.js";
 import {
   ListEntryAction,
   ListEntryAction$outboundSchema,
@@ -28,6 +29,10 @@ export type ListEntryRequest = {
    * Why the entry exists, for the people who manage the list. It is shown with the entry and decides nothing.
    */
   note?: string | undefined;
+  /**
+   * Optional expiry. An expired entry stops matching immediately; bounded maintenance removes it and propagates account risk changes.
+   */
+  expiresAt?: string | undefined;
 };
 
 /** @internal */
@@ -36,18 +41,27 @@ export type ListEntryRequest$Outbound = {
   value: string;
   action: string;
   note?: string | undefined;
+  expires_at?: string | undefined;
 };
 
 /** @internal */
 export const ListEntryRequest$outboundSchema: z.ZodMiniType<
   ListEntryRequest$Outbound,
   ListEntryRequest
-> = z.object({
-  kind: ListEntryKind$outboundSchema,
-  value: z.string(),
-  action: ListEntryAction$outboundSchema,
-  note: z.optional(z.string()),
-});
+> = z.pipe(
+  z.object({
+    kind: ListEntryKind$outboundSchema,
+    value: z.string(),
+    action: ListEntryAction$outboundSchema,
+    note: z.optional(z.string()),
+    expiresAt: z.optional(z.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      expiresAt: "expires_at",
+    });
+  }),
+);
 
 export function listEntryRequestToJSON(
   listEntryRequest: ListEntryRequest,

@@ -13,6 +13,10 @@ import {
   AggregateDimension,
   AggregateDimension$inboundSchema,
 } from "./aggregate-dimension.js";
+import {
+  AssessmentAggregateCoverage,
+  AssessmentAggregateCoverage$inboundSchema,
+} from "./assessment-aggregate-coverage.js";
 import { Bucket, Bucket$inboundSchema } from "./bucket.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
@@ -50,6 +54,10 @@ export type AssessmentAggregate = {
    * true when more groups had counts than limit allowed.
    */
   groupsTruncated: boolean;
+  /**
+   * Captured in the same database snapshot as the counts. Capture start times describe when counting began, not the earliest creation time counted: an older assessment may first answer later. Older outcomes are not inferred to be absent. Erased detail cannot be returned by drill-down even while its anonymous count remains.
+   */
+  coverage?: AssessmentAggregateCoverage | undefined;
   buckets: Array<AggregateBucket>;
 };
 
@@ -73,6 +81,7 @@ export const AssessmentAggregate$inboundSchema: z.ZodMiniType<
     metrics: z.array(AssessmentAggregateMetric$inboundSchema),
     retention_days: z._default(types.number(), 365),
     groups_truncated: types.boolean(),
+    coverage: types.optional(AssessmentAggregateCoverage$inboundSchema),
     buckets: z.array(AggregateBucket$inboundSchema),
   }),
   z.transform((v) => {

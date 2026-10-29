@@ -45,9 +45,6 @@ import {
  */
 export type Risk = {
   score: number;
-  /**
-   * low 0-29, medium 30-59, high 60-84, critical 85-100.
-   */
   band: Band;
   /**
    * The recommended action: allow, step_up or review. Your application applies it.

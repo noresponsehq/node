@@ -13,6 +13,7 @@ let value: DeleteAccountResponse = {
     deleted: true,
     assessmentsDeleted: 487272,
     deletedAt: "2026-10-23T09:00:00.000Z",
+    erasureId: "0123456789abcdef0123456789abcdef",
   },
 };
 ```

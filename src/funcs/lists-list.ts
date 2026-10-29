@@ -1,6 +1,6 @@
 import * as z from "zod/v4-mini";
 import { NoResponseCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -22,49 +22,25 @@ import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
+import {
+  createPageIterator,
+  haltIterator,
+  PageIterator,
+  Paginator,
+} from "../types/operations.js";
 
 /**
  * List an environment's list entries.
  *
  * @remarks
- * Lists every entry of the signing key's environment's list, newest first: each an email or an email domain that decides the accounts it matches, block or allow, whatever their score. Requires the management scope; the other environment answers 404 not_found. Read-only and safe to retry.
+ * Page through this environment allow and block entries, with canonical values, reasons and optional expiry. Requires settings or management. Follow the returned cursor until exhausted; a page is not the complete list. The cursor is bound to the environment and current filters.
  */
 export function listsList(
   client: NoResponseCore,
   request: operations.ListListEntriesRequest,
   options?: RequestOptions,
 ): APIPromise<
-  Result<
-    operations.ListListEntriesResponse,
-    | errors.BadRequestError
-    | errors.AuthenticationError
-    | errors.PermissionDeniedError
-    | errors.NotFoundError
-    | errors.ConflictError
-    | errors.RateLimitError
-    | NoResponseError
-    | ResponseValidationError
-    | ConnectionError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | InvalidRequestError
-    | UnexpectedClientError
-    | SDKValidationError
-  >
-> {
-  return new APIPromise($do(
-    client,
-    request,
-    options,
-  ));
-}
-
-async function $do(
-  client: NoResponseCore,
-  request: operations.ListListEntriesRequest,
-  options?: RequestOptions,
-): Promise<
-  [
+  PageIterator<
     Result<
       operations.ListListEntriesResponse,
       | errors.BadRequestError
@@ -82,6 +58,42 @@ async function $do(
       | UnexpectedClientError
       | SDKValidationError
     >,
+    { cursor: string }
+  >
+> {
+  return new APIPromise($do(
+    client,
+    request,
+    options,
+  ));
+}
+
+async function $do(
+  client: NoResponseCore,
+  request: operations.ListListEntriesRequest,
+  options?: RequestOptions,
+): Promise<
+  [
+    PageIterator<
+      Result<
+        operations.ListListEntriesResponse,
+        | errors.BadRequestError
+        | errors.AuthenticationError
+        | errors.PermissionDeniedError
+        | errors.NotFoundError
+        | errors.ConflictError
+        | errors.RateLimitError
+        | NoResponseError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >,
+      { cursor: string }
+    >,
     APICall,
   ]
 > {
@@ -91,7 +103,7 @@ async function $do(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
+    return [haltIterator(parsed), { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = null;
@@ -109,6 +121,11 @@ async function $do(
   const path = pathToFunc("/v1/workspaces/{workspace_id}/lists/{environment}")(
     pathParams,
   );
+
+  const query = encodeFormQuery({
+    "cursor": payload.cursor,
+    "limit": payload.limit,
+  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -149,12 +166,13 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return [requestRes, { status: "invalid" }];
+    return [haltIterator(requestRes), { status: "invalid" }];
   }
   const req = requestRes.value;
 
@@ -166,7 +184,7 @@ async function $do(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return [doResult, { status: "request-error", request: req }];
+    return [haltIterator(doResult), { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -174,7 +192,7 @@ async function $do(
     HttpMeta: { Response: response, Request: req },
   };
 
-  const [result] = await M.match<
+  const [result, raw] = await M.match<
     operations.ListListEntriesResponse,
     | errors.BadRequestError
     | errors.AuthenticationError
@@ -223,8 +241,62 @@ async function $do(
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return [result, { status: "complete", request: req, response }];
+    return [haltIterator(result), {
+      status: "complete",
+      request: req,
+      response,
+    }];
   }
 
-  return [result, { status: "complete", request: req, response }];
+  const nextFunc = (
+    responseData: unknown,
+  ): {
+    next: Paginator<
+      Result<
+        operations.ListListEntriesResponse,
+        | errors.BadRequestError
+        | errors.AuthenticationError
+        | errors.PermissionDeniedError
+        | errors.NotFoundError
+        | errors.ConflictError
+        | errors.RateLimitError
+        | NoResponseError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >
+    >;
+    "~next"?: { cursor: string };
+  } => {
+    const nextCursor = (responseData as { next_cursor?: unknown }).next_cursor;
+    if (typeof nextCursor !== "string") {
+      return { next: () => null };
+    }
+    if (nextCursor.trim() === "") {
+      return { next: () => null };
+    }
+
+    const nextVal = () =>
+      listsList(
+        client,
+        {
+          ...request,
+          cursor: nextCursor,
+        },
+        options,
+      );
+
+    return { next: nextVal, "~next": { cursor: nextCursor } };
+  };
+
+  const page = { ...result, ...nextFunc(raw) };
+  return [{ ...page, ...createPageIterator(page, (v) => !v.ok) }, {
+    status: "complete",
+    request: req,
+    response,
+  }];
 }

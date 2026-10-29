@@ -34,6 +34,9 @@ export type RiskReason = {
    */
   code: ReasonCode;
   direction: Direction;
+  /**
+   * The selected reason's served impact band. Requires reason.
+   */
   impact: Impact;
   /**
    * The submitted identifier or client context field a reason concerns; absent when it concerns the whole assessment. Client context is a claimed hint, not a device fingerprint.

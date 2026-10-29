@@ -20,6 +20,12 @@ import {
   AssessmentUpdatedEvent$outboundSchema,
 } from "./assessment-updated-event.js";
 import {
+  AuditEventEvent,
+  AuditEventEvent$inboundSchema,
+  AuditEventEvent$Outbound,
+  AuditEventEvent$outboundSchema,
+} from "./audit-event-event.js";
+import {
   EndpointVerificationEvent,
   EndpointVerificationEvent$inboundSchema,
   EndpointVerificationEvent$Outbound,
@@ -48,7 +54,8 @@ export type WebhookEvent =
   | AccountDeletedEvent
   | WorkspaceDeletedEvent
   | WebhookEndpointDisabledEvent
-  | AccountRiskChangedEvent;
+  | AccountRiskChangedEvent
+  | AuditEventEvent;
 
 /** @internal */
 export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
@@ -59,6 +66,7 @@ export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
     WorkspaceDeletedEvent$inboundSchema,
     WebhookEndpointDisabledEvent$inboundSchema,
     AccountRiskChangedEvent$inboundSchema,
+    AuditEventEvent$inboundSchema,
   ]);
 /** @internal */
 export type WebhookEvent$Outbound =
@@ -67,7 +75,8 @@ export type WebhookEvent$Outbound =
   | AccountDeletedEvent$Outbound
   | WorkspaceDeletedEvent$Outbound
   | WebhookEndpointDisabledEvent$Outbound
-  | AccountRiskChangedEvent$Outbound;
+  | AccountRiskChangedEvent$Outbound
+  | AuditEventEvent$Outbound;
 
 /** @internal */
 export const WebhookEvent$outboundSchema: z.ZodMiniType<
@@ -80,6 +89,7 @@ export const WebhookEvent$outboundSchema: z.ZodMiniType<
   WorkspaceDeletedEvent$outboundSchema,
   WebhookEndpointDisabledEvent$outboundSchema,
   AccountRiskChangedEvent$outboundSchema,
+  AuditEventEvent$outboundSchema,
 ]);
 
 export function webhookEventToJSON(webhookEvent: WebhookEvent): string {

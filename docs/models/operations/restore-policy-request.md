@@ -1,0 +1,25 @@
+# RestorePolicyRequest
+
+## Example Usage
+
+```typescript
+import { RestorePolicyRequest } from "@noresponse/node/models/operations";
+
+let value: RestorePolicyRequest = {
+  workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+  environment: "live",
+  body: {
+    version: 135861,
+    expectedPolicyVersion: 21820,
+    changeReason: "Adjust thresholds after reviewing retained evidence",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                  | Type                                                                                                                                                                   | Required                                                                                                                                                               | Description                                                                                                                                                            | Example                                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `workspaceId`                                                                                                                                                          | *string*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                     | Your workspace id, as each key lists it in workspace_id. Another workspace, a malformed id and a test environment's id answer 404.                                     | tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM                                                                                                                                         |
+| `environment`                                                                                                                                                          | [models.KeyEnvironment](../../models/key-environment.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                     | The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404. |                                                                                                                                                                        |
+| `body`                                                                                                                                                                 | [models.PolicyRestoreRequest](../../models/policy-restore-request.md)                                                                                                  | :heavy_check_mark:                                                                                                                                                     | N/A                                                                                                                                                                    |                                                                                                                                                                        |

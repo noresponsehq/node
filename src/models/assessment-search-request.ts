@@ -4,8 +4,13 @@ import {
   AnswerRevision,
   AnswerRevision$outboundSchema,
 } from "./answer-revision.js";
+import { Band, Band$outboundSchema } from "./band.js";
 import { Decision, Decision$outboundSchema } from "./decision.js";
 import { Flow, Flow$outboundSchema } from "./flow.js";
+import { Impact, Impact$outboundSchema } from "./impact.js";
+import { Lane, Lane$outboundSchema } from "./lane.js";
+import { ListMatch, ListMatch$outboundSchema } from "./list-match.js";
+import { ReasonCode, ReasonCode$outboundSchema } from "./reason-code.js";
 import {
   Recommendation,
   Recommendation$outboundSchema,
@@ -52,6 +57,33 @@ export type AssessmentSearchRequest = {
    * Which answer of each assessment the filters describe: latest, the latest stored revision, or first, the first answer, as served when the assessment was first answered (POST /v1/assessments/aggregate counts first answers). A cell of an aggregate drills down to POST /v1/assessments/search with the same filters, revision first and the cell's bucket as from and to.
    */
   revision?: AnswerRevision | undefined;
+  band?: Band | undefined;
+  /**
+   * A stable reason code. New codes may appear; ignore any you do not know.
+   */
+  reason?: ReasonCode | undefined;
+  /**
+   * The selected reason's served impact band. Requires reason.
+   */
+  impact?: Impact | undefined;
+  /**
+   * An evidence lane: accounts (account presence for email and username), phone, breach, domain (the email domain's registration) and ip.
+   */
+  lane?: Lane | undefined;
+  country?: string | undefined;
+  asn?: number | undefined;
+  /**
+   * Inclusive lower score bound. Pending answers without a score do not match.
+   */
+  scoreMin?: number | undefined;
+  /**
+   * Inclusive upper score bound, at least score_min when both are supplied.
+   */
+  scoreMax?: number | undefined;
+  /**
+   * The list action captured at the first answer. Requires revision first. Older answers without captured list state do not match, including none.
+   */
+  listMatch?: ListMatch | undefined;
 };
 
 /** @internal */
@@ -67,6 +99,15 @@ export type AssessmentSearchRequest$Outbound = {
   response_mode?: string | undefined;
   decision?: string | undefined;
   revision?: string | undefined;
+  band?: string | undefined;
+  reason?: string | undefined;
+  impact?: string | undefined;
+  lane?: string | undefined;
+  country?: string | undefined;
+  asn?: number | undefined;
+  score_min?: number | undefined;
+  score_max?: number | undefined;
+  list_match?: string | undefined;
 };
 
 /** @internal */
@@ -86,11 +127,23 @@ export const AssessmentSearchRequest$outboundSchema: z.ZodMiniType<
     responseMode: z.optional(ResponseMode$outboundSchema),
     decision: z.optional(Decision$outboundSchema),
     revision: z.optional(AnswerRevision$outboundSchema),
+    band: z.optional(Band$outboundSchema),
+    reason: z.optional(ReasonCode$outboundSchema),
+    impact: z.optional(Impact$outboundSchema),
+    lane: z.optional(Lane$outboundSchema),
+    country: z.optional(z.string()),
+    asn: z.optional(z.int()),
+    scoreMin: z.optional(z.int()),
+    scoreMax: z.optional(z.int()),
+    listMatch: z.optional(ListMatch$outboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
       accountId: "account_id",
       responseMode: "response_mode",
+      scoreMin: "score_min",
+      scoreMax: "score_max",
+      listMatch: "list_match",
     });
   }),
 );

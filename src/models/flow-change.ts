@@ -1,8 +1,11 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import { Admission, Admission$outboundSchema } from "./admission.js";
-import { DefaultDepth, DefaultDepth$outboundSchema } from "./default-depth.js";
 import { OnExpiry, OnExpiry$outboundSchema } from "./on-expiry.js";
+import {
+  UsageCountDepth,
+  UsageCountDepth$outboundSchema,
+} from "./usage-count-depth.js";
 
 /**
  * A change to one flow. A field left out keeps the value in force. Thresholds set on login or purchase start from the values in force, account_creation's while it inherits them. After the change, 0 < step_up < review <= 100 and block is off or review <= block <= 100.
@@ -15,9 +18,9 @@ export type FlowChange = {
    */
   block?: number | null | undefined;
   /**
-   * The depth a request for this flow that names none is served at. Defaults: full for account_creation and purchase, quick for login.
+   * assessments only.
    */
-  defaultDepth?: DefaultDepth | undefined;
+  defaultDepth?: UsageCountDepth | undefined;
   /**
    * Login or purchase only: drop the flow's own thresholds so it uses account_creation's again. Not combined with step_up, review or block. Send true; false is refused.
    */
@@ -64,7 +67,7 @@ export const FlowChange$outboundSchema: z.ZodMiniType<
     stepUp: z.optional(z.int()),
     review: z.optional(z.int()),
     block: z.optional(z.nullable(z.int())),
-    defaultDepth: z.optional(DefaultDepth$outboundSchema),
+    defaultDepth: z.optional(UsageCountDepth$outboundSchema),
     inheritsAccountCreation: z.optional(z.boolean()),
     inheritsSignup: z.optional(z.boolean()),
     admission: z.optional(Admission$outboundSchema),

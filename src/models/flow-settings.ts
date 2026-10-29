@@ -4,9 +4,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { Admission, Admission$inboundSchema } from "./admission.js";
-import { DefaultDepth, DefaultDepth$inboundSchema } from "./default-depth.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { OnExpiry, OnExpiry$inboundSchema } from "./on-expiry.js";
+import {
+  UsageCountDepth,
+  UsageCountDepth$inboundSchema,
+} from "./usage-count-depth.js";
 
 /**
  * One flow's policy in force. A score below step_up is allow, below review step_up, and from review review; from block, when present, the decision is block. admission says when the flow's decision is final.
@@ -19,9 +22,9 @@ export type FlowSettings = {
    */
   block?: number | undefined;
   /**
-   * The depth a request for this flow that names none is served at. Defaults: full for account_creation and purchase, quick for login.
+   * assessments only.
    */
-  defaultDepth: DefaultDepth;
+  defaultDepth: UsageCountDepth;
   /**
    * true while this flow has no thresholds of its own and uses account_creation's, the default for login and purchase. Always false for signup.
    */
@@ -47,7 +50,7 @@ export const FlowSettings$inboundSchema: z.ZodMiniType<FlowSettings, unknown> =
       step_up: types.number(),
       review: types.number(),
       block: types.optional(types.number()),
-      default_depth: DefaultDepth$inboundSchema,
+      default_depth: UsageCountDepth$inboundSchema,
       inherits_account_creation: types.boolean(),
       admission: Admission$inboundSchema,
       hold_seconds: types.number(),

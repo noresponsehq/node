@@ -113,7 +113,7 @@ async function webhooks(): Promise<void> {
     const erased: number = event.data.assessmentsDeleted;
     void erased;
   } else if (event.type === "workspace.deleted") {
-    const environment: "live" | "test" = event.data.environment;
+    const environment: string = event.data.environment;
     void environment;
   } else if (event.type === "webhook_endpoint.disabled") {
     const failingSince: string = event.data.failingSince;
@@ -122,7 +122,11 @@ async function webhooks(): Promise<void> {
     const account: Account = event.data.account;
     const previous: AccountDecision = event.data.previousDecisionsByFlow.accountCreation;
     void [account, previous];
-  } else {
+  } else if (event.type === "audit.event") {
+    const action: string = event.data.action;
+    const workspace: string = event.data.workspaceId;
+    void [action, workspace];
+  } else if (event.type === "endpoint.verification") {
     const challenge: string = event.data.challenge;
     void challenge;
   }

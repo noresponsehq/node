@@ -28,6 +28,10 @@ export type RequestDiagnostic = {
    * The decision prepared for one HTTP attempt. Its account field preserves the account decision returned for that attempt, even after subsequent changes.
    */
   decision?: DecisionReceipt | undefined;
+  /**
+   * Public authenticated API key identifier. Absent for member requests and older unattributed diagnostics.
+   */
+  apiKeyId?: string | undefined;
 };
 
 /** @internal */
@@ -48,6 +52,7 @@ export const RequestDiagnostic$inboundSchema: z.ZodMiniType<
     idempotent_replayed: types.boolean(),
     write_complete: types.boolean(),
     decision: types.optional(DecisionReceipt$inboundSchema),
+    api_key_id: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -60,6 +65,7 @@ export const RequestDiagnostic$inboundSchema: z.ZodMiniType<
       "error_code": "errorCode",
       "idempotent_replayed": "idempotentReplayed",
       "write_complete": "writeComplete",
+      "api_key_id": "apiKeyId",
     });
   }),
 );

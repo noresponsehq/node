@@ -43,6 +43,8 @@ export const Exclusion = {
   CrossCustomerData: "cross_customer_data",
   LegacyOutcomeNotes: "legacy_outcome_notes",
   UncapturedHistoricalDecisions: "uncaptured_historical_decisions",
+  InvestigatorReviewsRequireReviewExport:
+    "investigator_reviews_require_review_export",
 } as const;
 export type Exclusion = OpenEnum<typeof Exclusion>;
 

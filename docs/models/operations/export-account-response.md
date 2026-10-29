@@ -39,6 +39,9 @@ let value: ExportAccountResponse = {
         actor: {
           type: "api_key",
           keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          externalUserId: "usr_customer_admin",
+          consoleCredentialId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          principalId: "mem_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         },
         riskVersionBefore: 42381,
         riskVersion: 735895,
@@ -93,6 +96,7 @@ let value: ExportAccountResponse = {
             riskVersion: 698486,
           },
         },
+        apiKeyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       },
     ],
     exclusions: [

@@ -16,6 +16,7 @@ let value: DeleteAssessmentResponse = {
       currentAssessmentId: "asm_01JB3C4D5E6F7G8H9JKMNPQRST",
     },
     deletedAt: "2026-10-23T09:00:00.000Z",
+    erasureId: "0123456789abcdef0123456789abcdef",
   },
 };
 ```

@@ -4,10 +4,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
-  Environment,
-  Environment$inboundSchema,
-  Environment$outboundSchema,
-} from "./environment.js";
+  AuditSettingsEnvironment,
+  AuditSettingsEnvironment$inboundSchema,
+  AuditSettingsEnvironment$outboundSchema,
+} from "./audit-settings-environment.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
@@ -18,10 +18,7 @@ export type WorkspaceDeleted = {
    * The workspace id, which is also its live environment's workspace id; the test environment's is the same id with :test appended. A workspace created through the API is tnt_ and a 26-character ULID.
    */
   workspaceId: string;
-  /**
-   * The environment whose endpoints receive this event: live, or test for the workspace's test environment.
-   */
-  environment: Environment;
+  environment: AuditSettingsEnvironment;
   /**
    * When the deletion took effect, equal to deleted_at in the DELETE answer.
    */
@@ -35,7 +32,7 @@ export const WorkspaceDeleted$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     workspace_id: types.string(),
-    environment: Environment$inboundSchema,
+    environment: AuditSettingsEnvironment$inboundSchema,
     deleted_at: types.string(),
   }),
   z.transform((v) => {
@@ -59,7 +56,7 @@ export const WorkspaceDeleted$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     workspaceId: z.string(),
-    environment: Environment$outboundSchema,
+    environment: AuditSettingsEnvironment$outboundSchema,
     deletedAt: z.string(),
   }),
   z.transform((v) => {

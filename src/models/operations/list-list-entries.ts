@@ -14,6 +14,8 @@ export type ListListEntriesRequest = {
    * The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404.
    */
   environment: models.KeyEnvironment;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 };
 
 export type ListListEntriesResponse = {
@@ -25,6 +27,8 @@ export type ListListEntriesResponse = {
 export type ListListEntriesRequest$Outbound = {
   workspace_id: string;
   environment: string;
+  limit?: number | undefined;
+  cursor?: string | undefined;
 };
 
 /** @internal */
@@ -35,6 +39,8 @@ export const ListListEntriesRequest$outboundSchema: z.ZodMiniType<
   z.object({
     workspaceId: z.string(),
     environment: models.KeyEnvironment$outboundSchema,
+    limit: z.optional(z.int()),
+    cursor: z.optional(z.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
