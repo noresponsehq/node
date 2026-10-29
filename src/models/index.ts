@@ -86,6 +86,7 @@ export * from "./confidence.js";
 export * from "./conflict-error-code.js";
 export * from "./consistency-value.js";
 export * from "./consistency.js";
+export * from "./console-lookups.js";
 export * from "./cost.js";
 export * from "./country.js";
 export * from "./coverage.js";

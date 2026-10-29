@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 79c78abd35da0aef7c4885dd309c7a44
+  docChecksum: 9ece318308711c2b31be5b30179cc5d2
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 9.0.0
-  configChecksum: fd43d8c8ef30172c7432c94e091496ad
+  releaseVersion: 9.1.0
+  configChecksum: b2b15275d20668ec466b8b565a9e3eca
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -230,6 +230,8 @@ trackedFiles:
     last_write_checksum: sha1:6a724fd7cf70be79ca6b2e1ef94e2dab40ffdd86
   docs/models/consistency.md:
     last_write_checksum: sha1:28e3677a30675f0bb8a842afe07b2483066592d6
+  docs/models/console-lookups.md:
+    last_write_checksum: sha1:bee2f9c9dde2a2a56471a7ad8e5341bfd571afd7
   docs/models/cost.md:
     last_write_checksum: sha1:f08e10a36afa644c875345c47a2cb3975e41b418
   docs/models/country.md:
@@ -661,7 +663,7 @@ trackedFiles:
   docs/models/operations/get-usage-request.md:
     last_write_checksum: sha1:c9672a9ed540e0cfc27cfa02386f7b6e668b2bf2
   docs/models/operations/get-usage-response.md:
-    last_write_checksum: sha1:71ba9711cbfd21be2717d5cbf3b5e4fd2a858346
+    last_write_checksum: sha1:ef7ba19f4f3679a5701f572911d43c0f1cd1a6d3
   docs/models/operations/list-account-assessments-request.md:
     last_write_checksum: sha1:80303427d6117ee8b06027a263aac03263ec99ba
   docs/models/operations/list-account-assessments-response.md:
@@ -1075,7 +1077,7 @@ trackedFiles:
   docs/models/usage-count.md:
     last_write_checksum: sha1:909264c8dab2be8fb202bbc29973b9a4499bd3a6
   docs/models/usage.md:
-    last_write_checksum: sha1:138085ae9b8607e5f120e3b68a9a5090be15db37
+    last_write_checksum: sha1:32e2beeba7f335c0e19457ad7326183167f89350
   docs/models/user-actor.md:
     last_write_checksum: sha1:a5e62500b619bd6d1fb69e06e13bf67c8ad1b649
   docs/models/webhook-aggregate-request.md:
@@ -1131,9 +1133,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:1cda68887605af53323a935b682336b30d1205e5
+    last_write_checksum: sha1:9565b15f0af1dbc2c6989cbc32eb0115bc6a4f31
   package.json:
-    last_write_checksum: sha1:d87a08c2e13843ff355512d5cb202c45cae6a013
+    last_write_checksum: sha1:8b467d415924c4af04f2404e898770f0183170ab
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1315,7 +1317,7 @@ trackedFiles:
   src/funcs/settings-update.ts:
     last_write_checksum: sha1:8b5852514a09efd26372e73cd69e7884b08a9c7c
   src/funcs/usage-get.ts:
-    last_write_checksum: sha1:d3d6b021265eb8f9d2b55663e3b114510ace64c5
+    last_write_checksum: sha1:30b122a6bce1ba39badf19dc174975a1e5e1486c
   src/funcs/validate-webhook.ts:
     last_write_checksum: sha1:f1972a629cec7e1723636b18c72552a5ac6ee509
   src/funcs/webhook-endpoints-aggregate.ts:
@@ -1343,7 +1345,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:b9592d24d46ade614d4d69503f0a7772a187482e
+    last_write_checksum: sha1:405a378952224d6d4f1f657656a0bcccce162548
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1544,6 +1546,8 @@ trackedFiles:
     last_write_checksum: sha1:6b628c7408383c36f0bcea6ab43f850c5c98c7e4
   src/models/consistency.ts:
     last_write_checksum: sha1:6b4810727d6985bf440cb29ee86b9870bdf54cb3
+  src/models/console-lookups.ts:
+    last_write_checksum: sha1:9d4506ab94744fe5419dfab1474187dfad8b2731
   src/models/cost.ts:
     last_write_checksum: sha1:842fe3602a7863063dd871418017c1777b7dab06
   src/models/country.ts:
@@ -1683,7 +1687,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:3a010772fe5eb8cbe0dc163dba90e0f77974ae8c
   src/models/index.ts:
-    last_write_checksum: sha1:c331a7b0e7ce82853da9cdaa431569347ce2ab1c
+    last_write_checksum: sha1:6b884bb45a776ee3dc0321a72bf54f173e54e660
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -2181,7 +2185,7 @@ trackedFiles:
   src/models/usage-count.ts:
     last_write_checksum: sha1:b18e36e20ecf3e31d4d328220e1a4f4069502181
   src/models/usage.ts:
-    last_write_checksum: sha1:0c175594a2620ed0281844c6e28e3e05c86f4d47
+    last_write_checksum: sha1:6f53606a206d6129ab77aad3f6b642599405bdf1
   src/models/user-actor.ts:
     last_write_checksum: sha1:bbb1778dd061fff98e000085b5b01ddcdd6bd736
   src/models/webhook-aggregate-request.ts:
@@ -2269,7 +2273,7 @@ trackedFiles:
   src/sdk/settings.ts:
     last_write_checksum: sha1:33d4ff7484338160a9fc46aaa06ecf161f7715e5
   src/sdk/usage.ts:
-    last_write_checksum: sha1:12dcf6f29e0c04e9563c804c94403f92da7f22cd
+    last_write_checksum: sha1:999422ededda98252836ff92b1649febd79ba2cf
   src/sdk/webhook-endpoints.ts:
     last_write_checksum: sha1:5198cabdf88208b49b2dd1fd803e7c2374e19358
   src/types/async.ts:
@@ -3516,7 +3520,7 @@ examples:
           workspace_id: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
       responses:
         "200":
-          application/json: {"workspace_id": "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "from": "2026-10-22", "to": "2026-10-23", "items": [{"environment": "live", "day": "2026-10-22", "metric": "assessments", "flow": "login", "depth": "quick", "count": 412}, {"environment": "live", "day": "2026-10-22", "metric": "assessments", "flow": "account_creation", "depth": "full", "count": 96}, {"environment": "live", "day": "2026-10-22", "metric": "webhook_deliveries", "count": 508}, {"environment": "live", "day": "2026-10-23", "metric": "assessments", "flow": "account_creation", "depth": "full", "count": 101}, {"environment": "live", "day": "2026-10-23", "metric": "key_usage_events", "count": 2330}, {"environment": "test", "day": "2026-10-23", "metric": "assessments", "flow": "purchase", "depth": "full", "count": 7}]}
+          application/json: {"workspace_id": "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "from": "2026-10-22", "to": "2026-10-23", "items": [{"environment": "live", "day": "2026-10-22", "metric": "assessments", "flow": "login", "depth": "quick", "count": 412}, {"environment": "live", "day": "2026-10-22", "metric": "assessments", "flow": "account_creation", "depth": "full", "count": 96}, {"environment": "live", "day": "2026-10-22", "metric": "webhook_deliveries", "count": 508}, {"environment": "live", "day": "2026-10-23", "metric": "assessments", "flow": "account_creation", "depth": "full", "count": 101}, {"environment": "live", "day": "2026-10-23", "metric": "key_usage_events", "count": 2330}, {"environment": "test", "day": "2026-10-23", "metric": "assessments", "flow": "purchase", "depth": "full", "count": 7}], "console_lookups": {"used": 12, "limit": 50, "resets_at": "2026-10-24T00:00:00.000Z"}}
   createInvite:
     open:
       parameters:

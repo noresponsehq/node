@@ -12,6 +12,11 @@ let value: GetUsageResponse = {
     from: "2026-01-01",
     to: "2026-01-01",
     items: [],
+    consoleLookups: {
+      used: 177653,
+      limit: 673493,
+      resetsAt: "2026-01-02T00:00:00.000Z",
+    },
   },
 };
 ```
