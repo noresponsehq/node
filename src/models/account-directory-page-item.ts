@@ -11,6 +11,10 @@ import {
   AssessmentRevision$inboundSchema,
 } from "./assessment-revision.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import {
+  IdentifierMatch,
+  IdentifierMatch$inboundSchema,
+} from "./identifier-match.js";
 
 export const WaitingFor = {
   Outcome: "outcome",
@@ -39,6 +43,10 @@ export type AccountDirectoryPageItem = {
    * Count of admitted retained assessments belonging to this account, not just the returned page.
    */
   assessments: number;
+  /**
+   * Why this result matched a typed identifier search. value is the original value submitted in assessment_id. Provenance records a customer submission, not a source discovery or verified ownership. Equality is deterministic and has no inferred confidence score. An account result names its newest retained matching assessment, which can differ from latest.
+   */
+  matchedIdentifier?: IdentifierMatch | undefined;
 };
 
 /** @internal */
@@ -56,11 +64,13 @@ export const AccountDirectoryPageItem$inboundSchema: z.ZodMiniType<
     latest: AssessmentRevision$inboundSchema,
     current: types.optional(Account$inboundSchema),
     assessments: types.number(),
+    matched_identifier: types.optional(IdentifierMatch$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
       "waiting_for": "waitingFor",
       "account_id": "accountId",
+      "matched_identifier": "matchedIdentifier",
     });
   }),
 );

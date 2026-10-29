@@ -113,3 +113,29 @@ test("a stale correction remains a typed conflict rather than a successful recei
     error => error instanceof ConflictError && error.code === "outcome_conflict",
   );
 });
+
+
+test("typed identifier searches preserve the request, provenance and original matched value", async () => {
+  const identifier = { kind: "username", value: "janedoe", match: "canonical", namespace: "customer" };
+  const matched = { kind: "username", value: "JaneDoe", match_basis: "canonical", namespace: "customer", provenance: "submitted", assessment_id: assessmentId };
+  const assessmentPage = { schema_version: "1", retention_days: 365, items: [{ ...examples.revision, matched_identifier: matched }], total: 1, total_capped: false };
+  const accountPage = { schema_version: "1", items: [{ account_id: accountId, latest: examples.revision, assessments: 2, matched_identifier: matched }], total: 1, total_capped: false };
+  const { fetcher, calls } = fakeFetch([json(accountPage), json(assessmentPage)]);
+  const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com", fetch: fetcher });
+  const accounts = await nr.accounts.search({ identifier, limit: 1 });
+  const assessments = await nr.assessments.search({ from, to, identifier, limit: 1 });
+  for (const [index, page] of [accounts, assessments].entries()) {
+    assert.deepEqual(calls[index].body.identifier, identifier);
+    assert.equal(calls[index].headers.authorization, `Bearer ${key}`);
+    assert.equal(page.items[0].matchedIdentifier.value, "JaneDoe");
+    assert.equal(page.items[0].matchedIdentifier.matchBasis, "canonical");
+    assert.equal(page.items[0].matchedIdentifier.provenance, "submitted");
+    assert.equal(page.items[0].matchedIdentifier.assessmentId, assessmentId);
+    assert.equal(page.items[0].matchedIdentifier.namespace, "customer");
+    assert.equal(page.meta.requestId, "a".repeat(32));
+    assert.equal(page.result, undefined);
+  }
+  assert.equal(new URL(calls[0].url).pathname, "/v1/accounts/search");
+  assert.equal(new URL(calls[1].url).pathname, "/v1/assessments/search");
+  assert.equal(accounts.items[0].current, undefined, "missing current account risk is not synthesized from an assessment");
+});

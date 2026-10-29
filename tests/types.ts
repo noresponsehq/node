@@ -24,6 +24,10 @@ import {
   type RiskReason,
   type WebhookEvent,
   type WithMeta,
+  type IdentifierSearch,
+  type IdentifierMatch,
+  type AccountDirectoryPage,
+  type AssessmentSearchPage,
 } from "../src/index.js";
 
 declare const rawBody: Uint8Array;
@@ -31,6 +35,12 @@ declare const headers: Headers;
 const nr = new NoResponse({ apiKey: "k" });
 
 async function surface(): Promise<void> {
+  const identifier: IdentifierSearch = { kind: "username", value: "janedoe", match: "canonical", namespace: "customer" };
+  const directory: WithMeta<AccountDirectoryPage> = await nr.accounts.search({ identifier, limit: 10 });
+  const searched: WithMeta<AssessmentSearchPage> = await nr.assessments.search({ from: "2026-01-01T00:00:00Z", to: "2026-01-02T00:00:00Z", identifier });
+  const matched: IdentifierMatch | undefined = directory.items[0]?.matchedIdentifier;
+  const assessmentMatch: IdentifierMatch | undefined = searched.items[0]?.matchedIdentifier;
+  void [matched, assessmentMatch];
   const created: WithMeta<Assessment> = await nr.assessments.create(
     { accountId: "usr_8f2k1", flow: "account_creation", identifiers: { email: "jordan.lee@example.com" } },
     { idempotencyKey: "account-usr_8f2k1-0001" },

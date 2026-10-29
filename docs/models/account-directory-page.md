@@ -1,6 +1,6 @@
 # AccountDirectoryPage
 
-Accounts observed in retained assessments, newest seen first, with each account once per page and across pages. Counts and keyset pagination are computed over distinct accounts in one database snapshot per page. Live data can change between pages.
+Distinct observed accounts with retained assessments. Typed identifier searches use stable opaque account order, independent of newly submitted assessments; ordinary and legacy email searches use newest-seen order. One repeatable-read database snapshot supplies each page's rows and totals. Pages do not share a snapshot: new matching accounts may appear on a later page or before the cursor and be missed until a fresh search; retention, erasure and changed membership can remove results. Current account decisions are read separately and may advance during a page. Cursors bind the workspace/environment, operation and filters, expire, and cannot cross scopes. Erasure and retention always take precedence over pagination.
 
 ## Example Usage
 
@@ -194,6 +194,14 @@ let value: AccountDirectoryPage = {
         riskVersion: 226996,
       },
       assessments: 136523,
+      matchedIdentifier: {
+        kind: "username",
+        value: "JaneDoe",
+        matchBasis: "canonical",
+        provenance: "submitted",
+        namespace: "customer",
+        assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      },
     },
   ],
   total: 373385,

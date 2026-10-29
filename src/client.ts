@@ -345,6 +345,12 @@ export class Assessments {
 export class Accounts {
   constructor(private readonly inner: GeneratedAccounts) {}
 
+  /** Search distinct retained accounts. Each match explains the submitted identifier separately from current risk. */
+  async search(request: models.AccountDirectorySearchRequest, options?: RequestOptions): Promise<WithMeta<models.AccountDirectoryPage>> {
+    const response = await this.inner.search(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
   /** Report factual knowledge or explicitly correct a report; this is not enforcement. */
   recordOutcome(accountId: string, params: models.AccountOutcomeRequest, options?: CreateOptions): Promise<WithMeta<models.AccountOutcome>>;
   recordOutcome(request: AccountOutcomeInput, options?: CreateOptions): Promise<WithMeta<models.AccountOutcome>>;

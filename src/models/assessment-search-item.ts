@@ -11,6 +11,10 @@ import { Decision, Decision$inboundSchema } from "./decision.js";
 import { Depth, Depth$inboundSchema } from "./depth.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Flow, Flow$inboundSchema } from "./flow.js";
+import {
+  IdentifierMatch,
+  IdentifierMatch$inboundSchema,
+} from "./identifier-match.js";
 import { Status, Status$inboundSchema } from "./status.js";
 
 /**
@@ -45,6 +49,10 @@ export type AssessmentSearchItem = {
    * An assessment's own decision: block when its stored risk.block is true, otherwise its recommendation. It is not the account's decision or held-admission state.
    */
   firstDecision?: Decision | undefined;
+  /**
+   * Why this result matched a typed identifier search. value is the original value submitted in assessment_id. Provenance records a customer submission, not a source discovery or verified ownership. Equality is deterministic and has no inferred confidence score. An account result names its newest retained matching assessment, which can differ from latest.
+   */
+  matchedIdentifier?: IdentifierMatch | undefined;
 };
 
 /** @internal */
@@ -60,11 +68,13 @@ export const AssessmentSearchItem$inboundSchema: z.ZodMiniType<
     depth: Depth$inboundSchema,
     detail: AssessmentDetail$inboundSchema,
     first_decision: types.optional(Decision$inboundSchema),
+    matched_identifier: types.optional(IdentifierMatch$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
       "schema_version": "schemaVersion",
       "first_decision": "firstDecision",
+      "matched_identifier": "matchedIdentifier",
     });
   }),
 );
