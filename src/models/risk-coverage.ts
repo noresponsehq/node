@@ -5,19 +5,19 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
- * Sources counted by state, not named.
+ * Counts of planned source-identifier pairs by evidence outcome, deduplicated across signals and incomplete entries. These counts do not measure identity agreement or prove that processing is still running. A lane that was not searched is not an answered source.
  */
 export type RiskCoverage = {
   /**
-   * Sources that gave a definite answer.
+   * Source-identifier pairs that gave a definite found or not_found answer.
    */
   answered: number;
   /**
-   * Sources that could not answer.
+   * Source-identifier pairs that could not answer, including unsupported coverage markers and source failures. Read detailed signals to distinguish Not covered from Failed.
    */
   failed: number;
   /**
-   * Sources still being asked.
+   * Source-identifier pairs with deferred or timed_out evidence. A terminal timeout can remain here after processing finishes; use assessment status and continuation metadata to determine whether work is still running.
    */
   pending: number;
 };
