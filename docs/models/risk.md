@@ -16,7 +16,7 @@ let value: Risk = {
   policyBasis: "heuristic_unvalidated",
   reasons: [
     {
-      code: "bot_or_automation",
+      code: "auth_new_session",
       direction: "neutral",
       impact: "low",
       listEntryId: "lst_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
