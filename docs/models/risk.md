@@ -71,6 +71,15 @@ let value: Risk = {
         identifier: "email",
       },
     ],
+    accounts: [
+      {
+        name: "Wix",
+        domain: "wix.com",
+        identifier: "username",
+        outcome: "inconclusive",
+        firstNamePrefix: "Al",
+      },
+    ],
   },
 };
 ```

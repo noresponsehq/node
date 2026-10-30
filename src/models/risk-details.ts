@@ -11,6 +11,12 @@ import {
 } from "./breach.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  OnlineAccount,
+  OnlineAccount$inboundSchema,
+  OnlineAccount$Outbound,
+  OnlineAccount$outboundSchema,
+} from "./online-account.js";
+import {
   RiskDetailsBreachName,
   RiskDetailsBreachName$inboundSchema,
   RiskDetailsBreachName$Outbound,
@@ -46,6 +52,10 @@ export type RiskDetails = {
    * The identity's dated footprint events, newest first, at most 300: the year and month, what happened (created, last_active, breached), the site, its category, the kind of evidence and the identifier it belongs to. No breach value: dates are coarsened to the month.
    */
   events?: Array<RiskDetailsEvent> | undefined;
+  /**
+   * Every online-account search of the email or username: the platform, what the search came to and, for an account found, what the platform returned beside it. Found first, then not found, then searches that failed or are still running, each by platform name; at most 64. A failed or running search keeps its own outcome and is not reported as not_found.
+   */
+  accounts?: Array<OnlineAccount> | undefined;
 };
 
 /** @internal */
@@ -58,6 +68,7 @@ export const RiskDetails$inboundSchema: z.ZodMiniType<RiskDetails, unknown> = z
         z.array(RiskDetailsBreachName$inboundSchema),
       ),
       events: types.optional(z.array(RiskDetailsEvent$inboundSchema)),
+      accounts: types.optional(z.array(OnlineAccount$inboundSchema)),
     }),
     z.transform((v) => {
       return remap$(v, {
@@ -72,6 +83,7 @@ export type RiskDetails$Outbound = {
   breaches?: Array<Breach$Outbound> | undefined;
   breach_names?: Array<RiskDetailsBreachName$Outbound> | undefined;
   events?: Array<RiskDetailsEvent$Outbound> | undefined;
+  accounts?: Array<OnlineAccount$Outbound> | undefined;
 };
 
 /** @internal */
@@ -84,6 +96,7 @@ export const RiskDetails$outboundSchema: z.ZodMiniType<
     breaches: z.optional(z.array(Breach$outboundSchema)),
     breachNames: z.optional(z.array(RiskDetailsBreachName$outboundSchema)),
     events: z.optional(z.array(RiskDetailsEvent$outboundSchema)),
+    accounts: z.optional(z.array(OnlineAccount$outboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {

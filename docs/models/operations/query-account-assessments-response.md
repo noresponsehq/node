@@ -86,13 +86,22 @@ let value: QueryAccountAssessmentsResponse = {
                 identifier: "email",
               },
             ],
+            accounts: [
+              {
+                name: "Wix",
+                domain: "wix.com",
+                identifier: "username",
+                outcome: "inconclusive",
+                firstNamePrefix: "Al",
+              },
+            ],
           },
         },
         signals: [
           {
             type: "account_presence",
-            identifier: "ip",
-            outcome: "inconclusive",
+            identifier: "username",
+            outcome: "found",
             sourceId: "github",
             evidenceRef: "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
             observedAt: "2026-10-14T09:00:00.210Z",
@@ -152,8 +161,8 @@ let value: QueryAccountAssessmentsResponse = {
         expiresAt: "2027-10-14T09:00:00.000Z",
         assessmentUrl: "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         timing: {
-          deadlineMs: 25209,
-          elapsedMs: 144766,
+          deadlineMs: 184776,
+          elapsedMs: 637926,
         },
         authContext: {
           provider: "clerk",
@@ -161,7 +170,7 @@ let value: QueryAccountAssessmentsResponse = {
           subject: "user_2EXAMPLE",
           sessionId: "sess_2EXAMPLE",
           organizationId: "org_2EXAMPLE",
-          verified: true,
+          verified: false,
           transport: "browser",
         },
       },

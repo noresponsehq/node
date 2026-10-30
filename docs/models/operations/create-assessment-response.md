@@ -6,16 +6,7 @@
 import { CreateAssessmentResponse } from "@noresponse/node/models/operations";
 
 let value: CreateAssessmentResponse = {
-  headers: {
-    "key": [
-      "example 1",
-    ],
-    "key1": [],
-    "key2": [
-      "example 1",
-      "example 2",
-    ],
-  },
+  headers: {},
   result: {
     schemaVersion: "1",
     id: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -117,13 +108,22 @@ let value: CreateAssessmentResponse = {
               identifier: "email",
             },
           ],
+          accounts: [
+            {
+              name: "Wix",
+              domain: "wix.com",
+              identifier: "username",
+              outcome: "inconclusive",
+              firstNamePrefix: "Al",
+            },
+          ],
         },
       },
       signals: [
         {
           type: "account_presence",
-          identifier: "ip",
-          outcome: "inconclusive",
+          identifier: "username",
+          outcome: "found",
           sourceId: "github",
           evidenceRef: "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
           observedAt: "2026-10-14T09:00:00.210Z",
@@ -177,14 +177,14 @@ let value: CreateAssessmentResponse = {
       incompleteSources: [],
       policyVersion: "heuristic-2026-10.1",
       policyBasis: "heuristic_unvalidated",
-      assessmentVersion: 385520,
+      assessmentVersion: 144766,
       createdAt: "2026-10-14T09:00:00.000Z",
       updatedAt: "2026-10-14T09:00:00.412Z",
       expiresAt: "2027-10-14T09:00:00.000Z",
       assessmentUrl: "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       timing: {
-        deadlineMs: 25209,
-        elapsedMs: 144766,
+        deadlineMs: 184776,
+        elapsedMs: 637926,
       },
       authContext: {
         provider: "clerk",
@@ -192,7 +192,7 @@ let value: CreateAssessmentResponse = {
         subject: "user_2EXAMPLE",
         sessionId: "sess_2EXAMPLE",
         organizationId: "org_2EXAMPLE",
-        verified: true,
+        verified: false,
         transport: "browser",
       },
     },
