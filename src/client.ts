@@ -351,6 +351,16 @@ export class Accounts {
     return withMeta(response.result, response.headers);
   }
 
+  /**
+   * Other accounts in this environment whose retained assessments submitted an
+   * identifier this account also submitted, with each side's witness. Needs
+   * `history`, or `investigate` with `evidence`.
+   */
+  async listLinked(request: operations.ListLinkedAccountsRequest, options?: RequestOptions): Promise<WithMeta<models.LinkedAccountPage>> {
+    const response = await this.inner.listLinked(request, options);
+    return withMeta(response.result, response.headers);
+  }
+
   /** Report factual knowledge or explicitly correct a report; this is not enforcement. */
   recordOutcome(accountId: string, params: models.AccountOutcomeRequest, options?: CreateOptions): Promise<WithMeta<models.AccountOutcome>>;
   recordOutcome(request: AccountOutcomeInput, options?: CreateOptions): Promise<WithMeta<models.AccountOutcome>>;

@@ -29,6 +29,8 @@ import {
   type IdentifierExpression,
   type IdentifierTermMatch,
   type AccountDirectoryPage,
+  type LinkedAccountPage,
+  type SharedIdentifier,
   type AssessmentSearchPage,
 } from "../src/index.js";
 
@@ -52,6 +54,10 @@ async function surface(): Promise<void> {
   const termIndex: number | undefined = termMatch?.termIndex;
   await nr.assessments.search({ from: "2026-01-01T00:00:00Z", to: "2026-01-02T00:00:00Z", identifierExpression: { ...identifierExpression, scope: "assessment" } });
   void termIndex;
+  const linked: WithMeta<LinkedAccountPage> = await nr.accounts.listLinked({ accountId: "usr_8f2k1", limit: 10 });
+  const shared: SharedIdentifier | undefined = linked.items[0]?.sharedIdentifiers[0];
+  const linkedAt: string | undefined = shared?.linkedAccount.submittedAt;
+  void linkedAt;
 
   const created: WithMeta<Assessment> = await nr.assessments.create(
     { accountId: "usr_8f2k1", flow: "account_creation", identifiers: { email: "jordan.lee@example.com" } },

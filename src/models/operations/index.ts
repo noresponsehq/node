@@ -54,6 +54,7 @@ export * from "./list-customer-exports.js";
 export * from "./list-integrations.js";
 export * from "./list-invites.js";
 export * from "./list-keys.js";
+export * from "./list-linked-accounts.js";
 export * from "./list-list-entries.js";
 export * from "./list-members.js";
 export * from "./list-policy-evaluations.js";

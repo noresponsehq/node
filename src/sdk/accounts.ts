@@ -7,6 +7,7 @@ import { accountsListChanged } from "../funcs/accounts-list-changed.js";
 import { accountsListCredentials } from "../funcs/accounts-list-credentials.js";
 import { accountsListDecisions } from "../funcs/accounts-list-decisions.js";
 import { accountsListEnforcements } from "../funcs/accounts-list-enforcements.js";
+import { accountsListLinked } from "../funcs/accounts-list-linked.js";
 import { accountsListOutcomes } from "../funcs/accounts-list-outcomes.js";
 import { accountsRecordEnforcement } from "../funcs/accounts-record-enforcement.js";
 import { accountsRecordOutcome } from "../funcs/accounts-record-outcome.js";
@@ -84,6 +85,25 @@ export class Accounts extends ClientSDK {
     PageIterator<operations.ListAccountAssessmentsResponse, { cursor: string }>
   > {
     return unwrapResultIterator(accountsListAssessments(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List accounts that share a submitted identifier with this account.
+   *
+   * @remarks
+   * Lists the other accounts in this environment whose retained assessments submitted an email, phone or customer-namespace username that one of this account's retained assessments also submitted. Matching uses the identifier search rules: exact, canonical and, for email, mailbox. Each linked account names one entry per shared kind, at the strictest basis that links the two accounts, with the original value, assessment_id and submitted_at of each account's newest retained submission of it. Only customer-submitted identifiers link accounts; source-discovered identifiers do not. Expired, deleted and erased assessments link nothing. The account itself is not listed, and an account with no retained submissions answers 200 with empty items. A shared identifier is not verified ownership. Totals are exact below 10000 and capped at 10000. The cursor is opaque, expiring and bound to your workspace, environment and the account; a tampered or expired cursor answers 400 invalid_cursor. Requires the history scope, or investigate with evidence. Read-only and safe to retry.
+   */
+  async listLinked(
+    request: operations.ListLinkedAccountsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.ListLinkedAccountsResponse, { cursor: string }>
+  > {
+    return unwrapResultIterator(accountsListLinked(
       this,
       request,
       options,

@@ -35,6 +35,8 @@ const cases = [
     nr => nr.accounts.retireCredential({ accountId, credentialId })],
   ["export", "GET", `/v1/accounts/${accountId}/export`, 200,
     nr => nr.accounts.export({ accountId, responseMode: "standard" })],
+  ["linked", "GET", `/v1/accounts/${accountId}/linked_accounts`, 200,
+    nr => nr.accounts.listLinked({ accountId, limit: 1, cursor: "next_fixture" })],
   ["requests", "GET", "/v1/requests", 200,
     nr => nr.requests.list({ from, to, requestId: "a".repeat(32), status: 200, limit: 1, cursor: "next_fixture" })],
 ];
@@ -167,4 +169,23 @@ test("combined identifier searches preserve scope, nested groups and indexed wit
     assert.equal(page.items[0].matchedIdentifiers[1].namespace, "customer");
     assert.equal(page.meta.requestId, "a".repeat(32));
   }
+});
+
+test("linked accounts keep both submitted witnesses and the cursor", async () => {
+  const { fetcher, calls } = fakeFetch([json(examples.linked)]);
+  const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com", fetch: fetcher });
+  const page = await nr.accounts.listLinked({ accountId, limit: 1, cursor: "next_fixture" });
+  const url = new URL(calls[0].url);
+  assert.equal(url.searchParams.get("limit"), "1");
+  assert.equal(url.searchParams.get("cursor"), "next_fixture");
+  const [expected] = examples.linked.items;
+  assert.equal(page.items[0].accountId, expected.account_id);
+  const [shared] = page.items[0].sharedIdentifiers;
+  const want = expected.shared_identifiers[0];
+  assert.deepEqual([shared.kind, shared.matchBasis, shared.provenance], [want.kind, want.match_basis, want.provenance]);
+  assert.deepEqual([shared.account.value, shared.account.assessmentId, shared.linkedAccount.value, shared.linkedAccount.assessmentId],
+    [want.account.value, want.account.assessment_id, want.linked_account.value, want.linked_account.assessment_id]);
+  assert.equal(new Date(shared.linkedAccount.submittedAt).toISOString(), new Date(want.linked_account.submitted_at).toISOString());
+  assert.equal(page.nextCursor, "next_fixture");
+  assert.equal(page.totalCapped, false);
 });
