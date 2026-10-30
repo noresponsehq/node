@@ -202,6 +202,17 @@ let value: AccountDirectoryPage = {
         namespace: "customer",
         assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       },
+      matchedIdentifiers: [
+        {
+          kind: "username",
+          value: "JaneDoe",
+          matchBasis: "canonical",
+          provenance: "submitted",
+          namespace: "customer",
+          assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          termIndex: 0,
+        },
+      ],
     },
   ],
   total: 373385,

@@ -1,13 +1,18 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import {
+  IdentifierExpression,
+  IdentifierExpression$Outbound,
+  IdentifierExpression$outboundSchema,
+} from "./identifier-expression.js";
+import {
   IdentifierSearch,
   IdentifierSearch$Outbound,
   IdentifierSearch$outboundSchema,
 } from "./identifier-search.js";
 
 /**
- * Bounded distinct-account search for one authenticated workspace/environment. identifier matches any retained admitted assessment of an account, including historical submitted values. email preserves the legacy canonical-mailbox filter. identifier and email cannot be combined. All other filters combine using AND. Typed identifier search uses stable opaque account order; ordinary and legacy email searches retain newest-seen ordering. Pages are live, not a cross-page snapshot. Requires history or investigate authority and identifier-read permission for identifier or email filtering.
+ * Bounded distinct-account search for one authenticated workspace/environment. identifier matches any retained admitted assessment of an account, including historical submitted values. email preserves the legacy canonical-mailbox filter. identifier and email cannot be combined. All other filters combine using AND. Typed identifier search uses stable opaque account order; ordinary and legacy email searches retain newest-seen ordering. Pages are live, not a cross-page snapshot. Requires history or investigate authority and identifier-read permission for identifier, identifier_expression or email filtering. identifier_expression explicitly chooses scope assessment (one whole matching submission) or account (terms may match different retained submissions of one account). At most 8 raw terms and 3 group levels. Mutually exclusive with identifier and email. Expression search uses the same stable opaque account order as typed identifier search.
  */
 export type AccountDirectorySearchRequest = {
   /**
@@ -24,13 +29,17 @@ export type AccountDirectorySearchRequest = {
   email?: string | undefined;
   limit?: number | undefined;
   /**
-   * Opaque, expiring cursor bound to this environment, operation and every filter. Keep the filters unchanged.
+   * Opaque, expiring cursor bound to workspace, environment, operation and all filters, including expression scope, ordered structure and original term values. Keep grouping, operand order, matching modes and values unchanged; an omitted match is equivalent to exact. The page limit may change.
    */
   cursor?: string | undefined;
   /**
    * One customer-submitted identifier. Defaults to exact comparison of the original submitted value. canonical uses the supported identifier normalisation without an ownership claim: email preserves local-part case, NFC-normalises it and lowercases the domain without removing dots or tags; phone uses international E.164 without extensions or an inferred region; username uses NFC and Unicode case folding within the customer namespace. mailbox is email-only and explicitly selects existing list rules: case-insensitive, remove +tag, and ignore local-part dots at gmail.com and googlemail.com; googlemail.com maps to gmail.com. Username requires namespace customer. Email and phone forbid namespace. Source-discovered identifiers and platform handles are not searched. Unsupported kinds, namespaces, modes and invalid values return 400. Search equality does not establish verified ownership or merge accounts.
    */
   identifier?: IdentifierSearch | undefined;
+  /**
+   * A bounded AND/OR expression over submitted identifiers. Required scope assessment means the entire expression must match one retained assessment. Scope account permits each term to match a different retained assessment of the same account and is accepted only by account search. Exactly one of term, and or or is allowed at every node. Groups contain 2 to 8 operands, with at most 3 nested group levels and 8 raw term occurrences over the entire expression. A root term is allowed. Duplicate terms with the same kind, match rule, namespace and normalized comparison are idempotent, but count toward the raw limit. Match rules default to exact and preserve the existing identifier contract. Only retained submitted identifiers can satisfy a term. Unknown fields, unsupported scopes and malformed or oversized expressions return 400 invalid_request.
+   */
+  identifierExpression?: IdentifierExpression | undefined;
 };
 
 /** @internal */
@@ -41,6 +50,7 @@ export type AccountDirectorySearchRequest$Outbound = {
   limit: number;
   cursor?: string | undefined;
   identifier?: IdentifierSearch$Outbound | undefined;
+  identifier_expression?: IdentifierExpression$Outbound | undefined;
 };
 
 /** @internal */
@@ -55,11 +65,13 @@ export const AccountDirectorySearchRequest$outboundSchema: z.ZodMiniType<
     limit: z._default(z.int(), 25),
     cursor: z.optional(z.string()),
     identifier: z.optional(IdentifierSearch$outboundSchema),
+    identifierExpression: z.optional(IdentifierExpression$outboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
       needsAction: "needs_action",
       accountId: "account_id",
+      identifierExpression: "identifier_expression",
     });
   }),
 );

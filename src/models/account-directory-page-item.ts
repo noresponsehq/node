@@ -15,6 +15,10 @@ import {
   IdentifierMatch,
   IdentifierMatch$inboundSchema,
 } from "./identifier-match.js";
+import {
+  IdentifierTermMatch,
+  IdentifierTermMatch$inboundSchema,
+} from "./identifier-term-match.js";
 
 export const WaitingFor = {
   Outcome: "outcome",
@@ -47,6 +51,10 @@ export type AccountDirectoryPageItem = {
    * Why this result matched a typed identifier search. value is the original value submitted in assessment_id. Provenance records a customer submission, not a source discovery or verified ownership. Equality is deterministic and has no inferred confidence score. An account result names its newest retained matching assessment, which can differ from latest.
    */
   matchedIdentifier?: IdentifierMatch | undefined;
+  /**
+   * Present only for identifier_expression. All satisfied unique terms, ordered by term_index, with original submitted values and retained assessment witnesses. A duplicate normalized term appears once at its first raw leaf index. The legacy single identifier filter instead returns matched_identifier.
+   */
+  matchedIdentifiers?: Array<IdentifierTermMatch> | undefined;
 };
 
 /** @internal */
@@ -65,12 +73,16 @@ export const AccountDirectoryPageItem$inboundSchema: z.ZodMiniType<
     current: types.optional(Account$inboundSchema),
     assessments: types.number(),
     matched_identifier: types.optional(IdentifierMatch$inboundSchema),
+    matched_identifiers: types.optional(
+      z.array(IdentifierTermMatch$inboundSchema),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
       "waiting_for": "waitingFor",
       "account_id": "accountId",
       "matched_identifier": "matchedIdentifier",
+      "matched_identifiers": "matchedIdentifiers",
     });
   }),
 );

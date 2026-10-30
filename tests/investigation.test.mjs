@@ -139,3 +139,32 @@ test("typed identifier searches preserve the request, provenance and original ma
   assert.equal(new URL(calls[1].url).pathname, "/v1/assessments/search");
   assert.equal(accounts.items[0].current, undefined, "missing current account risk is not synthesized from an assessment");
 });
+
+test("combined identifier searches preserve scope, nested groups and indexed witnesses", async () => {
+  const expression = { and: [
+    { term: { kind: "phone", value: "+14155552671", match: "canonical" } },
+    { or: [
+      { term: { kind: "email", value: "other@example.com", match: "exact" } },
+      { term: { kind: "username", value: "janedoe", match: "canonical", namespace: "customer" } },
+    ] },
+  ] };
+  const matched = [
+    { kind: "phone", value: "+14155552671", match_basis: "canonical", provenance: "submitted", assessment_id: assessmentId, term_index: 0 },
+    { kind: "username", value: "JaneDoe", match_basis: "canonical", namespace: "customer", provenance: "submitted", assessment_id: assessmentId, term_index: 2 },
+  ];
+  const accountPage = { schema_version: "1", items: [{ account_id: accountId, latest: examples.revision, assessments: 2, matched_identifiers: matched }], total: 1, total_capped: false };
+  const assessmentPage = { schema_version: "1", retention_days: 365, items: [{ ...examples.revision, matched_identifiers: matched }], total: 1, total_capped: false };
+  const { fetcher, calls } = fakeFetch([json(accountPage), json(assessmentPage)]);
+  const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com", fetch: fetcher });
+  const accounts = await nr.accounts.search({ identifierExpression: { scope: "account", expression }, limit: 1 });
+  const assessments = await nr.assessments.search({ from, to, identifierExpression: { scope: "assessment", expression }, limit: 1 });
+  for (const [index, page] of [accounts, assessments].entries()) {
+    assert.deepEqual(calls[index].body.identifier_expression, { scope: index ? "assessment" : "account", expression });
+    assert.equal(calls[index].body.identifier, undefined);
+    assert.equal(page.items[0].matchedIdentifier, undefined);
+    assert.deepEqual(page.items[0].matchedIdentifiers.map(value => [value.termIndex, value.kind, value.value, value.matchBasis, value.assessmentId]),
+      matched.map(value => [value.term_index, value.kind, value.value, value.match_basis, value.assessment_id]));
+    assert.equal(page.items[0].matchedIdentifiers[1].namespace, "customer");
+    assert.equal(page.meta.requestId, "a".repeat(32));
+  }
+});

@@ -26,6 +26,8 @@ import {
   type WithMeta,
   type IdentifierSearch,
   type IdentifierMatch,
+  type IdentifierExpression,
+  type IdentifierTermMatch,
   type AccountDirectoryPage,
   type AssessmentSearchPage,
 } from "../src/index.js";
@@ -41,6 +43,16 @@ async function surface(): Promise<void> {
   const matched: IdentifierMatch | undefined = directory.items[0]?.matchedIdentifier;
   const assessmentMatch: IdentifierMatch | undefined = searched.items[0]?.matchedIdentifier;
   void [matched, assessmentMatch];
+  const identifierExpression: IdentifierExpression = { scope: "account", expression: { and: [
+    { term: { kind: "phone", value: "+14155552671", match: "canonical" } },
+    { or: [{ term: identifier }, { term: { kind: "email", value: "case@example.com" } }] },
+  ] } };
+  const combined = await nr.accounts.search({ identifierExpression });
+  const termMatch: IdentifierTermMatch | undefined = combined.items[0]?.matchedIdentifiers?.[0];
+  const termIndex: number | undefined = termMatch?.termIndex;
+  await nr.assessments.search({ from: "2026-01-01T00:00:00Z", to: "2026-01-02T00:00:00Z", identifierExpression: { ...identifierExpression, scope: "assessment" } });
+  void termIndex;
+
   const created: WithMeta<Assessment> = await nr.assessments.create(
     { accountId: "usr_8f2k1", flow: "account_creation", identifiers: { email: "jordan.lee@example.com" } },
     { idempotencyKey: "account-usr_8f2k1-0001" },
