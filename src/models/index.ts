@@ -265,6 +265,7 @@ export * from "./review-comment-request.js";
 export * from "./review-comment.js";
 export * from "./review-create-request.js";
 export * from "./review-list.js";
+export * from "./review-query-request.js";
 export * from "./review-resolution-list.js";
 export * from "./review-resolve-request.js";
 export * from "./review-status.js";

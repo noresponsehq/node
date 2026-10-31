@@ -71,6 +71,7 @@ export * from "./preview-list.js";
 export * from "./preview-policy.js";
 export * from "./publish-policy-evaluation.js";
 export * from "./query-account-assessments.js";
+export * from "./query-reviews.js";
 export * from "./record-account-outcome.js";
 export * from "./record-assessment-outcome.js";
 export * from "./record-enforcement.js";

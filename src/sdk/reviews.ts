@@ -11,6 +11,7 @@ import { reviewsListResolutions } from "../funcs/reviews-list-resolutions.js";
 import { reviewsListSubjects } from "../funcs/reviews-list-subjects.js";
 import { reviewsListViews } from "../funcs/reviews-list-views.js";
 import { reviewsList } from "../funcs/reviews-list.js";
+import { reviewsQuery } from "../funcs/reviews-query.js";
 import { reviewsResolve } from "../funcs/reviews-resolve.js";
 import { reviewsUpdateView } from "../funcs/reviews-update-view.js";
 import { reviewsUpdate } from "../funcs/reviews-update.js";
@@ -24,7 +25,7 @@ export class Reviews extends ClientSDK {
    * List retained account reviews.
    *
    * @remarks
-   * List retained investigation reviews using filters and an authenticated cursor. Optional account_id selects one exact account in this environment before pagination. All filters are bound into the cursor.
+   * List retained investigation reviews using filters and an authenticated cursor. Use reviews.query to filter by account_id in a JSON body. All filters are bound into the cursor.
    */
   async list(
     request: operations.ListReviewsRequest,
@@ -288,6 +289,23 @@ export class Reviews extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteReviewSubjectResponse> {
     return unwrapAsync(reviewsDeleteSubject(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Query retained reviews without identifiers in URLs.
+   *
+   * @remarks
+   * Query retained investigation reviews using a JSON body, including an exact account_id filter. All filters are bound into the cursor.
+   */
+  async query(
+    request: operations.QueryReviewsRequest,
+    options?: RequestOptions,
+  ): Promise<operations.QueryReviewsResponse> {
+    return unwrapAsync(reviewsQuery(
       this,
       request,
       options,
