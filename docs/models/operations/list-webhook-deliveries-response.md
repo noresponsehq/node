@@ -18,6 +18,8 @@ let value: ListWebhookDeliveriesResponse = {
       {
         eventId: "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2",
         eventType: "assessment.updated",
+        assessmentId: "asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        accountId: "user_8412",
         attempt: 978524,
         replay: true,
         status: "failed",

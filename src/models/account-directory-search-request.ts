@@ -27,6 +27,10 @@ export type AccountDirectorySearchRequest = {
    * Assessments of every account that one of its retained admitted assessments sent this mailbox as identifiers.email, matched as lists match an email entry: case-insensitive, a +tag removed and, at gmail.com and googlemail.com, the dots of the local part ignored. Only assessments stored since email list matching began carry the mailbox. An address that is not a valid mailbox is refused with 400.
    */
   email?: string | undefined;
+  /**
+   * Every account that one of its retained admitted assessments sent an email of this domain or its subdomains, matched as lists match an email_domain entry and with the same identifier-read permission as email. A value that is not a registrable domain is refused with 400. Mutually exclusive with email, identifier and identifier_expression.
+   */
+  emailDomain?: string | undefined;
   limit?: number | undefined;
   /**
    * Opaque, expiring cursor bound to workspace, environment, operation and all filters, including expression scope, ordered structure and original term values. Keep grouping, operand order, matching modes and values unchanged; an omitted match is equivalent to exact. The page limit may change.
@@ -47,6 +51,7 @@ export type AccountDirectorySearchRequest$Outbound = {
   needs_action: boolean;
   account_id?: string | undefined;
   email?: string | undefined;
+  email_domain?: string | undefined;
   limit: number;
   cursor?: string | undefined;
   identifier?: IdentifierSearch$Outbound | undefined;
@@ -62,6 +67,7 @@ export const AccountDirectorySearchRequest$outboundSchema: z.ZodMiniType<
     needsAction: z._default(z.boolean(), false),
     accountId: z.optional(z.string()),
     email: z.optional(z.string()),
+    emailDomain: z.optional(z.string()),
     limit: z._default(z.int(), 25),
     cursor: z.optional(z.string()),
     identifier: z.optional(IdentifierSearch$outboundSchema),
@@ -71,6 +77,7 @@ export const AccountDirectorySearchRequest$outboundSchema: z.ZodMiniType<
     return remap$(v, {
       needsAction: "needs_action",
       accountId: "account_id",
+      emailDomain: "email_domain",
       identifierExpression: "identifier_expression",
     });
   }),

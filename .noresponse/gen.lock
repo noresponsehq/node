@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 35ec75948c5993b219d2fd98056fc91d
+  docChecksum: a0e0d0cd1063c5d6007d02718ad1ee52
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.6
-  configChecksum: c0064dc797d9917875ca5e0c9d3393dc
+  releaseVersion: 10.0.7
+  configChecksum: 102c574550cc856882382fe9419346f4
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -69,7 +69,7 @@ trackedFiles:
   docs/models/account-directory-page.md:
     last_write_checksum: sha1:5a4b9af348a23e5e63b1484492cf5efad6a9bd0c
   docs/models/account-directory-search-request.md:
-    last_write_checksum: sha1:d7a68d33555ac7805ce1cecf004908d20d1ee2b0
+    last_write_checksum: sha1:f4ee3ef3991ee37bfcd634479385cbcea43cddf9
   docs/models/account-enforcement-list.md:
     last_write_checksum: sha1:a44f19a779528dd7b3233342bb9884cad582ed6f
   docs/models/account-export.md:
@@ -801,7 +801,7 @@ trackedFiles:
   docs/models/operations/list-webhook-deliveries-request.md:
     last_write_checksum: sha1:3d727a61bd66e0e54d73ed425e5eb298c17aa2cb
   docs/models/operations/list-webhook-deliveries-response.md:
-    last_write_checksum: sha1:80fbcbedf154f60ead85a4c5391e681302fd6f06
+    last_write_checksum: sha1:8832b5e144c7b23d4de3c9ea77f537f940656a56
   docs/models/operations/list-webhook-endpoints-response.md:
     last_write_checksum: sha1:d72c8583580b1a754006c9eb8bdac21c4b88d8cf
   docs/models/operations/preview-list-request.md:
@@ -1155,7 +1155,7 @@ trackedFiles:
   docs/models/webhook-delivery-attempt-status.md:
     last_write_checksum: sha1:d48ee0c33661a72a48f134ad75371b4db2fad770
   docs/models/webhook-delivery-attempt.md:
-    last_write_checksum: sha1:56d1bd8a8242904a3d52e6da01276bfaa337ad07
+    last_write_checksum: sha1:bce8083cacb6551b393ba00fffaeab9096fae6f6
   docs/models/webhook-delivery-list.md:
     last_write_checksum: sha1:1cac5502a2486e94fc1ad109eb6c8eb573938252
   docs/models/webhook-endpoint-created.md:
@@ -1203,9 +1203,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:3aaf445f5ba7a25cb00299b3cbac46265c358f78
+    last_write_checksum: sha1:b426d2e5d123cbb5b5eb2ecd3c5888dc5c84c02f
   package.json:
-    last_write_checksum: sha1:41f808491981a55d924bf11ae740291d2138923e
+    last_write_checksum: sha1:5813ebd36591fcb5db60cb2338cacc6486eb9bbe
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1421,7 +1421,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:c8665344161c2b4358f074601cf96353b9176d73
+    last_write_checksum: sha1:78f271a4869c9a7509195475635c0b3dc52b0b1c
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1471,7 +1471,7 @@ trackedFiles:
   src/models/account-directory-page.ts:
     last_write_checksum: sha1:11d1559cf77ebd343dce83213d4563a0a11437fd
   src/models/account-directory-search-request.ts:
-    last_write_checksum: sha1:dafaf9356df4b637c33eef99b123e45ec4d5c12f
+    last_write_checksum: sha1:31974d00927a4905ff538ee10b869a01759d718c
   src/models/account-enforcement-list.ts:
     last_write_checksum: sha1:16b1943c3200b3c01e6e137196624dea2a6bb94f
   src/models/account-export.ts:
@@ -2331,7 +2331,7 @@ trackedFiles:
   src/models/webhook-delivery-attempt-status.ts:
     last_write_checksum: sha1:541754c69140c62a1dd6d5955d7eedd31e974c99
   src/models/webhook-delivery-attempt.ts:
-    last_write_checksum: sha1:41b51d6757fdd0b738e6656f97eb4476dfa8b90f
+    last_write_checksum: sha1:b3eb4e98851b2ca657bb27fab216904b35579b4b
   src/models/webhook-delivery-list.ts:
     last_write_checksum: sha1:ba25d16fa2ab48f03c0bce09486b416ec1ac7e30
   src/models/webhook-endpoint-created.ts:
@@ -3435,7 +3435,7 @@ examples:
           limit: 20
       responses:
         "200":
-          application/json: {"endpoint_id": "whe_01JA2ZD0E1F2G3H4J5K6M7N8P9", "items": [{"event_id": "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2", "event_type": "assessment.updated", "attempt": 1, "replay": true, "status": "delivered", "response_code": 200, "latency_ms": 184, "attempted_at": "2026-10-22T10:15:02.118Z"}, {"event_id": "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2", "event_type": "assessment.updated", "attempt": 2, "replay": false, "status": "failed", "response_code": 500, "failure": "non_2xx", "latency_ms": 96, "attempted_at": "2026-10-22T09:00:31.402Z"}, {"event_id": "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2", "event_type": "assessment.updated", "attempt": 1, "replay": false, "status": "failed", "failure": "timeout", "latency_ms": 5000, "attempted_at": "2026-10-22T09:00:00.951Z"}], "next_cursor": "AQAAAABpG1CXAAYqJ2gK4cQAx1dJ2Hk3Q6CjhYbJ9xU8Pz0qRkL1n3VbW2c"}
+          application/json: {"endpoint_id": "whe_01JA2ZD0E1F2G3H4J5K6M7N8P9", "items": [{"event_id": "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2", "event_type": "assessment.updated", "assessment_id": "asm_01JA2ZD3K4M5N6P7Q8R9S0T1V3", "attempt": 1, "replay": true, "status": "delivered", "response_code": 200, "latency_ms": 184, "attempted_at": "2026-10-22T10:15:02.118Z"}, {"event_id": "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2", "event_type": "assessment.updated", "attempt": 2, "replay": false, "status": "failed", "response_code": 500, "failure": "non_2xx", "latency_ms": 96, "attempted_at": "2026-10-22T09:00:31.402Z"}, {"event_id": "evt_01JA2ZD3K4M5N6P7Q8R9S0T1V2", "event_type": "assessment.updated", "attempt": 1, "replay": false, "status": "failed", "failure": "timeout", "latency_ms": 5000, "attempted_at": "2026-10-22T09:00:00.951Z"}], "next_cursor": "AQAAAABpG1CXAAYqJ2gK4cQAx1dJ2Hk3Q6CjhYbJ9xU8Pz0qRkL1n3VbW2c"}
   replayWebhookDelivery:
     empty:
       parameters:

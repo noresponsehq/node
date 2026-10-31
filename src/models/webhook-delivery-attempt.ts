@@ -20,6 +20,14 @@ export type WebhookDeliveryAttempt = {
    */
   eventType: string;
   /**
+   * The assessment an assessment.updated event reported, while that assessment is held. Absent on every other event, on a test event and on a notice that the assessment was erased or expired.
+   */
+  assessmentId?: string | undefined;
+  /**
+   * The account an account.risk_changed event reported. Absent on every other event.
+   */
+  accountId?: string | undefined;
+  /**
    * Which attempt of this delivery this was: 1 for the first send, up to 9 with retries. A replay counts its own attempts from 1.
    */
   attempt: number;
@@ -57,6 +65,8 @@ export const WebhookDeliveryAttempt$inboundSchema: z.ZodMiniType<
   z.object({
     event_id: types.string(),
     event_type: types.string(),
+    assessment_id: types.optional(types.string()),
+    account_id: types.optional(types.string()),
     attempt: types.number(),
     replay: types.boolean(),
     status: WebhookDeliveryAttemptStatus$inboundSchema,
@@ -69,6 +79,8 @@ export const WebhookDeliveryAttempt$inboundSchema: z.ZodMiniType<
     return remap$(v, {
       "event_id": "eventId",
       "event_type": "eventType",
+      "assessment_id": "assessmentId",
+      "account_id": "accountId",
       "response_code": "responseCode",
       "latency_ms": "latencyMs",
       "attempted_at": "attemptedAt",
