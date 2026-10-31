@@ -65,6 +65,8 @@ export const ReasonCode = {
   NationalityMismatch: "nationality_mismatch",
   MinorIdentity: "minor_identity",
   ReportedAccountAbuse: "reported_account_abuse",
+  BreachCityMatch: "breach_city_match",
+  BreachCityMismatch: "breach_city_mismatch",
 } as const;
 /**
  * A stable reason code. New codes may appear; ignore any you do not know.

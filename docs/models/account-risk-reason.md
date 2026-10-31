@@ -8,7 +8,7 @@ One reason that fired. direction is whether it raises or lowers the score, or is
 import { AccountRiskReason } from "@noresponse/node/models";
 
 let value: AccountRiskReason = {
-  code: "minor_identity",
+  code: "breach_city_match",
   direction: "neutral",
   impact: "high",
   listEntryId: "lst_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
