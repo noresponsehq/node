@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: a0e0d0cd1063c5d6007d02718ad1ee52
+  docChecksum: 623be4e65c19c53c8176883467622963
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.7
-  configChecksum: 102c574550cc856882382fe9419346f4
+  releaseVersion: 10.0.8
+  configChecksum: 1afbc832628ad2c99e16f677f735adfe
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -195,7 +195,7 @@ trackedFiles:
   docs/models/audit-event-target.md:
     last_write_checksum: sha1:00f381c41637cb1523f8828dfab7a5df098ad564
   docs/models/audit-event.md:
-    last_write_checksum: sha1:28756cd038cafee09673db166018e7176ba17e69
+    last_write_checksum: sha1:b903553073bbee693cb6e30c20e17729ca4b5360
   docs/models/audit-settings-environment.md:
     last_write_checksum: sha1:06a464b247817a86a1da84d4490aefc735b8e5aa
   docs/models/audit-settings-request.md:
@@ -1203,9 +1203,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:b426d2e5d123cbb5b5eb2ecd3c5888dc5c84c02f
+    last_write_checksum: sha1:c17b2df3217b043f0e723639da9bcad7f714ec37
   package.json:
-    last_write_checksum: sha1:5813ebd36591fcb5db60cb2338cacc6486eb9bbe
+    last_write_checksum: sha1:11c187e321b934ce525b51dbd066aa9373c22c0e
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1421,7 +1421,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:78f271a4869c9a7509195475635c0b3dc52b0b1c
+    last_write_checksum: sha1:baba9a36ac03441d5a6765a60c713bcca5481e6b
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1587,7 +1587,7 @@ trackedFiles:
   src/models/audit-event-target.ts:
     last_write_checksum: sha1:eae1bd1dc6106ac5c48fb97e86d63aeacc79db8c
   src/models/audit-event.ts:
-    last_write_checksum: sha1:7d79857054645b6a97275060532cb4d47dec4210
+    last_write_checksum: sha1:b9e3eef0f8335e7bcadf609d211af9b834f7867c
   src/models/audit-settings-environment.ts:
     last_write_checksum: sha1:10ab7eea5e623a4ced6f2043ecb3a68d6349b7a7
   src/models/audit-settings-request.ts:
