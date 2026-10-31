@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 2b871695c60c75f6bf13e08d710e9a6c
+  docChecksum: e984df02a5aee59723c78eea38774baf
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.4
-  configChecksum: 958cf46f91bac8d0c834c1069792859f
+  releaseVersion: 10.0.5
+  configChecksum: 79351a0c67fe06623fedd3796b4f9fe4
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -173,7 +173,7 @@ trackedFiles:
   docs/models/assessment-search-page.md:
     last_write_checksum: sha1:aea1d606211b1e7393eb9cfac0cd3362b67dcbf7
   docs/models/assessment-search-request.md:
-    last_write_checksum: sha1:469cb652f89b9b9a1b3c94146b3ba4c615d5bbd1
+    last_write_checksum: sha1:be4779ca1dbbbc2b6fe6c9d9efb24f808dd80230
   docs/models/assessment-updated-data.md:
     last_write_checksum: sha1:ba62035efae70f88318ec4d301c9db384a514eac
   docs/models/assessment-updated-event.md:
@@ -924,6 +924,8 @@ trackedFiles:
     last_write_checksum: sha1:629f6e943ec3cdcbd32e38c1175b3445d8cd9fed
   docs/models/operations/update-settings-response.md:
     last_write_checksum: sha1:df33e6cf75cd2d6ea4057ff3019ea68ee4de2fcf
+  docs/models/origin.md:
+    last_write_checksum: sha1:f5bade6a390ea834e7343d365547a49a51f9218c
   docs/models/outcome.md:
     last_write_checksum: sha1:06b7679b9ea4d1452ddb16f06f89bba26e856519
   docs/models/outcomes-by-outcome.md:
@@ -1201,9 +1203,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:4a55edb9a09e328ad9f6391c6581f3da99aca07f
+    last_write_checksum: sha1:94ed309a6a9d9c13263afd16cd32800ad7aee796
   package.json:
-    last_write_checksum: sha1:904a158495b373af12d1760e24bac0afe188176a
+    last_write_checksum: sha1:913a02ef35a3dba5053e83870dff4926b6d214f3
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1419,7 +1421,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:b004d4c256253538a9f25a7b5dd2485635ef2aaf
+    last_write_checksum: sha1:5355d2f125f2dcbd39b0b8a29a5bf35dfa6d46d1
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1563,7 +1565,7 @@ trackedFiles:
   src/models/assessment-search-page.ts:
     last_write_checksum: sha1:5fc522187497309046110b2a35a3c6059ce97701
   src/models/assessment-search-request.ts:
-    last_write_checksum: sha1:a65d951bc3a4abd08605ec0acac514df1a84081e
+    last_write_checksum: sha1:1eb0a3920edea1f17f3791b88845dcaff86f2d2d
   src/models/assessment-updated-data.ts:
     last_write_checksum: sha1:04582cb8989740b90c7016dcf9e1407bdfd236cb
   src/models/assessment-updated-event.ts:
@@ -1795,7 +1797,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:3a010772fe5eb8cbe0dc163dba90e0f77974ae8c
   src/models/index.ts:
-    last_write_checksum: sha1:8dbb8537e8d29207f725e7f44c5bf73b6852cf51
+    last_write_checksum: sha1:1d51abac69476f95b2863eff2fa64d2edcdf9a69
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -2112,6 +2114,8 @@ trackedFiles:
     last_write_checksum: sha1:a0cdccc8f8fca9e9577f7717d47931d1b403b7bc
   src/models/operations/update-settings.ts:
     last_write_checksum: sha1:efae9d7df47b318ee99a48de9723238a2cbde11e
+  src/models/origin.ts:
+    last_write_checksum: sha1:5cf1c04254a74c6cc533cc12347b89883a1a941d
   src/models/outcome.ts:
     last_write_checksum: sha1:8eae3b4e7effc1157eafe0a4443788f435eaa8dc
   src/models/outcomes-by-outcome.ts:

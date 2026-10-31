@@ -20,6 +20,7 @@ import {
 import { Impact, Impact$outboundSchema } from "./impact.js";
 import { Lane, Lane$outboundSchema } from "./lane.js";
 import { ListMatch, ListMatch$outboundSchema } from "./list-match.js";
+import { Origin, Origin$outboundSchema } from "./origin.js";
 import { ReasonCode, ReasonCode$outboundSchema } from "./reason-code.js";
 import {
   Recommendation,
@@ -50,6 +51,10 @@ export type AssessmentSearchRequest = {
    * Processing state, separate from evidence coverage. complete: final; nothing is still running, but unsupported, failed or unanswered lanes remain in incomplete_sources. partial: a recommendation exists and evidence is incomplete; assessment_url identifies continuing work when present. pending: no recommendation yet; poll or wait for the webhook. Finished processing does not mean all sources answered.
    */
   status?: Status | undefined;
+  /**
+   * api (the default) searches the assessments your integration sent. lookup searches the assessments your team ran by hand on the console's Lookup page. The API sets an assessment's origin from the credential that sent it. A lookup is not in any other list, count, webhook event or account.
+   */
+  origin?: Origin | undefined;
   /**
    * The recommended action: allow, step_up or review. Your application applies it.
    */
@@ -120,6 +125,7 @@ export type AssessmentSearchRequest$Outbound = {
   email?: string | undefined;
   flow?: string | undefined;
   status?: string | undefined;
+  origin?: string | undefined;
   recommendation?: string | undefined;
   limit: number;
   cursor?: string | undefined;
@@ -152,6 +158,7 @@ export const AssessmentSearchRequest$outboundSchema: z.ZodMiniType<
     email: z.optional(z.string()),
     flow: z.optional(Flow$outboundSchema),
     status: z.optional(Status$outboundSchema),
+    origin: z.optional(Origin$outboundSchema),
     recommendation: z.optional(Recommendation$outboundSchema),
     limit: z._default(z.int(), 20),
     cursor: z.optional(z.string()),
