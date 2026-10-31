@@ -78,6 +78,15 @@ export type EnforcementOptions = ConstructEventOptions & {
   /** The account's state in your flow; null or undefined for an account you do not hold. */
   getAccountState: (account: Account) => AccountStateAnswer | null | undefined | Promise<AccountStateAnswer | null | undefined>;
   flows?: Partial<Record<Flow, FlowPolicy>>;
+  /**
+   * Serializes enforcement of one account across your workers. Hold an exclusive
+   * lock on accountId, await enforce, store the result's riskVersion and any state
+   * change, then release the lock. A failure must propagate. Inside the lock the
+   * handler reads the account's risk and your state again, so a stale event or
+   * listed account cannot undo a newer decision. Without it, overlapping calls
+   * can act on an old decision after a newer one.
+   */
+  withAccountLock?: (accountId: string, enforce: () => Promise<EnforcementResult>) => Promise<unknown>;
 };
 
 /** Why nothing was done: not account.risk_changed (or a test event), the account was erased, getAccountState knows no such account, or its riskVersion is already enforced. */
@@ -124,28 +133,46 @@ export async function handleRiskChange(
   secrets: WebhookSecrets,
   options: EnforcementOptions,
 ): Promise<EnforcementResult> {
-  const { provider: _provider, getAccountState: _getAccountState, flows: _flows, ...verify } = options;
+  const { provider: _provider, getAccountState: _getAccountState, flows: _flows, withAccountLock: _withAccountLock, ...verify } = options;
   const event = await constructEvent(payload, headers, secrets, verify);
   if (event.type !== "account.risk_changed" || (event as { test?: boolean }).test === true) {
     return { event, skipped: "not_actionable", enforcements: [] };
   }
-  let account: Account;
-  try {
-    account = await client.accounts.get(event.data.account.id);
-  } catch (error) {
-    if (error instanceof NotFoundError) return { event, skipped: "account_gone", enforcements: [] };
-    throw error;
-  }
-  return { event, ...(await enforceAccount(client, account, options)) };
+  return { event, ...(await underAccountLock(client, event.data.account.id, options)) };
+}
+
+/** Read the account's current risk and enforce it, inside withAccountLock when you gave one. */
+async function underAccountLock(client: NoResponse, accountId: string, options: EnforcementOptions): Promise<EnforcementResult> {
+  const enforce = async (): Promise<EnforcementResult> => {
+    let account: Account;
+    try {
+      account = await client.accounts.get(accountId);
+    } catch (error) {
+      if (error instanceof NotFoundError) return { skipped: "account_gone", enforcements: [] };
+      throw error;
+    }
+    return enforceAsRead(client, account, options);
+  };
+  if (!options.withAccountLock) return enforce();
+  let result: EnforcementResult | undefined;
+  await options.withAccountLock(accountId, async () => (result = await enforce()));
+  if (!result) throw new Error("withAccountLock returned without running enforce");
+  return result;
 }
 
 const FLOW_KEYS = { account_creation: "accountCreation", login: "login", purchase: "purchase" } as const;
 
 /**
- * Enforce one account as read: the account a handler fetched, or one from
- * accounts.listChanged({ unenforced: true }) when catching up.
+ * Enforce one account: the account a handler fetched, or one from
+ * accounts.listChanged({ unenforced: true }) when catching up. With
+ * withAccountLock the account is read again inside the lock; without it the
+ * account is enforced as given.
  */
 export async function enforceAccount(client: NoResponse, account: Account, options: EnforcementOptions): Promise<EnforcementResult> {
+  return options.withAccountLock ? underAccountLock(client, account.id, options) : enforceAsRead(client, account, options);
+}
+
+async function enforceAsRead(client: NoResponse, account: Account, options: EnforcementOptions): Promise<EnforcementResult> {
   const answer = await options.getAccountState(account);
   if (!answer) return { account, skipped: "unknown_user", enforcements: [] };
   const { state } = answer;

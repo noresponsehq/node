@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: d97a96d6a0b0234052b87c6f0316c5d7
+  docChecksum: 2711543f74f21f22421b4d192589f0de
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.0
-  configChecksum: 33c244c86752a0060e9fdb283cad77b3
+  releaseVersion: 10.0.1
+  configChecksum: 2d397050f32121c8ebf0240d836ae2ed
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1195,9 +1195,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:2dcf8360ef8bf93ce3a156b788c1c1e34971c85e
+    last_write_checksum: sha1:fcc6e333c5155e8bec28b1adcf41b8b5ce3948a3
   package.json:
-    last_write_checksum: sha1:5641c770b37e2eb573cad635f1c811415a176e3f
+    last_write_checksum: sha1:718481f0d6a4139d6115fc9f59faed71433b1f2a
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1281,7 +1281,7 @@ trackedFiles:
   src/funcs/exports-cancel.ts:
     last_write_checksum: sha1:d074579eff99dd0338f1a5a8f37d970fc08ae677
   src/funcs/exports-create.ts:
-    last_write_checksum: sha1:b5ff3523695fc51dac7c5d1ba179074c4f7da1ba
+    last_write_checksum: sha1:a1a2a057e8527fc090bc6936cfb6ec02002653ad
   src/funcs/exports-download-chunk.ts:
     last_write_checksum: sha1:08453e1cb34edcce6b72ca2c29f62b3f8ad3c007
   src/funcs/exports-get.ts:
@@ -1327,7 +1327,7 @@ trackedFiles:
   src/funcs/lists-list.ts:
     last_write_checksum: sha1:81202d5719be038c5944f5f86c17c9095895934b
   src/funcs/lists-preview.ts:
-    last_write_checksum: sha1:3cd3dcbd9ca6d73c026edf0124c354b97ae4002e
+    last_write_checksum: sha1:7ee736601e2fe07a1324945c184fe5ace4e279bd
   src/funcs/members-list.ts:
     last_write_checksum: sha1:27650a73a6be054d8bd1b98f2af11ff5f41dbda3
   src/funcs/members-remove.ts:
@@ -1413,7 +1413,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:5a7d53f98baed6b02dd40664e76ec2930ea28835
+    last_write_checksum: sha1:84aeb933010b6d6f4ef9703435222055fbb74382
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2369,7 +2369,7 @@ trackedFiles:
   src/sdk/evaluations.ts:
     last_write_checksum: sha1:36cf03b740e805ff41d93cfdb6b99b706837a3b1
   src/sdk/exports.ts:
-    last_write_checksum: sha1:0566a7cf8ad683c2047e874284ea1f7291e909d4
+    last_write_checksum: sha1:f3235e861f811175c5b24154d11573e50f847270
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
   src/sdk/integrations.ts:
@@ -2381,7 +2381,7 @@ trackedFiles:
   src/sdk/keys.ts:
     last_write_checksum: sha1:886e292c9ab8246ed9301154f664490ce7c0f4b1
   src/sdk/lists.ts:
-    last_write_checksum: sha1:33b65ffea48e4ce7c5c5bd9ba056b9f5370be966
+    last_write_checksum: sha1:0f6e65e862b1b2baee37b780fff7efb7fd4734cf
   src/sdk/members.ts:
     last_write_checksum: sha1:366de1943d40e57f0a5182b6a29ede1df99cdfcf
   src/sdk/operations.ts:
