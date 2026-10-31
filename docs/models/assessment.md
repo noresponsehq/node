@@ -117,18 +117,26 @@ let value: Assessment = {
             firstNamePrefix: "Al",
           },
         ],
+        attributeConflicts: [
+          {
+            attribute: "gender",
+            sites: [
+              "forum.example.com",
+            ],
+          },
+        ],
       },
     },
     signals: [
       {
         type: "account_presence",
-        identifier: "username",
-        outcome: "found",
+        identifier: "email",
+        outcome: "not_found",
         sourceId: "github",
         evidenceRef: "evr_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         observedAt: "2026-10-14T09:00:00.210Z",
         lastCheckedAt: "2026-10-14T09:00:00.210Z",
-        freshness: "stale",
+        freshness: "fresh",
         enrichment: {
           fields: {
             phone: "+61412345678",
@@ -177,14 +185,14 @@ let value: Assessment = {
     incompleteSources: [],
     policyVersion: "heuristic-2026-10.1",
     policyBasis: "heuristic_unvalidated",
-    assessmentVersion: 144766,
+    assessmentVersion: 184776,
     createdAt: "2026-10-14T09:00:00.000Z",
     updatedAt: "2026-10-14T09:00:00.412Z",
     expiresAt: "2027-10-14T09:00:00.000Z",
     assessmentUrl: "/v1/assessments/asm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     timing: {
-      deadlineMs: 184776,
-      elapsedMs: 637926,
+      deadlineMs: 637926,
+      elapsedMs: 946880,
     },
     authContext: {
       provider: "clerk",
@@ -192,8 +200,8 @@ let value: Assessment = {
       subject: "user_2EXAMPLE",
       sessionId: "sess_2EXAMPLE",
       organizationId: "org_2EXAMPLE",
-      verified: false,
-      transport: "browser",
+      verified: true,
+      transport: "backend",
     },
   },
 };

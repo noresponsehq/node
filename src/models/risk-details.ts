@@ -17,6 +17,12 @@ import {
   OnlineAccount$outboundSchema,
 } from "./online-account.js";
 import {
+  RiskDetailsAttributeConflict,
+  RiskDetailsAttributeConflict$inboundSchema,
+  RiskDetailsAttributeConflict$Outbound,
+  RiskDetailsAttributeConflict$outboundSchema,
+} from "./risk-details-attribute-conflict.js";
+import {
   RiskDetailsBreachName,
   RiskDetailsBreachName$inboundSchema,
   RiskDetailsBreachName$Outbound,
@@ -56,6 +62,10 @@ export type RiskDetails = {
    * Every online-account search of the email or username: the platform, what the search came to and, for an account found, what the platform returned beside it. Found first, then not found, then searches that failed or are still running, each by platform name; at most 64. A failed or running search keeps its own outcome and is not reported as not_found.
    */
   accounts?: Array<OnlineAccount> | undefined;
+  /**
+   * What an identity_attribute_conflict reason weighed: each attribute the records disagree on and the sites reporting it. Absent when the reason did not fire, and on an answer stored before conflicts were recorded. No value is served.
+   */
+  attributeConflicts?: Array<RiskDetailsAttributeConflict> | undefined;
 };
 
 /** @internal */
@@ -69,11 +79,15 @@ export const RiskDetails$inboundSchema: z.ZodMiniType<RiskDetails, unknown> = z
       ),
       events: types.optional(z.array(RiskDetailsEvent$inboundSchema)),
       accounts: types.optional(z.array(OnlineAccount$inboundSchema)),
+      attribute_conflicts: types.optional(
+        z.array(RiskDetailsAttributeConflict$inboundSchema),
+      ),
     }),
     z.transform((v) => {
       return remap$(v, {
         "phone_names": "phoneNames",
         "breach_names": "breachNames",
+        "attribute_conflicts": "attributeConflicts",
       });
     }),
   );
@@ -84,6 +98,9 @@ export type RiskDetails$Outbound = {
   breach_names?: Array<RiskDetailsBreachName$Outbound> | undefined;
   events?: Array<RiskDetailsEvent$Outbound> | undefined;
   accounts?: Array<OnlineAccount$Outbound> | undefined;
+  attribute_conflicts?:
+    | Array<RiskDetailsAttributeConflict$Outbound>
+    | undefined;
 };
 
 /** @internal */
@@ -97,11 +114,15 @@ export const RiskDetails$outboundSchema: z.ZodMiniType<
     breachNames: z.optional(z.array(RiskDetailsBreachName$outboundSchema)),
     events: z.optional(z.array(RiskDetailsEvent$outboundSchema)),
     accounts: z.optional(z.array(OnlineAccount$outboundSchema)),
+    attributeConflicts: z.optional(
+      z.array(RiskDetailsAttributeConflict$outboundSchema),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
       phoneNames: "phone_names",
       breachNames: "breach_names",
+      attributeConflicts: "attribute_conflicts",
     });
   }),
 );

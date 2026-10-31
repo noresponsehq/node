@@ -59,6 +59,14 @@ export type Risk = {
    */
   blockThreshold?: number | undefined;
   /**
+   * The score at which this answer's flow starts to recommend step_up. Absent from an answer stored before it was recorded.
+   */
+  stepUpThreshold?: number | undefined;
+  /**
+   * The score at which this answer's flow starts to recommend review. An answer nothing answered recommends review below it, with confidence unavailable. Absent from an answer stored before it was recorded.
+   */
+  reviewThreshold?: number | undefined;
+  /**
    * How much of the planned evidence answered; it says nothing about risk.
    */
   confidence: RiskConfidence;
@@ -96,6 +104,8 @@ export const Risk$inboundSchema: z.ZodMiniType<Risk, unknown> = z.pipe(
     recommendation: Recommendation$inboundSchema,
     block: types.optional(types.boolean()),
     block_threshold: types.optional(types.number()),
+    step_up_threshold: types.optional(types.number()),
+    review_threshold: types.optional(types.number()),
     confidence: RiskConfidence$inboundSchema,
     policy_version: types.string(),
     policy_basis: types.literal("heuristic_unvalidated"),
@@ -107,6 +117,8 @@ export const Risk$inboundSchema: z.ZodMiniType<Risk, unknown> = z.pipe(
   z.transform((v) => {
     return remap$(v, {
       "block_threshold": "blockThreshold",
+      "step_up_threshold": "stepUpThreshold",
+      "review_threshold": "reviewThreshold",
       "policy_version": "policyVersion",
       "policy_basis": "policyBasis",
     });
@@ -119,6 +131,8 @@ export type Risk$Outbound = {
   recommendation: string;
   block?: boolean | undefined;
   block_threshold?: number | undefined;
+  step_up_threshold?: number | undefined;
+  review_threshold?: number | undefined;
   confidence: string;
   policy_version: string;
   policy_basis: "heuristic_unvalidated";
@@ -136,6 +150,8 @@ export const Risk$outboundSchema: z.ZodMiniType<Risk$Outbound, Risk> = z.pipe(
     recommendation: Recommendation$outboundSchema,
     block: z.optional(z.boolean()),
     blockThreshold: z.optional(z.int()),
+    stepUpThreshold: z.optional(z.int()),
+    reviewThreshold: z.optional(z.int()),
     confidence: RiskConfidence$outboundSchema,
     policyVersion: z.string(),
     policyBasis: z.literal("heuristic_unvalidated"),
@@ -147,6 +163,8 @@ export const Risk$outboundSchema: z.ZodMiniType<Risk$Outbound, Risk> = z.pipe(
   z.transform((v) => {
     return remap$(v, {
       blockThreshold: "block_threshold",
+      stepUpThreshold: "step_up_threshold",
+      reviewThreshold: "review_threshold",
       policyVersion: "policy_version",
       policyBasis: "policy_basis",
     });
