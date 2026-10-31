@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 5c9c3249b882e60e6533f7c05e0858b1
+  docChecksum: 4d4129b3e43f1a3101530a9659ca3b0b
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.2
-  configChecksum: a0d65fb7eb889733d9928bd010548627
+  releaseVersion: 10.0.3
+  configChecksum: a72c4c42e94cfd5cf60ebe5ec592401d
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -220,6 +220,8 @@ trackedFiles:
     last_write_checksum: sha1:98f623cc1b4591cc64eab5b4871309af4a8dbcab
   docs/models/band.md:
     last_write_checksum: sha1:b1a5cb24d88fb395d24a5e9f69ee8a197bd3efbb
+  docs/models/breach-conduct.md:
+    last_write_checksum: sha1:e2a4ba00d25a86e575df4c3d88ea11b2adf807c2
   docs/models/breach-exposed.md:
     last_write_checksum: sha1:a4d211cf0995e4f1f1c253b21bef09683b50eada
   docs/models/breach-kind.md:
@@ -229,7 +231,7 @@ trackedFiles:
   docs/models/breach-summary.md:
     last_write_checksum: sha1:3274771b11b0de9ddc8220acb70329592111bc08
   docs/models/breach.md:
-    last_write_checksum: sha1:642c1195763bc03284c61bdac31d0a3d19013389
+    last_write_checksum: sha1:21150d235b17f655a0073d5fdf830daa1547fdc4
   docs/models/bucket.md:
     last_write_checksum: sha1:3bcf27bd1e530658d1991d069c19052a6f9dd9dd
   docs/models/conclusion.md:
@@ -1199,9 +1201,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:f64eea5c88165bdbc0617c9d4fd1965b731e178c
+    last_write_checksum: sha1:86851f33b34b6ce9e9f6e77cc07163c5f6c1fa86
   package.json:
-    last_write_checksum: sha1:af44492749c2767c079b7f5877a5c22863ea2ba0
+    last_write_checksum: sha1:731c33778c3b1a05fb61abecd7a02fcbc9330538
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1417,7 +1419,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:9272ebfcfb653f8cf0359d67467eecf23b129b7d
+    last_write_checksum: sha1:1e634d942e098d061af494c4513af61d604c0704
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1608,6 +1610,8 @@ trackedFiles:
     last_write_checksum: sha1:497c16e215b989f07b7901f1f709736400ef3177
   src/models/band.ts:
     last_write_checksum: sha1:0f7ed26c924177964ea82c3328e7f02233c29a25
+  src/models/breach-conduct.ts:
+    last_write_checksum: sha1:b9bd6c677de2af1b4d83f0fa3a5504fe4f0e24f8
   src/models/breach-exposed.ts:
     last_write_checksum: sha1:5a2b2a396b2b83ac467a917cd05bcb6a4935a180
   src/models/breach-kind.ts:
@@ -1617,7 +1621,7 @@ trackedFiles:
   src/models/breach-summary.ts:
     last_write_checksum: sha1:b01d7a0cb84794626270db9479385ce61077310c
   src/models/breach.ts:
-    last_write_checksum: sha1:18b5afad9d304a34060d2ab2e769d52f23e6e4a8
+    last_write_checksum: sha1:9180847f3afab322aa89e3b806064163f3bf47fd
   src/models/bucket.ts:
     last_write_checksum: sha1:a57318faaad6daac2b925928f513acfb44cbd60d
   src/models/conclusion.ts:
@@ -1791,7 +1795,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:3a010772fe5eb8cbe0dc163dba90e0f77974ae8c
   src/models/index.ts:
-    last_write_checksum: sha1:f667b59e2e9de95ef34c3a2cc36e0ae4084685f4
+    last_write_checksum: sha1:8dbb8537e8d29207f725e7f44c5bf73b6852cf51
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:

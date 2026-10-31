@@ -81,6 +81,7 @@ export * from "./auth-context.js";
 export * from "./authentication-error-code.js";
 export * from "./bad-request-error-code.js";
 export * from "./band.js";
+export * from "./breach-conduct.js";
 export * from "./breach-exposed.js";
 export * from "./breach-kind.js";
 export * from "./breach-selector.js";

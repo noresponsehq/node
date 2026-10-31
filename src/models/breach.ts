@@ -4,6 +4,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  BreachConduct,
+  BreachConduct$inboundSchema,
+  BreachConduct$outboundSchema,
+} from "./breach-conduct.js";
+import {
   BreachExposed,
   BreachExposed$inboundSchema,
   BreachExposed$outboundSchema,
@@ -50,6 +55,10 @@ export type Breach = {
    */
   matchedOn: BreachSelector;
   exposed?: Array<BreachExposed> | undefined;
+  /**
+   * What this table's rows record against the matched email or username: the tables behind the forum_sanctioned and prior_payment_abuse reasons. Absent when the rows record none, for a table matched on an IP address, and from an answer stored before it was recorded.
+   */
+  conduct?: Array<BreachConduct> | undefined;
 };
 
 /** @internal */
@@ -63,6 +72,7 @@ export const Breach$inboundSchema: z.ZodMiniType<Breach, unknown> = z.pipe(
     month: types.optional(types.number()),
     matched_on: BreachSelector$inboundSchema,
     exposed: types.optional(z.array(BreachExposed$inboundSchema)),
+    conduct: types.optional(z.array(BreachConduct$inboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -80,6 +90,7 @@ export type Breach$Outbound = {
   month?: number | undefined;
   matched_on: string;
   exposed?: Array<string> | undefined;
+  conduct?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -94,6 +105,7 @@ export const Breach$outboundSchema: z.ZodMiniType<Breach$Outbound, Breach> = z
       month: z.optional(z.int()),
       matchedOn: BreachSelector$outboundSchema,
       exposed: z.optional(z.array(BreachExposed$outboundSchema)),
+      conduct: z.optional(z.array(BreachConduct$outboundSchema)),
     }),
     z.transform((v) => {
       return remap$(v, {
