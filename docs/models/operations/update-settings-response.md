@@ -50,6 +50,7 @@ let value: UpdateSettingsResponse = {
       },
     },
     refusedSources: [],
+    screeningDailyCap: 938374,
   },
 };
 ```

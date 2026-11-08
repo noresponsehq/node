@@ -28,6 +28,8 @@ let value: CancelScreeningResponse = {
     attendeesDone: 977538,
     attendeesFlagged: 960583,
     attendeesFailed: 782149,
+    estimatedSpend: 797695,
+    spent: 916565,
     errorCode: "user_cancelled",
   },
 };

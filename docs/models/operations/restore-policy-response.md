@@ -55,6 +55,7 @@ let value: RestorePolicyResponse = {
       },
     },
     refusedSources: [],
+    screeningDailyCap: 938374,
   },
 };
 ```

@@ -7,16 +7,8 @@ import { StartScreeningResponse } from "@noresponse/node/models/operations";
 
 let value: StartScreeningResponse = {
   headers: {
-    "key": [
-      "example 1",
-      "example 2",
-      "example 3",
-    ],
-    "key1": [
-      "example 1",
-      "example 2",
-    ],
-    "key2": [],
+    "key": [],
+    "key1": [],
   },
   result: {
     id: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -34,6 +26,8 @@ let value: StartScreeningResponse = {
     attendeesDone: 977538,
     attendeesFlagged: 960583,
     attendeesFailed: 782149,
+    estimatedSpend: 797695,
+    spent: 916565,
     errorCode: "user_cancelled",
   },
 };

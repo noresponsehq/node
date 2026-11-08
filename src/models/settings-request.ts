@@ -17,6 +17,10 @@ export type SettingsRequest = {
    */
   refusedSources?: Array<SourceId> | undefined;
   /**
+   * Replaces the daily screening cap, in minor units of USD; null removes the cap. Needs settings.write only, like retention_days.
+   */
+  screeningDailyCap?: number | null | undefined;
+  /**
    * Use account_creation or its deprecated alias signup, not both.
    */
   flows?: SettingsRequestFlows | undefined;
@@ -31,6 +35,7 @@ export type SettingsRequest = {
 export type SettingsRequest$Outbound = {
   retention_days?: number | undefined;
   refused_sources?: Array<string> | undefined;
+  screening_daily_cap?: number | null | undefined;
   flows?: SettingsRequestFlows$Outbound | undefined;
   expected_policy_version?: number | undefined;
   change_reason?: string | undefined;
@@ -44,6 +49,7 @@ export const SettingsRequest$outboundSchema: z.ZodMiniType<
   z.object({
     retentionDays: z.optional(z.int()),
     refusedSources: z.optional(z.array(SourceId$outboundSchema)),
+    screeningDailyCap: z.optional(z.nullable(z.int())),
     flows: z.optional(SettingsRequestFlows$outboundSchema),
     expectedPolicyVersion: z.optional(z.int()),
     changeReason: z.optional(z.string()),
@@ -52,6 +58,7 @@ export const SettingsRequest$outboundSchema: z.ZodMiniType<
     return remap$(v, {
       retentionDays: "retention_days",
       refusedSources: "refused_sources",
+      screeningDailyCap: "screening_daily_cap",
       expectedPolicyVersion: "expected_policy_version",
       changeReason: "change_reason",
     });

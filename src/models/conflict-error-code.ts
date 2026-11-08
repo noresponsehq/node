@@ -34,6 +34,7 @@ export const ConflictErrorCode = {
   AggregateErasedData: "aggregate_erased_data",
   EventConflict: "event_conflict",
   EventLimitReached: "event_limit_reached",
+  ScreeningCapExceeded: "screening_cap_exceeded",
   ScreeningUnavailable: "screening_unavailable",
 } as const;
 /**

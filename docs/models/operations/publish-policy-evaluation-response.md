@@ -44,6 +44,7 @@ let value: PublishPolicyEvaluationResponse = {
       },
     },
     refusedSources: [],
+    screeningDailyCap: 938374,
   },
 };
 ```

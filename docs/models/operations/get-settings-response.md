@@ -6,7 +6,10 @@
 import { GetSettingsResponse } from "@noresponse/node/models/operations";
 
 let value: GetSettingsResponse = {
-  headers: {},
+  headers: {
+    "key": [],
+    "key1": [],
+  },
   result: {
     workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     environment: "live",
@@ -44,6 +47,7 @@ let value: GetSettingsResponse = {
       },
     },
     refusedSources: [],
+    screeningDailyCap: 938374,
   },
 };
 ```

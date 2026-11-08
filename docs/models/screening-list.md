@@ -27,6 +27,8 @@ let value: ScreeningList = {
       attendeesDone: 17533,
       attendeesFlagged: 47314,
       attendeesFailed: 12333,
+      estimatedSpend: 496149,
+      spent: 576065,
       errorCode: "user_cancelled",
     },
   ],

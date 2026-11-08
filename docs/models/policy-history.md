@@ -47,6 +47,7 @@ let value: PolicyHistory = {
           },
         },
         refusedSources: [],
+        screeningDailyCap: 802290,
       },
       recordedAt: "2026-01-01T00:00:00Z",
       changeReason: "Adjust thresholds after reviewing retained evidence",
@@ -69,8 +70,8 @@ let value: PolicyHistory = {
       },
     },
   ],
-  hasMore: false,
-  historyComplete: false,
+  hasMore: true,
+  historyComplete: true,
 };
 ```
 

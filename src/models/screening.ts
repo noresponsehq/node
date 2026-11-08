@@ -65,6 +65,14 @@ export type Screening = {
   attendeesFlagged: number;
   attendeesFailed: number;
   /**
+   * What the screening was estimated to cost when it started, in minor units of USD (cents): its attendees at its depth and platforms. Until the screening finishes, what it has not yet spent counts against the environment's screening_daily_cap.
+   */
+  estimatedSpend: number;
+  /**
+   * What the attendees it has screened recorded, in minor units of USD. Each counts toward the UTC day it was recorded on; a failed attendee records nothing.
+   */
+  spent: number;
+  /**
    * Why a failed or cancelled screening stopped.
    */
   errorCode?: string | undefined;
@@ -95,6 +103,8 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
       attendees_done: types.number(),
       attendees_flagged: types.number(),
       attendees_failed: types.number(),
+      estimated_spend: types.number(),
+      spent: types.number(),
       error_code: types.optional(types.string()),
     }),
     z.transform((v) => {
@@ -109,6 +119,7 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
         "attendees_done": "attendeesDone",
         "attendees_flagged": "attendeesFlagged",
         "attendees_failed": "attendeesFailed",
+        "estimated_spend": "estimatedSpend",
         "error_code": "errorCode",
       });
     }),

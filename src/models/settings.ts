@@ -15,7 +15,7 @@ import {
 import { SourceId, SourceId$inboundSchema } from "./source-id.js";
 
 /**
- * One environment's settings: how long its assessments are kept, and for each flow the risk thresholds that decide it and the depth a request that names none is served at, and the sources it refuses. Live and test each have their own. A flow without thresholds of its own uses account_creation's (inherits_account_creation). Every change is recorded in the audit log as settings.updated, with who made it.
+ * One environment's settings: how long its assessments are kept, and for each flow the risk thresholds that decide it and the depth a request that names none is served at, the sources it refuses, and the daily cap on screening spend. Live and test each have their own. A flow without thresholds of its own uses account_creation's (inherits_account_creation). Every change is recorded in the audit log as settings.updated, with who made it.
  */
 export type Settings = {
   /**
@@ -47,6 +47,10 @@ export type Settings = {
    * The sources this environment refuses, sorted; empty, the default, refuses none. An assessment leaves a refused source out: its coverage is missing (an identifier with no other source lists coverage-unavailable as unavailable) rather than not_found, and a stored result of a refused source is not reused.
    */
   refusedSources: Array<SourceId>;
+  /**
+   * The most the environment's screenings may spend in one UTC day, in minor units of USD (cents), 0 to 100000000; null is no cap. Default 50000. A screening whose estimated_spend exceeds the cap less the day's recorded spend and what open screenings may still spend answers 409 screening_cap_exceeded.
+   */
+  screeningDailyCap: number | null;
 };
 
 /** @internal */
@@ -60,6 +64,7 @@ export const Settings$inboundSchema: z.ZodMiniType<Settings, unknown> = z.pipe(
     updated_at: types.optional(types.string()),
     flows: SettingsFlows$inboundSchema,
     refused_sources: z.array(SourceId$inboundSchema),
+    screening_daily_cap: types.nullable(types.number()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -69,6 +74,7 @@ export const Settings$inboundSchema: z.ZodMiniType<Settings, unknown> = z.pipe(
       "updated_by": "updatedBy",
       "updated_at": "updatedAt",
       "refused_sources": "refusedSources",
+      "screening_daily_cap": "screeningDailyCap",
     });
   }),
 );

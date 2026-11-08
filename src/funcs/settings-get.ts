@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Read an environment's settings.
  *
  * @remarks
- * Read this environment retention, source selection and effective flow policies. A flow without its own thresholds inherits account_creation. Requires settings or management. Another environment answers404. Read-only and safe to retry.
+ * Read this environment retention, source selection, daily screening cap and effective flow policies. A flow without its own thresholds inherits account_creation. Requires settings or management. Another environment answers404. Read-only and safe to retry.
  */
 export function settingsGet(
   client: NoResponseCore,
