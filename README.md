@@ -322,6 +322,22 @@ async function handler(req, res) {
     alertOps(event.data.endpointId, event.data.failingSince);
     return res.status(204).end();
   }
+  if (event.type === "screening.completed") {
+    // A screening of an event finished: counts by band, no footprint and partial coverage. No attendee is named:
+    // read the event's roster, filtered by band.
+    reportScreening(event.data.eventId, event.data.status, event.data.byBand, event.data.partialCoverage);
+    return res.status(204).end();
+  }
+  if (event.type === "attendee.flagged") {
+    // A screening flagged an attendee: its highest band and match state, never what was posted.
+    queueReview(event.data.eventId, event.data.attendeeId, event.data.highestBand);
+    return res.status(204).end();
+  }
+  if (event.type === "attendee.decided") {
+    // A reviewer marked the attendee cleared, watch or escalated. Keep the latest decidedAt per attendee.
+    applyDecision(event.data.attendeeId, event.data.decision, event.data.decidedAt);
+    return res.status(204).end();
+  }
   if (event.type === "account.risk_changed") {
     // The one event to act on: a flow's decision changed, at data.account.riskVersion.
     // This verifier alone does not enforce it: use handleRiskChange (below) as this endpoint's receiver.

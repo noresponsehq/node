@@ -157,6 +157,16 @@ async function webhooks(): Promise<void> {
   } else if (event.type === "endpoint.verification") {
     const challenge: string = event.data.challenge;
     void challenge;
+  } else if (event.type === "screening.completed") {
+    const critical: number = event.data.byBand.critical;
+    const uncovered: number = event.data.partialCoverage;
+    void [critical, uncovered, event.data.noFootprint];
+  } else if (event.type === "attendee.flagged") {
+    const band: string = event.data.highestBand;
+    void [band, event.data.attendeeId];
+  } else if (event.type === "attendee.decided") {
+    const decision: string = event.data.decision;
+    void [decision, event.data.decidedBy];
   }
   const context: AuthContext = fromClerk({ iss: "https://clerk.example", sub: "user_1" }, { sessionCreatedAt: "2026-10-19T18:00:00Z" });
   void context;

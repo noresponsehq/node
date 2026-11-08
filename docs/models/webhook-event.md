@@ -320,3 +320,69 @@ const value: models.AuditEventEvent = {
 };
 ```
 
+### `models.ScreeningCompletedEvent`
+
+```typescript
+const value: models.ScreeningCompletedEvent = {
+  id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
+  createdAt: "2026-10-14T09:00:02.000Z",
+  type: "screening.completed",
+  data: {
+    screeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    status: "failed",
+    errorCode: "expired",
+    attendeesTotal: 134491,
+    attendeesScreened: 402555,
+    attendeesFlagged: 479916,
+    byBand: {
+      critical: 921729,
+      high: 668548,
+      moderate: 314462,
+      low: 418191,
+      info: 569787,
+    },
+    noFootprint: 729417,
+    partialCoverage: 501765,
+    finishedAt: "2026-11-20T08:12:44.000Z",
+  },
+};
+```
+
+### `models.AttendeeFlaggedEvent`
+
+```typescript
+const value: models.AttendeeFlaggedEvent = {
+  id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
+  createdAt: "2026-10-14T09:00:02.000Z",
+  type: "attendee.flagged",
+  data: {
+    eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    attendeeId: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    screeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    highestBand: "info",
+    matchState: "inaccessible",
+    flaggedAt: "2026-11-20T07:41:09.000Z",
+  },
+};
+```
+
+### `models.AttendeeDecidedEvent`
+
+```typescript
+const value: models.AttendeeDecidedEvent = {
+  id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
+  createdAt: "2026-10-14T09:00:02.000Z",
+  type: "attendee.decided",
+  data: {
+    eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    attendeeId: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    reviewId: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    decision: "escalated",
+    decidedBy:
+      "email:2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
+    decidedAt: "2026-11-20T09:03:27.000Z",
+  },
+};
+```
+

@@ -14,3 +14,6 @@ export type HighestBand = OpenEnum<typeof HighestBand>;
 /** @internal */
 export const HighestBand$inboundSchema: z.ZodMiniType<HighestBand, unknown> =
   openEnums.inboundSchema(HighestBand);
+/** @internal */
+export const HighestBand$outboundSchema: z.ZodMiniType<string, HighestBand> =
+  openEnums.outboundSchema(HighestBand);
