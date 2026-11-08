@@ -8,6 +8,7 @@ import { Assessments } from "./assessments.js";
 import { Audit } from "./audit.js";
 import { Erasures } from "./erasures.js";
 import { Evaluations } from "./evaluations.js";
+import { Events } from "./events.js";
 import { Exports } from "./exports.js";
 import { Integrations } from "./integrations.js";
 import { Invites } from "./invites.js";
@@ -111,6 +112,11 @@ export class NoResponse extends ClientSDK {
   private _operations?: Operations;
   get operations(): Operations {
     return (this._operations ??= new Operations(this._options));
+  }
+
+  private _events?: Events;
+  get events(): Events {
+    return (this._events ??= new Events(this._options));
   }
 
   async validateWebhook({

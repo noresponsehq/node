@@ -30,7 +30,7 @@ let value: ListKeysResponse = {
         environment: "test",
         prefix: "nrk_live_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
         scopes: [
-          "members",
+          "members_manage",
         ],
         status: "expired",
         createdAt: "2026-10-23T09:14:12.000Z",

@@ -13,7 +13,7 @@ let value: Key = {
   environment: "test",
   prefix: "nrk_live_01JA2ZE4K5M6N7P8Q9R0S1T2V3",
   scopes: [
-    "integrations",
+    "management",
   ],
   status: "revoked",
   createdAt: "2026-10-23T09:14:12.000Z",

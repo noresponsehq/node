@@ -31,6 +31,7 @@ export const KeyScope = {
   PolicyPublish: "policy_publish",
   Members: "members",
   MembersManage: "members_manage",
+  Events: "events",
 } as const;
 export type KeyScope = OpenEnum<typeof KeyScope>;
 
