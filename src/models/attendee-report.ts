@@ -2,6 +2,7 @@ import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AttendeeReview,
   AttendeeReview$inboundSchema,
@@ -13,6 +14,10 @@ import {
   ScreeningFinding,
   ScreeningFinding$inboundSchema,
 } from "./screening-finding.js";
+import {
+  ScreeningLookup,
+  ScreeningLookup$inboundSchema,
+} from "./screening-lookup.js";
 import {
   ScreeningMedia,
   ScreeningMedia$inboundSchema,
@@ -55,6 +60,10 @@ export type AttendeeReport = {
    */
   reviews: Array<AttendeeReview>;
   /**
+   * What the signup check's lookups found for an attendee: account presence for the email, phone and usernames (the attendee's handles), the phone lookup, the email domain's registration and the breach search. Context and coverage for the reviewer, not a finding: nothing here sets a band or a match state.
+   */
+  lookup?: ScreeningLookup | undefined;
+  /**
    * Where else in the environment the attendee appears, read live from those events: deleting one removes it here.
    */
   otherEvents: OtherEvents;
@@ -72,6 +81,7 @@ export const AttendeeReport$inboundSchema: z.ZodMiniType<
     posts: z.array(ScreeningPost$inboundSchema),
     media: z.array(ScreeningMedia$inboundSchema),
     reviews: z.array(AttendeeReview$inboundSchema),
+    lookup: types.optional(ScreeningLookup$inboundSchema),
     other_events: OtherEvents$inboundSchema,
   }),
   z.transform((v) => {

@@ -94,8 +94,74 @@ let value: AttendeeReport = {
   ],
   media: [],
   reviews: [],
+  lookup: {
+    checks: [],
+    summary: {
+      phone: {
+        country: "AU",
+        carrier: "Telstra",
+      },
+      ip: {
+        country: "AU",
+      },
+    },
+    details: {
+      phoneNames: [
+        {
+          value: "Alex Example",
+          seenBy: 583889,
+        },
+      ],
+      breaches: [
+        {
+          name: "Example Forum",
+          domain: "forum.example.com",
+          category: "forum",
+          kind: "hacking_forum",
+          matchedOn: "email",
+        },
+      ],
+      breachNames: [
+        {
+          value: "Alex Example",
+          seenIn: 714857,
+          sites: [
+            "forum.example.com",
+          ],
+        },
+      ],
+      events: [
+        {
+          year: 309976,
+          kind: "last_active",
+          site: "example.com",
+          category: "site_breach",
+          family: "breach",
+          identifier: "email",
+        },
+      ],
+      accounts: [
+        {
+          name: "Wix",
+          domain: "wix.com",
+          identifier: "username",
+          outcome: "inconclusive",
+          firstNamePrefix: "Al",
+        },
+      ],
+      attributeConflicts: [
+        {
+          attribute: "gender",
+          sites: [
+            "forum.example.com",
+          ],
+        },
+      ],
+    },
+    lookedAt: "2026-01-01T00:00:00Z",
+  },
   otherEvents: {
-    total: 346170,
+    total: 133678,
     items: [],
   },
 };
@@ -103,12 +169,13 @@ let value: AttendeeReport = {
 
 ## Fields
 
-| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `attendee`                                                                                                     | [models.Attendee](../models/attendee.md)                                                                       | :heavy_check_mark:                                                                                             | An attendee and where their screening and review stand.                                                        |
-| `profiles`                                                                                                     | [models.ScreeningProfile](../models/screening-profile.md)[]                                                    | :heavy_check_mark:                                                                                             | The accounts the latest screening matched, with how each was matched.                                          |
-| `findings`                                                                                                     | [models.ScreeningFinding](../models/screening-finding.md)[]                                                    | :heavy_check_mark:                                                                                             | What the latest screening flagged, most severe first, each citing its evidence.                                |
-| `posts`                                                                                                        | [models.ScreeningPost](../models/screening-post.md)[]                                                          | :heavy_check_mark:                                                                                             | The posts the findings cite.                                                                                   |
-| `media`                                                                                                        | [models.ScreeningMedia](../models/screening-media.md)[]                                                        | :heavy_check_mark:                                                                                             | The images and videos the findings cite.                                                                       |
-| `reviews`                                                                                                      | [models.AttendeeReview](../models/attendee-review.md)[]                                                        | :heavy_check_mark:                                                                                             | Every recorded decision, oldest first.                                                                         |
-| `otherEvents`                                                                                                  | [models.OtherEvents](../models/other-events.md)                                                                | :heavy_check_mark:                                                                                             | Where else in the environment the attendee appears, read live from those events: deleting one removes it here. |
+| Field                                                                                                                                                                                                                                                                                                          | Type                                                                                                                                                                                                                                                                                                           | Required                                                                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `attendee`                                                                                                                                                                                                                                                                                                     | [models.Attendee](../models/attendee.md)                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | An attendee and where their screening and review stand.                                                                                                                                                                                                                                                        |
+| `profiles`                                                                                                                                                                                                                                                                                                     | [models.ScreeningProfile](../models/screening-profile.md)[]                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | The accounts the latest screening matched, with how each was matched.                                                                                                                                                                                                                                          |
+| `findings`                                                                                                                                                                                                                                                                                                     | [models.ScreeningFinding](../models/screening-finding.md)[]                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | What the latest screening flagged, most severe first, each citing its evidence.                                                                                                                                                                                                                                |
+| `posts`                                                                                                                                                                                                                                                                                                        | [models.ScreeningPost](../models/screening-post.md)[]                                                                                                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | The posts the findings cite.                                                                                                                                                                                                                                                                                   |
+| `media`                                                                                                                                                                                                                                                                                                        | [models.ScreeningMedia](../models/screening-media.md)[]                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | The images and videos the findings cite.                                                                                                                                                                                                                                                                       |
+| `reviews`                                                                                                                                                                                                                                                                                                      | [models.AttendeeReview](../models/attendee-review.md)[]                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | Every recorded decision, oldest first.                                                                                                                                                                                                                                                                         |
+| `lookup`                                                                                                                                                                                                                                                                                                       | [models.ScreeningLookup](../models/screening-lookup.md)                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                             | What the signup check's lookups found for an attendee: account presence for the email, phone and usernames (the attendee's handles), the phone lookup, the email domain's registration and the breach search. Context and coverage for the reviewer, not a finding: nothing here sets a band or a match state. |
+| `otherEvents`                                                                                                                                                                                                                                                                                                  | [models.OtherEvents](../models/other-events.md)                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                             | Where else in the environment the attendee appears, read live from those events: deleting one removes it here.                                                                                                                                                                                                 |

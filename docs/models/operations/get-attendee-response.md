@@ -10,6 +10,11 @@ let value: GetAttendeeResponse = {
     "key": [
       "example 1",
       "example 2",
+      "example 3",
+    ],
+    "key1": [
+      "example 1",
+      "example 2",
     ],
   },
   result: {
@@ -121,8 +126,74 @@ let value: GetAttendeeResponse = {
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
+    lookup: {
+      checks: [],
+      summary: {
+        phone: {
+          country: "AU",
+          carrier: "Telstra",
+        },
+        ip: {
+          country: "AU",
+        },
+      },
+      details: {
+        phoneNames: [
+          {
+            value: "Alex Example",
+            seenBy: 583889,
+          },
+        ],
+        breaches: [
+          {
+            name: "Example Forum",
+            domain: "forum.example.com",
+            category: "forum",
+            kind: "hacking_forum",
+            matchedOn: "email",
+          },
+        ],
+        breachNames: [
+          {
+            value: "Alex Example",
+            seenIn: 714857,
+            sites: [
+              "forum.example.com",
+            ],
+          },
+        ],
+        events: [
+          {
+            year: 309976,
+            kind: "last_active",
+            site: "example.com",
+            category: "site_breach",
+            family: "breach",
+            identifier: "email",
+          },
+        ],
+        accounts: [
+          {
+            name: "Wix",
+            domain: "wix.com",
+            identifier: "username",
+            outcome: "inconclusive",
+            firstNamePrefix: "Al",
+          },
+        ],
+        attributeConflicts: [
+          {
+            attribute: "gender",
+            sites: [
+              "forum.example.com",
+            ],
+          },
+        ],
+      },
+      lookedAt: "2026-01-01T00:00:00Z",
+    },
     otherEvents: {
-      total: 346170,
+      total: 133678,
       items: [],
     },
   },
