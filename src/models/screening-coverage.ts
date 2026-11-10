@@ -17,6 +17,10 @@ export type ScreeningCoverage = {
   accountsAccessible: number;
   itemsRead: number;
   /**
+   * Items read that the analyser could not analyse. Above zero, the attendee is partial: a finding may be missing from them.
+   */
+  itemsNotAnalysed?: number | undefined;
+  /**
    * The oldest item read on any platform.
    */
   periodFrom?: string | undefined;
@@ -36,6 +40,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
     accounts_found: types.number(),
     accounts_accessible: types.number(),
     items_read: types.number(),
+    items_not_analysed: types.optional(types.number()),
     period_from: types.optional(types.string()),
     period_to: types.optional(types.string()),
     platforms: z.array(ScreeningPlatformCoverage$inboundSchema),
@@ -45,6 +50,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
       "accounts_found": "accountsFound",
       "accounts_accessible": "accountsAccessible",
       "items_read": "itemsRead",
+      "items_not_analysed": "itemsNotAnalysed",
       "period_from": "periodFrom",
       "period_to": "periodTo",
     });

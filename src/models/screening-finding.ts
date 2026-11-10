@@ -30,6 +30,10 @@ export type ScreeningFinding = {
   confidence: number;
   rationale: string;
   /**
+   * The exact words of the first evidence item that the finding rests on, as the analyser quoted them.
+   */
+  quote?: string | undefined;
+  /**
    * The posts and media that support the finding.
    */
   evidence: Array<string>;
@@ -57,6 +61,7 @@ export const ScreeningFinding$inboundSchema: z.ZodMiniType<
     capped_from: types.optional(FindingBand$inboundSchema),
     confidence: types.number(),
     rationale: types.string(),
+    quote: types.optional(types.string()),
     evidence: z.array(types.string()),
     analyser: types.string(),
     model: types.string(),

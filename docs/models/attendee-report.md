@@ -67,6 +67,8 @@ let value: AttendeeReport = {
       band: "moderate",
       confidence: 3417.88,
       rationale: "The post reports when the principal leaves the hotel.",
+      quote:
+        "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
       evidence: [
         "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       ],

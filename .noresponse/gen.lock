@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 72792067a8ee94c2a7ac593c2bd4decc
+  docChecksum: 383d69d261793aaa266afb8aaf583b3f
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.14
-  configChecksum: 5dd7706f060867389c3b287255d428f5
+  releaseVersion: 10.0.15
+  configChecksum: 6090f4793cd2e7a547eda9d308da3266
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -209,7 +209,7 @@ trackedFiles:
   docs/models/attendee-list.md:
     last_write_checksum: sha1:6c72d02f065d96a6a16bcd1c69e3dabb89e5c02a
   docs/models/attendee-report.md:
-    last_write_checksum: sha1:6be3e2e46de71f79ce266bb2305e6828179dd83a
+    last_write_checksum: sha1:710f87e23d629532cc98d244eaedb09b9c6c89ea
   docs/models/attendee-review-request.md:
     last_write_checksum: sha1:f413944469256d1d33e8f6ec6fda7e7d7f92394e
   docs/models/attendee-review.md:
@@ -755,7 +755,7 @@ trackedFiles:
   docs/models/operations/get-attendee-request.md:
     last_write_checksum: sha1:6908d83247a396025798c66c52bbc118f0b845d9
   docs/models/operations/get-attendee-response.md:
-    last_write_checksum: sha1:66485246aa32e7de3623fb261737301dc8e0da7a
+    last_write_checksum: sha1:e0eba092d7608ac830a74dfa030c59ac37755686
   docs/models/operations/get-audit-retention-request.md:
     last_write_checksum: sha1:b0c8ada2159728c02b8996db6587572439ca217d
   docs/models/operations/get-audit-retention-response.md:
@@ -1227,11 +1227,11 @@ trackedFiles:
   docs/models/screening-completed.md:
     last_write_checksum: sha1:7815db0c7df0f4434944090134e58830a4a9ea1c
   docs/models/screening-coverage.md:
-    last_write_checksum: sha1:329043f6f9b2d46765cb66be948c8f2b38009bc8
+    last_write_checksum: sha1:bbc42c682d71cc081e1cc9d9b3ed5ef433b631a3
   docs/models/screening-depth.md:
     last_write_checksum: sha1:83d8ad50fdb3e3eb63db1b2e8ec1c8f14aaa5f82
   docs/models/screening-finding.md:
-    last_write_checksum: sha1:aae01d9c2ffecbe52c51a95710dea13c679e4a22
+    last_write_checksum: sha1:eab37fe77715fd9c283a1f08c3fe8b12f6fdae7f
   docs/models/screening-list.md:
     last_write_checksum: sha1:bdb7b2e75300cb65e989fa5c2e4a15675b606dea
   docs/models/screening-match-evidence-kind.md:
@@ -1369,9 +1369,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:68b25072506587c6768932ccfbeeee0ce975c581
+    last_write_checksum: sha1:89e4a0cadd9294ac761a2babf612017f65e4cb52
   package.json:
-    last_write_checksum: sha1:036d2c35eeaf6d0aeac78e64b26bd5e830b4a7b5
+    last_write_checksum: sha1:e14531c9f824632cdaea7ee302809ed883f2dbf5
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1613,7 +1613,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:b482f49d61d068d75e3f51548b1fb11cb15b4785
+    last_write_checksum: sha1:52c8052449652ffef9def9444b4f9cd27d9ccc78
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2581,11 +2581,11 @@ trackedFiles:
   src/models/screening-completed.ts:
     last_write_checksum: sha1:43355748764b1ab95d8ef0c8ad8cfd95e017d0fd
   src/models/screening-coverage.ts:
-    last_write_checksum: sha1:43f2c77ea6011dad65cc8d118598211f363298d6
+    last_write_checksum: sha1:f14a9d7ba7d881887397c807e5984dddbc538748
   src/models/screening-depth.ts:
     last_write_checksum: sha1:6815374519a0f7078f4b9ed44a67633785e59cd4
   src/models/screening-finding.ts:
-    last_write_checksum: sha1:cf4fe9d8d1c98734e6ee95e3dbac31c2b5ddec53
+    last_write_checksum: sha1:75aecd247b1a6218fe47f2accd9d3a42517c6573
   src/models/screening-list.ts:
     last_write_checksum: sha1:e66ca6866b84f46f3e8e52ed2eec029c90e7990f
   src/models/screening-match-evidence-kind.ts:
@@ -5267,7 +5267,7 @@ examples:
           attendee_id: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
       responses:
         "200":
-          application/json: {"attendee": {"id": "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "event_id": "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "external_id": "ticket-1042", "name": "Jordan Example", "email": "jordan@company-example.com", "phone": "+14155550100", "company": "Example Ltd", "city": "Melbourne", "handles": [{"platform": "youtube", "handle": "jordan_example"}], "match_state": "inaccessible", "highest_band": "low", "decision": "cleared", "decision_note": "Known to the venue team.", "decided_by": "user_2abc", "decided_at": "2026-01-01T00:00:00Z", "coverage": {"accounts_found": 728761, "accounts_accessible": 677959, "items_read": 949861, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "telegram", "status": "covered", "accounts_found": 95148, "items_read": 166238}]}, "last_screening_id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "screened_at": "2026-01-01T00:00:00Z", "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z", "spend": {"total_minor": 552148, "by_implementation": [{"implementation": "synthetic", "role": "analyser", "spend_minor": 522980}]}}, "profiles": [], "findings": [{"id": "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "category": "disruption", "band": "low", "confidence": 4826.55, "rationale": "The post reports when the principal leaves the hotel.", "evidence": ["itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM"], "analyser": "synthetic", "model": "synthetic-1", "spend_minor": 82255, "created_at": "2026-01-01T00:00:00Z"}], "posts": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "post", "text": "Great coffee this morning before the commute.", "reply_to": "https://synthetic.invalid/synthetic/jordanexample42/p0", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "media": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "media", "post_id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "media_type": "video", "media_url": "https://synthetic.invalid/media/jordanexample42/p1.jpg", "text": "A photo", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "reviews": []}
+          application/json: {"attendee": {"id": "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "event_id": "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "external_id": "ticket-1042", "name": "Jordan Example", "email": "jordan@company-example.com", "phone": "+14155550100", "company": "Example Ltd", "city": "Melbourne", "handles": [{"platform": "youtube", "handle": "jordan_example"}], "match_state": "inaccessible", "highest_band": "low", "decision": "cleared", "decision_note": "Known to the venue team.", "decided_by": "user_2abc", "decided_at": "2026-01-01T00:00:00Z", "coverage": {"accounts_found": 728761, "accounts_accessible": 677959, "items_read": 949861, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "telegram", "status": "covered", "accounts_found": 95148, "items_read": 166238}]}, "last_screening_id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "screened_at": "2026-01-01T00:00:00Z", "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z", "spend": {"total_minor": 552148, "by_implementation": [{"implementation": "synthetic", "role": "analyser", "spend_minor": 522980}]}}, "profiles": [], "findings": [{"id": "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "category": "disruption", "band": "low", "confidence": 4826.55, "rationale": "The post reports when the principal leaves the hotel.", "quote": "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.", "evidence": ["itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM"], "analyser": "synthetic", "model": "synthetic-1", "spend_minor": 82255, "created_at": "2026-01-01T00:00:00Z"}], "posts": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "post", "text": "Great coffee this morning before the commute.", "reply_to": "https://synthetic.invalid/synthetic/jordanexample42/p0", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "media": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "media", "post_id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "media_type": "video", "media_url": "https://synthetic.invalid/media/jordanexample42/p1.jpg", "text": "A photo", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "reviews": []}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_cursor", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
