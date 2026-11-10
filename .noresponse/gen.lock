@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 33528b1ca48b705d5ea5b0b60bfc95f4
+  docChecksum: e0d67c4cac21dfdcec7a997137c905ae
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.16
-  configChecksum: b96ed0e50663b4cf11f39a1415f8abc3
+  releaseVersion: 10.0.17
+  configChecksum: c969accda5e377498cfe261cc473e622
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1233,7 +1233,7 @@ trackedFiles:
   docs/models/screening-completed.md:
     last_write_checksum: sha1:7815db0c7df0f4434944090134e58830a4a9ea1c
   docs/models/screening-coverage.md:
-    last_write_checksum: sha1:bbc42c682d71cc081e1cc9d9b3ed5ef433b631a3
+    last_write_checksum: sha1:a98326b09574dae234fadb8cd2e240faba3e92fd
   docs/models/screening-depth.md:
     last_write_checksum: sha1:83d8ad50fdb3e3eb63db1b2e8ec1c8f14aaa5f82
   docs/models/screening-finding.md:
@@ -1375,9 +1375,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:924cb59bc47b66caa9e45bb4ed845e188197f125
+    last_write_checksum: sha1:ace38950841eea33ecc41af7c9b688f25abe064d
   package.json:
-    last_write_checksum: sha1:ec476506c1e45638b3d2d5dcb83bdc846ce09356
+    last_write_checksum: sha1:6679bf4edad7df18689511a0b7ff8a87cbf6c030
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1619,7 +1619,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:87c55229fe8caa663d052748c4fdf5edbaaf07ab
+    last_write_checksum: sha1:42a78feee88a7704e8bbd4751ab6e59e3d2371ed
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2591,7 +2591,7 @@ trackedFiles:
   src/models/screening-completed.ts:
     last_write_checksum: sha1:43355748764b1ab95d8ef0c8ad8cfd95e017d0fd
   src/models/screening-coverage.ts:
-    last_write_checksum: sha1:f14a9d7ba7d881887397c807e5984dddbc538748
+    last_write_checksum: sha1:aaa95494d980212acb1967cc0433cb592a91a958
   src/models/screening-depth.ts:
     last_write_checksum: sha1:6815374519a0f7078f4b9ed44a67633785e59cd4
   src/models/screening-finding.ts:

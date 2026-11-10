@@ -5,6 +5,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  HandlePlatform,
+  HandlePlatform$inboundSchema,
+} from "./handle-platform.js";
+import {
   ScreeningPlatformCoverage,
   ScreeningPlatformCoverage$inboundSchema,
 } from "./screening-platform-coverage.js";
@@ -29,6 +33,10 @@ export type ScreeningCoverage = {
    */
   periodTo?: string | undefined;
   platforms: Array<ScreeningPlatformCoverage>;
+  /**
+   * Requested platforms where the attendee gave the screening nothing to look up, such as no handle for a platform that reads supplied handles only. Nothing looked and nothing failed: such a platform is not in platforms, is not none_found and does not make the attendee partial.
+   */
+  notSearched?: Array<HandlePlatform> | undefined;
 };
 
 /** @internal */
@@ -44,6 +52,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
     period_from: types.optional(types.string()),
     period_to: types.optional(types.string()),
     platforms: z.array(ScreeningPlatformCoverage$inboundSchema),
+    not_searched: types.optional(z.array(HandlePlatform$inboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -53,6 +62,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
       "items_not_analysed": "itemsNotAnalysed",
       "period_from": "periodFrom",
       "period_to": "periodTo",
+      "not_searched": "notSearched",
     });
   }),
 );
