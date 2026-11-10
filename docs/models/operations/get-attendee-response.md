@@ -109,6 +109,13 @@ let value: GetAttendeeResponse = {
         evidence: [
           "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         ],
+        mediaObservations: [
+          {
+            mediaId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            description: "A handwritten sign held up outside the venue.",
+            readText: "SEE YOU ON THE 1ST",
+          },
+        ],
         analyser: "synthetic",
         model: "synthetic-1",
         spendMinor: 492888,

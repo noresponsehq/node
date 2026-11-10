@@ -1,0 +1,29 @@
+import * as z from "zod/v4-mini";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
+
+/**
+ * Why an item read was not analysed. video: a video, whose caption alone is read. image_unavailable: the image could not be fetched from the platform. image_unsupported: not a JPEG, PNG, GIF or WebP image, or too large to send. image_limit: past the most images one attendee's analysis reads. refused: the model declined to read it. unfinished: the model cut its batch short or answered outside the schema, or the request was rejected. unverified: a finding cited it with words it does not contain or an image it did not describe. unspecified: the analyser gave no reason.
+ */
+export const ScreeningNotAnalysedReason = {
+  Video: "video",
+  ImageUnavailable: "image_unavailable",
+  ImageUnsupported: "image_unsupported",
+  ImageLimit: "image_limit",
+  Refused: "refused",
+  Unfinished: "unfinished",
+  Unverified: "unverified",
+  Unspecified: "unspecified",
+} as const;
+/**
+ * Why an item read was not analysed. video: a video, whose caption alone is read. image_unavailable: the image could not be fetched from the platform. image_unsupported: not a JPEG, PNG, GIF or WebP image, or too large to send. image_limit: past the most images one attendee's analysis reads. refused: the model declined to read it. unfinished: the model cut its batch short or answered outside the schema, or the request was rejected. unverified: a finding cited it with words it does not contain or an image it did not describe. unspecified: the analyser gave no reason.
+ */
+export type ScreeningNotAnalysedReason = OpenEnum<
+  typeof ScreeningNotAnalysedReason
+>;
+
+/** @internal */
+export const ScreeningNotAnalysedReason$inboundSchema: z.ZodMiniType<
+  ScreeningNotAnalysedReason,
+  unknown
+> = openEnums.inboundSchema(ScreeningNotAnalysedReason);

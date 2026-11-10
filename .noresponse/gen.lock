@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 8b8a9da17f6905e3c03bb149ef95a501
+  docChecksum: f0bdd88600ffaadc2c80ef68965c4532
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.19
-  configChecksum: bb9e78179c41fad7fc856394d9cb8fff
+  releaseVersion: 10.0.20
+  configChecksum: 860c008d9623c8343a0e5e30322ae4d7
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -209,7 +209,7 @@ trackedFiles:
   docs/models/attendee-list.md:
     last_write_checksum: sha1:6c72d02f065d96a6a16bcd1c69e3dabb89e5c02a
   docs/models/attendee-report.md:
-    last_write_checksum: sha1:f7bdececde3b6c7b456be7b081e6390f7cdbab10
+    last_write_checksum: sha1:63f1a2631b972f775c446e408fc4517aaecfae7b
   docs/models/attendee-review-request.md:
     last_write_checksum: sha1:f413944469256d1d33e8f6ec6fda7e7d7f92394e
   docs/models/attendee-review.md:
@@ -757,7 +757,7 @@ trackedFiles:
   docs/models/operations/get-attendee-request.md:
     last_write_checksum: sha1:6908d83247a396025798c66c52bbc118f0b845d9
   docs/models/operations/get-attendee-response.md:
-    last_write_checksum: sha1:91467d93fe114729c8c60581dbea055ecee8fd55
+    last_write_checksum: sha1:db009d1361f8317d2069f1dd47fea13d09c95d1a
   docs/models/operations/get-audit-retention-request.md:
     last_write_checksum: sha1:b0c8ada2159728c02b8996db6587572439ca217d
   docs/models/operations/get-audit-retention-response.md:
@@ -1233,11 +1233,11 @@ trackedFiles:
   docs/models/screening-completed.md:
     last_write_checksum: sha1:7815db0c7df0f4434944090134e58830a4a9ea1c
   docs/models/screening-coverage.md:
-    last_write_checksum: sha1:a98326b09574dae234fadb8cd2e240faba3e92fd
+    last_write_checksum: sha1:8eedcc259e4a23a5207ec74cf96f558f8075168b
   docs/models/screening-depth.md:
     last_write_checksum: sha1:83d8ad50fdb3e3eb63db1b2e8ec1c8f14aaa5f82
   docs/models/screening-finding.md:
-    last_write_checksum: sha1:eab37fe77715fd9c283a1f08c3fe8b12f6fdae7f
+    last_write_checksum: sha1:01c119676fb7fb66710751a5ccb0f23f3091b091
   docs/models/screening-list.md:
     last_write_checksum: sha1:bdb7b2e75300cb65e989fa5c2e4a15675b606dea
   docs/models/screening-lookup-check-status.md:
@@ -1252,8 +1252,14 @@ trackedFiles:
     last_write_checksum: sha1:04726eefa16d3f1c6de8be96db9ed6f07aea17e1
   docs/models/screening-match.md:
     last_write_checksum: sha1:4b0cb953dbd0c2f1b04dcff4fc72e54e975e7bc7
+  docs/models/screening-media-observation.md:
+    last_write_checksum: sha1:c54493eb9b492145a37c64ce36a5d2b98c6f230c
   docs/models/screening-media.md:
     last_write_checksum: sha1:0f5f083eb748c458ea20c977605017e093d9c708
+  docs/models/screening-not-analysed-count.md:
+    last_write_checksum: sha1:2b5d7335e722414ebf6c41be2cd6d84d702bb0f6
+  docs/models/screening-not-analysed-reason.md:
+    last_write_checksum: sha1:6348d76833ab3c81133de2e7816aeff7edb7e7bd
   docs/models/screening-platform-coverage-status.md:
     last_write_checksum: sha1:bf699f8893b861b77fc729cd7f902653f6a404d6
   docs/models/screening-platform-coverage.md:
@@ -1381,9 +1387,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:91e7d93992633c4a4b0fe122a5923130424e4d02
+    last_write_checksum: sha1:1733fbe8c14fd093f6d7f225332c189d0e77c3bc
   package.json:
-    last_write_checksum: sha1:2d548f87e2cb026c0752c91234d9fe9283a05b4c
+    last_write_checksum: sha1:ebc078ac33cb0972f51f08ab849e9788141807dd
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1625,7 +1631,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:dc4066550cd70b3037745facd23a044738e6583a
+    last_write_checksum: sha1:42920fb367e777a836e2c325569b2e7dfdd740f9
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2055,7 +2061,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:3a010772fe5eb8cbe0dc163dba90e0f77974ae8c
   src/models/index.ts:
-    last_write_checksum: sha1:21ce06a5a34b676c07447982b1a7f2b597863335
+    last_write_checksum: sha1:14b5d1e4cb29f6e996a5598342520e1ad50c5516
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -2597,11 +2603,11 @@ trackedFiles:
   src/models/screening-completed.ts:
     last_write_checksum: sha1:43355748764b1ab95d8ef0c8ad8cfd95e017d0fd
   src/models/screening-coverage.ts:
-    last_write_checksum: sha1:aaa95494d980212acb1967cc0433cb592a91a958
+    last_write_checksum: sha1:d63fcb907f9a45dcd164f34fec23f434d5052f71
   src/models/screening-depth.ts:
     last_write_checksum: sha1:6815374519a0f7078f4b9ed44a67633785e59cd4
   src/models/screening-finding.ts:
-    last_write_checksum: sha1:75aecd247b1a6218fe47f2accd9d3a42517c6573
+    last_write_checksum: sha1:7fe1a99198bb140bb013e04c632ed6b29c73f9f1
   src/models/screening-list.ts:
     last_write_checksum: sha1:e66ca6866b84f46f3e8e52ed2eec029c90e7990f
   src/models/screening-lookup-check-status.ts:
@@ -2616,8 +2622,14 @@ trackedFiles:
     last_write_checksum: sha1:a073c8ee93637729432471bb07d65c14b619e45e
   src/models/screening-match.ts:
     last_write_checksum: sha1:1ef010bfc84af503e9b217d8f64c6c3afa194570
+  src/models/screening-media-observation.ts:
+    last_write_checksum: sha1:9881eddea3c8d6197cdc1cf5ec119340e438d137
   src/models/screening-media.ts:
     last_write_checksum: sha1:927e655b661c27c2c4656eb01d5fbcbf28c8ad2d
+  src/models/screening-not-analysed-count.ts:
+    last_write_checksum: sha1:576971c49b4d0312299836048c98872a1f2ca978
+  src/models/screening-not-analysed-reason.ts:
+    last_write_checksum: sha1:1dfaaa28a4412b309941703c60d7cf2d16dee2e5
   src/models/screening-platform-coverage-status.ts:
     last_write_checksum: sha1:87a271b4a42d370cd834735d8f9c8c0402973d7c
   src/models/screening-platform-coverage.ts:
@@ -5289,7 +5301,7 @@ examples:
           attendee_id: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
       responses:
         "200":
-          application/json: {"attendee": {"id": "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "event_id": "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "external_id": "ticket-1042", "name": "Jordan Example", "email": "jordan@company-example.com", "phone": "+14155550100", "company": "Example Ltd", "city": "Melbourne", "handles": [{"platform": "youtube", "handle": "jordan_example"}], "match_state": "inaccessible", "highest_band": "low", "decision": "cleared", "decision_note": "Known to the venue team.", "decided_by": "user_2abc", "decided_at": "2026-01-01T00:00:00Z", "coverage": {"accounts_found": 728761, "accounts_accessible": 677959, "items_read": 949861, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "telegram", "status": "covered", "accounts_found": 95148, "items_read": 166238}]}, "last_screening_id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "screened_at": "2026-01-01T00:00:00Z", "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z", "spend": {"total_minor": 552148, "by_implementation": [{"implementation": "synthetic", "role": "analyser", "spend_minor": 522980}]}}, "profiles": [], "findings": [{"id": "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "category": "disruption", "band": "low", "confidence": 4826.55, "rationale": "The post reports when the principal leaves the hotel.", "quote": "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.", "evidence": ["itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM"], "analyser": "synthetic", "model": "synthetic-1", "spend_minor": 82255, "created_at": "2026-01-01T00:00:00Z"}], "posts": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "post", "text": "Great coffee this morning before the commute.", "reply_to": "https://synthetic.invalid/synthetic/jordanexample42/p0", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "media": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "media", "post_id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "media_type": "video", "media_url": "https://synthetic.invalid/media/jordanexample42/p1.jpg", "text": "A photo", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "reviews": [], "lookup": {"checks": [{"identifier": "email", "lane": "accounts", "status": "not_found", "sources": 138901, "answered": 960127, "found": 935712}], "summary": {"phone": {"country": "AU", "carrier": "Telstra"}, "ip": {"country": "AU"}}, "details": {"phone_names": [{"value": "Alex Example", "seen_by": 723284}], "breaches": [{"name": "Example Forum", "domain": "forum.example.com", "category": "forum", "kind": "credential_list", "matched_on": "ip"}], "breach_names": [{"value": "Alex Example", "seen_in": 361175, "sites": ["forum.example.com"]}], "events": [{"year": 816647, "kind": "created", "site": "example.com", "category": "site_breach", "family": "code_hosting", "identifier": "email"}], "accounts": [{"name": "Wix", "domain": "wix.com", "identifier": "username", "outcome": "unavailable", "first_name_prefix": "Al"}], "attribute_conflicts": [{"attribute": "nationality", "sites": ["forum.example.com"]}]}, "looked_at": "2026-01-01T00:00:00Z"}, "other_events": {"total": 597351, "items": [{"event_id": "evn_01J9Y3C2M4N6P8Q0RSTVWXYZAB", "event_name": "Spring gala", "event_starts_at": "2025-09-01T09:00:00Z", "attendee_id": "att_01J9Y3C2M4N6P8Q0RSTVWXYZAB", "matched_on": [], "match_state": "confirmed", "highest_band": "critical", "decision": "cleared", "decided_by": "user_2abc", "decided_at": "2025-09-01T12:00:00Z"}]}}
+          application/json: {"attendee": {"id": "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "event_id": "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "external_id": "ticket-1042", "name": "Jordan Example", "email": "jordan@company-example.com", "phone": "+14155550100", "company": "Example Ltd", "city": "Melbourne", "handles": [{"platform": "youtube", "handle": "jordan_example"}], "match_state": "inaccessible", "highest_band": "low", "decision": "cleared", "decision_note": "Known to the venue team.", "decided_by": "user_2abc", "decided_at": "2026-01-01T00:00:00Z", "coverage": {"accounts_found": 728761, "accounts_accessible": 677959, "items_read": 949861, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "telegram", "status": "covered", "accounts_found": 95148, "items_read": 166238}]}, "last_screening_id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "screened_at": "2026-01-01T00:00:00Z", "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z", "spend": {"total_minor": 552148, "by_implementation": [{"implementation": "synthetic", "role": "analyser", "spend_minor": 522980}]}}, "profiles": [], "findings": [{"id": "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "category": "disruption", "band": "low", "confidence": 4826.55, "rationale": "The post reports when the principal leaves the hotel.", "quote": "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.", "evidence": ["itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM"], "media_observations": [{"media_id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "description": "A handwritten sign held up outside the venue.", "read_text": "SEE YOU ON THE 1ST"}], "analyser": "synthetic", "model": "synthetic-1", "spend_minor": 82255, "created_at": "2026-01-01T00:00:00Z"}], "posts": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "post", "text": "Great coffee this morning before the commute.", "reply_to": "https://synthetic.invalid/synthetic/jordanexample42/p0", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "media": [{"id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "kind": "media", "post_id": "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "media_type": "video", "media_url": "https://synthetic.invalid/media/jordanexample42/p1.jpg", "text": "A photo", "profile_id": "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "permalink": "https://synthetic.invalid/synthetic/jordanexample42/p1", "posted_at": "2026-01-01T00:00:00Z", "screenshot_sha256": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab", "captured_at": "2026-01-01T00:00:00Z"}], "reviews": [], "lookup": {"checks": [{"identifier": "email", "lane": "accounts", "status": "not_found", "sources": 138901, "answered": 960127, "found": 935712}], "summary": {"phone": {"country": "AU", "carrier": "Telstra"}, "ip": {"country": "AU"}}, "details": {"phone_names": [{"value": "Alex Example", "seen_by": 723284}], "breaches": [{"name": "Example Forum", "domain": "forum.example.com", "category": "forum", "kind": "credential_list", "matched_on": "ip"}], "breach_names": [{"value": "Alex Example", "seen_in": 361175, "sites": ["forum.example.com"]}], "events": [{"year": 816647, "kind": "created", "site": "example.com", "category": "site_breach", "family": "code_hosting", "identifier": "email"}], "accounts": [{"name": "Wix", "domain": "wix.com", "identifier": "username", "outcome": "unavailable", "first_name_prefix": "Al"}], "attribute_conflicts": [{"attribute": "nationality", "sites": ["forum.example.com"]}]}, "looked_at": "2026-01-01T00:00:00Z"}, "other_events": {"total": 597351, "items": [{"event_id": "evn_01J9Y3C2M4N6P8Q0RSTVWXYZAB", "event_name": "Spring gala", "event_starts_at": "2025-09-01T09:00:00Z", "attendee_id": "att_01J9Y3C2M4N6P8Q0RSTVWXYZAB", "matched_on": [], "match_state": "confirmed", "highest_band": "critical", "decision": "cleared", "decided_by": "user_2abc", "decided_at": "2025-09-01T12:00:00Z"}]}}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":

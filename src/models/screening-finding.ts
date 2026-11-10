@@ -9,6 +9,10 @@ import {
   FindingCategory,
   FindingCategory$inboundSchema,
 } from "./finding-category.js";
+import {
+  ScreeningMediaObservation,
+  ScreeningMediaObservation$inboundSchema,
+} from "./screening-media-observation.js";
 
 /**
  * Something the analyser flagged. band is capped by the strongest match among the profiles of its evidence: possible at most moderate, probable at most high. capped_from is the band the analyser gave when the cap lowered it.
@@ -38,6 +42,10 @@ export type ScreeningFinding = {
    */
   evidence: Array<string>;
   /**
+   * What the analyser saw in each image among evidence that the finding rests on. Unlike quote, an observation cannot be checked against the record: judge it against the image at the media item's permalink.
+   */
+  mediaObservations?: Array<ScreeningMediaObservation> | undefined;
+  /**
    * The resolver, collector or analyser that produced a record, by its catalogue name.
    */
   analyser: string;
@@ -63,6 +71,9 @@ export const ScreeningFinding$inboundSchema: z.ZodMiniType<
     rationale: types.string(),
     quote: types.optional(types.string()),
     evidence: z.array(types.string()),
+    media_observations: types.optional(
+      z.array(ScreeningMediaObservation$inboundSchema),
+    ),
     analyser: types.string(),
     model: types.string(),
     spend_minor: types.number(),
@@ -71,6 +82,7 @@ export const ScreeningFinding$inboundSchema: z.ZodMiniType<
   z.transform((v) => {
     return remap$(v, {
       "capped_from": "cappedFrom",
+      "media_observations": "mediaObservations",
       "spend_minor": "spendMinor",
       "created_at": "createdAt",
     });
