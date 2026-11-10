@@ -36,9 +36,13 @@ export type OtherEvent = {
    */
   matchedOn: Array<MatchedOn>;
   /**
-   * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee.
+   * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee, and after one that had no profile to check (no_profile_to_check).
    */
   matchState: MatchState;
+  /**
+   * true when that attendee's latest screening had no profile to check (see the attendee's no_profile_to_check). Left out otherwise.
+   */
+  noProfileToCheck?: boolean | undefined;
   /**
    * That attendee's most severe band at that event, or null.
    */
@@ -71,6 +75,7 @@ export const OtherEvent$inboundSchema: z.ZodMiniType<OtherEvent, unknown> = z
       attendee_id: types.string(),
       matched_on: z.array(MatchedOn$inboundSchema),
       match_state: MatchState$inboundSchema,
+      no_profile_to_check: types.optional(types.boolean()),
       highest_band: types.nullable(HighestBand$inboundSchema),
       decision: types.nullable(AttendeeDecision$inboundSchema),
       decided_by: types.optional(types.string()),
@@ -84,6 +89,7 @@ export const OtherEvent$inboundSchema: z.ZodMiniType<OtherEvent, unknown> = z
         "attendee_id": "attendeeId",
         "matched_on": "matchedOn",
         "match_state": "matchState",
+        "no_profile_to_check": "noProfileToCheck",
         "highest_band": "highestBand",
         "decided_by": "decidedBy",
         "decided_at": "decidedAt",

@@ -3,7 +3,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee.
+ * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee, and after one that had no profile to check (no_profile_to_check).
  */
 export const MatchState = {
   Unscreened: "unscreened",
@@ -14,7 +14,7 @@ export const MatchState = {
   Inaccessible: "inaccessible",
 } as const;
 /**
- * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee.
+ * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee, and after one that had no profile to check (no_profile_to_check).
  */
 export type MatchState = OpenEnum<typeof MatchState>;
 

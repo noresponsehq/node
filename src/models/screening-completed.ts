@@ -17,7 +17,7 @@ import {
 } from "./screening-completed-status.js";
 
 /**
- * A screening of an event finished. It counts only the attendees this screening set out to reach, not who they are: read the roster with GET /v1/workspaces/{workspace_id}/events/{environment}/{event_id}/attendees, filtered by band, to act on them. attendees_screened + partial_coverage = attendees_total, attendees_flagged is the sum of by_band, and no_footprint counts screened attendees with no flag whose accounts were not found. A cancelled screening sends no event.
+ * A screening of an event finished. It counts only the attendees this screening set out to reach, not who they are: read the roster with GET /v1/workspaces/{workspace_id}/events/{environment}/{event_id}/attendees, filtered by band, to act on them. attendees_screened + partial_coverage = attendees_total, attendees_flagged is the sum of by_band, no_footprint counts screened attendees with no flag whose accounts were not found, and no_profile_to_check those the screening had nothing to look up for on any requested platform. A cancelled screening sends no event.
  */
 export type ScreeningCompleted = {
   /**
@@ -57,6 +57,10 @@ export type ScreeningCompleted = {
    */
   noFootprint: number;
   /**
+   * Screened attendees with no profile to check: the list gave nothing to look up on any requested platform, such as no handle, so nobody looked for a profile (no_profile_to_check on the attendee). Not in no_footprint, and not partial: nothing failed. Their lookups are on their reports.
+   */
+  noProfileToCheck?: number | undefined;
+  /**
    * Attendees the screening did not fully cover. Read each one's coverage on its attendee.
    */
   partialCoverage: number;
@@ -81,6 +85,7 @@ export const ScreeningCompleted$inboundSchema: z.ZodMiniType<
     attendees_flagged: types.number(),
     by_band: ScreeningCompletedByBand$inboundSchema,
     no_footprint: types.number(),
+    no_profile_to_check: types.optional(types.number()),
     partial_coverage: types.number(),
     finished_at: types.string(),
   }),
@@ -94,6 +99,7 @@ export const ScreeningCompleted$inboundSchema: z.ZodMiniType<
       "attendees_flagged": "attendeesFlagged",
       "by_band": "byBand",
       "no_footprint": "noFootprint",
+      "no_profile_to_check": "noProfileToCheck",
       "partial_coverage": "partialCoverage",
       "finished_at": "finishedAt",
     });
@@ -110,6 +116,7 @@ export type ScreeningCompleted$Outbound = {
   attendees_flagged: number;
   by_band: ScreeningCompletedByBand$Outbound;
   no_footprint: number;
+  no_profile_to_check?: number | undefined;
   partial_coverage: number;
   finished_at: string;
 };
@@ -129,6 +136,7 @@ export const ScreeningCompleted$outboundSchema: z.ZodMiniType<
     attendeesFlagged: z.int(),
     byBand: ScreeningCompletedByBand$outboundSchema,
     noFootprint: z.int(),
+    noProfileToCheck: z.optional(z.int()),
     partialCoverage: z.int(),
     finishedAt: z.string(),
   }),
@@ -142,6 +150,7 @@ export const ScreeningCompleted$outboundSchema: z.ZodMiniType<
       attendeesFlagged: "attendees_flagged",
       byBand: "by_band",
       noFootprint: "no_footprint",
+      noProfileToCheck: "no_profile_to_check",
       partialCoverage: "partial_coverage",
       finishedAt: "finished_at",
     });
