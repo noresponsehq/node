@@ -7,10 +7,22 @@ import {
 } from "./attendee-review.js";
 import { Attendee, Attendee$inboundSchema } from "./attendee.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-
-export type Profile = {};
-
-export type Finding = {};
+import {
+  ScreeningFinding,
+  ScreeningFinding$inboundSchema,
+} from "./screening-finding.js";
+import {
+  ScreeningMedia,
+  ScreeningMedia$inboundSchema,
+} from "./screening-media.js";
+import {
+  ScreeningPost,
+  ScreeningPost$inboundSchema,
+} from "./screening-post.js";
+import {
+  ScreeningProfile,
+  ScreeningProfile$inboundSchema,
+} from "./screening-profile.js";
 
 /**
  * Everything known about one attendee.
@@ -21,13 +33,21 @@ export type AttendeeReport = {
    */
   attendee: Attendee;
   /**
-   * The accounts the screening matched, with how each was matched.
+   * The accounts the latest screening matched, with how each was matched.
    */
-  profiles: Array<Profile>;
+  profiles: Array<ScreeningProfile>;
   /**
-   * What the screening flagged, with its evidence.
+   * What the latest screening flagged, most severe first, each citing its evidence.
    */
-  findings: Array<Finding>;
+  findings: Array<ScreeningFinding>;
+  /**
+   * The posts the findings cite.
+   */
+  posts: Array<ScreeningPost>;
+  /**
+   * The images and videos the findings cite.
+   */
+  media: Array<ScreeningMedia>;
   /**
    * Every recorded decision, oldest first.
    */
@@ -35,43 +55,15 @@ export type AttendeeReport = {
 };
 
 /** @internal */
-export const Profile$inboundSchema: z.ZodMiniType<Profile, unknown> = z.object(
-  {},
-);
-
-export function profileFromJSON(
-  jsonString: string,
-): SafeParseResult<Profile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Profile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Profile' from JSON`,
-  );
-}
-
-/** @internal */
-export const Finding$inboundSchema: z.ZodMiniType<Finding, unknown> = z.object(
-  {},
-);
-
-export function findingFromJSON(
-  jsonString: string,
-): SafeParseResult<Finding, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Finding$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Finding' from JSON`,
-  );
-}
-
-/** @internal */
 export const AttendeeReport$inboundSchema: z.ZodMiniType<
   AttendeeReport,
   unknown
 > = z.object({
   attendee: Attendee$inboundSchema,
-  profiles: z.array(z.lazy(() => Profile$inboundSchema)),
-  findings: z.array(z.lazy(() => Finding$inboundSchema)),
+  profiles: z.array(ScreeningProfile$inboundSchema),
+  findings: z.array(ScreeningFinding$inboundSchema),
+  posts: z.array(ScreeningPost$inboundSchema),
+  media: z.array(ScreeningMedia$inboundSchema),
   reviews: z.array(AttendeeReview$inboundSchema),
 });
 

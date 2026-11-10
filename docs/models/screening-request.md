@@ -15,7 +15,7 @@ let value: ScreeningRequest = {
 
 ## Fields
 
-| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `depth`                                                                      | [models.ScreeningDepth](../models/screening-depth.md)                        | :heavy_check_mark:                                                           | N/A                                                                          |
-| `platforms`                                                                  | [models.ScreeningRequestPlatform](../models/screening-request-platform.md)[] | :heavy_check_mark:                                                           | N/A                                                                          |
+| Field                                                   | Type                                                    | Required                                                | Description                                             |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `depth`                                                 | [models.ScreeningDepth](../models/screening-depth.md)   | :heavy_check_mark:                                      | N/A                                                     |
+| `platforms`                                             | [models.HandlePlatform](../models/handle-platform.md)[] | :heavy_check_mark:                                      | N/A                                                     |

@@ -27,8 +27,19 @@ let value: ScreeningList = {
       attendeesDone: 17533,
       attendeesFlagged: 47314,
       attendeesFailed: 12333,
-      estimatedSpend: 496149,
-      spent: 576065,
+      attendeesPartial: 496149,
+      estimatedSpend: 576065,
+      spent: 12709,
+      spend: {
+        totalMinor: 331453,
+        byImplementation: [
+          {
+            implementation: "synthetic",
+            role: "resolver",
+            spendMinor: 424409,
+          },
+        ],
+      },
       errorCode: "user_cancelled",
     },
   ],

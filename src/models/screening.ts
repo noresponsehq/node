@@ -1,8 +1,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
@@ -11,27 +9,21 @@ import {
 } from "./audit-settings-environment.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  HandlePlatform,
+  HandlePlatform$inboundSchema,
+} from "./handle-platform.js";
+import {
   ScreeningDepth,
   ScreeningDepth$inboundSchema,
 } from "./screening-depth.js";
 import {
+  ScreeningSpend,
+  ScreeningSpend$inboundSchema,
+} from "./screening-spend.js";
+import {
   ScreeningStatus,
   ScreeningStatus$inboundSchema,
 } from "./screening-status.js";
-
-export const ScreeningPlatform = {
-  Instagram: "instagram",
-  X: "x",
-  Bluesky: "bluesky",
-  Youtube: "youtube",
-  Tiktok: "tiktok",
-  Facebook: "facebook",
-  Threads: "threads",
-  Reddit: "reddit",
-  Telegram: "telegram",
-  Linkedin: "linkedin",
-} as const;
-export type ScreeningPlatform = OpenEnum<typeof ScreeningPlatform>;
 
 /**
  * A screening and its progress.
@@ -41,11 +33,11 @@ export type Screening = {
   eventId: string;
   environment: AuditSettingsEnvironment;
   /**
-   * partial finished with some attendees not covered; attendees_failed counts them.
+   * partial finished with some attendees or platforms not covered; attendees_failed and attendees_partial count them.
    */
   status: ScreeningStatus;
   depth: ScreeningDepth;
-  platforms: Array<ScreeningPlatform>;
+  platforms: Array<HandlePlatform>;
   requestedBy: string;
   createdAt: string;
   startedAt?: string | undefined;
@@ -65,6 +57,10 @@ export type Screening = {
   attendeesFlagged: number;
   attendeesFailed: number;
   /**
+   * Attendees screened with some requested platform not covered; their coverage names which.
+   */
+  attendeesPartial: number;
+  /**
    * What the screening was estimated to cost when it started, in minor units of USD (cents): its attendees at its depth and platforms. Until the screening finishes, what it has not yet spent counts against the environment's screening_daily_cap.
    */
   estimatedSpend: number;
@@ -73,16 +69,14 @@ export type Screening = {
    */
   spent: number;
   /**
+   * What screening cost, in US cents, in total and per implementation.
+   */
+  spend: ScreeningSpend;
+  /**
    * Why a failed or cancelled screening stopped.
    */
   errorCode?: string | undefined;
 };
-
-/** @internal */
-export const ScreeningPlatform$inboundSchema: z.ZodMiniType<
-  ScreeningPlatform,
-  unknown
-> = openEnums.inboundSchema(ScreeningPlatform);
 
 /** @internal */
 export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
@@ -93,7 +87,7 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
       environment: AuditSettingsEnvironment$inboundSchema,
       status: ScreeningStatus$inboundSchema,
       depth: ScreeningDepth$inboundSchema,
-      platforms: z.array(ScreeningPlatform$inboundSchema),
+      platforms: z.array(HandlePlatform$inboundSchema),
       requested_by: types.string(),
       created_at: types.string(),
       started_at: types.optional(types.string()),
@@ -103,8 +97,10 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
       attendees_done: types.number(),
       attendees_flagged: types.number(),
       attendees_failed: types.number(),
+      attendees_partial: types.number(),
       estimated_spend: types.number(),
       spent: types.number(),
+      spend: ScreeningSpend$inboundSchema,
       error_code: types.optional(types.string()),
     }),
     z.transform((v) => {
@@ -119,6 +115,7 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
         "attendees_done": "attendeesDone",
         "attendees_flagged": "attendeesFlagged",
         "attendees_failed": "attendeesFailed",
+        "attendees_partial": "attendeesPartial",
         "estimated_spend": "estimatedSpend",
         "error_code": "errorCode",
       });

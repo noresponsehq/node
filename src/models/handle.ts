@@ -13,6 +13,9 @@ import {
  * An account the attendee is known to hold.
  */
 export type Handle = {
+  /**
+   * A platform a screening can cover. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
+   */
   platform: HandlePlatform;
   /**
    * The account's handle, without a leading @.

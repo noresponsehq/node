@@ -28,8 +28,19 @@ let value: CancelScreeningResponse = {
     attendeesDone: 977538,
     attendeesFlagged: 960583,
     attendeesFailed: 782149,
-    estimatedSpend: 797695,
-    spent: 916565,
+    attendeesPartial: 797695,
+    estimatedSpend: 916565,
+    spent: 646472,
+    spend: {
+      totalMinor: 331453,
+      byImplementation: [
+        {
+          implementation: "synthetic",
+          role: "resolver",
+          spendMinor: 424409,
+        },
+      ],
+    },
     errorCode: "user_cancelled",
   },
 };

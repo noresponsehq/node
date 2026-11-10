@@ -11,11 +11,14 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Handle, Handle$inboundSchema } from "./handle.js";
 import { HighestBand, HighestBand$inboundSchema } from "./highest-band.js";
 import { MatchState, MatchState$inboundSchema } from "./match-state.js";
-
-/**
- * What the latest screening read, per platform.
- */
-export type AttendeeCoverage = {};
+import {
+  ScreeningCoverage,
+  ScreeningCoverage$inboundSchema,
+} from "./screening-coverage.js";
+import {
+  ScreeningSpend,
+  ScreeningSpend$inboundSchema,
+} from "./screening-spend.js";
 
 /**
  * An attendee and where their screening and review stand.
@@ -67,30 +70,18 @@ export type Attendee = {
   decidedBy?: string | undefined;
   decidedAt?: string | undefined;
   /**
-   * What the latest screening read, per platform.
+   * The denominator of a screening: accounts found, how many could be read, items read and the period they span, so a clean result is distinct from a person nobody could see.
    */
-  coverage: AttendeeCoverage;
+  coverage: ScreeningCoverage;
   lastScreeningId?: string | undefined;
   screenedAt?: string | undefined;
   createdAt: string;
   updatedAt: string;
+  /**
+   * What screening cost, in US cents, in total and per implementation.
+   */
+  spend: ScreeningSpend;
 };
-
-/** @internal */
-export const AttendeeCoverage$inboundSchema: z.ZodMiniType<
-  AttendeeCoverage,
-  unknown
-> = z.object({});
-
-export function attendeeCoverageFromJSON(
-  jsonString: string,
-): SafeParseResult<AttendeeCoverage, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AttendeeCoverage$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AttendeeCoverage' from JSON`,
-  );
-}
 
 /** @internal */
 export const Attendee$inboundSchema: z.ZodMiniType<Attendee, unknown> = z.pipe(
@@ -110,11 +101,12 @@ export const Attendee$inboundSchema: z.ZodMiniType<Attendee, unknown> = z.pipe(
     decision_note: types.optional(types.string()),
     decided_by: types.optional(types.string()),
     decided_at: types.optional(types.string()),
-    coverage: z.lazy(() => AttendeeCoverage$inboundSchema),
+    coverage: ScreeningCoverage$inboundSchema,
     last_screening_id: types.optional(types.string()),
     screened_at: types.optional(types.string()),
     created_at: types.string(),
     updated_at: types.string(),
+    spend: ScreeningSpend$inboundSchema,
   }),
   z.transform((v) => {
     return remap$(v, {

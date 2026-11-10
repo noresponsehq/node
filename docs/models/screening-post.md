@@ -1,0 +1,36 @@
+# ScreeningPost
+
+One post a collector read, with its permalink and time.
+
+## Example Usage
+
+```typescript
+import { ScreeningPost } from "@noresponse/node/models";
+
+let value: ScreeningPost = {
+  id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+  kind: "post",
+  text: "Great coffee this morning before the commute.",
+  replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
+  profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+  permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
+  postedAt: "2026-01-01T00:00:00Z",
+  screenshotSha256:
+    "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
+  capturedAt: "2026-01-01T00:00:00Z",
+};
+```
+
+## Fields
+
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      | Example                                                          |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `id`                                                             | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM                                   |
+| `kind`                                                           | *"post"*                                                         | :heavy_check_mark:                                               | N/A                                                              |                                                                  |
+| `text`                                                           | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | Great coffee this morning before the commute.                    |
+| `replyTo`                                                        | *string*                                                         | :heavy_minus_sign:                                               | N/A                                                              | https://synthetic.invalid/synthetic/jordanexample42/p0           |
+| `profileId`                                                      | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM                                   |
+| `permalink`                                                      | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | https://synthetic.invalid/synthetic/jordanexample42/p1           |
+| `postedAt`                                                       | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              | 2026-01-01T00:00:00Z                                             |
+| `screenshotSha256`                                               | *string*                                                         | :heavy_minus_sign:                                               | SHA-256 of the screenshot taken of a flagged item.               | 9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab |
+| `capturedAt`                                                     | *string*                                                         | :heavy_minus_sign:                                               | When the screenshot was taken.                                   | 2026-01-01T00:00:00Z                                             |

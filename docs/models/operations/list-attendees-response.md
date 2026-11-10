@@ -9,6 +9,8 @@ let value: ListAttendeesResponse = {
   headers: {
     "key": [
       "example 1",
+      "example 2",
+      "example 3",
     ],
   },
   result: {
@@ -34,11 +36,35 @@ let value: ListAttendeesResponse = {
         decisionNote: "Known to the venue team.",
         decidedBy: "user_2abc",
         decidedAt: "2026-01-01T00:00:00Z",
-        coverage: {},
+        coverage: {
+          accountsFound: 493700,
+          accountsAccessible: 438267,
+          itemsRead: 861570,
+          periodFrom: "2026-01-01T00:00:00Z",
+          periodTo: "2026-01-02T00:00:00Z",
+          platforms: [
+            {
+              platform: "synthetic",
+              status: "unavailable",
+              accountsFound: 747529,
+              itemsRead: 909182,
+            },
+          ],
+        },
         lastScreeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         screenedAt: "2026-01-01T00:00:00Z",
         createdAt: "2026-01-01T00:00:00Z",
         updatedAt: "2026-01-01T00:00:00Z",
+        spend: {
+          totalMinor: 331453,
+          byImplementation: [
+            {
+              implementation: "synthetic",
+              role: "resolver",
+              spendMinor: 424409,
+            },
+          ],
+        },
       },
     ],
     nextAfter: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
