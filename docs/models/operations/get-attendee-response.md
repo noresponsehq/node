@@ -7,7 +7,10 @@ import { GetAttendeeResponse } from "@noresponse/node/models/operations";
 
 let value: GetAttendeeResponse = {
   headers: {
-    "key": [],
+    "key": [
+      "example 1",
+      "example 2",
+    ],
   },
   result: {
     attendee: {
@@ -118,6 +121,10 @@ let value: GetAttendeeResponse = {
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
+    otherEvents: {
+      total: 346170,
+      items: [],
+    },
   },
 };
 ```

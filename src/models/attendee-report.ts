@@ -1,4 +1,5 @@
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
@@ -7,6 +8,7 @@ import {
 } from "./attendee-review.js";
 import { Attendee, Attendee$inboundSchema } from "./attendee.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import { OtherEvents, OtherEvents$inboundSchema } from "./other-events.js";
 import {
   ScreeningFinding,
   ScreeningFinding$inboundSchema,
@@ -25,7 +27,7 @@ import {
 } from "./screening-profile.js";
 
 /**
- * Everything known about one attendee.
+ * Everything known about one attendee, and where else in the environment they appear.
  */
 export type AttendeeReport = {
   /**
@@ -52,20 +54,32 @@ export type AttendeeReport = {
    * Every recorded decision, oldest first.
    */
   reviews: Array<AttendeeReview>;
+  /**
+   * Where else in the environment the attendee appears, read live from those events: deleting one removes it here.
+   */
+  otherEvents: OtherEvents;
 };
 
 /** @internal */
 export const AttendeeReport$inboundSchema: z.ZodMiniType<
   AttendeeReport,
   unknown
-> = z.object({
-  attendee: Attendee$inboundSchema,
-  profiles: z.array(ScreeningProfile$inboundSchema),
-  findings: z.array(ScreeningFinding$inboundSchema),
-  posts: z.array(ScreeningPost$inboundSchema),
-  media: z.array(ScreeningMedia$inboundSchema),
-  reviews: z.array(AttendeeReview$inboundSchema),
-});
+> = z.pipe(
+  z.object({
+    attendee: Attendee$inboundSchema,
+    profiles: z.array(ScreeningProfile$inboundSchema),
+    findings: z.array(ScreeningFinding$inboundSchema),
+    posts: z.array(ScreeningPost$inboundSchema),
+    media: z.array(ScreeningMedia$inboundSchema),
+    reviews: z.array(AttendeeReview$inboundSchema),
+    other_events: OtherEvents$inboundSchema,
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "other_events": "otherEvents",
+    });
+  }),
+);
 
 export function attendeeReportFromJSON(
   jsonString: string,

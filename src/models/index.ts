@@ -250,6 +250,8 @@ export * from "./operational-aggregate-queue.js";
 export * from "./operational-aggregate-totals.js";
 export * from "./operational-aggregate.js";
 export * from "./origin.js";
+export * from "./other-event.js";
+export * from "./other-events.js";
 export * from "./outcome.js";
 export * from "./outcomes-by-outcome.js";
 export * from "./outcomes.js";
