@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: e0a6fd7480c939b73a9bf4bb431aa830
+  docChecksum: 72792067a8ee94c2a7ac593c2bd4decc
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 10.0.13
-  configChecksum: 9777a1303a21021edd79f33d8e66c950
+  releaseVersion: 10.0.14
+  configChecksum: 5dd7706f060867389c3b287255d428f5
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -205,7 +205,7 @@ trackedFiles:
   docs/models/attendee-flagged.md:
     last_write_checksum: sha1:f84bd0ce34a6cb36a291cc1e3d1032bad62d5bea
   docs/models/attendee-identity.md:
-    last_write_checksum: sha1:b24eed8a9a51e02524dd83eb23c287cd0749d277
+    last_write_checksum: sha1:55d19c4b08e9316e983e1b47854238bfec17a098
   docs/models/attendee-list.md:
     last_write_checksum: sha1:6c72d02f065d96a6a16bcd1c69e3dabb89e5c02a
   docs/models/attendee-report.md:
@@ -214,8 +214,10 @@ trackedFiles:
     last_write_checksum: sha1:f413944469256d1d33e8f6ec6fda7e7d7f92394e
   docs/models/attendee-review.md:
     last_write_checksum: sha1:578e9e53f31496a15b9b1d621b071d02047bdf94
+  docs/models/attendee-role.md:
+    last_write_checksum: sha1:f0e16ddc9470a0dc05ad3ccf9bd4710ffec80d72
   docs/models/attendee.md:
-    last_write_checksum: sha1:e0b6f2b6f2dab4db942a63f6a2726579f22ff78d
+    last_write_checksum: sha1:88ba1f7c34ae9c3e31fdd7efd4e987a739ee8d71
   docs/models/attribute-agreement.md:
     last_write_checksum: sha1:10b0ac06b91461436358de39616e242f803681a7
   docs/models/attribute.md:
@@ -524,6 +526,8 @@ trackedFiles:
     last_write_checksum: sha1:b0bcf7b6f2c7b2b0f86ab2be1b7cd8e776980c5b
   docs/models/list-attendees-decision.md:
     last_write_checksum: sha1:efd76e906a54e324aa62e6c9a0a0135ea1346ae4
+  docs/models/list-attendees-role.md:
+    last_write_checksum: sha1:65d1c5d743a8a3b8b7878577290563ed3b2b0b9b
   docs/models/list-bulk-request.md:
     last_write_checksum: sha1:1ab70b87c54b9213970d75e9bfb57b602665e7b3
   docs/models/list-change-state.md:
@@ -821,7 +825,7 @@ trackedFiles:
   docs/models/operations/list-accounts-response.md:
     last_write_checksum: sha1:c7ca1ca84f9402e2bca23f0bf6b37aadc6987090
   docs/models/operations/list-attendees-request.md:
-    last_write_checksum: sha1:e723b042aaa852b7feefe7ca2a4529bfcede3263
+    last_write_checksum: sha1:8e596c9a6e2bd73ec5ec5a81658a64301683e228
   docs/models/operations/list-attendees-response.md:
     last_write_checksum: sha1:e54c8de808129678f9c79900df6e4808ffbdb2bb
   docs/models/operations/list-audit-events-request.md:
@@ -1365,9 +1369,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:018fddbbe48a2b102c4105b9d72d1b897afbe598
+    last_write_checksum: sha1:68b25072506587c6768932ccfbeeee0ce975c581
   package.json:
-    last_write_checksum: sha1:c56488e4bd4cf98ff67872946f7d89c909321aa1
+    last_write_checksum: sha1:036d2c35eeaf6d0aeac78e64b26bd5e830b4a7b5
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1463,7 +1467,7 @@ trackedFiles:
   src/funcs/events-get.ts:
     last_write_checksum: sha1:5dc124af8b750a91c4531783b0ed8b430b38a338
   src/funcs/events-list-attendees.ts:
-    last_write_checksum: sha1:6d23f045bd1a61fe43f0c563d0918cc398a52ece
+    last_write_checksum: sha1:2ee3de526d925a640150ebdee002773522e7a913
   src/funcs/events-list-screenings.ts:
     last_write_checksum: sha1:6abb091e7aff95739434787cdbdeca30944a4ece
   src/funcs/events-list.ts:
@@ -1609,7 +1613,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:17e3f6f24a91612280754d035dd05e70ded70772
+    last_write_checksum: sha1:b482f49d61d068d75e3f51548b1fb11cb15b4785
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -1785,7 +1789,7 @@ trackedFiles:
   src/models/attendee-flagged.ts:
     last_write_checksum: sha1:317d43fdd9219da8fc90b5ad3f04ec632ba309a9
   src/models/attendee-identity.ts:
-    last_write_checksum: sha1:3c41105da0ac5a932c74d9ba3b6d4dfe64406a4f
+    last_write_checksum: sha1:af7cb20691089b62af9a9dec932d896391a608db
   src/models/attendee-list.ts:
     last_write_checksum: sha1:3e74caa3231d24ce9633fab6d4c42d81a7ef3b45
   src/models/attendee-report.ts:
@@ -1794,8 +1798,10 @@ trackedFiles:
     last_write_checksum: sha1:2cddd18cae04decbdcd2aba9acdc81b85d337dec
   src/models/attendee-review.ts:
     last_write_checksum: sha1:6584a0f7e20cfc57b152939fab583a4f12a0920a
+  src/models/attendee-role.ts:
+    last_write_checksum: sha1:2f94400d33b26b5d5ed5fa2e4d5840ddec6d111d
   src/models/attendee.ts:
-    last_write_checksum: sha1:31fdbd0ca6655ca26d365a29e395f209a5483add
+    last_write_checksum: sha1:55bb779c4c6654a828e294be7b819a0c0aea2ab1
   src/models/attribute-agreement.ts:
     last_write_checksum: sha1:f4ae2f137aabdce3137211194bdde0a1ef2ea830
   src/models/attribute.ts:
@@ -2037,7 +2043,7 @@ trackedFiles:
   src/models/incomplete-source.ts:
     last_write_checksum: sha1:3a010772fe5eb8cbe0dc163dba90e0f77974ae8c
   src/models/index.ts:
-    last_write_checksum: sha1:a22570a4eabcf5dea0c5e4305c03d43ed5b2cd78
+    last_write_checksum: sha1:a2e9b8f6f6a4fc5051c8535c331271189bfe6640
   src/models/integration-hook-point.ts:
     last_write_checksum: sha1:90b5cd7c2bf7042631e5b34ca08dbd8c756d3283
   src/models/integration-list.ts:
@@ -2098,6 +2104,8 @@ trackedFiles:
     last_write_checksum: sha1:609c4da01f42dfcc3d1162d51a11f84a949f98e1
   src/models/list-attendees-decision.ts:
     last_write_checksum: sha1:2fa447388d6b4a2a0a83bb958c44b1e9ca417097
+  src/models/list-attendees-role.ts:
+    last_write_checksum: sha1:6519acfb7319761c1d46a07af358882a630c02af
   src/models/list-bulk-request.ts:
     last_write_checksum: sha1:e025b5bfaf2ced6c7763fdb07ac2830978bce602
   src/models/list-change-state.ts:
@@ -2275,7 +2283,7 @@ trackedFiles:
   src/models/operations/list-accounts.ts:
     last_write_checksum: sha1:39c05c1f4c09a716c8bfe5fe8bf80e785cd0a2b7
   src/models/operations/list-attendees.ts:
-    last_write_checksum: sha1:dd628b7a4ad264a20f87f2203bde75e5534667dd
+    last_write_checksum: sha1:a617b6f7fe217336e72ba482445699f59f14e420
   src/models/operations/list-audit-events.ts:
     last_write_checksum: sha1:db4c55b51343028e35f1767b302b874d5450b855
   src/models/operations/list-audit-streams.ts:

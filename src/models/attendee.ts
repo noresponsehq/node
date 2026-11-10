@@ -7,6 +7,7 @@ import {
   AttendeeDecision,
   AttendeeDecision$inboundSchema,
 } from "./attendee-decision.js";
+import { AttendeeRole, AttendeeRole$inboundSchema } from "./attendee-role.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Handle, Handle$inboundSchema } from "./handle.js";
 import { HighestBand, HighestBand$inboundSchema } from "./highest-band.js";
@@ -55,6 +56,10 @@ export type Attendee = {
    */
   handles?: Array<Handle> | undefined;
   /**
+   * The attendee's role at the event: guest (a ticket holder), crew, vendor or press. Leave it out when you do not know it: an attendee without one has no role, not guest. A later row naming the same attendee replaces it, and a change of role alone keeps the attendee's screening results.
+   */
+  role?: AttendeeRole | undefined;
+  /**
    * How sure the latest screening is that it found the attendee's accounts. unscreened until a screening reaches the attendee.
    */
   matchState: MatchState;
@@ -95,6 +100,7 @@ export const Attendee$inboundSchema: z.ZodMiniType<Attendee, unknown> = z.pipe(
     company: types.optional(types.string()),
     city: types.optional(types.string()),
     handles: types.optional(z.array(Handle$inboundSchema)),
+    role: types.optional(AttendeeRole$inboundSchema),
     match_state: MatchState$inboundSchema,
     highest_band: types.nullable(HighestBand$inboundSchema),
     decision: types.nullable(AttendeeDecision$inboundSchema),

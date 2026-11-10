@@ -31,6 +31,10 @@ export type ListAttendeesRequest = {
    * Only attendees with this decision; undecided for none yet.
    */
   decision?: models.ListAttendeesDecision | undefined;
+  /**
+   * Only attendees with this role; unstated for attendees whose role was not given.
+   */
+  role?: models.ListAttendeesRole | undefined;
 };
 
 export type ListAttendeesResponse = {
@@ -47,6 +51,7 @@ export type ListAttendeesRequest$Outbound = {
   after?: string | undefined;
   band?: string | undefined;
   decision?: string | undefined;
+  role?: string | undefined;
 };
 
 /** @internal */
@@ -62,6 +67,7 @@ export const ListAttendeesRequest$outboundSchema: z.ZodMiniType<
     after: z.optional(z.string()),
     band: z.optional(models.ListAttendeesBand$outboundSchema),
     decision: z.optional(models.ListAttendeesDecision$outboundSchema),
+    role: z.optional(models.ListAttendeesRole$outboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {

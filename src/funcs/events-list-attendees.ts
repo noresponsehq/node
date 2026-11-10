@@ -119,6 +119,7 @@ async function $do(
     "band": payload.band,
     "decision": payload.decision,
     "limit": payload.limit,
+    "role": payload.role,
   });
 
   const headers = new Headers(compactMap({
