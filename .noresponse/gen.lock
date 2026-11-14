@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 9f81ad0ce84c2350b7ceca7a41c67e11
+  docChecksum: 263b6a5a670aa7e8efdc92c1790d42ba
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 11.0.0
-  configChecksum: 0e949e08de734b8017cba29947fdd769
+  releaseVersion: 11.0.1
+  configChecksum: a6a93ff036c14df771b23ebbeee482ed
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -445,7 +445,7 @@ trackedFiles:
   docs/models/invite-resend-request.md:
     last_write_checksum: sha1:db8936da8ec5661631c32b9a33911539dd017aa5
   docs/models/invite.md:
-    last_write_checksum: sha1:a5af4097b966b68c7cd02e043d7b407d6f00ba28
+    last_write_checksum: sha1:95be6852e1c0d64a2aa79e45f4999256c3ec2b2b
   docs/models/ip-summary-type.md:
     last_write_checksum: sha1:290aaff18e3e3f0d6c48c821bbbf492cc114343c
   docs/models/ip-summary.md:
@@ -1387,9 +1387,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:6e05dcae209e767352a7d357f0e8f8103bf8ec0e
+    last_write_checksum: sha1:05e0608a6a738d000dc0113a696e68360700b0ed
   package.json:
-    last_write_checksum: sha1:08c0fb597368eeacdde54742a9553c7e454c4aef
+    last_write_checksum: sha1:c2b66794ce39941df15b547beb914702700ba638
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1631,7 +1631,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:248b2675e332148d717a39b99ad47f57e99bd876
+    last_write_checksum: sha1:38b79954a2183c908ced26e81fcc4fb447209ff2
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2047,7 +2047,7 @@ trackedFiles:
   src/models/invite-resend-request.ts:
     last_write_checksum: sha1:378a81cd471b2a0289f18800f756f06dd8d68008
   src/models/invite.ts:
-    last_write_checksum: sha1:e49665ab0f0c0c85a24bdca5cc29f5c1fd4fc71c
+    last_write_checksum: sha1:0ace52ddcc27bf7e960c03a014acad0b3ac8d885
   src/models/ip-summary-type.ts:
     last_write_checksum: sha1:4bea6c9be352631593ea5ff0a9cb9bf6d734b435
   src/models/ip-summary.ts:
