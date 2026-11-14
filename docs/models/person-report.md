@@ -235,6 +235,7 @@ let value: PersonReport = {
           {
             by: "handle",
             field: "username",
+            search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
           },
         ],
         fields: [
@@ -268,29 +269,34 @@ let value: PersonReport = {
           date: "2019-03",
         },
         by: "email",
+        search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         rows: 251199,
       },
     ],
     lookedAt: "2026-01-01T00:00:00Z",
   },
+  searches: [
+    {
+      searchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+      field: "username",
+      table: "FORUM_EXAMPLE_COM_2019",
+      kind: "password",
+      value: "jordanexample42",
+      status: "failed",
+      sources: 555247,
+      answered: 336986,
+      found: 156477,
+      estimatedSpend: 649086,
+      spent: 264360,
+      requestedBy: "user_2abc",
+      createdAt: "2026-01-01T00:00:00Z",
+      finishedAt: "2026-01-01T00:00:05Z",
+    },
+  ],
   otherGroups: {
-    total: 579434,
-    items: [
-      {
-        groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
-        groupName: "Spring gala",
-        groupStartsAt: "2025-09-01T09:00:00Z",
-        personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
-        matchedOn: [
-          "phone",
-        ],
-        matchState: "unscreened",
-        highestBand: "high",
-        decision: "watch",
-        decidedBy: "user_2abc",
-        decidedAt: "2025-09-01T12:00:00Z",
-      },
-    ],
+    total: 298226,
+    items: [],
   },
 };
 ```
@@ -306,4 +312,5 @@ let value: PersonReport = {
 | `media`                                                                                                                                                                                                                                                                                                   | [models.ScreeningMedia](../models/screening-media.md)[]                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                        | The images and videos the findings cite.                                                                                                                                                                                                                                                                  |
 | `reviews`                                                                                                                                                                                                                                                                                                 | [models.PersonReview](../models/person-review.md)[]                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                        | Every recorded decision, oldest first.                                                                                                                                                                                                                                                                    |
 | `lookup`                                                                                                                                                                                                                                                                                                  | [models.ScreeningLookup](../models/screening-lookup.md)                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                        | What the signup check's lookups found for a person: account presence for the email, phone and usernames (the person's handles), the phone lookup, the email domain's registration and the breach search. Context and coverage for the reviewer, not a finding: nothing here sets a band or a match state. |
+| `searches`                                                                                                                                                                                                                                                                                                | [models.Search](../models/search.md)[]                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                        | The searches people started on this person's values, newest first: each names the value, and the record and field it came from. Absent when nobody searched.                                                                                                                                              |
 | `otherGroups`                                                                                                                                                                                                                                                                                             | [models.OtherGroups](../models/other-groups.md)                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                                        | Where else in the environment the person appears, read live from those groups: deleting one removes it here.                                                                                                                                                                                              |

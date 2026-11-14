@@ -10,7 +10,9 @@ import { groupsListPeople } from "../funcs/groups-list-people.js";
 import { groupsListScreenings } from "../funcs/groups-list-screenings.js";
 import { groupsList } from "../funcs/groups-list.js";
 import { groupsReviewPerson } from "../funcs/groups-review-person.js";
+import { groupsRunSearch } from "../funcs/groups-run-search.js";
 import { groupsStartScreening } from "../funcs/groups-start-screening.js";
+import { groupsStartSearch } from "../funcs/groups-start-search.js";
 import { groupsUpdate } from "../funcs/groups-update.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -181,6 +183,40 @@ export class Groups extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.JudgeRecordResponse> {
     return unwrapAsync(groupsJudgeRecord(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Search again on a value of one of a person's records.
+   *
+   * @remarks
+   * Search again on the value of one field of one of a person's records, named by the record and field. Nothing searches again by itself. A password or hash search counts its breach rows first and runs only when you run it; read the person to see each search and what it found.
+   */
+  async startSearch(
+    request: operations.StartSearchRequest,
+    options?: RequestOptions,
+  ): Promise<operations.StartSearchResponse> {
+    return unwrapAsync(groupsStartSearch(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Run a counted password or hash search.
+   *
+   * @remarks
+   * Run a counted password or hash search once you have seen how many breach rows hold the value.
+   */
+  async runSearch(
+    request: operations.RunSearchRequest,
+    options?: RequestOptions,
+  ): Promise<operations.RunSearchResponse> {
+    return unwrapAsync(groupsRunSearch(
       this,
       request,
       options,

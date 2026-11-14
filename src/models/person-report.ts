@@ -27,6 +27,7 @@ import {
   ScreeningProfile,
   ScreeningProfile$inboundSchema,
 } from "./screening-profile.js";
+import { Search, Search$inboundSchema } from "./search.js";
 
 /**
  * Everything known about one person, and where else in the environment they appear.
@@ -61,6 +62,10 @@ export type PersonReport = {
    */
   lookup?: ScreeningLookup | undefined;
   /**
+   * The searches people started on this person's values, newest first: each names the value, and the record and field it came from. Absent when nobody searched.
+   */
+  searches?: Array<Search> | undefined;
+  /**
    * Where else in the environment the person appears, read live from those groups: deleting one removes it here.
    */
   otherGroups: OtherGroups;
@@ -77,6 +82,7 @@ export const PersonReport$inboundSchema: z.ZodMiniType<PersonReport, unknown> =
       media: z.array(ScreeningMedia$inboundSchema),
       reviews: z.array(PersonReview$inboundSchema),
       lookup: types.optional(ScreeningLookup$inboundSchema),
+      searches: types.optional(z.array(Search$inboundSchema)),
       other_groups: OtherGroups$inboundSchema,
     }),
     z.transform((v) => {

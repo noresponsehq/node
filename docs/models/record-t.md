@@ -20,6 +20,7 @@ let value: RecordT = {
     {
       by: "handle",
       field: "username",
+      search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     },
   ],
   fields: [

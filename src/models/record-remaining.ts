@@ -18,6 +18,10 @@ export type RecordRemaining = {
    */
   by: string;
   /**
+   * The search a person started that matched the rows. Searching the same field again with this source's table fetches them.
+   */
+  search?: string | undefined;
+  /**
    * How many rows of the source that search matched beyond the records the lookup carries.
    */
   rows: number;
@@ -30,6 +34,7 @@ export const RecordRemaining$inboundSchema: z.ZodMiniType<
 > = z.object({
   source: RecordSource$inboundSchema,
   by: types.string(),
+  search: types.optional(types.string()),
   rows: types.number(),
 });
 
