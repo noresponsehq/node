@@ -9,6 +9,7 @@ import {
   HandlePlatform,
   HandlePlatform$inboundSchema,
 } from "./handle-platform.js";
+import { RecordT, RecordT$inboundSchema } from "./record.js";
 import {
   ScreeningMatch,
   ScreeningMatch$inboundSchema,
@@ -52,6 +53,10 @@ export type ScreeningProfile = {
    */
   periodTo?: string | undefined;
   collectedAt: string;
+  /**
+   * One answer from one source: where it came from, what found it and every field it holds.
+   */
+  record?: RecordT | undefined;
 };
 
 /** @internal */
@@ -76,6 +81,7 @@ export const ScreeningProfile$inboundSchema: z.ZodMiniType<
     period_from: types.optional(types.string()),
     period_to: types.optional(types.string()),
     collected_at: types.string(),
+    record: types.optional(RecordT$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {

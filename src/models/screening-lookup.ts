@@ -4,6 +4,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import { RecordT, RecordT$inboundSchema } from "./record.js";
 import { RiskDetails, RiskDetails$inboundSchema } from "./risk-details.js";
 import { RiskSummary, RiskSummary$inboundSchema } from "./risk-summary.js";
 import {
@@ -28,6 +29,10 @@ export type ScreeningLookup = {
    */
   details?: RiskDetails | undefined;
   /**
+   * What each source that found an account answered, whole: every field under the source's own names, each answer once. Served only to a caller who may read evidence, as details are.
+   */
+  records?: Array<RecordT> | undefined;
+  /**
    * When the lookups ran.
    */
   lookedAt: string;
@@ -42,6 +47,7 @@ export const ScreeningLookup$inboundSchema: z.ZodMiniType<
     checks: z.array(ScreeningLookupCheck$inboundSchema),
     summary: types.optional(RiskSummary$inboundSchema),
     details: types.optional(RiskDetails$inboundSchema),
+    records: types.optional(z.array(RecordT$inboundSchema)),
     looked_at: types.string(),
   }),
   z.transform((v) => {

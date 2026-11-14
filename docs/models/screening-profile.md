@@ -32,6 +32,19 @@ let value: ScreeningProfile = {
   periodFrom: "2026-01-01T00:00:00Z",
   periodTo: "2026-01-02T00:00:00Z",
   collectedAt: "2026-01-02T00:00:00Z",
+  record: {
+    id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+    source: {
+      connector: "bluesky",
+      kind: "platform",
+      site: "bsky.app",
+      table: "users",
+      date: "2019-03",
+    },
+    matched: [],
+    fields: [],
+    observedAt: "2026-01-02T00:00:00Z",
+  },
 };
 ```
 
@@ -55,3 +68,4 @@ let value: ScreeningProfile = {
 | `periodFrom`                                                                                                                                      | *string*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                | The oldest item read.                                                                                                                             | 2026-01-01T00:00:00Z                                                                                                                              |
 | `periodTo`                                                                                                                                        | *string*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                | The newest item read.                                                                                                                             | 2026-01-02T00:00:00Z                                                                                                                              |
 | `collectedAt`                                                                                                                                     | *string*                                                                                                                                          | :heavy_check_mark:                                                                                                                                | N/A                                                                                                                                               | 2026-01-02T00:00:00Z                                                                                                                              |
+| `record`                                                                                                                                          | [models.RecordT](../models/record-t.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                | One answer from one source: where it came from, what found it and every field it holds.                                                           |                                                                                                                                                   |

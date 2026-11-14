@@ -6,7 +6,17 @@
 import { GetPersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetPersonResponse = {
-  headers: {},
+  headers: {
+    "key": [
+      "example 1",
+      "example 2",
+      "example 3",
+    ],
+    "key1": [
+      "example 1",
+      "example 2",
+    ],
+  },
   result: {
     person: {
       id: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -78,9 +88,46 @@ let value: GetPersonResponse = {
         periodFrom: "2026-01-01T00:00:00Z",
         periodTo: "2026-01-02T00:00:00Z",
         collectedAt: "2026-01-02T00:00:00Z",
+        record: {
+          id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+          source: {
+            connector: "bluesky",
+            kind: "platform",
+            site: "bsky.app",
+            table: "users",
+            date: "2019-03",
+          },
+          matched: [],
+          fields: [],
+          observedAt: "2026-01-02T00:00:00Z",
+        },
       },
     ],
-    findings: [],
+    findings: [
+      {
+        id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        category: "fixation",
+        band: "info",
+        confidence: 7897.97,
+        rationale: "The post reports when the principal leaves the hotel.",
+        quote:
+          "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
+        evidence: [
+          "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        ],
+        mediaObservations: [
+          {
+            mediaId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            description: "A handwritten sign held up outside the venue.",
+            readText: "SEE YOU ON THE 1ST",
+          },
+        ],
+        analyser: "synthetic",
+        model: "synthetic-1",
+        spendMinor: 802959,
+        createdAt: "2026-01-01T00:00:00Z",
+      },
+    ],
     posts: [],
     media: [
       {
@@ -101,23 +148,14 @@ let value: GetPersonResponse = {
     reviews: [
       {
         id: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        decision: "escalated",
+        decision: "cleared",
         note: "Known to the venue team.",
         createdBy: "user_2abc",
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
     lookup: {
-      checks: [
-        {
-          identifier: "email",
-          lane: "domain",
-          status: "not_found",
-          sources: 655904,
-          answered: 262056,
-          found: 455794,
-        },
-      ],
+      checks: [],
       summary: {
         phone: {
           country: "AU",
@@ -180,24 +218,39 @@ let value: GetPersonResponse = {
           },
         ],
       },
+      records: [
+        {
+          id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+          source: {
+            connector: "bluesky",
+            kind: "platform",
+            site: "bsky.app",
+            table: "users",
+            date: "2019-03",
+          },
+          matched: [
+            {
+              by: "handle",
+              field: "username",
+            },
+          ],
+          fields: [
+            {
+              field: "creation_date",
+              original: "2019-01-01T00:00:00Z",
+              kind: "date_time",
+              role: "joined",
+              value: "2019-01-01T00:00:00Z",
+            },
+          ],
+          observedAt: "2026-01-02T00:00:00Z",
+        },
+      ],
       lookedAt: "2026-01-01T00:00:00Z",
     },
     otherGroups: {
-      total: 654334,
-      items: [
-        {
-          groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
-          groupName: "Spring gala",
-          groupStartsAt: "2025-09-01T09:00:00Z",
-          personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
-          matchedOn: [],
-          matchState: "confirmed",
-          highestBand: "info",
-          decision: "watch",
-          decidedBy: "user_2abc",
-          decidedAt: "2025-09-01T12:00:00Z",
-        },
-      ],
+      total: 99512,
+      items: [],
     },
   },
 };
