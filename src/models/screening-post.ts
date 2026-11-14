@@ -42,6 +42,34 @@ export type ScreeningPost = {
    * How many views or plays the platform shows for the post.
    */
   views?: number | undefined;
+  /**
+   * How many times the platform shows the post was shared or reposted.
+   */
+  shares?: number | undefined;
+  /**
+   * The language the platform says the post is in, as the platform codes it, such as en or pt-BR.
+   */
+  language?: string | undefined;
+  /**
+   * true when the platform marks the post as edited after it went up. Absent when it does not mark it.
+   */
+  edited?: boolean | undefined;
+  /**
+   * true when the platform marks the post as a paid partnership or an ad. Absent when it does not mark it.
+   */
+  sponsored?: boolean | undefined;
+  /**
+   * true when the platform labels the post as made or changed with AI. Absent when it does not label it.
+   */
+  aiGenerated?: boolean | undefined;
+  /**
+   * The app or device the platform says the post was made with.
+   */
+  postedWith?: string | undefined;
+  /**
+   * Everything else the platform sent about the post, under the platform's own names and as it typed them: counts, ids of linked posts and accounts, links, media details, labels and notices. The fields above are not repeated here. Nothing that describes the account the screening read with, such as whether it liked or saved the post, is ever here.
+   */
+  stated?: { [k: string]: any } | undefined;
   profileId: string;
   permalink: string;
   postedAt: string;
@@ -72,6 +100,13 @@ export const ScreeningPost$inboundSchema: z.ZodMiniType<
     likes: types.optional(types.number()),
     comments: types.optional(types.number()),
     views: types.optional(types.number()),
+    shares: types.optional(types.number()),
+    language: types.optional(types.string()),
+    edited: types.optional(types.boolean()),
+    sponsored: types.optional(types.boolean()),
+    ai_generated: types.optional(types.boolean()),
+    posted_with: types.optional(types.string()),
+    stated: types.optional(z.record(z.string(), z.any())),
     profile_id: types.string(),
     permalink: types.string(),
     posted_at: types.string(),
@@ -83,6 +118,8 @@ export const ScreeningPost$inboundSchema: z.ZodMiniType<
       "reply_to": "replyTo",
       "repost_of": "repostOf",
       "quote_of": "quoteOf",
+      "ai_generated": "aiGenerated",
+      "posted_with": "postedWith",
       "profile_id": "profileId",
       "posted_at": "postedAt",
       "screenshot_sha256": "screenshotSha256",

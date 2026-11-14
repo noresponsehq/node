@@ -141,6 +141,8 @@ let value: PersonReport = {
       tagged: [
         "caseyexample7",
       ],
+      language: "en",
+      postedWith: "Twitter for iPhone",
       profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
       postedAt: "2026-01-01T00:00:00Z",
