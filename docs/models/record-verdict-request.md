@@ -1,0 +1,21 @@
+# RecordVerdictRequest
+
+A reviewer's verdict on whether one of a person's lookup records is theirs.
+
+## Example Usage
+
+```typescript
+import { RecordVerdictRequest } from "@noresponse/node/models";
+
+let value: RecordVerdictRequest = {
+  recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+  verdict: "rejected",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                | Type                                                                                                                                                                                                 | Required                                                                                                                                                                                             | Description                                                                                                                                                                                          | Example                                                                                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `recordId`                                                                                                                                                                                           | *string*                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                   | One of the person's lookup records.                                                                                                                                                                  | rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7                                                                                                                                                                 |
+| `verdict`                                                                                                                                                                                            | [models.Verdict](../models/verdict.md)                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                   | A reviewer's overrule (POST .../people/{person_id}/records), which decides joined whatever the likelihood and sticks for as long as a lookup finds the same record. Absent when nobody overruled it. |                                                                                                                                                                                                      |

@@ -5,6 +5,7 @@ import { groupsDelete } from "../funcs/groups-delete.js";
 import { groupsGetPerson } from "../funcs/groups-get-person.js";
 import { groupsGetScreening } from "../funcs/groups-get-screening.js";
 import { groupsGet } from "../funcs/groups-get.js";
+import { groupsJudgeRecord } from "../funcs/groups-judge-record.js";
 import { groupsListPeople } from "../funcs/groups-list-people.js";
 import { groupsListScreenings } from "../funcs/groups-list-screenings.js";
 import { groupsList } from "../funcs/groups-list.js";
@@ -163,6 +164,23 @@ export class Groups extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ReviewPersonResponse> {
     return unwrapAsync(groupsReviewPerson(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Join one of a person's records to them, or reject it.
+   *
+   * @remarks
+   * Join one of a person's lookup records to them whatever its likelihood, or reject it so it stays a lead. The verdict sticks while lookups find the same record.
+   */
+  async judgeRecord(
+    request: operations.JudgeRecordRequest,
+    options?: RequestOptions,
+  ): Promise<operations.JudgeRecordResponse> {
+    return unwrapAsync(groupsJudgeRecord(
       this,
       request,
       options,

@@ -49,6 +49,7 @@ export * from "./get-review.js";
 export * from "./get-screening.js";
 export * from "./get-settings.js";
 export * from "./get-usage.js";
+export * from "./judge-record.js";
 export * from "./list-account-assessments.js";
 export * from "./list-account-credentials.js";
 export * from "./list-account-decisions.js";

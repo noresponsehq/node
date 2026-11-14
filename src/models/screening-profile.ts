@@ -59,7 +59,7 @@ export type ScreeningProfile = {
   periodTo?: string | undefined;
   collectedAt: string;
   /**
-   * One answer from one source: where it came from, what found it and every field it holds.
+   * One answer from one source: where it came from, what found it and every field it holds. A person's lookup records also say how likely each is the person.
    */
   record?: RecordT | undefined;
 };

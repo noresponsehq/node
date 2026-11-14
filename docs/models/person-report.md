@@ -90,6 +90,12 @@ let value: PersonReport = {
         matched: [],
         fields: [],
         observedAt: "2026-01-02T00:00:00Z",
+        agreed: [
+          "lastip",
+        ],
+        clashed: [
+          "dob",
+        ],
       },
     },
   ],
@@ -244,6 +250,12 @@ let value: PersonReport = {
           },
         ],
         observedAt: "2026-01-02T00:00:00Z",
+        agreed: [
+          "lastip",
+        ],
+        clashed: [
+          "dob",
+        ],
       },
     ],
     remaining: [

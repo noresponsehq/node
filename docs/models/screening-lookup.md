@@ -109,6 +109,12 @@ let value: ScreeningLookup = {
         },
       ],
       observedAt: "2026-01-02T00:00:00Z",
+      agreed: [
+        "lastip",
+      ],
+      clashed: [
+        "dob",
+      ],
     },
   ],
   remaining: [
