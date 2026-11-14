@@ -282,6 +282,7 @@ export * from "./policy-preview-transition.js";
 export * from "./policy-preview.js";
 export * from "./policy-restore-request.js";
 export * from "./population.js";
+export * from "./post-place.js";
 export * from "./posts-stopped.js";
 export * from "./principal.js";
 export * from "./priority.js";

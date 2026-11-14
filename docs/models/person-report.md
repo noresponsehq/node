@@ -132,6 +132,15 @@ let value: PersonReport = {
       replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
       repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
       quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
+      place: {
+        name: "Example Harbour",
+        id: "212988663",
+        address: "2 Wharf Road",
+        city: "Melbourne",
+      },
+      tagged: [
+        "caseyexample7",
+      ],
       profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
       postedAt: "2026-01-01T00:00:00Z",

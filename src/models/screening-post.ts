@@ -4,6 +4,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import { PostPlace, PostPlace$inboundSchema } from "./post-place.js";
 
 /**
  * One post a collector read, with its permalink and time.
@@ -21,6 +22,26 @@ export type ScreeningPost = {
    * The permalink of the post this one quotes. text holds the person's own words alone.
    */
   quoteOf?: string | undefined;
+  /**
+   * A place a post names, as the platform shows it.
+   */
+  place?: PostPlace | undefined;
+  /**
+   * The handles of the accounts the post tags, on its own platform.
+   */
+  tagged?: Array<string> | undefined;
+  /**
+   * How many likes the platform shows for the post.
+   */
+  likes?: number | undefined;
+  /**
+   * How many comments the platform shows for the post.
+   */
+  comments?: number | undefined;
+  /**
+   * How many views or plays the platform shows for the post.
+   */
+  views?: number | undefined;
   profileId: string;
   permalink: string;
   postedAt: string;
@@ -46,6 +67,11 @@ export const ScreeningPost$inboundSchema: z.ZodMiniType<
     reply_to: types.optional(types.string()),
     repost_of: types.optional(types.string()),
     quote_of: types.optional(types.string()),
+    place: types.optional(PostPlace$inboundSchema),
+    tagged: types.optional(z.array(types.string())),
+    likes: types.optional(types.number()),
+    comments: types.optional(types.number()),
+    views: types.optional(types.number()),
     profile_id: types.string(),
     permalink: types.string(),
     posted_at: types.string(),
