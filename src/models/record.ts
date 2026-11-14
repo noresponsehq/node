@@ -25,7 +25,7 @@ export type RecordT = {
    */
   matched: Array<RecordMatch>;
   /**
-   * Every field the source returned, in the order the source's connector lists them.
+   * Every field the source returned, in the order the source's connector lists them; a breach row's columns in name order. Nothing is withheld: a breach row's passwords, hashes and salts are fields like any other.
    */
   fields: Array<RecordField>;
   /**

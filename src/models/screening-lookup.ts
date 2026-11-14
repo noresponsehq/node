@@ -4,6 +4,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import {
+  RecordRemaining,
+  RecordRemaining$inboundSchema,
+} from "./record-remaining.js";
 import { RecordT, RecordT$inboundSchema } from "./record.js";
 import { RiskDetails, RiskDetails$inboundSchema } from "./risk-details.js";
 import { RiskSummary, RiskSummary$inboundSchema } from "./risk-summary.js";
@@ -29,9 +33,13 @@ export type ScreeningLookup = {
    */
   details?: RiskDetails | undefined;
   /**
-   * What each source that found an account answered, whole: every field under the source's own names, each answer once. Served only to a caller who may read evidence, as details are.
+   * What each source answered, whole, each answer once: every field of each account a connector found, and every column of each breach row the person's email or usernames matched, under the source's own names. Anyone who may read the person reads them: no extra permission applies, breach passwords and hashes included.
    */
   records?: Array<RecordT> | undefined;
+  /**
+   * For each search and source whose matched rows records leave out, how many: a breach search returns at most 20 rows of a table and 100 in all, from its first 64 tables by name. Absent when records hold every matched row.
+   */
+  remaining?: Array<RecordRemaining> | undefined;
   /**
    * When the lookups ran.
    */
@@ -48,6 +56,7 @@ export const ScreeningLookup$inboundSchema: z.ZodMiniType<
     summary: types.optional(RiskSummary$inboundSchema),
     details: types.optional(RiskDetails$inboundSchema),
     records: types.optional(z.array(RecordT$inboundSchema)),
+    remaining: types.optional(z.array(RecordRemaining$inboundSchema)),
     looked_at: types.string(),
   }),
   z.transform((v) => {

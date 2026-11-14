@@ -10,11 +10,6 @@ let value: GetPersonResponse = {
     "key": [
       "example 1",
       "example 2",
-      "example 3",
-    ],
-    "key1": [
-      "example 1",
-      "example 2",
     ],
   },
   result: {
@@ -246,11 +241,39 @@ let value: GetPersonResponse = {
           observedAt: "2026-01-02T00:00:00Z",
         },
       ],
+      remaining: [
+        {
+          source: {
+            connector: "bluesky",
+            kind: "platform",
+            site: "bsky.app",
+            table: "users",
+            date: "2019-03",
+          },
+          by: "email",
+          rows: 99512,
+        },
+      ],
       lookedAt: "2026-01-01T00:00:00Z",
     },
     otherGroups: {
-      total: 99512,
-      items: [],
+      total: 251199,
+      items: [
+        {
+          groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+          groupName: "Spring gala",
+          groupStartsAt: "2025-09-01T09:00:00Z",
+          personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+          matchedOn: [
+            "phone",
+          ],
+          matchState: "probable",
+          highestBand: "low",
+          decision: "cleared",
+          decidedBy: "user_2abc",
+          decidedAt: "2025-09-01T12:00:00Z",
+        },
+      ],
     },
   },
 };

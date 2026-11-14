@@ -293,6 +293,7 @@ export * from "./reason-identifier.js";
 export * from "./recommendation.js";
 export * from "./record-field.js";
 export * from "./record-match.js";
+export * from "./record-remaining.js";
 export * from "./record-source.js";
 export * from "./record.js";
 export * from "./report.js";
