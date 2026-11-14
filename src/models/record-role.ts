@@ -35,7 +35,7 @@ export const RecordRole = {
    */
   Bio: "bio",
   /**
-   * The date of birth (`date`).
+   * The date of birth (`date` or `date_time`).
    */
   Born: "born",
   /**
@@ -47,9 +47,17 @@ export const RecordRole = {
    */
   CallerCategory: "caller_category",
   /**
+   * How many chargebacks a shop recorded against the account, or whether it has one (`count` or `flag`).
+   */
+  Chargebacks: "chargebacks",
+  /**
    * The banner picture of the profile (`image`).
    */
   CoverPicture: "cover_picture",
+  /**
+   * How many of the account's payments a shop declined (`count`).
+   */
+  Declines: "declines",
   /**
    * Whether the account is deleted or inactive (`flag`).
    */
@@ -191,6 +199,10 @@ export const RecordRole = {
    */
   PasswordChanged: "password_changed",
   /**
+   * The payment method or card brand the account paid with (`label`).
+   */
+  PaymentMethod: "payment_method",
+  /**
    * The profile picture (`image`).
    */
   Picture: "picture",
@@ -270,6 +282,10 @@ export const RecordRole = {
    * A street line of an address (`address`).
    */
   Street: "street",
+  /**
+   * How many trades a forum account completed (`count`).
+   */
+  Trades: "trades",
   /**
    * Whether the site verified the account (`flag`).
    */
