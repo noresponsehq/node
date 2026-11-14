@@ -124,6 +124,8 @@ let value: PersonReport = {
       kind: "post",
       text: "Great coffee this morning before the commute.",
       replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
+      repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
+      quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
       profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
       postedAt: "2026-01-01T00:00:00Z",

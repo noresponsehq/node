@@ -13,6 +13,14 @@ export type ScreeningPost = {
   kind: "post";
   text: string;
   replyTo?: string | undefined;
+  /**
+   * The permalink of the post this one reposts. text then holds that post's author's words, not the person's.
+   */
+  repostOf?: string | undefined;
+  /**
+   * The permalink of the post this one quotes. text holds the person's own words alone.
+   */
+  quoteOf?: string | undefined;
   profileId: string;
   permalink: string;
   postedAt: string;
@@ -36,6 +44,8 @@ export const ScreeningPost$inboundSchema: z.ZodMiniType<
     kind: types.literal("post"),
     text: types.string(),
     reply_to: types.optional(types.string()),
+    repost_of: types.optional(types.string()),
+    quote_of: types.optional(types.string()),
     profile_id: types.string(),
     permalink: types.string(),
     posted_at: types.string(),
@@ -45,6 +55,8 @@ export const ScreeningPost$inboundSchema: z.ZodMiniType<
   z.transform((v) => {
     return remap$(v, {
       "reply_to": "replyTo",
+      "repost_of": "repostOf",
+      "quote_of": "quoteOf",
       "profile_id": "profileId",
       "posted_at": "postedAt",
       "screenshot_sha256": "screenshotSha256",
