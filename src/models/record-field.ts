@@ -3,6 +3,8 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import { RecordKind, RecordKind$inboundSchema } from "./record-kind.js";
+import { RecordRole, RecordRole$inboundSchema } from "./record-role.js";
 
 /**
  * One value a source returned.
@@ -17,17 +19,21 @@ export type RecordField = {
    */
   original: string;
   /**
-   * What sort of value the field holds. Absent until the field's kind is known.
+   * What sort of value a field holds, which decides how it is cleaned, compared and searched again. It comes from the value itself where its shape is certain (an email, an IP, a URL, an international phone number), else from the answer stored for the source's column, else text. A value of any kind is returned.
    */
-  kind?: string | undefined;
+  kind?: RecordKind | undefined;
   /**
-   * Which common field it is, where many sources share it, such as handle, display_name, account_id, profile_link, picture, bio, website, linked_account (named by its network), account_status, joined, last_updated, organisation, location, followers, following or posts. Absent for a field only this source returns.
+   * Which common field a value is, where many sources share it: a join date and a birth date are both dates, with the roles joined and born. A platform account's field and a breach row's column with the same meaning carry the same kind and role. A linked_account field is named by its network. Absent for a field only its source returns.
    */
-  role?: string | undefined;
+  role?: RecordRole | undefined;
   /**
-   * The cleaned value. Absent when it cannot be cleaned, or until the field's kind is known.
+   * The value cleaned to its kind's one form: an email in lower case, a phone number in international form when its country is known, a date in ISO form, a country as its two-letter code, a flag as true or false. Absent when the value cannot be cleaned as its kind; original still holds it.
    */
   value?: string | undefined;
+  /**
+   * What the value shows of itself beyond its kind: the likely algorithm of a hash, the likely coin of a crypto address or the currency of an amount.
+   */
+  detail?: string | undefined;
 };
 
 /** @internal */
@@ -35,9 +41,10 @@ export const RecordField$inboundSchema: z.ZodMiniType<RecordField, unknown> = z
   .object({
     field: types.string(),
     original: types.string(),
-    kind: types.optional(types.string()),
-    role: types.optional(types.string()),
+    kind: types.optional(RecordKind$inboundSchema),
+    role: types.optional(RecordRole$inboundSchema),
     value: types.optional(types.string()),
+    detail: types.optional(types.string()),
   });
 
 export function recordFieldFromJSON(

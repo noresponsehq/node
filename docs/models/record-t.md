@@ -26,9 +26,8 @@ let value: RecordT = {
     {
       field: "creation_date",
       original: "2019-01-01T00:00:00Z",
-      kind: "date_time",
-      role: "joined",
       value: "2019-01-01T00:00:00Z",
+      detail: "bcrypt",
     },
   ],
   observedAt: "2026-01-02T00:00:00Z",

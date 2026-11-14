@@ -1,0 +1,19 @@
+# RecordKind
+
+What sort of value a field holds, which decides how it is cleaned, compared and searched again. It comes from the value itself where its shape is certain (an email, an IP, a URL, an international phone number), else from the answer stored for the source's column, else text. A value of any kind is returned.
+
+## Example Usage
+
+```typescript
+import { RecordKind } from "@noresponse/node/models";
+
+let value: RecordKind = "hash";
+
+// Open enum: unrecognized values are captured as Unrecognized<string>
+```
+
+## Values
+
+```typescript
+"email" | "phone" | "username" | "account_id" | "url" | "domain" | "image" | "person_name" | "gender" | "age" | "language" | "organisation" | "job_title" | "country" | "region" | "city" | "address" | "postcode" | "coordinates" | "timezone" | "date" | "date_time" | "duration" | "ip" | "mac_address" | "device_id" | "user_agent" | "password" | "hash" | "salt" | "token" | "security_answer" | "card_number" | "bank_account" | "crypto_address" | "amount" | "id_number" | "vehicle" | "label" | "long_text" | "count" | "score" | "flag" | "structured" | "text" | Unrecognized<string>
+```
