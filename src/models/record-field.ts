@@ -3,6 +3,10 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import {
+  RecordDistinctive,
+  RecordDistinctive$inboundSchema,
+} from "./record-distinctive.js";
 import { RecordKind, RecordKind$inboundSchema } from "./record-kind.js";
 import { RecordRole, RecordRole$inboundSchema } from "./record-role.js";
 
@@ -34,6 +38,10 @@ export type RecordField = {
    * What the value shows of itself beyond its kind: the likely algorithm of a hash, the likely coin of a crypto address or the currency of an amount.
    */
   detail?: string | undefined;
+  /**
+   * How distinctive a searchable value is: an email, phone, username, password, hash, person name or IP. Absent for other values, and when its rating could not be worked out, such as when a count failed.
+   */
+  distinctive?: RecordDistinctive | undefined;
 };
 
 /** @internal */
@@ -45,6 +53,7 @@ export const RecordField$inboundSchema: z.ZodMiniType<RecordField, unknown> = z
     role: types.optional(RecordRole$inboundSchema),
     value: types.optional(types.string()),
     detail: types.optional(types.string()),
+    distinctive: types.optional(RecordDistinctive$inboundSchema),
   });
 
 export function recordFieldFromJSON(

@@ -28,6 +28,10 @@ let value: RecordT = {
       original: "2019-01-01T00:00:00Z",
       value: "2019-01-01T00:00:00Z",
       detail: "bcrypt",
+      distinctive: {
+        rating: "unique",
+        reason: "in 4 breach rows",
+      },
     },
   ],
   observedAt: "2026-01-02T00:00:00Z",

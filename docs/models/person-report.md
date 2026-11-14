@@ -237,6 +237,10 @@ let value: PersonReport = {
             original: "2019-01-01T00:00:00Z",
             value: "2019-01-01T00:00:00Z",
             detail: "bcrypt",
+            distinctive: {
+              rating: "unique",
+              reason: "in 4 breach rows",
+            },
           },
         ],
         observedAt: "2026-01-02T00:00:00Z",
@@ -252,13 +256,13 @@ let value: PersonReport = {
           date: "2019-03",
         },
         by: "email",
-        rows: 99512,
+        rows: 251199,
       },
     ],
     lookedAt: "2026-01-01T00:00:00Z",
   },
   otherGroups: {
-    total: 251199,
+    total: 579434,
     items: [
       {
         groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
@@ -268,9 +272,9 @@ let value: PersonReport = {
         matchedOn: [
           "phone",
         ],
-        matchState: "probable",
-        highestBand: "low",
-        decision: "cleared",
+        matchState: "unscreened",
+        highestBand: "high",
+        decision: "watch",
         decidedBy: "user_2abc",
         decidedAt: "2025-09-01T12:00:00Z",
       },
