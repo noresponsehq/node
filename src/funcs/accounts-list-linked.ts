@@ -115,9 +115,7 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/v1/accounts/{account_id}/linked_accounts")(
-    pathParams,
-  );
+  const path = pathToFunc("/v1/accounts/{account_id}/links")(pathParams);
 
   const query = encodeFormQuery({
     "cursor": payload.cursor,

@@ -111,7 +111,7 @@ async function $do(
     }),
   };
   const path = pathToFunc(
-    "/v1/workspaces/{workspace_id}/list_changes/{environment}/{change_id}",
+    "/v1/workspaces/{workspace_id}/changes/{environment}/{change_id}",
   )(pathParams);
 
   const headers = new Headers(compactMap({

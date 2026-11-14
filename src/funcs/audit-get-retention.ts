@@ -108,7 +108,7 @@ async function $do(
     }),
   };
   const path = pathToFunc(
-    "/v1/workspaces/{workspace_id}/audit_settings/{environment}",
+    "/v1/workspaces/{workspace_id}/retention/{environment}",
   )(pathParams);
 
   const headers = new Headers(compactMap({

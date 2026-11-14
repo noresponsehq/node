@@ -108,7 +108,7 @@ async function $do(
     }),
   };
   const path = pathToFunc(
-    "/v1/workspaces/{workspace_id}/audit_streams/{environment}",
+    "/v1/workspaces/{workspace_id}/streams/{environment}",
   )(pathParams);
 
   const headers = new Headers(compactMap({

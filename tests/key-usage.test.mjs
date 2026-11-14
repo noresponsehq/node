@@ -25,7 +25,7 @@ test("keyUsage.record posts one batch with an idempotency key and returns meta",
   assert.equal(answer.accepted, RECEIPT.accepted);
   assert.equal(answer.meta.idempotentReplayed, true);
   assert.equal(calls[0].method, "POST");
-  assert.ok(calls[0].url.endsWith("/v1/key_usage/batches"));
+  assert.ok(calls[0].url.endsWith("/v1/keys/usage"));
   assert.match(calls[0].headers["idempotency-key"], /^[0-9a-f-]{36}$/);
   assert.deepEqual(calls[0].body, { events: [{ key_sha256: HASH, ip: "203.0.113.24", occurred_at: "2026-10-23T09:14:07Z", sample_rate: 1 }] });
 });

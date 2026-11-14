@@ -3,7 +3,7 @@
  *
  * Your API gateway calls `record` once per request made with a key your platform
  * issued. The buffer keeps the facts in memory and sends them to POST
- * /v1/key_usage/batches in the background: when `batchSize` facts are queued,
+ * /v1/keys/usage in the background: when `batchSize` facts are queued,
  * every `flushIntervalMs`, and on `flush()` or `close()`. `record` never
  * blocks and never throws. When the queue is full the oldest fact is dropped
  * and counted. A raw key passed as `key` is hashed here and never sent.
@@ -142,7 +142,7 @@ function positiveInteger(value: number | undefined, fallback: number, name: stri
 }
 
 /**
- * Buffers key usage and sends it to POST /v1/key_usage/batches in the
+ * Buffers key usage and sends it to POST /v1/keys/usage in the
  * background. Create one per process with `client.keyUsage.buffer()`, call
  * `record` on every request made with an issued key, and `close()` on
  * shutdown.

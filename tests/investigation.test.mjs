@@ -35,7 +35,7 @@ const cases = [
     nr => nr.accounts.retireCredential({ accountId, credentialId })],
   ["export", "GET", `/v1/accounts/${accountId}/export`, 200,
     nr => nr.accounts.export({ accountId, responseMode: "standard" })],
-  ["linked", "GET", `/v1/accounts/${accountId}/linked_accounts`, 200,
+  ["linked", "GET", `/v1/accounts/${accountId}/links`, 200,
     nr => nr.accounts.listLinked({ accountId, limit: 1, cursor: "next_fixture" })],
   ["requests", "GET", "/v1/requests", 200,
     nr => nr.requests.list({ from, to, requestId: "a".repeat(32), status: 200, limit: 1, cursor: "next_fixture" })],

@@ -106,9 +106,9 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc(
-    "/v1/workspaces/{workspace_id}/review_views/{environment}",
-  )(pathParams);
+  const path = pathToFunc("/v1/workspaces/{workspace_id}/views/{environment}")(
+    pathParams,
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
