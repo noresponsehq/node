@@ -30,10 +30,10 @@ import {
  */
 export type Screening = {
   id: string;
-  eventId: string;
+  groupId: string;
   environment: AuditSettingsEnvironment;
   /**
-   * partial finished with some attendees or platforms not covered; attendees_failed and attendees_partial count them.
+   * partial finished with some people or platforms not covered; people_failed and people_partial count them.
    */
   status: ScreeningStatus;
   depth: ScreeningDepth;
@@ -47,25 +47,25 @@ export type Screening = {
    */
   expiresAt: string;
   /**
-   * Attendees selected when the screening started.
+   * People selected when the screening started.
    */
-  attendeesTotal: number;
+  peopleTotal: number;
   /**
-   * Attendees screened so far, failed ones included.
+   * People screened so far, failed ones included.
    */
-  attendeesDone: number;
-  attendeesFlagged: number;
-  attendeesFailed: number;
+  peopleDone: number;
+  peopleFlagged: number;
+  peopleFailed: number;
   /**
-   * Attendees screened with some requested platform not covered; their coverage names which.
+   * People screened with some requested platform not covered; their coverage names which.
    */
-  attendeesPartial: number;
+  peoplePartial: number;
   /**
-   * What the screening was estimated to cost when it started, in minor units of USD (cents): its attendees at its depth and platforms. Until the screening finishes, what it has not yet spent counts against the environment's screening_daily_cap.
+   * What the screening was estimated to cost when it started, in minor units of USD (cents): its people at its depth and platforms. Until the screening finishes, what it has not yet spent counts against the environment's screening_daily_cap.
    */
   estimatedSpend: number;
   /**
-   * What the attendees it has screened recorded, in minor units of USD. Each counts toward the UTC day it was recorded on; a failed attendee records nothing.
+   * What the people it has screened recorded, in minor units of USD. Each counts toward the UTC day it was recorded on; a failed person records nothing.
    */
   spent: number;
   /**
@@ -83,7 +83,7 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
   .pipe(
     z.object({
       id: types.string(),
-      event_id: types.string(),
+      group_id: types.string(),
       environment: AuditSettingsEnvironment$inboundSchema,
       status: ScreeningStatus$inboundSchema,
       depth: ScreeningDepth$inboundSchema,
@@ -93,11 +93,11 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
       started_at: types.optional(types.string()),
       finished_at: types.optional(types.string()),
       expires_at: types.string(),
-      attendees_total: types.number(),
-      attendees_done: types.number(),
-      attendees_flagged: types.number(),
-      attendees_failed: types.number(),
-      attendees_partial: types.number(),
+      people_total: types.number(),
+      people_done: types.number(),
+      people_flagged: types.number(),
+      people_failed: types.number(),
+      people_partial: types.number(),
       estimated_spend: types.number(),
       spent: types.number(),
       spend: ScreeningSpend$inboundSchema,
@@ -105,17 +105,17 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
     }),
     z.transform((v) => {
       return remap$(v, {
-        "event_id": "eventId",
+        "group_id": "groupId",
         "requested_by": "requestedBy",
         "created_at": "createdAt",
         "started_at": "startedAt",
         "finished_at": "finishedAt",
         "expires_at": "expiresAt",
-        "attendees_total": "attendeesTotal",
-        "attendees_done": "attendeesDone",
-        "attendees_flagged": "attendeesFlagged",
-        "attendees_failed": "attendeesFailed",
-        "attendees_partial": "attendeesPartial",
+        "people_total": "peopleTotal",
+        "people_done": "peopleDone",
+        "people_flagged": "peopleFlagged",
+        "people_failed": "peopleFailed",
+        "people_partial": "peoplePartial",
         "estimated_spend": "estimatedSpend",
         "error_code": "errorCode",
       });

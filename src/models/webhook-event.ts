@@ -20,18 +20,6 @@ import {
   AssessmentUpdatedEvent$outboundSchema,
 } from "./assessment-updated-event.js";
 import {
-  AttendeeDecidedEvent,
-  AttendeeDecidedEvent$inboundSchema,
-  AttendeeDecidedEvent$Outbound,
-  AttendeeDecidedEvent$outboundSchema,
-} from "./attendee-decided-event.js";
-import {
-  AttendeeFlaggedEvent,
-  AttendeeFlaggedEvent$inboundSchema,
-  AttendeeFlaggedEvent$Outbound,
-  AttendeeFlaggedEvent$outboundSchema,
-} from "./attendee-flagged-event.js";
-import {
   AuditEventEvent,
   AuditEventEvent$inboundSchema,
   AuditEventEvent$Outbound,
@@ -44,6 +32,18 @@ import {
   EndpointVerificationEvent$outboundSchema,
 } from "./endpoint-verification-event.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import {
+  PersonDecidedEvent,
+  PersonDecidedEvent$inboundSchema,
+  PersonDecidedEvent$Outbound,
+  PersonDecidedEvent$outboundSchema,
+} from "./person-decided-event.js";
+import {
+  PersonFlaggedEvent,
+  PersonFlaggedEvent$inboundSchema,
+  PersonFlaggedEvent$Outbound,
+  PersonFlaggedEvent$outboundSchema,
+} from "./person-flagged-event.js";
 import {
   ScreeningCompletedEvent,
   ScreeningCompletedEvent$inboundSchema,
@@ -75,8 +75,8 @@ export type WebhookEvent =
   | AccountRiskChangedEvent
   | AuditEventEvent
   | ScreeningCompletedEvent
-  | AttendeeFlaggedEvent
-  | AttendeeDecidedEvent;
+  | PersonFlaggedEvent
+  | PersonDecidedEvent;
 
 /** @internal */
 export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
@@ -89,8 +89,8 @@ export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
     AccountRiskChangedEvent$inboundSchema,
     AuditEventEvent$inboundSchema,
     ScreeningCompletedEvent$inboundSchema,
-    AttendeeFlaggedEvent$inboundSchema,
-    AttendeeDecidedEvent$inboundSchema,
+    PersonFlaggedEvent$inboundSchema,
+    PersonDecidedEvent$inboundSchema,
   ]);
 /** @internal */
 export type WebhookEvent$Outbound =
@@ -102,8 +102,8 @@ export type WebhookEvent$Outbound =
   | AccountRiskChangedEvent$Outbound
   | AuditEventEvent$Outbound
   | ScreeningCompletedEvent$Outbound
-  | AttendeeFlaggedEvent$Outbound
-  | AttendeeDecidedEvent$Outbound;
+  | PersonFlaggedEvent$Outbound
+  | PersonDecidedEvent$Outbound;
 
 /** @internal */
 export const WebhookEvent$outboundSchema: z.ZodMiniType<
@@ -118,8 +118,8 @@ export const WebhookEvent$outboundSchema: z.ZodMiniType<
   AccountRiskChangedEvent$outboundSchema,
   AuditEventEvent$outboundSchema,
   ScreeningCompletedEvent$outboundSchema,
-  AttendeeFlaggedEvent$outboundSchema,
-  AttendeeDecidedEvent$outboundSchema,
+  PersonFlaggedEvent$outboundSchema,
+  PersonDecidedEvent$outboundSchema,
 ]);
 
 export function webhookEventToJSON(webhookEvent: WebhookEvent): string {

@@ -83,7 +83,7 @@ export type Risk = {
    */
   reasons: Array<RiskReason>;
   /**
-   * A few typed facts per identifier: an assessment's risk.summary, and an event screening attendee's lookup summary. Every fact is optional: absent means the evidence did not answer and makes no claim, while false or 0 is a definite answer.
+   * A few typed facts per identifier: an assessment's risk.summary, and a screened person's lookup summary. Every fact is optional: absent means the evidence did not answer and makes no claim, while false or 0 is a definite answer.
    */
   summary?: RiskSummary | undefined;
   /**

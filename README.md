@@ -44,7 +44,7 @@ Keep the API key on your server. The client throws at construction without one.
 | --- | --- |
 | Configure this client and explore its methods | [TypeScript and Node.js SDK guide](https://docs.noresponse.org/sdks/typescript) |
 | Act when an account's decision changes | [Late results](https://docs.noresponse.org/guides/late-results) |
-| Screen an event's attendees and record decisions | [Events and screenings](https://docs.noresponse.org/reference/events) |
+| Screen a group's people and record decisions | [Groups and screenings](https://docs.noresponse.org/reference/groups) |
 | Explore request and response fields | [API reference](https://docs.noresponse.org/api-reference) |
 
 <details>
@@ -323,19 +323,19 @@ async function handler(req, res) {
     return res.status(204).end();
   }
   if (event.type === "screening.completed") {
-    // A screening of an event finished: counts by band, no footprint and partial coverage. No attendee is named:
-    // read the event's roster, filtered by band.
-    reportScreening(event.data.eventId, event.data.status, event.data.byBand, event.data.partialCoverage);
+    // A screening of a group finished: counts by band, no footprint and partial coverage. No person is named:
+    // read the group's roster, filtered by band.
+    reportScreening(event.data.groupId, event.data.status, event.data.byBand, event.data.partialCoverage);
     return res.status(204).end();
   }
-  if (event.type === "attendee.flagged") {
-    // A screening flagged an attendee: its highest band and match state, never what was posted.
-    queueReview(event.data.eventId, event.data.attendeeId, event.data.highestBand);
+  if (event.type === "person.flagged") {
+    // A screening flagged a person: its highest band and match state, never what was posted.
+    queueReview(event.data.groupId, event.data.personId, event.data.highestBand);
     return res.status(204).end();
   }
-  if (event.type === "attendee.decided") {
-    // A reviewer marked the attendee cleared, watch or escalated. Keep the latest decidedAt per attendee.
-    applyDecision(event.data.attendeeId, event.data.decision, event.data.decidedAt);
+  if (event.type === "person.decided") {
+    // A reviewer marked the person cleared, watch or escalated. Keep the latest decidedAt per person.
+    applyDecision(event.data.personId, event.data.decision, event.data.decidedAt);
     return res.status(204).end();
   }
   if (event.type === "account.risk_changed") {

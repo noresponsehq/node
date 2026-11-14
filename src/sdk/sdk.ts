@@ -8,8 +8,8 @@ import { Assessments } from "./assessments.js";
 import { Audit } from "./audit.js";
 import { Erasures } from "./erasures.js";
 import { Evaluations } from "./evaluations.js";
-import { Events } from "./events.js";
 import { Exports } from "./exports.js";
+import { Groups } from "./groups.js";
 import { Integrations } from "./integrations.js";
 import { Invites } from "./invites.js";
 import { KeyUsage } from "./key-usage.js";
@@ -114,9 +114,9 @@ export class NoResponse extends ClientSDK {
     return (this._operations ??= new Operations(this._options));
   }
 
-  private _events?: Events;
-  get events(): Events {
-    return (this._events ??= new Events(this._options));
+  private _groups?: Groups;
+  get groups(): Groups {
+    return (this._groups ??= new Groups(this._options));
   }
 
   async validateWebhook({

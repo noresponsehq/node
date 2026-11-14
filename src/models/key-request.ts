@@ -25,7 +25,7 @@ export const KeyRequestScope = {
   PolicyPublish: "policy_publish",
   Members: "members",
   MembersManage: "members_manage",
-  Events: "events",
+  Groups: "groups",
 } as const;
 export type KeyRequestScope = ClosedEnum<typeof KeyRequestScope>;
 

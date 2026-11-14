@@ -329,12 +329,12 @@ const value: models.ScreeningCompletedEvent = {
   type: "screening.completed",
   data: {
     screeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     status: "failed",
     errorCode: "expired",
-    attendeesTotal: 134491,
-    attendeesScreened: 402555,
-    attendeesFlagged: 479916,
+    peopleTotal: 134491,
+    peopleScreened: 402555,
+    peopleFlagged: 479916,
     byBand: {
       critical: 921729,
       high: 668548,
@@ -349,36 +349,36 @@ const value: models.ScreeningCompletedEvent = {
 };
 ```
 
-### `models.AttendeeFlaggedEvent`
+### `models.PersonFlaggedEvent`
 
 ```typescript
-const value: models.AttendeeFlaggedEvent = {
+const value: models.PersonFlaggedEvent = {
   id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
   createdAt: "2026-10-14T09:00:02.000Z",
-  type: "attendee.flagged",
+  type: "person.flagged",
   data: {
-    eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    attendeeId: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     screeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    highestBand: "info",
-    matchState: "inaccessible",
+    highestBand: "moderate",
+    matchState: "none_found",
     flaggedAt: "2026-11-20T07:41:09.000Z",
   },
 };
 ```
 
-### `models.AttendeeDecidedEvent`
+### `models.PersonDecidedEvent`
 
 ```typescript
-const value: models.AttendeeDecidedEvent = {
+const value: models.PersonDecidedEvent = {
   id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
   createdAt: "2026-10-14T09:00:02.000Z",
-  type: "attendee.decided",
+  type: "person.decided",
   data: {
-    eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    attendeeId: "att_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     reviewId: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    decision: "escalated",
+    decision: "cleared",
     decidedBy:
       "email:2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
     decidedAt: "2026-11-20T09:03:27.000Z",

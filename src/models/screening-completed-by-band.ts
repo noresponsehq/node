@@ -5,7 +5,7 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 
 /**
- * Screened attendees by the band of their most severe finding.
+ * Screened people by the band of their most severe finding.
  */
 export type ScreeningCompletedByBand = {
   critical: number;

@@ -25,7 +25,7 @@ export type ScreeningCoverage = {
   accountsAccessible: number;
   itemsRead: number;
   /**
-   * Items read that the analyser could not analyse. Above zero, the attendee is partial: a finding may be missing from them.
+   * Items read that the analyser could not analyse. Above zero, the person is partial: a finding may be missing from them.
    */
   itemsNotAnalysed?: number | undefined;
   /**
@@ -42,7 +42,7 @@ export type ScreeningCoverage = {
   periodTo?: string | undefined;
   platforms: Array<ScreeningPlatformCoverage>;
   /**
-   * Requested platforms where the attendee gave the screening nothing to look up, such as no handle for a platform that reads supplied handles only. Nothing looked and nothing failed: such a platform is not in platforms, is not none_found and does not make the attendee partial.
+   * Requested platforms where the person gave the screening nothing to look up, such as no handle for a platform that reads supplied handles only. Nothing looked and nothing failed: such a platform is not in platforms, is not none_found and does not make the person partial.
    */
   notSearched?: Array<HandlePlatform> | undefined;
 };

@@ -1,0 +1,27 @@
+# PersonReview
+
+One recorded decision.
+
+## Example Usage
+
+```typescript
+import { PersonReview } from "@noresponse/node/models";
+
+let value: PersonReview = {
+  id: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+  decision: "escalated",
+  note: "Known to the venue team.",
+  createdBy: "user_2abc",
+  createdAt: "2026-01-01T00:00:00Z",
+};
+```
+
+## Fields
+
+| Field                                                 | Type                                                  | Required                                              | Description                                           | Example                                               |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | N/A                                                   | arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM                        |
+| `decision`                                            | [models.PersonDecision](../models/person-decision.md) | :heavy_check_mark:                                    | N/A                                                   |                                                       |
+| `note`                                                | *string*                                              | :heavy_minus_sign:                                    | N/A                                                   | Known to the venue team.                              |
+| `createdBy`                                           | *string*                                              | :heavy_check_mark:                                    | N/A                                                   | user_2abc                                             |
+| `createdAt`                                           | *string*                                              | :heavy_check_mark:                                    | N/A                                                   | 2026-01-01T00:00:00Z                                  |

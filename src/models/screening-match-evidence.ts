@@ -9,11 +9,11 @@ import {
 } from "./screening-match-evidence-kind.js";
 
 /**
- * One identifier that ties a profile to the attendee.
+ * One identifier that ties a profile to the person.
  */
 export type ScreeningMatchEvidence = {
   /**
-   * What matched. email, phone, supplied_handle and source_fact are hard identifiers; company, city and school are soft. supplied_handle is a handle on the attendee row; source_fact is an account a profile found by the attendee's lookups lists.
+   * What matched. email, phone, supplied_handle and source_fact are hard identifiers; company, city and school are soft. supplied_handle is a handle on the person row; source_fact is an account a profile found by the person's lookups lists.
    */
   kind: ScreeningMatchEvidenceKind;
   /**

@@ -15,7 +15,7 @@ import {
 } from "./screening-match.js";
 
 /**
- * An account the screening matched to the attendee, how it was matched, and how much of it was read.
+ * An account the screening matched to the person, how it was matched, and how much of it was read.
  */
 export type ScreeningProfile = {
   id: string;
@@ -35,7 +35,7 @@ export type ScreeningProfile = {
    */
   access: Access;
   /**
-   * How a profile was matched to the attendee: the state its evidence earns, and the evidence.
+   * How a profile was matched to the person: the state its evidence earns, and the evidence.
    */
   match: ScreeningMatch;
   /**

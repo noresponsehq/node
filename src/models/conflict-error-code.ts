@@ -32,8 +32,8 @@ export const ConflictErrorCode = {
   MemberLimitReached: "member_limit_reached",
   OwnerInvitePending: "owner_invite_pending",
   AggregateErasedData: "aggregate_erased_data",
-  EventConflict: "event_conflict",
-  EventLimitReached: "event_limit_reached",
+  GroupConflict: "group_conflict",
+  GroupLimitReached: "group_limit_reached",
   ScreeningCapExceeded: "screening_cap_exceeded",
   ScreeningUnavailable: "screening_unavailable",
 } as const;

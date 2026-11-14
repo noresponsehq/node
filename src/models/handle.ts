@@ -10,7 +10,7 @@ import {
 } from "./handle-platform.js";
 
 /**
- * An account the attendee is known to hold.
+ * An account the person is known to hold.
  */
 export type Handle = {
   /**

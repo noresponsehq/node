@@ -2,7 +2,7 @@ import * as z from "zod/v4-mini";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * completed reached every attendee; partial left some not fully covered (partial_coverage); failed covered nobody.
+ * completed reached every person; partial left some not fully covered (partial_coverage); failed covered nobody.
  */
 export const ScreeningCompletedStatus = {
   Completed: "completed",
@@ -10,7 +10,7 @@ export const ScreeningCompletedStatus = {
   Failed: "failed",
 } as const;
 /**
- * completed reached every attendee; partial left some not fully covered (partial_coverage); failed covered nobody.
+ * completed reached every person; partial left some not fully covered (partial_coverage); failed covered nobody.
  */
 export type ScreeningCompletedStatus = ClosedEnum<
   typeof ScreeningCompletedStatus

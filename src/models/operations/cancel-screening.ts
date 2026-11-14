@@ -14,7 +14,7 @@ export type CancelScreeningRequest = {
    * The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404.
    */
   environment: models.KeyEnvironment;
-  eventId: string;
+  groupId: string;
   screeningId: string;
   body: models.ScreeningCancelRequest;
 };
@@ -28,7 +28,7 @@ export type CancelScreeningResponse = {
 export type CancelScreeningRequest$Outbound = {
   workspace_id: string;
   environment: string;
-  event_id: string;
+  group_id: string;
   screening_id: string;
   body: models.ScreeningCancelRequest$Outbound;
 };
@@ -41,14 +41,14 @@ export const CancelScreeningRequest$outboundSchema: z.ZodMiniType<
   z.object({
     workspaceId: z.string(),
     environment: models.KeyEnvironment$outboundSchema,
-    eventId: z.string(),
+    groupId: z.string(),
     screeningId: z.string(),
     body: models.ScreeningCancelRequest$outboundSchema,
   }),
   z.transform((v) => {
     return remap$(v, {
       workspaceId: "workspace_id",
-      eventId: "event_id",
+      groupId: "group_id",
       screeningId: "screening_id",
     });
   }),

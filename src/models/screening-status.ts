@@ -3,7 +3,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * partial finished with some attendees or platforms not covered; attendees_failed and attendees_partial count them.
+ * partial finished with some people or platforms not covered; people_failed and people_partial count them.
  */
 export const ScreeningStatus = {
   Queued: "queued",
@@ -14,7 +14,7 @@ export const ScreeningStatus = {
   Cancelled: "cancelled",
 } as const;
 /**
- * partial finished with some attendees or platforms not covered; attendees_failed and attendees_partial count them.
+ * partial finished with some people or platforms not covered; people_failed and people_partial count them.
  */
 export type ScreeningStatus = OpenEnum<typeof ScreeningStatus>;
 

@@ -161,10 +161,10 @@ async function webhooks(): Promise<void> {
     const critical: number = event.data.byBand.critical;
     const uncovered: number = event.data.partialCoverage;
     void [critical, uncovered, event.data.noFootprint];
-  } else if (event.type === "attendee.flagged") {
+  } else if (event.type === "person.flagged") {
     const band: string = event.data.highestBand;
-    void [band, event.data.attendeeId];
-  } else if (event.type === "attendee.decided") {
+    void [band, event.data.personId];
+  } else if (event.type === "person.decided") {
     const decision: string = event.data.decision;
     void [decision, event.data.decidedBy];
   }

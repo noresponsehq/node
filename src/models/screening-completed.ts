@@ -17,7 +17,7 @@ import {
 } from "./screening-completed-status.js";
 
 /**
- * A screening of an event finished. It counts only the attendees this screening set out to reach, not who they are: read the roster with GET /v1/workspaces/{workspace_id}/events/{environment}/{event_id}/attendees, filtered by band, to act on them. attendees_screened + partial_coverage = attendees_total, attendees_flagged is the sum of by_band, no_footprint counts screened attendees with no flag whose accounts were not found, and no_profile_to_check those the screening had nothing to look up for on any requested platform. A cancelled screening sends no event.
+ * A screening of a group finished. It counts only the people this screening set out to reach, not who they are: read the roster with GET /v1/workspaces/{workspace_id}/groups/{environment}/{group_id}/people, filtered by band, to act on them. people_screened + partial_coverage = people_total, people_flagged is the sum of by_band, no_footprint counts screened people with no flag whose accounts were not found, and no_profile_to_check those the screening had nothing to look up for on any requested platform. A cancelled screening sends no event.
  */
 export type ScreeningCompleted = {
   /**
@@ -25,11 +25,11 @@ export type ScreeningCompleted = {
    */
   screeningId: string;
   /**
-   * The event it screened.
+   * The group it screened.
    */
-  eventId: string;
+  groupId: string;
   /**
-   * completed reached every attendee; partial left some not fully covered (partial_coverage); failed covered nobody.
+   * completed reached every person; partial left some not fully covered (partial_coverage); failed covered nobody.
    */
   status: ScreeningCompletedStatus;
   /**
@@ -37,31 +37,31 @@ export type ScreeningCompleted = {
    */
   errorCode?: string | undefined;
   /**
-   * Every attendee the screening set out to reach: those no screening had reached and those on watch or escalated.
+   * Every person the screening set out to reach: those no screening had reached and those on watch or escalated.
    */
-  attendeesTotal: number;
+  peopleTotal: number;
   /**
-   * Attendees the screening covered, flagged or not.
+   * People the screening covered, flagged or not.
    */
-  attendeesScreened: number;
+  peopleScreened: number;
   /**
-   * Screened attendees with a finding: the sum of by_band.
+   * Screened people with a finding: the sum of by_band.
    */
-  attendeesFlagged: number;
+  peopleFlagged: number;
   /**
-   * Screened attendees by the band of their most severe finding.
+   * Screened people by the band of their most severe finding.
    */
   byBand: ScreeningCompletedByBand;
   /**
-   * Screened attendees with no finding whose accounts were not found (match_state none_found). A clean result for someone with no visible accounts is not the same as a clean result for someone whose accounts were read.
+   * Screened people with no finding whose accounts were not found (match_state none_found). A clean result for someone with no visible accounts is not the same as a clean result for someone whose accounts were read.
    */
   noFootprint: number;
   /**
-   * Screened attendees with no profile to check: the list gave nothing to look up on any requested platform, such as no handle, so nobody looked for a profile (no_profile_to_check on the attendee). Not in no_footprint, and not partial: nothing failed. Their lookups are on their reports.
+   * Screened people with no profile to check: the list gave nothing to look up on any requested platform, such as no handle, so nobody looked for a profile (no_profile_to_check on the person). Not in no_footprint, and not partial: nothing failed. Their lookups are on their reports.
    */
   noProfileToCheck?: number | undefined;
   /**
-   * Attendees the screening did not fully cover. Read each one's coverage on its attendee.
+   * People the screening did not fully cover. Read each one's coverage on its person.
    */
   partialCoverage: number;
   /**
@@ -77,12 +77,12 @@ export const ScreeningCompleted$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     screening_id: types.string(),
-    event_id: types.string(),
+    group_id: types.string(),
     status: ScreeningCompletedStatus$inboundSchema,
     error_code: types.optional(types.string()),
-    attendees_total: types.number(),
-    attendees_screened: types.number(),
-    attendees_flagged: types.number(),
+    people_total: types.number(),
+    people_screened: types.number(),
+    people_flagged: types.number(),
     by_band: ScreeningCompletedByBand$inboundSchema,
     no_footprint: types.number(),
     no_profile_to_check: types.optional(types.number()),
@@ -92,11 +92,11 @@ export const ScreeningCompleted$inboundSchema: z.ZodMiniType<
   z.transform((v) => {
     return remap$(v, {
       "screening_id": "screeningId",
-      "event_id": "eventId",
+      "group_id": "groupId",
       "error_code": "errorCode",
-      "attendees_total": "attendeesTotal",
-      "attendees_screened": "attendeesScreened",
-      "attendees_flagged": "attendeesFlagged",
+      "people_total": "peopleTotal",
+      "people_screened": "peopleScreened",
+      "people_flagged": "peopleFlagged",
       "by_band": "byBand",
       "no_footprint": "noFootprint",
       "no_profile_to_check": "noProfileToCheck",
@@ -108,12 +108,12 @@ export const ScreeningCompleted$inboundSchema: z.ZodMiniType<
 /** @internal */
 export type ScreeningCompleted$Outbound = {
   screening_id: string;
-  event_id: string;
+  group_id: string;
   status: string;
   error_code?: string | undefined;
-  attendees_total: number;
-  attendees_screened: number;
-  attendees_flagged: number;
+  people_total: number;
+  people_screened: number;
+  people_flagged: number;
   by_band: ScreeningCompletedByBand$Outbound;
   no_footprint: number;
   no_profile_to_check?: number | undefined;
@@ -128,12 +128,12 @@ export const ScreeningCompleted$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     screeningId: z.string(),
-    eventId: z.string(),
+    groupId: z.string(),
     status: ScreeningCompletedStatus$outboundSchema,
     errorCode: z.optional(z.string()),
-    attendeesTotal: z.int(),
-    attendeesScreened: z.int(),
-    attendeesFlagged: z.int(),
+    peopleTotal: z.int(),
+    peopleScreened: z.int(),
+    peopleFlagged: z.int(),
     byBand: ScreeningCompletedByBand$outboundSchema,
     noFootprint: z.int(),
     noProfileToCheck: z.optional(z.int()),
@@ -143,11 +143,11 @@ export const ScreeningCompleted$outboundSchema: z.ZodMiniType<
   z.transform((v) => {
     return remap$(v, {
       screeningId: "screening_id",
-      eventId: "event_id",
+      groupId: "group_id",
       errorCode: "error_code",
-      attendeesTotal: "attendees_total",
-      attendeesScreened: "attendees_screened",
-      attendeesFlagged: "attendees_flagged",
+      peopleTotal: "people_total",
+      peopleScreened: "people_screened",
+      peopleFlagged: "people_flagged",
       byBand: "by_band",
       noFootprint: "no_footprint",
       noProfileToCheck: "no_profile_to_check",

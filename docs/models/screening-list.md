@@ -11,7 +11,7 @@ let value: ScreeningList = {
   items: [
     {
       id: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      eventId: "evn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       environment: "live",
       status: "partial",
       depth: "standard",
@@ -23,20 +23,20 @@ let value: ScreeningList = {
       startedAt: "2026-01-01T00:00:00Z",
       finishedAt: "2026-01-02T00:00:00Z",
       expiresAt: "2026-01-02T00:00:00Z",
-      attendeesTotal: 614872,
-      attendeesDone: 17533,
-      attendeesFlagged: 47314,
-      attendeesFailed: 12333,
-      attendeesPartial: 496149,
+      peopleTotal: 614872,
+      peopleDone: 17533,
+      peopleFlagged: 47314,
+      peopleFailed: 12333,
+      peoplePartial: 496149,
       estimatedSpend: 576065,
       spent: 12709,
       spend: {
-        totalMinor: 331453,
+        totalMinor: 570887,
         byImplementation: [
           {
             implementation: "synthetic",
-            role: "resolver",
-            spendMinor: 424409,
+            role: "analyser",
+            spendMinor: 603969,
           },
         ],
       },
