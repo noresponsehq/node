@@ -2,7 +2,7 @@
 
 # NoResponse for TypeScript and Node.js
 
-Assess sign-ups, logins and purchases with the NoResponse Identity Intelligence API.
+Investigate everyone, everywhere, all at once. Find the accounts and leaked rows behind an email, phone, username or name, screen groups of people, and assess sign-ups with the NoResponse API.
 
 Node.js 20+ · ESM and CommonJS · TypeScript types included.
 
@@ -14,7 +14,37 @@ Node.js 20+ · ESM and CommonJS · TypeScript types included.
 npm install @noresponse/node
 ```
 
-## Quick start
+## Investigate a person
+
+```ts
+import { NoResponse } from "@noresponse/node";
+
+const nr = new NoResponse(); // reads NORESPONSE_API_KEY; the key needs the groups scope
+const workspaceId = process.env.NORESPONSE_WORKSPACE ?? "";
+const environment = "test";
+
+const group = await nr.groups.create({ workspaceId, environment, body: { name: "Case 2026-114", startsAt: "2026-12-03T09:30:00Z" } });
+const groupId = group.result.id;
+const added = await nr.groups.addPeople({
+  workspaceId, environment, groupId, idempotencyKey: "case-2026-114-people-1",
+  body: { people: [{ name: "Jordan Ellis", email: "jordan.ellis@example.com", handles: [{ platform: "x", handle: "jordanellis" }] }] },
+});
+await nr.groups.startScreening({
+  workspaceId, environment, groupId, idempotencyKey: "case-2026-114-screening-1",
+  body: { depth: "standard", platforms: ["x"] },
+});
+
+// Once the screening.completed webhook arrives (or getScreening is no longer queued or running):
+const personId = added.result.items[0]?.id ?? "";
+const report = (await nr.groups.getPerson({ workspaceId, environment, groupId, personId })).result;
+for (const record of report.lookup?.records ?? []) {
+  console.log(record.source.kind, record.source.site ?? record.source.table, record.likelihood);
+}
+```
+
+Every account and leaked row comes back as a record that names its source. `nr.groups` is the generated class, so each call returns `{ headers, result }`. See the [quickstart](https://docs.noresponse.org/quickstart) and [records](https://docs.noresponse.org/guides/records).
+
+## Assess a signup
 
 ```ts
 import { NoResponse } from "@noresponse/node";

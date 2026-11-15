@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { inspect } from "node:util";
 import { NoResponse, RecordKind, RecordRole } from "../dist/esm/index.js";
-import { groupsGetPerson } from "../dist/esm/funcs/groups-get-person.js";
 import { fixture, fakeFetch, json } from "./helpers.mjs";
 
 // The contract's worked person report: a platform account and a leaked row
@@ -12,14 +12,12 @@ const key = "nrk_0TESTKEY00000000000000000_" + "s".repeat(43);
 test("a person's report returns typed records: kinds, roles, ratings and likelihood", async () => {
   const { fetcher, calls } = fakeFetch([json(report)]);
   const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com", fetch: fetcher });
-  const answer = await groupsGetPerson(nr.core, {
+  const { result } = await nr.groups.getPerson({
     workspaceId: "tnt_01JC8Y0A2B4C6D8E0F2G4H6J8K",
     environment: "test",
     groupId: report.person.group_id,
     personId: report.person.id,
   });
-  assert(answer.ok, String(answer.error));
-  const { result } = answer.value;
   assert.equal(new URL(calls[0].url).pathname,
     `/v1/workspaces/tnt_01JC8Y0A2B4C6D8E0F2G4H6J8K/groups/test/${report.person.group_id}/people/${report.person.id}`);
 
@@ -62,4 +60,23 @@ test("a person's report returns typed records: kinds, roles, ratings and likelih
   assert.equal(remaining.source.kind, "credential_list");
   assert.equal(remaining.by, "username");
   assert.equal(remaining.rows, 37);
+});
+
+test("the client exposes every generated group beside the wrapped ones", () => {
+  const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com" });
+  for (const group of ["groups", "reviews", "members", "invites", "audit", "usage", "lists", "erasures", "exports", "evaluations", "operations"]) {
+    assert.equal(nr[group], nr.core[group], group);
+  }
+  for (const method of ["create", "addPeople", "startScreening", "getScreening", "listPeople", "getPerson", "startSearch", "runSearch", "reviewPerson", "judgeRecord"]) {
+    assert.equal(typeof nr.groups[method], "function", method);
+  }
+});
+
+test("printing a generated group never shows the key", () => {
+  const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com" });
+  for (const group of [nr.groups, nr.reviews, nr.usage, nr.members, nr.assessments, nr.accounts, nr.webhookEndpoints]) {
+    for (const rendered of [inspect(group), JSON.stringify(group), JSON.stringify({ group })]) {
+      assert.ok(!rendered.includes(key), rendered);
+    }
+  }
 });

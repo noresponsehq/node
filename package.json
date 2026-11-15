@@ -1,11 +1,11 @@
 {
   "name": "@noresponse/node",
-  "version": "12.0.22",
+  "version": "12.1.0",
   "author": "NoResponse",
   "bugs": {
     "url": "https://github.com/noresponsehq/node/issues"
   },
-  "description": "NoResponse signup and gateway risk assessment client for Node.js",
+  "description": "NoResponse identity investigation, people screening and signup assessment client for Node.js",
   "engines": {
     "node": ">=20"
   },
@@ -18,10 +18,11 @@
   "homepage": "https://docs.noresponse.org",
   "keywords": [
     "noresponse",
-    "signup",
-    "fraud",
-    "risk",
     "identity",
+    "investigation",
+    "osint",
+    "screening",
+    "risk",
     "abuse",
     "sdk"
   ],

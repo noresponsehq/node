@@ -5,8 +5,8 @@ management:
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 12.0.22
-  configChecksum: 2db46545eaeaabfbced00f494c8157d5
+  releaseVersion: 12.1.0
+  configChecksum: aac991a10f6922dfbc04afcf65e3d15d
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1437,9 +1437,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:3f2e659ab22d05d016fa6382644f389771b22caa
+    last_write_checksum: sha1:b7e577e3f9c60c9e5c0f02f68b3cde9cc05d68de
   package.json:
-    last_write_checksum: sha1:62a7931efde0bfabdbb696de1027cc9923b41e44
+    last_write_checksum: sha1:f15892e3ef6c35870ec6e7043e60f4a02af2fd59
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1687,7 +1687,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:dba8c50894fb2c3257c50b5c9a7fbe948c581fd3
+    last_write_checksum: sha1:ff16b512e1f578c5399f62ff32a5296f6f9f9122
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:

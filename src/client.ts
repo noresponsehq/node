@@ -5,7 +5,9 @@
  * every method returns its model with `meta` (request id, Retry-After,
  * Location, Idempotent-Replayed), idempotency keys are generated when
  * omitted, history pages iterate their items, assessments.wait exists and
- * keyUsage.buffer batches key usage in the background.
+ * keyUsage.buffer batches key usage in the background. Every other generated
+ * group (groups, people and screenings, reviews, members and the rest) is the
+ * generated class itself: its methods return `{ headers, result }`.
  */
 import { NoResponse as GeneratedClient } from "./sdk/sdk.js";
 import type { Accounts as GeneratedAccounts } from "./sdk/accounts.js";
@@ -16,6 +18,17 @@ import type { KeyUsage as GeneratedKeyUsage } from "./sdk/key-usage.js";
 import type { Keys as GeneratedKeys } from "./sdk/keys.js";
 import type { Settings as GeneratedSettings } from "./sdk/settings.js";
 import type { WebhookEndpoints as GeneratedWebhookEndpoints } from "./sdk/webhook-endpoints.js";
+import type { Audit as GeneratedAudit } from "./sdk/audit.js";
+import type { Erasures as GeneratedErasures } from "./sdk/erasures.js";
+import type { Evaluations as GeneratedEvaluations } from "./sdk/evaluations.js";
+import type { Exports as GeneratedExports } from "./sdk/exports.js";
+import type { Groups as GeneratedGroups } from "./sdk/groups.js";
+import type { Invites as GeneratedInvites } from "./sdk/invites.js";
+import type { Lists as GeneratedLists } from "./sdk/lists.js";
+import type { Members as GeneratedMembers } from "./sdk/members.js";
+import type { Operations as GeneratedOperations } from "./sdk/operations.js";
+import type { Reviews as GeneratedReviews } from "./sdk/reviews.js";
+import type { Usage as GeneratedUsage } from "./sdk/usage.js";
 import type { NoResponseCore } from "./core.js";
 import { SDK_METADATA, type SDKOptions } from "./lib/config.js";
 import { HTTPClient, type Fetcher } from "./lib/http.js";
@@ -703,6 +716,18 @@ export class Requests {
   }
 }
 
+/**
+ * Each generated group keeps the client options, API key included, on the
+ * instance. Give it the same string forms as NoResponse, so printing or
+ * serialising `nr.groups` never shows the key.
+ */
+function keyless<T extends object>(group: T): T {
+  const name = group.constructor.name;
+  Object.defineProperty(group, "toJSON", { value: () => ({}), enumerable: false });
+  Object.defineProperty(group, Symbol.for("nodejs.util.inspect.custom"), { value: () => `${name} {}`, enumerable: false });
+  return group;
+}
+
 const webhooks = { constructEvent } as const;
 
 export class NoResponse {
@@ -716,6 +741,18 @@ export class NoResponse {
   readonly keyUsage: KeyUsage;
   readonly webhookEndpoints: WebhookEndpoints;
   readonly integrations: Integrations;
+  readonly audit: GeneratedAudit;
+  readonly erasures: GeneratedErasures;
+  readonly evaluations: GeneratedEvaluations;
+  readonly exports: GeneratedExports;
+  /** Groups, their people, person searches and screenings: the investigation and people screening API. */
+  readonly groups: GeneratedGroups;
+  readonly invites: GeneratedInvites;
+  readonly lists: GeneratedLists;
+  readonly members: GeneratedMembers;
+  readonly operations: GeneratedOperations;
+  readonly reviews: GeneratedReviews;
+  readonly usage: GeneratedUsage;
   /** The generated client, for the standalone functions under `@noresponse/node/funcs/*`. */
   readonly core: NoResponseCore;
   readonly baseUrl: string;
@@ -725,14 +762,25 @@ export class NoResponse {
     const sdkOptions = toSDKOptions(typeof options === "string" ? { apiKey: options } : options);
     const client = new GeneratedClient(sdkOptions);
     this.baseUrl = sdkOptions.serverURL!;
-    this.assessments = new Assessments(client.assessments);
-    this.accounts = new Accounts(client.accounts);
-    this.requests = new Requests(client.requests);
-    this.keys = new Keys(client.keys);
-    this.settings = new Settings(client.settings);
-    this.keyUsage = new KeyUsage(client.keyUsage);
-    this.webhookEndpoints = new WebhookEndpoints(client.webhookEndpoints);
-    this.integrations = new Integrations(client.integrations);
+    this.assessments = new Assessments(keyless(client.assessments));
+    this.accounts = new Accounts(keyless(client.accounts));
+    this.requests = new Requests(keyless(client.requests));
+    this.keys = new Keys(keyless(client.keys));
+    this.settings = new Settings(keyless(client.settings));
+    this.keyUsage = new KeyUsage(keyless(client.keyUsage));
+    this.webhookEndpoints = new WebhookEndpoints(keyless(client.webhookEndpoints));
+    this.integrations = new Integrations(keyless(client.integrations));
+    this.audit = keyless(client.audit);
+    this.erasures = keyless(client.erasures);
+    this.evaluations = keyless(client.evaluations);
+    this.exports = keyless(client.exports);
+    this.groups = keyless(client.groups);
+    this.invites = keyless(client.invites);
+    this.lists = keyless(client.lists);
+    this.members = keyless(client.members);
+    this.operations = keyless(client.operations);
+    this.reviews = keyless(client.reviews);
+    this.usage = keyless(client.usage);
     this.core = client;
     // Keep the key out of console.log(nr) and JSON.stringify(nr).
     Object.defineProperty(this, "core", { value: client, enumerable: false, writable: false });
