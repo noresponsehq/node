@@ -26,7 +26,7 @@ export type Search = {
    */
   table?: string | undefined;
   /**
-   * The kind of the value searched.
+   * The kind of the value searched. A domain search finds the leaked rows of every email address at the domain.
    */
   kind: SearchKind;
   /**

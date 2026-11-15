@@ -9,7 +9,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
  */
 export type RecordMatch = {
   /**
-   * The kind of searched value: email, phone, username, ip, name, password, hash, or handle for a profile read of a handle.
+   * The kind of searched value: email, phone, username, ip, name, password, hash, domain, or handle for a profile read of a handle.
    */
   by: string;
   /**

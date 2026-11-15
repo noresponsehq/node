@@ -14,7 +14,7 @@ let value: StartSearchResponse = {
     recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
     field: "username",
     table: "FORUM_EXAMPLE_COM_2019",
-    kind: "hash",
+    kind: "ip",
     value: "jordanexample42",
     status: "queued",
     sources: 550772,

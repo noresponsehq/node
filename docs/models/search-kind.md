@@ -1,6 +1,6 @@
 # SearchKind
 
-The kind of the value searched.
+The kind of the value searched. A domain search finds the leaked rows of every email address at the domain.
 
 ## Example Usage
 
@@ -15,5 +15,5 @@ let value: SearchKind = "username";
 ## Values
 
 ```typescript
-"email" | "phone" | "username" | "person_name" | "password" | "hash" | "ip" | Unrecognized<string>
+"email" | "phone" | "username" | "person_name" | "password" | "hash" | "ip" | "domain" | Unrecognized<string>
 ```
