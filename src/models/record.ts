@@ -14,7 +14,7 @@ import { Verdict, Verdict$inboundSchema } from "./verdict.js";
  */
 export type RecordT = {
   /**
-   * Made from the source and the fields' names and original values, so the same answer found twice is one record with the same id.
+   * Made from the source and the fields' names and original values, so the same answer found twice is one record with the same id. Its fields are typed as its latest finding typed them.
    */
   id: string;
   /**
