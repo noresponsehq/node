@@ -55,6 +55,7 @@ let value: PersonList = {
           },
         ],
       },
+      expiresAt: "2026-02-01T00:00:00Z",
     },
   ],
   nextAfter: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",

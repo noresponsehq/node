@@ -7,14 +7,6 @@ import * as models from "../index.js";
 
 export type ListGroupsRequest = {
   /**
-   * Your workspace id, as each key lists it in workspace_id. Another workspace, a malformed id and a test environment's id answer 404.
-   */
-  workspaceId: string;
-  /**
-   * The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404.
-   */
-  environment: models.KeyEnvironment;
-  /**
    * At most this many items.
    */
   limit?: number | undefined;
@@ -31,8 +23,6 @@ export type ListGroupsResponse = {
 
 /** @internal */
 export type ListGroupsRequest$Outbound = {
-  workspace_id: string;
-  environment: string;
   limit: number;
   before?: string | undefined;
 };
@@ -41,19 +31,10 @@ export type ListGroupsRequest$Outbound = {
 export const ListGroupsRequest$outboundSchema: z.ZodMiniType<
   ListGroupsRequest$Outbound,
   ListGroupsRequest
-> = z.pipe(
-  z.object({
-    workspaceId: z.string(),
-    environment: models.KeyEnvironment$outboundSchema,
-    limit: z._default(z.int(), 20),
-    before: z.optional(z.string()),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      workspaceId: "workspace_id",
-    });
-  }),
-);
+> = z.object({
+  limit: z._default(z.int(), 20),
+  before: z.optional(z.string()),
+});
 
 export function listGroupsRequestToJSON(
   listGroupsRequest: ListGroupsRequest,

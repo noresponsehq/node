@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Run a counted password or hash search.
  *
  * @remarks
- * Runs a password or hash search once a person has seen its count. A search still counting answers 409 group_conflict; one already queued, running or finished answers as it is. The body is an empty object. Its estimate counts against the environment's screening_daily_cap. Each run is audited as person.search_run. The investigations scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
+ * Runs a password or hash search once a person has seen its count. A search still counting answers 409 group_conflict; one already queued, running or finished answers as it is. The body is an empty object. Its estimate counts against the environment's screening_daily_cap. Each run is audited as person.search_run. The investigations scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
  */
 export function groupsRunSearch(
   client: NoResponseCore,
@@ -97,10 +97,6 @@ async function $do(
   const body = encodeJSON("body", payload.body, { explode: true });
 
   const pathParams = {
-    environment: encodeSimple("environment", payload.environment, {
-      explode: false,
-      charEncoding: "percent",
-    }),
     group_id: encodeSimple("group_id", payload.group_id, {
       explode: false,
       charEncoding: "percent",
@@ -113,13 +109,9 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
-    workspace_id: encodeSimple("workspace_id", payload.workspace_id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
   };
   const path = pathToFunc(
-    "/v1/workspaces/{workspace_id}/groups/{environment}/{group_id}/people/{person_id}/searches/{search_id}/run",
+    "/v1/groups/{group_id}/people/{person_id}/searches/{search_id}/run",
   )(pathParams);
 
   const headers = new Headers(compactMap({

@@ -11,12 +11,14 @@ import { Evaluations } from "./evaluations.js";
 import { Exports } from "./exports.js";
 import { Groups } from "./groups.js";
 import { Integrations } from "./integrations.js";
+import { Investigations } from "./investigations.js";
 import { Invites } from "./invites.js";
 import { KeyUsage } from "./key-usage.js";
 import { Keys } from "./keys.js";
 import { Lists } from "./lists.js";
 import { Members } from "./members.js";
 import { Operations } from "./operations.js";
+import { People } from "./people.js";
 import { Requests } from "./requests.js";
 import { Reviews } from "./reviews.js";
 import { Settings } from "./settings.js";
@@ -117,6 +119,16 @@ export class NoResponse extends ClientSDK {
   private _groups?: Groups;
   get groups(): Groups {
     return (this._groups ??= new Groups(this._options));
+  }
+
+  private _people?: People;
+  get people(): People {
+    return (this._people ??= new People(this._options));
+  }
+
+  private _investigations?: Investigations;
+  get investigations(): Investigations {
+    return (this._investigations ??= new Investigations(this._options));
   }
 
   async validateWebhook({

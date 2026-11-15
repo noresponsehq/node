@@ -1,4 +1,5 @@
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
@@ -7,6 +8,7 @@ import {
   PersonBatchItemOutcome,
   PersonBatchItemOutcome$inboundSchema,
 } from "./person-batch-item-outcome.js";
+import { PersonMatch, PersonMatch$inboundSchema } from "./person-match.js";
 
 export type PersonBatchItem = {
   /**
@@ -18,17 +20,26 @@ export type PersonBatchItem = {
    * unchanged: the row matched a person with the same details.
    */
   outcome: PersonBatchItemOutcome;
+  suggestedMatches?: Array<PersonMatch> | undefined;
 };
 
 /** @internal */
 export const PersonBatchItem$inboundSchema: z.ZodMiniType<
   PersonBatchItem,
   unknown
-> = z.object({
-  index: types.number(),
-  id: types.string(),
-  outcome: PersonBatchItemOutcome$inboundSchema,
-});
+> = z.pipe(
+  z.object({
+    index: types.number(),
+    id: types.string(),
+    outcome: PersonBatchItemOutcome$inboundSchema,
+    suggested_matches: types.optional(z.array(PersonMatch$inboundSchema)),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "suggested_matches": "suggestedMatches",
+    });
+  }),
+);
 
 export function personBatchItemFromJSON(
   jsonString: string,

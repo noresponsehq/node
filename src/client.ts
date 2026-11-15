@@ -22,6 +22,8 @@ import type { Audit as GeneratedAudit } from "./sdk/audit.js";
 import type { Erasures as GeneratedErasures } from "./sdk/erasures.js";
 import type { Evaluations as GeneratedEvaluations } from "./sdk/evaluations.js";
 import type { Exports as GeneratedExports } from "./sdk/exports.js";
+import type { People as GeneratedPeople } from "./sdk/people.js";
+import type { Investigations as GeneratedInvestigations } from "./sdk/investigations.js";
 import type { Groups as GeneratedGroups } from "./sdk/groups.js";
 import type { Invites as GeneratedInvites } from "./sdk/invites.js";
 import type { Lists as GeneratedLists } from "./sdk/lists.js";
@@ -747,6 +749,8 @@ export class NoResponse {
   readonly exports: GeneratedExports;
   /** Groups, their people, person searches and screenings: the investigation and people screening API. */
   readonly groups: GeneratedGroups;
+  readonly people: GeneratedPeople;
+  readonly investigations: GeneratedInvestigations;
   readonly invites: GeneratedInvites;
   readonly lists: GeneratedLists;
   readonly members: GeneratedMembers;
@@ -775,6 +779,8 @@ export class NoResponse {
     this.evaluations = keyless(client.evaluations);
     this.exports = keyless(client.exports);
     this.groups = keyless(client.groups);
+    this.people = keyless(client.people);
+    this.investigations = keyless(client.investigations);
     this.invites = keyless(client.invites);
     this.lists = keyless(client.lists);
     this.members = keyless(client.members);

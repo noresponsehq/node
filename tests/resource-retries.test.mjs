@@ -5,8 +5,7 @@ import { fakeFetch, fixture, problem } from "./helpers.mjs";
 
 const report = fixture("valid/person-report-records.json");
 const target = {
-  workspaceId: "tnt_01JC8Y0A2B4C6D8E0F2G4H6J8K",
-  environment: "test",
+
   groupId: report.person.group_id,
   personId: report.person.id,
 };

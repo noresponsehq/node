@@ -38,19 +38,19 @@ export type PersonReport = {
    */
   person: Person;
   /**
-   * The accounts the latest screening matched, with how each was matched.
+   * The accounts this result matched, with how each was matched.
    */
   profiles: Array<ScreeningProfile>;
   /**
-   * What the latest screening flagged, most severe first, each citing its evidence.
+   * What this result flagged, most severe first, each citing its evidence.
    */
   findings: Array<ScreeningFinding>;
   /**
-   * The posts the findings cite.
+   * All posts retained for this result, including posts that no finding cites.
    */
   posts: Array<ScreeningPost>;
   /**
-   * The images and videos the findings cite.
+   * All images and videos retained for this result, including media that no finding cites.
    */
   media: Array<ScreeningMedia>;
   /**

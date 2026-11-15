@@ -23,7 +23,6 @@ let value: GroupList = {
       ],
       people: 783119,
       version: 83134,
-      purgeAfter: "2026-02-01T00:00:00Z",
       createdBy: "user_2abc",
       createdAt: "2026-01-01T00:00:00Z",
       updatedAt: "2026-01-01T00:00:00Z",

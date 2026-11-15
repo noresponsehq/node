@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Read a group.
  *
  * @remarks
- * The group and how many people it holds. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
+ * The group and how many people it holds. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
  */
 export function groupsGet(
   client: NoResponseCore,
@@ -97,22 +97,12 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    environment: encodeSimple("environment", payload.environment, {
-      explode: false,
-      charEncoding: "percent",
-    }),
     group_id: encodeSimple("group_id", payload.group_id, {
       explode: false,
       charEncoding: "percent",
     }),
-    workspace_id: encodeSimple("workspace_id", payload.workspace_id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
   };
-  const path = pathToFunc(
-    "/v1/workspaces/{workspace_id}/groups/{environment}/{group_id}",
-  )(pathParams);
+  const path = pathToFunc("/v1/groups/{group_id}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",

@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Create a group to screen.
  *
  * @remarks
- * Creates a group with its name, start, venue, host, the principals it protects and the sensitive topics its screening reads posts against. An environment holds at most 1000 groups. Send an Idempotency-Key to retry safely: the same key and request return the same resource in its current state while it is retained, even after work completes. Reusing the key with different input answers 409 idempotency_key_reused. Use a new key for a deliberate new operation. The people_write scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
+ * Creates a group with its name, start, venue, host, the principals it protects and the sensitive topics its screening reads posts against. An environment holds at most 1000 groups. Send an Idempotency-Key to retry safely: the same key and request return the same resource in its current state while it is retained, even after work completes. Reusing the key with different input answers 409 idempotency_key_reused. Use a new key for a deliberate new operation. The people_write scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
  */
 export function groupsCreate(
   client: NoResponseCore,
@@ -96,19 +96,7 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload.body, { explode: true });
 
-  const pathParams = {
-    environment: encodeSimple("environment", payload.environment, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    workspace_id: encodeSimple("workspace_id", payload.workspace_id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-  const path = pathToFunc("/v1/workspaces/{workspace_id}/groups/{environment}")(
-    pathParams,
-  );
+  const path = pathToFunc("/v1/groups")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

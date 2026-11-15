@@ -2,7 +2,7 @@
 
 # NoResponse for TypeScript and Node.js
 
-Investigate everyone, everywhere, all at once. Find the accounts and leaked rows behind an email, phone, username or name, screen groups of people, and assess sign-ups with the NoResponse API.
+NoResponse is an identity and people risk engine. Create a person, investigate the accounts and source records behind their identifiers, and keep investigation history. Groups organize people for events, venues and team review. Signup assessment uses the same engine.
 
 Node.js 20+ · ESM and CommonJS · TypeScript types included.
 
@@ -19,30 +19,30 @@ npm install @noresponse/node
 ```ts
 import { NoResponse } from "@noresponse/node";
 
-const nr = new NoResponse(); // reads NORESPONSE_API_KEY; the key needs the groups scope
-const workspaceId = process.env.NORESPONSE_WORKSPACE ?? "";
-const environment = "test";
+const nr = new NoResponse();
+const created = (await nr.people.create({
+  idempotencyKey: "case-1042-person-create",
+  body: { externalId: "case-person-1042", name: "Jordan Example", email: "jordan@example.com" },
+})).result;
+const job = (await nr.investigations.create({
+  idempotencyKey: "case-1042-investigation-1",
+  body: { personId: created.person.id, depth: "standard", platforms: ["x"] },
+})).result;
+console.log(job.id, job.status, created.person.expiresAt);
+```
 
-const group = await nr.groups.create({ workspaceId, environment, body: { name: "Case 2026-114", startsAt: "2026-12-03T09:30:00Z" } });
-const groupId = group.result.id;
-const added = await nr.groups.addPeople({
-  workspaceId, environment, groupId, idempotencyKey: "case-2026-114-people-1",
-  body: { people: [{ name: "Jordan Ellis", email: "jordan.ellis@example.com", handles: [{ platform: "x", handle: "jordanellis" }] }] },
-});
-await nr.groups.startScreening({
-  workspaceId, environment, groupId, idempotencyKey: "case-2026-114-screening-1",
-  body: { depth: "standard", platforms: ["x"] },
-});
+After `investigation.completed`, read that investigation's report:
 
-// Once the screening.completed webhook arrives (or getScreening is no longer queued or running):
-const personId = added.result.items[0]?.id ?? "";
-const report = (await nr.groups.getPerson({ workspaceId, environment, groupId, personId })).result;
+```ts
+const report = (await nr.investigations.get({ investigationId: job.id })).result;
 for (const record of report.lookup?.records ?? []) {
   console.log(record.source.kind, record.source.site ?? record.source.table, record.likelihood);
 }
 ```
 
-Every account and leaked row comes back as a record that names its source. `nr.groups` is the generated class, so each call returns `{ headers, result }`. See the [quickstart](https://docs.noresponse.org/quickstart) and [records](https://docs.noresponse.org/guides/records).
+The API key selects the workspace and environment. This flow needs `people_write` to create a person, `investigations` to start work, and `people` to read the report. Save the investigation id and key: retry the same work with the same key; use a new key for a deliberate new investigation. A person can belong to several groups or none. Their `expires_at` comes from workspace retention.
+
+Evidence is included by default for pre-verified customers. An explicit evidence restriction keeps submitted details, status, coverage and decision summaries, and withholds collected records, profiles, posts, media and discovered identifiers. Each investigation and group keeps its own review context.
 
 ## Assess a signup
 

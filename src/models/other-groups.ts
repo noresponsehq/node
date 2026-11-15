@@ -10,11 +10,11 @@ import { OtherGroup, OtherGroup$inboundSchema } from "./other-group.js";
  */
 export type OtherGroups = {
   /**
-   * How many people of other groups match, of which items lists the 20 most recent.
+   * How many other groups include this person, of which items lists the 20 most recent.
    */
   total: number;
   /**
-   * The 20 people of the most recent other groups, newest group first.
+   * This person's memberships in the 20 most recent other groups, newest group first.
    */
   items: Array<OtherGroup>;
 };

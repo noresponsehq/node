@@ -1,6 +1,6 @@
 import * as z from "zod/v4-mini";
 import { NoResponseCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -27,11 +27,11 @@ import { Result } from "../types/fp.js";
  * List an environment's groups.
  *
  * @remarks
- * Groups, newest first. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
+ * Groups, newest first. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
  */
 export function groupsList(
   client: NoResponseCore,
-  request: operations.ListGroupsRequest,
+  request?: operations.ListGroupsRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +61,7 @@ export function groupsList(
 
 async function $do(
   client: NoResponseCore,
-  request: operations.ListGroupsRequest,
+  request?: operations.ListGroupsRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -87,7 +87,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => z.parse(operations.ListGroupsRequest$outboundSchema, value),
+    (value) =>
+      z.parse(z.optional(operations.ListGroupsRequest$outboundSchema), value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -96,23 +97,11 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const pathParams = {
-    environment: encodeSimple("environment", payload.environment, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-    workspace_id: encodeSimple("workspace_id", payload.workspace_id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-  const path = pathToFunc("/v1/workspaces/{workspace_id}/groups/{environment}")(
-    pathParams,
-  );
+  const path = pathToFunc("/v1/groups")();
 
   const query = encodeFormQuery({
-    "before": payload.before,
-    "limit": payload.limit,
+    "before": payload?.before,
+    "limit": payload?.limit,
   });
 
   const headers = new Headers(compactMap({

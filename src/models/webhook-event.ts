@@ -33,6 +33,12 @@ import {
 } from "./endpoint-verification-event.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  InvestigationCompletedEvent,
+  InvestigationCompletedEvent$inboundSchema,
+  InvestigationCompletedEvent$Outbound,
+  InvestigationCompletedEvent$outboundSchema,
+} from "./investigation-completed-event.js";
+import {
   PersonDecidedEvent,
   PersonDecidedEvent$inboundSchema,
   PersonDecidedEvent$Outbound,
@@ -76,7 +82,8 @@ export type WebhookEvent =
   | AuditEventEvent
   | ScreeningCompletedEvent
   | PersonFlaggedEvent
-  | PersonDecidedEvent;
+  | PersonDecidedEvent
+  | InvestigationCompletedEvent;
 
 /** @internal */
 export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
@@ -91,6 +98,7 @@ export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
     ScreeningCompletedEvent$inboundSchema,
     PersonFlaggedEvent$inboundSchema,
     PersonDecidedEvent$inboundSchema,
+    InvestigationCompletedEvent$inboundSchema,
   ]);
 /** @internal */
 export type WebhookEvent$Outbound =
@@ -103,7 +111,8 @@ export type WebhookEvent$Outbound =
   | AuditEventEvent$Outbound
   | ScreeningCompletedEvent$Outbound
   | PersonFlaggedEvent$Outbound
-  | PersonDecidedEvent$Outbound;
+  | PersonDecidedEvent$Outbound
+  | InvestigationCompletedEvent$Outbound;
 
 /** @internal */
 export const WebhookEvent$outboundSchema: z.ZodMiniType<
@@ -120,6 +129,7 @@ export const WebhookEvent$outboundSchema: z.ZodMiniType<
   ScreeningCompletedEvent$outboundSchema,
   PersonFlaggedEvent$outboundSchema,
   PersonDecidedEvent$outboundSchema,
+  InvestigationCompletedEvent$outboundSchema,
 ]);
 
 export function webhookEventToJSON(webhookEvent: WebhookEvent): string {

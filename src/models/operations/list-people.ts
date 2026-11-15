@@ -6,14 +6,6 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
 export type ListPeopleRequest = {
-  /**
-   * Your workspace id, as each key lists it in workspace_id. Another workspace, a malformed id and a test environment's id answer 404.
-   */
-  workspaceId: string;
-  /**
-   * The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404.
-   */
-  environment: models.KeyEnvironment;
   groupId: string;
   /**
    * At most this many people.
@@ -44,8 +36,6 @@ export type ListPeopleResponse = {
 
 /** @internal */
 export type ListPeopleRequest$Outbound = {
-  workspace_id: string;
-  environment: string;
   group_id: string;
   limit: number;
   after?: string | undefined;
@@ -60,8 +50,6 @@ export const ListPeopleRequest$outboundSchema: z.ZodMiniType<
   ListPeopleRequest
 > = z.pipe(
   z.object({
-    workspaceId: z.string(),
-    environment: models.KeyEnvironment$outboundSchema,
     groupId: z.string(),
     limit: z._default(z.int(), 100),
     after: z.optional(z.string()),
@@ -71,7 +59,6 @@ export const ListPeopleRequest$outboundSchema: z.ZodMiniType<
   }),
   z.transform((v) => {
     return remap$(v, {
-      workspaceId: "workspace_id",
       groupId: "group_id",
     });
   }),

@@ -386,3 +386,20 @@ const value: models.PersonDecidedEvent = {
 };
 ```
 
+### `models.InvestigationCompletedEvent`
+
+```typescript
+const value: models.InvestigationCompletedEvent = {
+  id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
+  createdAt: "2026-10-14T09:00:02.000Z",
+  type: "investigation.completed",
+  data: {
+    investigationId: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    status: "cancelled",
+    errorCode: "expired",
+    finishedAt: "2026-11-20T08:12:44.000Z",
+  },
+};
+```
+

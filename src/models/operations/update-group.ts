@@ -6,14 +6,6 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
 export type UpdateGroupRequest = {
-  /**
-   * Your workspace id, as each key lists it in workspace_id. Another workspace, a malformed id and a test environment's id answer 404.
-   */
-  workspaceId: string;
-  /**
-   * The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404.
-   */
-  environment: models.KeyEnvironment;
   groupId: string;
   body: models.GroupUpdate;
 };
@@ -25,8 +17,6 @@ export type UpdateGroupResponse = {
 
 /** @internal */
 export type UpdateGroupRequest$Outbound = {
-  workspace_id: string;
-  environment: string;
   group_id: string;
   body: models.GroupUpdate$Outbound;
 };
@@ -37,14 +27,11 @@ export const UpdateGroupRequest$outboundSchema: z.ZodMiniType<
   UpdateGroupRequest
 > = z.pipe(
   z.object({
-    workspaceId: z.string(),
-    environment: models.KeyEnvironment$outboundSchema,
     groupId: z.string(),
     body: models.GroupUpdate$outboundSchema,
   }),
   z.transform((v) => {
     return remap$(v, {
-      workspaceId: "workspace_id",
       groupId: "group_id",
     });
   }),

@@ -7,14 +7,6 @@ import * as models from "../index.js";
 
 export type CreateGroupRequest = {
   /**
-   * Your workspace id, as each key lists it in workspace_id. Another workspace, a malformed id and a test environment's id answer 404.
-   */
-  workspaceId: string;
-  /**
-   * The environment: live or test. Each has its own settings. Any other value answers 400. An API key reads and changes only its own environment's; the other answers 404.
-   */
-  environment: models.KeyEnvironment;
-  /**
    * Opaque request key, 16 to 128 characters. Repeating the key and request returns the same resource in its current state while it is retained. A different request with the same key answers 409. Use a new key for a deliberate new operation. Keys are scoped to the environment and operation; person searches also scope them to the group and person.
    */
   idempotencyKey?: string | undefined;
@@ -28,8 +20,6 @@ export type CreateGroupResponse = {
 
 /** @internal */
 export type CreateGroupRequest$Outbound = {
-  workspace_id: string;
-  environment: string;
   "Idempotency-Key"?: string | undefined;
   body: models.GroupRequest$Outbound;
 };
@@ -40,14 +30,11 @@ export const CreateGroupRequest$outboundSchema: z.ZodMiniType<
   CreateGroupRequest
 > = z.pipe(
   z.object({
-    workspaceId: z.string(),
-    environment: models.KeyEnvironment$outboundSchema,
     idempotencyKey: z.optional(z.string()),
     body: models.GroupRequest$outboundSchema,
   }),
   z.transform((v) => {
     return remap$(v, {
-      workspaceId: "workspace_id",
       idempotencyKey: "Idempotency-Key",
     });
   }),

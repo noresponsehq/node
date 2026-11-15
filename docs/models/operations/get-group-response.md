@@ -32,7 +32,6 @@ let value: GetGroupResponse = {
     ],
     people: 233561,
     version: 125447,
-    purgeAfter: "2026-02-01T00:00:00Z",
     createdBy: "user_2abc",
     createdAt: "2026-01-01T00:00:00Z",
     updatedAt: "2026-01-01T00:00:00Z",

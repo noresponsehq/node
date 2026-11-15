@@ -3,18 +3,15 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { Handle, Handle$Outbound, Handle$outboundSchema } from "./handle.js";
 import { PersonRole, PersonRole$outboundSchema } from "./person-role.js";
 
-/**
- * What you know about a person. Stored encrypted under the workspace's key.
- */
 export type PersonIdentity = {
   /**
-   * Your own id for the person, unique within the group. A later row with the same external id updates this person.
+   * Your reference for this person within the workspace environment. Only an explicit reference or person_id can reuse an existing person.
    */
   externalId?: string | undefined;
   /**
    * The person's full name.
    */
-  name: string;
+  name?: string | undefined;
   /**
    * The person's email.
    */
@@ -31,10 +28,8 @@ export type PersonIdentity = {
    * Where the person lives.
    */
   city?: string | undefined;
-  /**
-   * Accounts the person is known to hold, at most 20.
-   */
   handles?: Array<Handle> | undefined;
+  personId?: string | undefined;
   /**
    * The person's role in the group: guest (a ticket holder), crew, vendor or press. Leave it out when you do not know it: a person without one has no role, not guest. A later row naming the same person replaces it, and a change of role alone keeps the person's screening results.
    */
@@ -44,12 +39,13 @@ export type PersonIdentity = {
 /** @internal */
 export type PersonIdentity$Outbound = {
   external_id?: string | undefined;
-  name: string;
+  name?: string | undefined;
   email?: string | undefined;
   phone?: string | undefined;
   company?: string | undefined;
   city?: string | undefined;
   handles?: Array<Handle$Outbound> | undefined;
+  person_id?: string | undefined;
   role?: string | undefined;
 };
 
@@ -60,17 +56,19 @@ export const PersonIdentity$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     externalId: z.optional(z.string()),
-    name: z.string(),
+    name: z.optional(z.string()),
     email: z.optional(z.string()),
     phone: z.optional(z.string()),
     company: z.optional(z.string()),
     city: z.optional(z.string()),
     handles: z.optional(z.array(Handle$outboundSchema)),
+    personId: z.optional(z.string()),
     role: z.optional(PersonRole$outboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
       externalId: "external_id",
+      personId: "person_id",
     });
   }),
 );

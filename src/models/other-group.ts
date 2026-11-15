@@ -13,12 +13,10 @@ import {
   PersonDecision$inboundSchema,
 } from "./person-decision.js";
 
-export const MatchedOn = {
-  Email: "email",
-  Phone: "phone",
-  ExternalId: "external_id",
+export const OtherGroupMatchedOn = {
+  PersonId: "person_id",
 } as const;
-export type MatchedOn = OpenEnum<typeof MatchedOn>;
+export type OtherGroupMatchedOn = OpenEnum<typeof OtherGroupMatchedOn>;
 
 /**
  * A person of another group in the same environment who shares an email or phone with this one, as that group recorded them.
@@ -32,9 +30,9 @@ export type OtherGroup = {
    */
   personId: string;
   /**
-   * Which identifiers match, in this order. external_id appears only beside email or phone: the same external id alone is not a match, since ticket numbers may be reused across groups.
+   * The same workspace person explicitly belongs to this group. Membership requires an explicit person or customer reference.
    */
-  matchedOn: Array<MatchedOn>;
+  matchedOn: Array<OtherGroupMatchedOn>;
   /**
    * How sure the latest screening is that it found the person's accounts. unscreened until a screening reaches the person, and after one that had no profile to check (no_profile_to_check).
    */
@@ -62,8 +60,10 @@ export type OtherGroup = {
 };
 
 /** @internal */
-export const MatchedOn$inboundSchema: z.ZodMiniType<MatchedOn, unknown> =
-  openEnums.inboundSchema(MatchedOn);
+export const OtherGroupMatchedOn$inboundSchema: z.ZodMiniType<
+  OtherGroupMatchedOn,
+  unknown
+> = openEnums.inboundSchema(OtherGroupMatchedOn);
 
 /** @internal */
 export const OtherGroup$inboundSchema: z.ZodMiniType<OtherGroup, unknown> = z
@@ -73,7 +73,7 @@ export const OtherGroup$inboundSchema: z.ZodMiniType<OtherGroup, unknown> = z
       group_name: types.string(),
       group_starts_at: types.string(),
       person_id: types.string(),
-      matched_on: z.array(MatchedOn$inboundSchema),
+      matched_on: z.array(OtherGroupMatchedOn$inboundSchema),
       match_state: MatchState$inboundSchema,
       no_profile_to_check: types.optional(types.boolean()),
       highest_band: types.nullable(HighestBand$inboundSchema),

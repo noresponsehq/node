@@ -53,10 +53,6 @@ export type Group = {
    */
   version: number;
   /**
-   * When raw collected items and unmatched candidate profiles are purged: 30 days after the group ends.
-   */
-  purgeAfter: string;
-  /**
    * The member or key label that created the group.
    */
   createdBy: string;
@@ -78,7 +74,6 @@ export const Group$inboundSchema: z.ZodMiniType<Group, unknown> = z.pipe(
     topics: z.array(types.string()),
     people: types.number(),
     version: types.number(),
-    purge_after: types.string(),
     created_by: types.string(),
     created_at: types.string(),
     updated_at: types.string(),
@@ -87,7 +82,6 @@ export const Group$inboundSchema: z.ZodMiniType<Group, unknown> = z.pipe(
     return remap$(v, {
       "starts_at": "startsAt",
       "ends_at": "endsAt",
-      "purge_after": "purgeAfter",
       "created_by": "createdBy",
       "created_at": "createdAt",
       "updated_at": "updatedAt",

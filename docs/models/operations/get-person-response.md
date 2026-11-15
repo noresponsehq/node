@@ -59,6 +59,7 @@ let value: GetPersonResponse = {
           },
         ],
       },
+      expiresAt: "2026-02-01T00:00:00Z",
     },
     profiles: [
       {

@@ -13,13 +13,12 @@ test("a person's report returns typed records: kinds, roles, ratings and likelih
   const { fetcher, calls } = fakeFetch([json(report)]);
   const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com", fetch: fetcher });
   const { result } = await nr.groups.getPerson({
-    workspaceId: "tnt_01JC8Y0A2B4C6D8E0F2G4H6J8K",
-    environment: "test",
+
     groupId: report.person.group_id,
     personId: report.person.id,
   });
   assert.equal(new URL(calls[0].url).pathname,
-    `/v1/workspaces/tnt_01JC8Y0A2B4C6D8E0F2G4H6J8K/groups/test/${report.person.group_id}/people/${report.person.id}`);
+    `/v1/groups/${report.person.group_id}/people/${report.person.id}`);
 
   const [account, row] = result.lookup.records;
   assert.equal(account.source.kind, "platform");
@@ -64,7 +63,7 @@ test("a person's report returns typed records: kinds, roles, ratings and likelih
 
 test("the client exposes every generated group beside the wrapped ones", () => {
   const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com" });
-  for (const group of ["groups", "reviews", "members", "invites", "audit", "usage", "lists", "erasures", "exports", "evaluations", "operations"]) {
+  for (const group of ["people", "investigations", "groups", "reviews", "members", "invites", "audit", "usage", "lists", "erasures", "exports", "evaluations", "operations"]) {
     assert.equal(nr[group], nr.core[group], group);
   }
   for (const method of ["create", "addPeople", "startScreening", "getScreening", "listPeople", "getPerson", "startSearch", "runSearch", "reviewPerson", "judgeRecord"]) {
@@ -74,7 +73,7 @@ test("the client exposes every generated group beside the wrapped ones", () => {
 
 test("printing a generated group never shows the key", () => {
   const nr = new NoResponse({ apiKey: key, baseUrl: "https://example.com" });
-  for (const group of [nr.groups, nr.reviews, nr.usage, nr.members, nr.assessments, nr.accounts, nr.webhookEndpoints]) {
+  for (const group of [nr.people, nr.investigations, nr.groups, nr.reviews, nr.usage, nr.members, nr.assessments, nr.accounts, nr.webhookEndpoints]) {
     for (const rendered of [inspect(group), JSON.stringify(group), JSON.stringify({ group })]) {
       assert.ok(!rendered.includes(key), rendered);
     }

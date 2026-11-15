@@ -28,7 +28,7 @@ export type Person = {
   id: string;
   groupId: string;
   /**
-   * Your own id for the person, unique within the group. A later row with the same external id updates this person.
+   * Your reference for the person in this workspace environment.
    */
   externalId?: string | undefined;
   /**
@@ -90,6 +90,10 @@ export type Person = {
    * What screening cost, in US cents, in total and per implementation.
    */
   spend: ScreeningSpend;
+  /**
+   * When workspace retention removes the person and their investigation history.
+   */
+  expiresAt: string;
 };
 
 /** @internal */
@@ -118,6 +122,7 @@ export const Person$inboundSchema: z.ZodMiniType<Person, unknown> = z.pipe(
     created_at: types.string(),
     updated_at: types.string(),
     spend: ScreeningSpend$inboundSchema,
+    expires_at: types.string(),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -133,6 +138,7 @@ export const Person$inboundSchema: z.ZodMiniType<Person, unknown> = z.pipe(
       "screened_at": "screenedAt",
       "created_at": "createdAt",
       "updated_at": "updatedAt",
+      "expires_at": "expiresAt",
     });
   }),
 );
