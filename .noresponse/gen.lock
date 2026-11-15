@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 2e39af07626708e73f57c28a29e99785
+  docChecksum: e5ef62689d56a5a5dddd8fa2269350ff
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 12.1.8
-  configChecksum: 5297366e2fc07f0defed57861ecedc75
+  releaseVersion: 12.1.9
+  configChecksum: a05bf3500600adfdba91a616d8010774
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -383,9 +383,9 @@ trackedFiles:
   docs/models/group.md:
     last_write_checksum: sha1:b5a4d26295d5e58b8b1cfdb8450cc97214bfe048
   docs/models/handle-platform.md:
-    last_write_checksum: sha1:1c844ed05bb2ebc486ec5daf8e84eff64d9a3694
+    last_write_checksum: sha1:9355c05f331016dce6a83742ffc369986e83e01e
   docs/models/handle.md:
-    last_write_checksum: sha1:c90cfd8ea0ce1045b2e1863b5f7e7a06b05300b2
+    last_write_checksum: sha1:08b293c72effa7f3947d2d4d8fbd20327ee427b6
   docs/models/highest-band.md:
     last_write_checksum: sha1:642f4dde0a94af844eda7c21e2b4a9b43f83f872
   docs/models/hook-point.md:
@@ -1305,11 +1305,11 @@ trackedFiles:
   docs/models/screening-platform-coverage-status.md:
     last_write_checksum: sha1:bf699f8893b861b77fc729cd7f902653f6a404d6
   docs/models/screening-platform-coverage.md:
-    last_write_checksum: sha1:a4dfd60f3323e765f13590b6862d7da987a5147d
+    last_write_checksum: sha1:1d965d5e9155f04d8f07f8fd7dd68d4f66205a9c
   docs/models/screening-post.md:
     last_write_checksum: sha1:6cde667a26835a6ad45c36a01c7b07a7464fc227
   docs/models/screening-profile.md:
-    last_write_checksum: sha1:b1a2964a5e3207208927e3a8e053c55e5f3d53f6
+    last_write_checksum: sha1:76ad228c2baf9bffd39580995a9bcad0c217cce6
   docs/models/screening-request.md:
     last_write_checksum: sha1:eca3b274cc115f642d804755e5ebd6d751bb8fb3
   docs/models/screening-spend-line-role.md:
@@ -1441,9 +1441,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:8190037a63bcb6c5c52aff434d4f788d3eff9ee4
+    last_write_checksum: sha1:d14924153ee8469a250e1b43bf435eeea4f34db5
   package.json:
-    last_write_checksum: sha1:179833f768ee811afb32c7f973f7f4cad01dce3f
+    last_write_checksum: sha1:26253618341b921a9baa3b7f5c49b1807dc06bcf
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1691,7 +1691,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:77fb791d0bbd154ca7293576a331cc07bc89304d
+    last_write_checksum: sha1:533d0cc40b3bd9498b6cae138982c20f5f3d632e
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2051,9 +2051,9 @@ trackedFiles:
   src/models/group.ts:
     last_write_checksum: sha1:302028d65e588256ea36a775f1ee71c9b3bd9fcf
   src/models/handle-platform.ts:
-    last_write_checksum: sha1:ac0ebd1f726a6e4035c7b6cb85c59382e26822dc
+    last_write_checksum: sha1:2b0717b67e957504011a9fdf3e031100ef35413c
   src/models/handle.ts:
-    last_write_checksum: sha1:e6313fac69519541ad4830566dde9d03365a50a8
+    last_write_checksum: sha1:715d3f50110f8cdf01a094263da613f4072945bb
   src/models/highest-band.ts:
     last_write_checksum: sha1:f072bd40e3b3c43641b430eadca2c63a77c6ff86
   src/models/hook-point.ts:
@@ -2583,7 +2583,7 @@ trackedFiles:
   src/models/record-remaining.ts:
     last_write_checksum: sha1:aff53a98ac938955e2a7d4ebeb244316a2e6be9c
   src/models/record-role.ts:
-    last_write_checksum: sha1:ba606ffe66712022128eb2c79eaef869736aed4c
+    last_write_checksum: sha1:5c50eb02c986086913e26b48dd9f2e0778fd3013
   src/models/record-source.ts:
     last_write_checksum: sha1:d8e19687faac743f00405800d3207aceb04c1a43
   src/models/record-verdict-request.ts:
@@ -2729,11 +2729,11 @@ trackedFiles:
   src/models/screening-platform-coverage-status.ts:
     last_write_checksum: sha1:87a271b4a42d370cd834735d8f9c8c0402973d7c
   src/models/screening-platform-coverage.ts:
-    last_write_checksum: sha1:689cc2453d1d20771bca678d8bb5a18144b3731f
+    last_write_checksum: sha1:94fd40c98550f116d7dc20bb719905d8a03feb64
   src/models/screening-post.ts:
     last_write_checksum: sha1:01577417348b6e66514cb3f737969e0e90859e45
   src/models/screening-profile.ts:
-    last_write_checksum: sha1:53301dae27c768bbc2b26195d37d9287f9b35c27
+    last_write_checksum: sha1:db2b48afc11f88e17c23c162ff7a11fbd25dfd99
   src/models/screening-request.ts:
     last_write_checksum: sha1:23c8881494c16300025475e2fa0c42276c5fc171
   src/models/screening-spend-line-role.ts:

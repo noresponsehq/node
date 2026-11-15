@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.1.9
+
+No changes detected.
+
 ## 12.1.8
 
 * `sdk.settings.get()`:  `response.refusedSources[]` **Changed**
