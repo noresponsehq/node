@@ -362,6 +362,7 @@ export * from "./screening-depth.js";
 export * from "./screening-finding.js";
 export * from "./screening-list.js";
 export * from "./screening-lookup-check-status.js";
+export * from "./screening-lookup-check-unanswered-item.js";
 export * from "./screening-lookup-check.js";
 export * from "./screening-lookup.js";
 export * from "./screening-match-evidence-kind.js";

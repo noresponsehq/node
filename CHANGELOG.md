@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.1.6
+
+* `sdk.groups.getPerson()`:  `response.lookup.checks[].unanswered` **Added**
+
 ## 12.1.5
 
 No changes detected.

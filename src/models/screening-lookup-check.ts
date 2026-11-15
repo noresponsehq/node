@@ -16,6 +16,10 @@ import {
   ScreeningLookupCheckStatus,
   ScreeningLookupCheckStatus$inboundSchema,
 } from "./screening-lookup-check-status.js";
+import {
+  ScreeningLookupCheckUnansweredItem,
+  ScreeningLookupCheckUnansweredItem$inboundSchema,
+} from "./screening-lookup-check-unanswered-item.js";
 
 /**
  * What came of one lane of the lookups for one identifier.
@@ -46,6 +50,10 @@ export type ScreeningLookupCheck = {
    * Why a signal or source did not produce a definite found/not_found. timed_out means the source missed the request deadline; a continuation may still settle it. deferred means the (source, identifier) pair is async-only and was not attempted on the synchronous path; a continuation settles it.
    */
   reason?: FailureReason | undefined;
+  /**
+   * Each source that did not give a definite answer, by connector, with why: the same connector id a record's source names. A source of the lane that no connector covers is counted in sources and not named here.
+   */
+  unanswered?: Array<ScreeningLookupCheckUnansweredItem> | undefined;
 };
 
 /** @internal */
@@ -60,6 +68,9 @@ export const ScreeningLookupCheck$inboundSchema: z.ZodMiniType<
   answered: types.number(),
   found: types.number(),
   reason: types.optional(FailureReason$inboundSchema),
+  unanswered: types.optional(
+    z.array(ScreeningLookupCheckUnansweredItem$inboundSchema),
+  ),
 });
 
 export function screeningLookupCheckFromJSON(

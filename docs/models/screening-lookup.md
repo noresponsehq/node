@@ -16,6 +16,12 @@ let value: ScreeningLookup = {
       sources: 683033,
       answered: 533262,
       found: 637323,
+      unanswered: [
+        {
+          connector: "github",
+          reason: "timed_out",
+        },
+      ],
     },
   ],
   summary: {
