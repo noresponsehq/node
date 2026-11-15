@@ -3,7 +3,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * What sort of value a field holds, which decides how it is cleaned, compared and searched again. It comes from the value itself where its shape is certain (an email, an IP, a URL, an international phone number), else from the answer committed for the source's column, else from the answer stored for it, else text. A value of any kind is returned. Each kind's description says what it holds and the form value takes.
+ * What sort of value a field holds, which decides how it is cleaned, compared and searched again. It comes from the source where the source declares it, as a connector does for the fields it states, else from the value itself where its shape is certain (an email, an IP, a URL, an international phone number), else from the answer committed for the source's column, else from the answer stored for it, else text. A value of any kind is returned. Each kind's description says what it holds and the form value takes.
  */
 export const RecordKind = {
   /**
@@ -188,7 +188,7 @@ export const RecordKind = {
   Text: "text",
 } as const;
 /**
- * What sort of value a field holds, which decides how it is cleaned, compared and searched again. It comes from the value itself where its shape is certain (an email, an IP, a URL, an international phone number), else from the answer committed for the source's column, else from the answer stored for it, else text. A value of any kind is returned. Each kind's description says what it holds and the form value takes.
+ * What sort of value a field holds, which decides how it is cleaned, compared and searched again. It comes from the source where the source declares it, as a connector does for the fields it states, else from the value itself where its shape is certain (an email, an IP, a URL, an international phone number), else from the answer committed for the source's column, else from the answer stored for it, else text. A value of any kind is returned. Each kind's description says what it holds and the form value takes.
  */
 export type RecordKind = OpenEnum<typeof RecordKind>;
 
