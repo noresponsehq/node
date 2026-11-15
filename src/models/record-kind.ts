@@ -31,7 +31,7 @@ export const RecordKind = {
    */
   Domain: "domain",
   /**
-   * A picture, as a link or a file. value: the link, cleaned as a `url`.
+   * A picture, as a link or a file. value: the link, cleaned as a `url`, else the file as written. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   Image: "image",
   /**
@@ -167,7 +167,7 @@ export const RecordKind = {
    */
   LongText: "long_text",
   /**
-   * A whole number of things. value: a whole number with no thousands separators.
+   * A whole number of things. value: a whole number of 0 or more, with no thousands separators.
    */
   Count: "count",
   /**
