@@ -69,6 +69,10 @@ export type PersonReport = {
    * Where else in the environment the person appears, read live from those groups: deleting one removes it here.
    */
   otherGroups: OtherGroups;
+  /**
+   * True when evidence.read is explicitly denied. Submitted details, coverage, job status and decisions remain available. Collected records, profiles, findings, posts, media, discovered values and free-text decision notes are withheld.
+   */
+  evidenceRestricted?: boolean | undefined;
 };
 
 /** @internal */
@@ -84,10 +88,12 @@ export const PersonReport$inboundSchema: z.ZodMiniType<PersonReport, unknown> =
       lookup: types.optional(ScreeningLookup$inboundSchema),
       searches: types.optional(z.array(Search$inboundSchema)),
       other_groups: OtherGroups$inboundSchema,
+      evidence_restricted: types.optional(types.boolean()),
     }),
     z.transform((v) => {
       return remap$(v, {
         "other_groups": "otherGroups",
+        "evidence_restricted": "evidenceRestricted",
       });
     }),
   );

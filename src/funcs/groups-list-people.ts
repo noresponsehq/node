@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List a group's people.
  *
  * @remarks
- * Read a group's roster in upload order, with each person's match state, highest finding band and decision. Filter by band or decision; pass next_after back as after.
+ * The roster in upload order, with each person's role, match state, highest finding band and decision. Filter by band (or none), decision (or undecided) and role (or unstated). The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsListPeople(
   client: NoResponseCore,

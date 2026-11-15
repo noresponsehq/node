@@ -32,8 +32,19 @@ export const KeyScope = {
   Members: "members",
   MembersManage: "members_manage",
   Groups: "groups",
+  People: "people",
+  PeopleWrite: "people_write",
+  Investigations: "investigations",
+  Decisions: "decisions",
 } as const;
 export type KeyScope = OpenEnum<typeof KeyScope>;
+
+export const KeyDeniedAction = {
+  EvidenceRead: "evidence.read",
+  ExportsRead: "exports.read",
+  PolicyPublish: "policy.publish",
+} as const;
+export type KeyDeniedAction = OpenEnum<typeof KeyDeniedAction>;
 
 /**
  * One API key of your workspace. A key belongs to exactly one environment. key, the secret credential, is present only in the answer that created the key: NoResponse keeps a peppered digest of it, so store it now. Every other field is safe to show.
@@ -102,11 +113,21 @@ export type Key = {
    * Latest recorded authenticated request observation, updated at most once per minute. Capture is best effort after the response and includes authenticated requests refused by authorization or rate limits. Absence means unknown and does not prove the key was unused. It is independent of diagnostic retention and resets on the replacement key after rotation. This field retains no raw IP or user-agent.
    */
   lastUsedAt?: string | undefined;
+  /**
+   * Explicit restrictions that override scope grants. An empty list restores the access supplied by the scopes. Rotation preserves these restrictions.
+   */
+  deniedActions?: Array<KeyDeniedAction> | undefined;
 };
 
 /** @internal */
 export const KeyScope$inboundSchema: z.ZodMiniType<KeyScope, unknown> =
   openEnums.inboundSchema(KeyScope);
+
+/** @internal */
+export const KeyDeniedAction$inboundSchema: z.ZodMiniType<
+  KeyDeniedAction,
+  unknown
+> = openEnums.inboundSchema(KeyDeniedAction);
 
 /** @internal */
 export const Key$inboundSchema: z.ZodMiniType<Key, unknown> = z.pipe(
@@ -129,6 +150,7 @@ export const Key$inboundSchema: z.ZodMiniType<Key, unknown> = z.pipe(
     owner_user_id: types.optional(types.string()),
     rotated_to: types.optional(types.string()),
     last_used_at: types.optional(types.string()),
+    denied_actions: types.optional(z.array(KeyDeniedAction$inboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -141,6 +163,7 @@ export const Key$inboundSchema: z.ZodMiniType<Key, unknown> = z.pipe(
       "owner_user_id": "ownerUserId",
       "rotated_to": "rotatedTo",
       "last_used_at": "lastUsedAt",
+      "denied_actions": "deniedActions",
     });
   }),
 );

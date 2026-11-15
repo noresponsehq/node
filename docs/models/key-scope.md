@@ -5,7 +5,7 @@
 ```typescript
 import { KeyScope } from "@noresponse/node/models";
 
-let value: KeyScope = "delete";
+let value: KeyScope = "webhooks";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: KeyScope = "delete";
 ## Values
 
 ```typescript
-"assess" | "history" | "delete" | "webhooks" | "detailed" | "integrations" | "management" | "audit" | "usage" | "investigate" | "evidence" | "exports" | "audit_manage" | "settings" | "policy_publish" | "members" | "members_manage" | "groups" | Unrecognized<string>
+"assess" | "history" | "delete" | "webhooks" | "detailed" | "integrations" | "management" | "audit" | "usage" | "investigate" | "evidence" | "exports" | "audit_manage" | "settings" | "policy_publish" | "members" | "members_manage" | "groups" | "people" | "people_write" | "investigations" | "decisions" | Unrecognized<string>
 ```

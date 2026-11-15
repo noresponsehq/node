@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Change a group.
  *
  * @remarks
- * Change the fields you name. Send expected_version to apply the change only to that version.
+ * Changes the fields the body names. With expected_version, the change applies only to that version (409 group_conflict otherwise). The people_write scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsUpdate(
   client: NoResponseCore,

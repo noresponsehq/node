@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Create a group to screen.
  *
  * @remarks
- * Create a group to screen: its name, start, venue, host, the principals it protects and the sensitive topics posts are read against. An environment holds at most 1000 groups. Send an Idempotency-Key to repeat a request safely while the group is retained. A replay returns the same group in its current state; changed input returns 409.
+ * Creates a group with its name, start, venue, host, the principals it protects and the sensitive topics its screening reads posts against. An environment holds at most 1000 groups. Send an Idempotency-Key to retry safely: the same key and request return the same resource in its current state while it is retained, even after work completes. Reusing the key with different input answers 409 idempotency_key_reused. Use a new key for a deliberate new operation. The people_write scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsCreate(
   client: NoResponseCore,

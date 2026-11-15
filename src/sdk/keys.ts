@@ -2,6 +2,7 @@ import { keysCreate } from "../funcs/keys-create.js";
 import { keysList } from "../funcs/keys-list.js";
 import { keysRevoke } from "../funcs/keys-revoke.js";
 import { keysRotate } from "../funcs/keys-rotate.js";
+import { keysUpdateAccess } from "../funcs/keys-update-access.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -70,6 +71,23 @@ export class Keys extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.RevokeKeyResponse> {
     return unwrapAsync(keysRevoke(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Restrict an API key.
+   *
+   * @remarks
+   * Replaces the explicit restrictions on an active key. Restrictions take effect on its next request and survive rotation. The issuer must be able to grant the resulting access in the key environment. A restricted caller cannot remove its own restrictions or grant unrestricted access to another key. Changes are audited without recording the secret.
+   */
+  async updateAccess(
+    request: operations.UpdateKeyAccessRequest,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateKeyAccessResponse> {
+    return unwrapAsync(keysUpdateAccess(
       this,
       request,
       options,

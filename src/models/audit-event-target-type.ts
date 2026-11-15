@@ -15,6 +15,8 @@ export const AuditEventTargetType = {
   Integration: "integration",
   Billing: "billing",
   Review: "review",
+  Person: "person",
+  Group: "group",
 } as const;
 /**
  * The kind of resource the change acted on.

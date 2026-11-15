@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Read a group.
  *
  * @remarks
- * Read a group and how many people it holds.
+ * The group and how many people it holds. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsGet(
   client: NoResponseCore,

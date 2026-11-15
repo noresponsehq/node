@@ -26,8 +26,19 @@ export const KeyRequestScope = {
   Members: "members",
   MembersManage: "members_manage",
   Groups: "groups",
+  People: "people",
+  PeopleWrite: "people_write",
+  Investigations: "investigations",
+  Decisions: "decisions",
 } as const;
 export type KeyRequestScope = ClosedEnum<typeof KeyRequestScope>;
+
+export const KeyRequestDeniedAction = {
+  EvidenceRead: "evidence.read",
+  ExportsRead: "exports.read",
+  PolicyPublish: "policy.publish",
+} as const;
+export type KeyRequestDeniedAction = ClosedEnum<typeof KeyRequestDeniedAction>;
 
 /**
  * Creates a key whose scopes are bounded by the issuer capabilities in this environment. Delete is owner-only. A service key outlives its creator; a personal key belongs to the authenticated member and is revoked on membership or authority changes. request_id deduplicates creation: retry returns 200 metadata without the secret; changed parameters answer 409. Team scopes members and members_manage are explicitly workspace-wide, live-only, and delegated by a current full owner. Personal credentials cannot hold management or members_manage. Legacy management includes policy publication; use settings without policy_publish for configuration preparation and retention-only edits.
@@ -58,12 +69,21 @@ export type KeyRequest = {
    * Caller-chosen identifier for one creation attempt, scoped to the issuing actor and environment. Use 1 to 256 printable ASCII characters without spaces. A retry with the same parameters returns the original key metadata with status 200 and no secret; changed parameters return 409.
    */
   requestId?: string | undefined;
+  /**
+   * Explicit restrictions that override scope grants. An empty list restores the access supplied by the scopes. Rotation preserves these restrictions.
+   */
+  deniedActions?: Array<KeyRequestDeniedAction> | undefined;
 };
 
 /** @internal */
 export const KeyRequestScope$outboundSchema: z.ZodMiniEnum<
   typeof KeyRequestScope
 > = z.enum(KeyRequestScope);
+
+/** @internal */
+export const KeyRequestDeniedAction$outboundSchema: z.ZodMiniEnum<
+  typeof KeyRequestDeniedAction
+> = z.enum(KeyRequestDeniedAction);
 
 /** @internal */
 export type KeyRequest$Outbound = {
@@ -74,6 +94,7 @@ export type KeyRequest$Outbound = {
   kind?: string | undefined;
   expires_at?: string | undefined;
   request_id?: string | undefined;
+  denied_actions?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -89,11 +110,13 @@ export const KeyRequest$outboundSchema: z.ZodMiniType<
     kind: z.optional(KeyKind$outboundSchema),
     expiresAt: z.optional(z.string()),
     requestId: z.optional(z.string()),
+    deniedActions: z.optional(z.array(KeyRequestDeniedAction$outboundSchema)),
   }),
   z.transform((v) => {
     return remap$(v, {
       expiresAt: "expires_at",
       requestId: "request_id",
+      deniedActions: "denied_actions",
     });
   }),
 );

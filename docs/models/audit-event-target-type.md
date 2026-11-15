@@ -15,5 +15,5 @@ let value: AuditEventTargetType = "member";
 ## Values
 
 ```typescript
-"workspace" | "member" | "invite" | "key" | "setting" | "webhook_endpoint" | "integration" | "billing" | "review" | Unrecognized<string>
+"workspace" | "member" | "invite" | "key" | "setting" | "webhook_endpoint" | "integration" | "billing" | "review" | "person" | "group" | Unrecognized<string>
 ```

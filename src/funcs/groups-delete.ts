@@ -28,7 +28,7 @@ import * as types$ from "../types/primitives.js";
  * Erase a group.
  *
  * @remarks
- * Erase a group with its people, their decisions and its screenings, and stop any screening still running.
+ * Erases the group with its people, their reviews and its screenings, and stops any screening still running. The delete scope is required; group read, write, investigation and review access do not grant deletion.
  */
 export function groupsDelete(
   client: NoResponseCore,

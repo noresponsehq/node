@@ -183,6 +183,7 @@ export * from "./invite-resend-request.js";
 export * from "./invite.js";
 export * from "./ip-summary-type.js";
 export * from "./ip-summary.js";
+export * from "./key-access-request.js";
 export * from "./key-actor.js";
 export * from "./key-environment.js";
 export * from "./key-kind.js";

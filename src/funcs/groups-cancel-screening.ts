@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Cancel a screening.
  *
  * @remarks
- * Stop a queued or running screening. People already screened keep their results.
+ * Stops a queued or running screening. People it already screened keep their results. Cancelling a finished screening answers it unchanged. The body is an empty object. The investigations scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsCancelScreening(
   client: NoResponseCore,

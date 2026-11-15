@@ -30,7 +30,7 @@ export type Search = {
    */
   kind: SearchKind;
   /**
-   * The value searched: the field's cleaned value, else as the source wrote it.
+   * The searched value. Empty in person reports when evidence.read is denied.
    */
   value: string;
   /**

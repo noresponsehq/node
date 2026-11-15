@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List an environment's groups.
  *
  * @remarks
- * List this environment's groups, newest first. Pass next_before back as before for the next page. Requires the groups scope.
+ * Groups, newest first. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsList(
   client: NoResponseCore,

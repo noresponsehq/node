@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List a group's screenings.
  *
  * @remarks
- * List a group's screenings, newest first.
+ * Screenings, newest first. The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations.
  */
 export function groupsListScreenings(
   client: NoResponseCore,
