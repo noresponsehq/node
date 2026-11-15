@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 23e4a131d26ecec1dab727cc11d26310
+  docChecksum: f671165299a10a504bc0f6c0a159beb9
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 12.1.3
-  configChecksum: b069f163b62d90886793569a05331c0a
+  releaseVersion: 12.1.4
+  configChecksum: 9a09f70472a1b93a4029915e54ac4399
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1149,9 +1149,9 @@ trackedFiles:
   docs/models/record-distinctive.md:
     last_write_checksum: sha1:081feb14649d9bf3478ce6fa69f8de1f33223630
   docs/models/record-field.md:
-    last_write_checksum: sha1:52882e1f61cd8c9e7b6567ea6d07587001a413f0
+    last_write_checksum: sha1:9bf4917c3d18c8f2bd57795a04cac0281e20fd99
   docs/models/record-kind.md:
-    last_write_checksum: sha1:50e1b789cce91739f76cde3835024184415c1539
+    last_write_checksum: sha1:712c455a65ebea3f6025345cd84d4d31db92a7a1
   docs/models/record-match.md:
     last_write_checksum: sha1:0e32b4913b5c4cd0fbf313d79badc04320ccbd1c
   docs/models/record-remaining.md:
@@ -1437,9 +1437,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:cdd2a8bde2c63c8e647ce32621eaa1e0b79201d4
+    last_write_checksum: sha1:07c093f907c6cc7114dd2258e2dc9643e26ca2ec
   package.json:
-    last_write_checksum: sha1:ccc5c09963d9f0e19e4a11b969c2909ec34c6fff
+    last_write_checksum: sha1:79894017f5bc416303a94f6bab4578f03f91e935
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1687,7 +1687,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:3cedc78aab4ba73147a3cd5d8525c80b5d8dbae5
+    last_write_checksum: sha1:a10850870db4d7852a0381bc0daabf9edf830f9c
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2571,9 +2571,9 @@ trackedFiles:
   src/models/record-distinctive.ts:
     last_write_checksum: sha1:c5a791d8fcf35b1bca885077c114c03a84f8c163
   src/models/record-field.ts:
-    last_write_checksum: sha1:3f7b5832c57b5c70b816a3e3198aa8886643f5b0
+    last_write_checksum: sha1:0e1d45c90fffa2b8ac0630f4173b9463b863f8b6
   src/models/record-kind.ts:
-    last_write_checksum: sha1:1aedd125020934f2e8ab6fff1126b344cad9bf54
+    last_write_checksum: sha1:9998c3c398f14977e478fd2493a328ecebacd2e2
   src/models/record-match.ts:
     last_write_checksum: sha1:fd12c2f7927f1a585482a528c90be724b862cdf0
   src/models/record-remaining.ts:
