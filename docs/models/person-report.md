@@ -158,6 +158,7 @@ let value: PersonReport = {
       postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       mediaType: "image",
       mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
+      coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
       text: "A photo",
       profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",

@@ -33,6 +33,10 @@ export type ScreeningCoverage = {
    */
   notAnalysedByReason?: Array<ScreeningNotAnalysedCount> | undefined;
   /**
+   * Videos the analyser read from their cover frame and caption alone, without their sound or later frames. They count as analysed and do not make the person partial. Left out when none.
+   */
+  itemsFrameOnly?: number | undefined;
+  /**
    * The oldest item read on any platform.
    */
   periodFrom?: string | undefined;
@@ -60,6 +64,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
     not_analysed_by_reason: types.optional(
       z.array(ScreeningNotAnalysedCount$inboundSchema),
     ),
+    items_frame_only: types.optional(types.number()),
     period_from: types.optional(types.string()),
     period_to: types.optional(types.string()),
     platforms: z.array(ScreeningPlatformCoverage$inboundSchema),
@@ -72,6 +77,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
       "items_read": "itemsRead",
       "items_not_analysed": "itemsNotAnalysed",
       "not_analysed_by_reason": "notAnalysedByReason",
+      "items_frame_only": "itemsFrameOnly",
       "period_from": "periodFrom",
       "period_to": "periodTo",
       "not_searched": "notSearched",
