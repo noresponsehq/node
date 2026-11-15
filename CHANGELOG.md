@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.1.2
+
+No changes detected.
+
 ## 12.1.1
 
 * `sdk.settings.get()`:  `response.refusedSources[].enum(chesscom)` **Added**

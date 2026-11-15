@@ -15,11 +15,11 @@ export const RecordKind = {
    */
   Phone: "phone",
   /**
-   * A handle a person chose. value: as written. Compare it in lower case.
+   * A handle a person chose. value: as written. Compare it in lower case. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   Username: "username",
   /**
-   * A platform's own id for an account. value: as written.
+   * A platform's own id for an account. value: as written. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   AccountId: "account_id",
   /**
@@ -71,7 +71,7 @@ export const RecordKind = {
    */
   City: "city",
   /**
-   * A street address or one line of it. value: as written.
+   * A street address or one line of it. value: as written. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   Address: "address",
   /**
@@ -107,7 +107,7 @@ export const RecordKind = {
    */
   MacAddress: "mac_address",
   /**
-   * An id of a phone, computer or browser. value: as written.
+   * An id of a phone, computer or browser. value: as written. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   DeviceId: "device_id",
   /**
@@ -127,7 +127,7 @@ export const RecordKind = {
    */
   Salt: "salt",
   /**
-   * A session, reset or API token. value: as written.
+   * A session, reset or API token. value: as written. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   Token: "token",
   /**
@@ -151,7 +151,7 @@ export const RecordKind = {
    */
   Amount: "amount",
   /**
-   * A passport, tax, national or licence number. value: as written.
+   * A passport, tax, national or licence number. value: as written. A value that is only zeros, or null, nil, none, undefined or n/a, has no value.
    */
   IdNumber: "id_number",
   /**

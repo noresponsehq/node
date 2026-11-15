@@ -25,7 +25,7 @@ export type RecordSource = {
    */
   table?: string | undefined;
   /**
-   * When the source's data dates from, at the precision it is known: YYYY or YYYY-MM for a breach table.
+   * When the source's data dates from, at the precision it is known: YYYY or YYYY-MM for a breach table, and YYYY-MM-DD, the day the computer was infected, for a row of a stealer log.
    */
   date?: string | undefined;
 };
