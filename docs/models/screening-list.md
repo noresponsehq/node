@@ -16,7 +16,7 @@ let value: ScreeningList = {
       status: "partial",
       depth: "standard",
       platforms: [
-        "bluesky",
+        "facebook",
       ],
       requestedBy: "user_2abc",
       createdAt: "2026-01-01T00:00:00Z",

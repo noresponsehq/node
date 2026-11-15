@@ -16,7 +16,7 @@ let value: PersonIdentity = {
   city: "Melbourne",
   handles: [
     {
-      platform: "threads",
+      platform: "substack",
       handle: "jordan_example",
     },
   ],

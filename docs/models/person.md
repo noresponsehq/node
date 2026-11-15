@@ -18,7 +18,7 @@ let value: Person = {
   city: "Melbourne",
   handles: [
     {
-      platform: "threads",
+      platform: "substack",
       handle: "jordan_example",
     },
   ],

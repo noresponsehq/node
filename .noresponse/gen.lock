@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: f0e45ee8e382249322eca6ddae5bf949
+  docChecksum: 1ab2c6ed8628c389e577d8fa1513bb35
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 12.0.11
-  configChecksum: ef90706509eb6f925bf9e3fc134a64f7
+  releaseVersion: 12.0.12
+  configChecksum: 590a2004ebd661535d446c1e8dd84f18
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -383,9 +383,9 @@ trackedFiles:
   docs/models/group.md:
     last_write_checksum: sha1:b5a4d26295d5e58b8b1cfdb8450cc97214bfe048
   docs/models/handle-platform.md:
-    last_write_checksum: sha1:8bfe42dad43924316425da15c54e1f3109066539
+    last_write_checksum: sha1:768231229ca55a7dec38d98b10e4dae889ad91d7
   docs/models/handle.md:
-    last_write_checksum: sha1:2be0f64e98c68e5ef17b972b92f8ebf5539d83fd
+    last_write_checksum: sha1:caadcdb11d288d9d665c7cfc744f7b0fe81d2b73
   docs/models/highest-band.md:
     last_write_checksum: sha1:642f4dde0a94af844eda7c21e2b4a9b43f83f872
   docs/models/hook-point.md:
@@ -745,7 +745,7 @@ trackedFiles:
   docs/models/operations/get-person-request.md:
     last_write_checksum: sha1:24ec847b5d29920666b8a81b78adb10354d3f60c
   docs/models/operations/get-person-response.md:
-    last_write_checksum: sha1:f3b7a84457acd421e2f43af12958a60e74fba22d
+    last_write_checksum: sha1:3a38313b5ade15f5599043b3b89e8dfa04926f18
   docs/models/operations/get-policy-evaluation-request.md:
     last_write_checksum: sha1:7e6a4bd81895dbe49c0601b9cd490984fb245181
   docs/models/operations/get-policy-evaluation-response.md:
@@ -955,7 +955,7 @@ trackedFiles:
   docs/models/operations/review-person-request.md:
     last_write_checksum: sha1:b33052f81d3bf4f5969108496bee1cd3f800b75e
   docs/models/operations/review-person-response.md:
-    last_write_checksum: sha1:d5e9cb6e3224f08cf56c6e8dab38800848f106aa
+    last_write_checksum: sha1:a86520b754d001741227cfcc3e08fa1608a30f9f
   docs/models/operations/revoke-invite-request.md:
     last_write_checksum: sha1:02d0630670bb62c18393ecb40499f81248ad6f84
   docs/models/operations/revoke-invite-response.md:
@@ -1043,7 +1043,7 @@ trackedFiles:
   docs/models/person-batch-item.md:
     last_write_checksum: sha1:cbf299dc1f031bd2d7d56cca217803db0d149a22
   docs/models/person-batch-request.md:
-    last_write_checksum: sha1:dabfcd37246228f3f7339f5b9966c529e3d6e376
+    last_write_checksum: sha1:f7200898102bc8c61a9745bc8c3e392748d143cb
   docs/models/person-batch.md:
     last_write_checksum: sha1:4f8e0f6ea7be51262e714f6e0b618855a181a70d
   docs/models/person-decided-event.md:
@@ -1059,11 +1059,11 @@ trackedFiles:
   docs/models/person-flagged.md:
     last_write_checksum: sha1:50a7eeefd1f31f8f30a48ee6e687f198c08d5265
   docs/models/person-identity.md:
-    last_write_checksum: sha1:abed3c4c2d43b93ca9d73253b1badb2731ce5028
+    last_write_checksum: sha1:5edf9008c802bb6ebdf65a70d8ce3ef42d11e150
   docs/models/person-list.md:
-    last_write_checksum: sha1:18380e494972bb26a46903307faaf50dfa1bce09
+    last_write_checksum: sha1:da0cc5352c33f5c8a7c3f9dc47b55ba7b36a973d
   docs/models/person-report.md:
-    last_write_checksum: sha1:f61cc68906d41850d8d04b5a94815e1681668a82
+    last_write_checksum: sha1:ec5cd1491185564a20c13cad544a94c994041772
   docs/models/person-review-request.md:
     last_write_checksum: sha1:0847f0087be8f3f24f66142aa87b6f1a2d4ab6c6
   docs/models/person-review.md:
@@ -1071,7 +1071,7 @@ trackedFiles:
   docs/models/person-role.md:
     last_write_checksum: sha1:f0901155a4bc7ded29b926855db0fb17666b689a
   docs/models/person.md:
-    last_write_checksum: sha1:a9415f066c3836a27c3d4b54442549e78c30c726
+    last_write_checksum: sha1:b92b21a0119862164765d7310006a21174b47202
   docs/models/phone-enrichment-fields.md:
     last_write_checksum: sha1:cd43332d5ac752249cf7c44eb1d8051e7abb556f
   docs/models/phone-enrichment.md:
@@ -1279,7 +1279,7 @@ trackedFiles:
   docs/models/screening-finding.md:
     last_write_checksum: sha1:16701eaf57c7c87c8b54dd50798d7bb5cebf3f58
   docs/models/screening-list.md:
-    last_write_checksum: sha1:08017db0ce277cc5e04cb3b6359b248afe7c0176
+    last_write_checksum: sha1:8af75ad280dad1c1a01ec92ad8e2b3f3132a4ef4
   docs/models/screening-lookup-check-status.md:
     last_write_checksum: sha1:a726d40bface1dc9fdfc8b2e7e4f976045ac8c23
   docs/models/screening-lookup-check.md:
@@ -1303,11 +1303,11 @@ trackedFiles:
   docs/models/screening-platform-coverage-status.md:
     last_write_checksum: sha1:bf699f8893b861b77fc729cd7f902653f6a404d6
   docs/models/screening-platform-coverage.md:
-    last_write_checksum: sha1:7a60e754c43887707fb8fc5d0e9487b1da225e8e
+    last_write_checksum: sha1:042c93769aac69ea4782ce4d896e07cb9d0b2a26
   docs/models/screening-post.md:
     last_write_checksum: sha1:6cde667a26835a6ad45c36a01c7b07a7464fc227
   docs/models/screening-profile.md:
-    last_write_checksum: sha1:25a00fa2caca25b91ea7fbfed47407ef828ce738
+    last_write_checksum: sha1:27e9f837efec56e027843bb57974c47e98c676a5
   docs/models/screening-request.md:
     last_write_checksum: sha1:eca3b274cc115f642d804755e5ebd6d751bb8fb3
   docs/models/screening-spend-line-role.md:
@@ -1319,7 +1319,7 @@ trackedFiles:
   docs/models/screening-status.md:
     last_write_checksum: sha1:5b2b70babc2ec7863a764a3db729bf0b387f5f9a
   docs/models/screening.md:
-    last_write_checksum: sha1:c75d337cbd490991851bc1d69142cd433ed6f991
+    last_write_checksum: sha1:ade89154bf45eb57e9e3e8f11cdd322851881b7f
   docs/models/search-kind.md:
     last_write_checksum: sha1:0365099bdf0206f9453357a2f574124d50c5d64f
   docs/models/search-request.md:
@@ -1437,9 +1437,9 @@ trackedFiles:
   docs/models/workspace-operations-summary.md:
     last_write_checksum: sha1:4ec2ef4e7faf3e22344f1f85f405a829d2c70251
   jsr.json:
-    last_write_checksum: sha1:f16e26d3952276c4a4d8f31874d8227cc8f92a7b
+    last_write_checksum: sha1:3797928b965da16b53f98632db213881fa9e73ef
   package.json:
-    last_write_checksum: sha1:adb966c0395b23bee25048fb26df15d6232ba117
+    last_write_checksum: sha1:a5bc2de90ab7bb80110c9660803c6c9d01f2adab
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1687,7 +1687,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:113f387bd90e0e2e5105b1092fa011754e8a7a1b
+    last_write_checksum: sha1:857530357192c003dedfb3e3e829e3fd6866e214
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2047,9 +2047,9 @@ trackedFiles:
   src/models/group.ts:
     last_write_checksum: sha1:302028d65e588256ea36a775f1ee71c9b3bd9fcf
   src/models/handle-platform.ts:
-    last_write_checksum: sha1:ba894f856c3361ac5e3119f202eaa8b38880e52d
+    last_write_checksum: sha1:356bd6ab8d77b5cb41e16809ca3bb5d5c5d02428
   src/models/handle.ts:
-    last_write_checksum: sha1:4dc62d10f4645faff4e1e644b7d84a1192407020
+    last_write_checksum: sha1:755ec0da4a105314f4ddbfaa9d72cf0def9d6899
   src/models/highest-band.ts:
     last_write_checksum: sha1:f072bd40e3b3c43641b430eadca2c63a77c6ff86
   src/models/hook-point.ts:
@@ -2723,11 +2723,11 @@ trackedFiles:
   src/models/screening-platform-coverage-status.ts:
     last_write_checksum: sha1:87a271b4a42d370cd834735d8f9c8c0402973d7c
   src/models/screening-platform-coverage.ts:
-    last_write_checksum: sha1:ea5e0bc8fc345e6cb1dc4a274dd364811a4489d1
+    last_write_checksum: sha1:f750ea23c42b19b103c1b973583e1d11456742a7
   src/models/screening-post.ts:
     last_write_checksum: sha1:01577417348b6e66514cb3f737969e0e90859e45
   src/models/screening-profile.ts:
-    last_write_checksum: sha1:0e66545ed8c6af6f84381a558850329ee30d79e5
+    last_write_checksum: sha1:0812e592a7edd2b1f117667da3e0c9648bb268e9
   src/models/screening-request.ts:
     last_write_checksum: sha1:23c8881494c16300025475e2fa0c42276c5fc171
   src/models/screening-spend-line-role.ts:
@@ -5414,7 +5414,7 @@ examples:
         application/json: {"decision": "escalated", "note": "Known to the venue team."}
       responses:
         "200":
-          application/json: {"id": "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "external_id": "ticket-1042", "name": "Jordan Example", "email": "jordan@company-example.com", "phone": "+14155550100", "company": "Example Ltd", "city": "Melbourne", "handles": [{"platform": "youtube", "handle": "jordan_example"}], "match_state": "possible", "highest_band": "high", "decision": "cleared", "decision_note": "Known to the venue team.", "decided_by": "user_2abc", "decided_at": "2026-01-01T00:00:00Z", "coverage": {"accounts_found": 892452, "accounts_accessible": 46101, "items_read": 535689, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "x", "status": "none_found", "accounts_found": 644998, "items_read": 72059}]}, "last_screening_id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "screened_at": "2026-01-01T00:00:00Z", "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z", "spend": {"total_minor": 825315, "by_implementation": [{"implementation": "synthetic", "role": "analyser", "spend_minor": 526801}]}}
+          application/json: {"id": "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "external_id": "ticket-1042", "name": "Jordan Example", "email": "jordan@company-example.com", "phone": "+14155550100", "company": "Example Ltd", "city": "Melbourne", "handles": [{"platform": "reddit", "handle": "jordan_example"}], "match_state": "possible", "highest_band": "high", "decision": "cleared", "decision_note": "Known to the venue team.", "decided_by": "user_2abc", "decided_at": "2026-01-01T00:00:00Z", "coverage": {"accounts_found": 892452, "accounts_accessible": 46101, "items_read": 535689, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "bluesky", "status": "none_found", "accounts_found": 644998, "items_read": 72059}]}, "last_screening_id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "screened_at": "2026-01-01T00:00:00Z", "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z", "spend": {"total_minor": 825315, "by_implementation": [{"implementation": "synthetic", "role": "analyser", "spend_minor": 526801}]}}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_idempotency_key", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
@@ -5563,7 +5563,7 @@ examples:
           screening_id: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM"
       responses:
         "200":
-          application/json: {"id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "environment": "test", "status": "partial", "depth": "standard", "platforms": ["tiktok"], "requested_by": "user_2abc", "created_at": "2026-01-01T00:00:00Z", "started_at": "2026-01-01T00:00:00Z", "finished_at": "2026-01-02T00:00:00Z", "expires_at": "2026-01-02T00:00:00Z", "people_total": 385000, "people_done": 312374, "people_flagged": 740451, "people_failed": 132271, "people_partial": 562316, "estimated_spend": 167129, "spent": 142833, "spend": {"total_minor": 177519, "by_implementation": []}, "error_code": "user_cancelled"}
+          application/json: {"id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "environment": "test", "status": "partial", "depth": "standard", "platforms": ["linkedin"], "requested_by": "user_2abc", "created_at": "2026-01-01T00:00:00Z", "started_at": "2026-01-01T00:00:00Z", "finished_at": "2026-01-02T00:00:00Z", "expires_at": "2026-01-02T00:00:00Z", "people_total": 385000, "people_done": 312374, "people_flagged": 740451, "people_failed": 132271, "people_partial": 562316, "estimated_spend": 167129, "spent": 142833, "spend": {"total_minor": 177519, "by_implementation": []}, "error_code": "user_cancelled"}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_cursor", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
@@ -5588,7 +5588,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "environment": "test", "status": "partial", "depth": "standard", "platforms": ["youtube"], "requested_by": "user_2abc", "created_at": "2026-01-01T00:00:00Z", "started_at": "2026-01-01T00:00:00Z", "finished_at": "2026-01-02T00:00:00Z", "expires_at": "2026-01-02T00:00:00Z", "people_total": 438718, "people_done": 951747, "people_flagged": 942514, "people_failed": 682715, "people_partial": 283813, "estimated_spend": 375895, "spent": 990898, "spend": {"total_minor": 51134, "by_implementation": []}, "error_code": "user_cancelled"}
+          application/json: {"id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "environment": "test", "status": "partial", "depth": "standard", "platforms": ["threads"], "requested_by": "user_2abc", "created_at": "2026-01-01T00:00:00Z", "started_at": "2026-01-01T00:00:00Z", "finished_at": "2026-01-02T00:00:00Z", "expires_at": "2026-01-02T00:00:00Z", "people_total": 438718, "people_done": 951747, "people_flagged": 942514, "people_failed": 682715, "people_partial": 283813, "estimated_spend": 375895, "spent": 990898, "spend": {"total_minor": 51134, "by_implementation": []}, "error_code": "user_cancelled"}
         "400":
           application/problem+json: {"type": "https://docs.noresponse.org/errors/invalid_request", "title": "Invalid request", "status": 400, "detail": "identifiers: at least one of email, username or phone is required.", "instance": "/v1/assessments", "code": "invalid_request", "request_id": "9f2c4b7a1d3e4f5a8b6c0d1e2f3a4b5c", "invalid_params": [{"field": "identifiers", "reason": "at least one of email, username or phone is required", "example": "new.user@example.com"}]}
         "401":
