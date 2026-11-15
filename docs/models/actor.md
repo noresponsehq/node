@@ -23,3 +23,12 @@ const value: models.KeyActor = {
 };
 ```
 
+### `models.ServiceActor`
+
+```typescript
+const value: models.ServiceActor = {
+  type: "service",
+  name: "replenisher",
+};
+```
+

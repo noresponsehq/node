@@ -17,8 +17,8 @@ let value: AuditEventList = {
       action: "member.role_changed",
       outcome: "denied",
       actor: {
-        type: "api_key",
-        keyId: "01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        type: "service",
+        name: "replenisher",
       },
       target: {
         type: "invite",

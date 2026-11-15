@@ -388,6 +388,7 @@ export * from "./search-status.js";
 export * from "./search.js";
 export * from "./security.js";
 export * from "./sent-identifiers.js";
+export * from "./service-actor.js";
 export * from "./settings-flows.js";
 export * from "./settings-request-flows.js";
 export * from "./settings-request.js";

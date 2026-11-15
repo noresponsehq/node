@@ -34,6 +34,12 @@ import {
   KeyActor$outboundSchema,
 } from "./key-actor.js";
 import {
+  ServiceActor,
+  ServiceActor$inboundSchema,
+  ServiceActor$Outbound,
+  ServiceActor$outboundSchema,
+} from "./service-actor.js";
+import {
   UserActor,
   UserActor$inboundSchema,
   UserActor$Outbound,
@@ -43,6 +49,7 @@ import {
 export type Actor =
   | UserActor
   | KeyActor
+  | ServiceActor
   | discriminatedUnionTypes.Unknown<"type">;
 
 /**
@@ -63,7 +70,11 @@ export type AuditEvent = {
    */
   action: string;
   outcome: CustomerExportRequestFilterOutcome;
-  actor: UserActor | KeyActor | discriminatedUnionTypes.Unknown<"type">;
+  actor:
+    | UserActor
+    | KeyActor
+    | ServiceActor
+    | discriminatedUnionTypes.Unknown<"type">;
   target: AuditEventTarget;
   /**
    * At most 8 short facts about the change, keyed by lowercase names: the role a member was given or accepted (role), the invite an accepted member used (invite_id), the key that replaced a rotated one (new_key_id), the assessment a member's change acted on (assessment_id). Absent when there are none.
@@ -82,13 +93,21 @@ export const Actor$inboundSchema: z.ZodMiniType<Actor, unknown> =
   discriminatedUnion("type", {
     user: UserActor$inboundSchema,
     api_key: KeyActor$inboundSchema,
+    service: ServiceActor$inboundSchema,
   });
 /** @internal */
-export type Actor$Outbound = UserActor$Outbound | KeyActor$Outbound;
+export type Actor$Outbound =
+  | UserActor$Outbound
+  | KeyActor$Outbound
+  | ServiceActor$Outbound;
 
 /** @internal */
 export const Actor$outboundSchema: z.ZodMiniType<Actor$Outbound, Actor> = z
-  .union([UserActor$outboundSchema, KeyActor$outboundSchema]);
+  .union([
+    UserActor$outboundSchema,
+    KeyActor$outboundSchema,
+    ServiceActor$outboundSchema,
+  ]);
 
 export function actorToJSON(actor: Actor): string {
   return JSON.stringify(Actor$outboundSchema.parse(actor));
@@ -115,6 +134,7 @@ export const AuditEvent$inboundSchema: z.ZodMiniType<AuditEvent, unknown> = z
       actor: discriminatedUnion("type", {
         user: UserActor$inboundSchema,
         api_key: KeyActor$inboundSchema,
+        service: ServiceActor$inboundSchema,
       }),
       target: AuditEventTarget$inboundSchema,
       detail: types.optional(z.record(z.string(), types.string())),
@@ -138,7 +158,7 @@ export type AuditEvent$Outbound = {
   environment: string;
   action: string;
   outcome: string;
-  actor: UserActor$Outbound | KeyActor$Outbound;
+  actor: UserActor$Outbound | KeyActor$Outbound | ServiceActor$Outbound;
   target: AuditEventTarget$Outbound;
   detail?: { [k: string]: string } | undefined;
   created_at: string;
@@ -157,7 +177,11 @@ export const AuditEvent$outboundSchema: z.ZodMiniType<
     environment: AuditSettingsEnvironment$outboundSchema,
     action: z.string(),
     outcome: CustomerExportRequestFilterOutcome$outboundSchema,
-    actor: z.union([UserActor$outboundSchema, KeyActor$outboundSchema]),
+    actor: z.union([
+      UserActor$outboundSchema,
+      KeyActor$outboundSchema,
+      ServiceActor$outboundSchema,
+    ]),
     target: AuditEventTarget$outboundSchema,
     detail: z.optional(z.record(z.string(), z.string())),
     createdAt: z.string(),
