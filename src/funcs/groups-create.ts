@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Create a group to screen.
  *
  * @remarks
- * Create a group to screen: its name, start, venue, host, the principals it protects and the sensitive topics posts are read against. An environment holds at most 1000 groups.
+ * Create a group to screen: its name, start, venue, host, the principals it protects and the sensitive topics posts are read against. An environment holds at most 1000 groups. Send an Idempotency-Key to repeat a request safely while the group is retained. A replay returns the same group in its current state; changed input returns 409.
  */
 export function groupsCreate(
   client: NoResponseCore,
@@ -113,6 +113,11 @@ async function $do(
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/json",
+    "Idempotency-Key": encodeSimple(
+      "Idempotency-Key",
+      payload["Idempotency-Key"],
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const secConfig = await extractSecurity(client._options.apiKey);

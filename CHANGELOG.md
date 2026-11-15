@@ -1,5 +1,12 @@
 # Changelog
 
+## 13.0.2
+
+* `sdk.groups.create()`: 
+  *  `request.idempotencyKey` **Added**
+* `sdk.groups.startSearch()`: 
+  *  `request.idempotencyKey` **Added**
+
 ## 13.0.1
 
 No changes detected.

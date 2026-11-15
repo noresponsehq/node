@@ -40,7 +40,7 @@ export class Groups extends ClientSDK {
    * Create a group to screen.
    *
    * @remarks
-   * Create a group to screen: its name, start, venue, host, the principals it protects and the sensitive topics posts are read against. An environment holds at most 1000 groups.
+   * Create a group to screen: its name, start, venue, host, the principals it protects and the sensitive topics posts are read against. An environment holds at most 1000 groups. Send an Idempotency-Key to repeat a request safely while the group is retained. A replay returns the same group in its current state; changed input returns 409.
    */
   async create(
     request: operations.CreateGroupRequest,
@@ -193,7 +193,7 @@ export class Groups extends ClientSDK {
    * Search again on a value of one of a person's records.
    *
    * @remarks
-   * Search again on the value of one field of one of a person's records, named by the record and field. Nothing searches again by itself. A password or hash search counts its breach rows first and runs only when you run it; read the person to see each search and what it found.
+   * Search again on the value of one field of one of a person's records, named by the record and field. Nothing searches again by itself. A password or hash search counts its breach rows first and runs only when you run it; read the person to see each search and what it found. Send an Idempotency-Key to return the same search after a lost answer, even after it completes. A different request with the same key returns 409. Use a new key for a deliberate new search.
    */
   async startSearch(
     request: operations.StartSearchRequest,
