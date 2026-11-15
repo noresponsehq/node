@@ -19,7 +19,7 @@ let value: PersonReport = {
     city: "Melbourne",
     handles: [
       {
-        platform: "substack",
+        platform: "duolingo",
         handle: "jordan_example",
       },
     ],
@@ -55,7 +55,7 @@ let value: PersonReport = {
   profiles: [
     {
       id: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      platform: "flickr",
+      platform: "chesscom",
       handle: "jordanexample42",
       url: "https://synthetic.invalid/synthetic/jordanexample42",
       displayName: "Jordan Example",

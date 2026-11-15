@@ -22,7 +22,7 @@ let value: ReviewPersonResponse = {
     city: "Melbourne",
     handles: [
       {
-        platform: "substack",
+        platform: "duolingo",
         handle: "jordan_example",
       },
     ],

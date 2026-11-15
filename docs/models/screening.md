@@ -14,7 +14,7 @@ let value: Screening = {
   status: "running",
   depth: "standard",
   platforms: [
-    "dockerhub",
+    "wikipedia",
   ],
   requestedBy: "user_2abc",
   createdAt: "2026-01-01T00:00:00Z",

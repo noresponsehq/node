@@ -1,6 +1,6 @@
 # HandlePlatform
 
-A platform a screening can cover. github and scratch through flickr are each one read of the public profile a handle names, with no posts. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
+A platform a screening can cover. github and scratch through flickr are each one read of the public profile a handle names, with no posts; chesscom also reads the profile's stats, clubs and last two months of games, for its activity and contacts. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
 
 ## Example Usage
 
@@ -15,5 +15,5 @@ let value: HandlePlatform = "synthetic";
 ## Values
 
 ```typescript
-"instagram" | "x" | "bluesky" | "youtube" | "tiktok" | "facebook" | "threads" | "reddit" | "telegram" | "linkedin" | "github" | "scratch" | "dailymotion" | "substack" | "duolingo" | "dockerhub" | "wikipedia" | "internetarchive" | "spotify" | "patreon" | "wordpress" | "okru" | "flickr" | "synthetic" | Unrecognized<string>
+"instagram" | "x" | "bluesky" | "youtube" | "tiktok" | "facebook" | "threads" | "reddit" | "telegram" | "linkedin" | "github" | "scratch" | "dailymotion" | "substack" | "duolingo" | "dockerhub" | "wikipedia" | "internetarchive" | "spotify" | "patreon" | "wordpress" | "okru" | "flickr" | "chesscom" | "synthetic" | Unrecognized<string>
 ```

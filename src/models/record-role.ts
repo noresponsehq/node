@@ -51,6 +51,10 @@ export const RecordRole = {
    */
   Chargebacks: "chargebacks",
   /**
+   * Another account on the same platform the account deals with, such as an opponent it plays most or a follower (`username`). Fields beside it under the same name say how, how often and when last. It names another person, never the account's owner.
+   */
+  Contact: "contact",
+  /**
    * The banner picture of the profile (`image`).
    */
   CoverPicture: "cover_picture",
