@@ -5,10 +5,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
-  HandlePlatform,
-  HandlePlatform$inboundSchema,
-} from "./handle-platform.js";
-import {
   ScreeningNotAnalysedCount,
   ScreeningNotAnalysedCount$inboundSchema,
 } from "./screening-not-analysed-count.js";
@@ -48,7 +44,7 @@ export type ScreeningCoverage = {
   /**
    * Requested platforms where the person gave the screening nothing to look up, such as no handle for a platform that reads supplied handles only. Nothing looked and nothing failed: such a platform is not in platforms, is not none_found and does not make the person partial.
    */
-  notSearched?: Array<HandlePlatform> | undefined;
+  notSearched?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -68,7 +64,7 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
     period_from: types.optional(types.string()),
     period_to: types.optional(types.string()),
     platforms: z.array(ScreeningPlatformCoverage$inboundSchema),
-    not_searched: types.optional(z.array(HandlePlatform$inboundSchema)),
+    not_searched: types.optional(z.array(types.string())),
   }),
   z.transform((v) => {
     return remap$(v, {

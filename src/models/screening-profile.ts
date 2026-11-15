@@ -5,10 +5,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { Access, Access$inboundSchema } from "./access.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import {
-  HandlePlatform,
-  HandlePlatform$inboundSchema,
-} from "./handle-platform.js";
 import { PostsStopped, PostsStopped$inboundSchema } from "./posts-stopped.js";
 import { RecordT, RecordT$inboundSchema } from "./record.js";
 import {
@@ -22,9 +18,9 @@ import {
 export type ScreeningProfile = {
   id: string;
   /**
-   * A platform a screening can cover. github and scratch through flickr are each one read of the public profile a handle names, with no posts; chesscom also reads the profile's stats, clubs and last two months of games, for its activity and contacts, and through a signed-in session up to 100 of the player's friends, each a contact with the date the friendship began. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
+   * A platform a screening can cover, such as instagram, x, bluesky, youtube, tiktok or github. The screening registry owns the set: a request that names a platform it does not cover answers 422. A new platform adds an id without changing this contract, so read a platform you do not know in a response as one you have not seen before, not as an error. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
    */
-  platform: HandlePlatform;
+  platform: string;
   handle: string;
   url: string;
   displayName?: string | undefined;
@@ -71,7 +67,7 @@ export const ScreeningProfile$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     id: types.string(),
-    platform: HandlePlatform$inboundSchema,
+    platform: types.string(),
     handle: types.string(),
     url: types.string(),
     display_name: types.optional(types.string()),

@@ -12,7 +12,9 @@ let value: StartScreeningRequest = {
   idempotencyKey: "account-acct_7f3a9c",
   body: {
     depth: "standard",
-    platforms: [],
+    platforms: [
+      "bluesky",
+    ],
   },
 };
 ```

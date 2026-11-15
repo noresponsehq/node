@@ -9,10 +9,6 @@ import {
 } from "./audit-settings-environment.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
-  HandlePlatform,
-  HandlePlatform$inboundSchema,
-} from "./handle-platform.js";
-import {
   ScreeningDepth,
   ScreeningDepth$inboundSchema,
 } from "./screening-depth.js";
@@ -37,7 +33,7 @@ export type Screening = {
    */
   status: ScreeningStatus;
   depth: ScreeningDepth;
-  platforms: Array<HandlePlatform>;
+  platforms: Array<string>;
   requestedBy: string;
   createdAt: string;
   startedAt?: string | undefined;
@@ -87,7 +83,7 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
       environment: AuditSettingsEnvironment$inboundSchema,
       status: ScreeningStatus$inboundSchema,
       depth: ScreeningDepth$inboundSchema,
-      platforms: z.array(HandlePlatform$inboundSchema),
+      platforms: z.array(types.string()),
       requested_by: types.string(),
       created_at: types.string(),
       started_at: types.optional(types.string()),

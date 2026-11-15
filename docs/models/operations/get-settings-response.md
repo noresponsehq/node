@@ -7,8 +7,12 @@ import { GetSettingsResponse } from "@noresponse/node/models/operations";
 
 let value: GetSettingsResponse = {
   headers: {
-    "key": [],
+    "key": [
+      "example 1",
+      "example 2",
+    ],
     "key1": [],
+    "key2": [],
   },
   result: {
     workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -46,8 +50,10 @@ let value: GetSettingsResponse = {
         onExpiry: "block",
       },
     },
-    refusedSources: [],
-    screeningDailyCap: 938374,
+    refusedSources: [
+      "breach",
+    ],
+    screeningDailyCap: 248626,
   },
 };
 ```

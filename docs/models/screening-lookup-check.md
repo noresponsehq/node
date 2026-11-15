@@ -17,7 +17,7 @@ let value: ScreeningLookupCheck = {
   unanswered: [
     {
       connector: "github",
-      reason: "timed_out",
+      reason: "unavailable",
     },
   ],
 };

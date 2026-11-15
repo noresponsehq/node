@@ -10,16 +10,16 @@ import { ScreeningLookup } from "@noresponse/node/models";
 let value: ScreeningLookup = {
   checks: [
     {
-      identifier: "username",
-      lane: "phone",
-      status: "not_covered",
-      sources: 683033,
-      answered: 533262,
-      found: 637323,
+      identifier: "email",
+      lane: "domain",
+      status: "not_found",
+      sources: 655904,
+      answered: 262056,
+      found: 455794,
       unanswered: [
         {
           connector: "github",
-          reason: "timed_out",
+          reason: "unavailable",
         },
       ],
     },
@@ -103,18 +103,7 @@ let value: ScreeningLookup = {
           search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         },
       ],
-      fields: [
-        {
-          field: "creation_date",
-          original: "2019-01-01T00:00:00Z",
-          value: "2019-01-01T00:00:00Z",
-          detail: "bcrypt",
-          distinctive: {
-            rating: "unique",
-            reason: "in 4 breach rows",
-          },
-        },
-      ],
+      fields: [],
       observedAt: "2026-01-02T00:00:00Z",
       agreed: [
         "lastip",

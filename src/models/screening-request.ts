@@ -1,9 +1,5 @@
 import * as z from "zod/v4-mini";
 import {
-  HandlePlatform,
-  HandlePlatform$outboundSchema,
-} from "./handle-platform.js";
-import {
   ScreeningDepth,
   ScreeningDepth$outboundSchema,
 } from "./screening-depth.js";
@@ -13,7 +9,7 @@ import {
  */
 export type ScreeningRequest = {
   depth: ScreeningDepth;
-  platforms: Array<HandlePlatform>;
+  platforms: Array<string>;
 };
 
 /** @internal */
@@ -28,7 +24,7 @@ export const ScreeningRequest$outboundSchema: z.ZodMiniType<
   ScreeningRequest
 > = z.object({
   depth: ScreeningDepth$outboundSchema,
-  platforms: z.array(HandlePlatform$outboundSchema),
+  platforms: z.array(z.string()),
 });
 
 export function screeningRequestToJSON(

@@ -9,13 +9,15 @@ import { ScreeningRequest } from "@noresponse/node/models";
 
 let value: ScreeningRequest = {
   depth: "standard",
-  platforms: [],
+  platforms: [
+    "bluesky",
+  ],
 };
 ```
 
 ## Fields
 
-| Field                                                   | Type                                                    | Required                                                | Description                                             |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| `depth`                                                 | [models.ScreeningDepth](../models/screening-depth.md)   | :heavy_check_mark:                                      | N/A                                                     |
-| `platforms`                                             | [models.HandlePlatform](../models/handle-platform.md)[] | :heavy_check_mark:                                      | N/A                                                     |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `depth`                                               | [models.ScreeningDepth](../models/screening-depth.md) | :heavy_check_mark:                                    | N/A                                                   |
+| `platforms`                                           | *string*[]                                            | :heavy_check_mark:                                    | N/A                                                   |

@@ -6,26 +6,31 @@
 import { StartScreeningResponse } from "@noresponse/node/models/operations";
 
 let value: StartScreeningResponse = {
-  headers: {},
+  headers: {
+    "key": [],
+    "key1": [],
+  },
   result: {
     id: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     environment: "live",
     status: "failed",
     depth: "standard",
-    platforms: [],
+    platforms: [
+      "bluesky",
+    ],
     requestedBy: "user_2abc",
     createdAt: "2026-01-01T00:00:00Z",
     startedAt: "2026-01-01T00:00:00Z",
     finishedAt: "2026-01-02T00:00:00Z",
     expiresAt: "2026-01-02T00:00:00Z",
-    peopleTotal: 505954,
-    peopleDone: 977538,
-    peopleFlagged: 960583,
-    peopleFailed: 782149,
-    peoplePartial: 797695,
-    estimatedSpend: 916565,
-    spent: 646472,
+    peopleTotal: 226495,
+    peopleDone: 505954,
+    peopleFlagged: 977538,
+    peopleFailed: 960583,
+    peoplePartial: 782149,
+    estimatedSpend: 797695,
+    spent: 916565,
     spend: {
       totalMinor: 570887,
       byImplementation: [

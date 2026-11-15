@@ -24,12 +24,12 @@ let value: GetPersonResponse = {
       city: "Melbourne",
       handles: [
         {
-          platform: "duolingo",
+          platform: "bluesky",
           handle: "jordan_example",
         },
       ],
-      matchState: "none_found",
-      highestBand: null,
+      matchState: "possible",
+      highestBand: "critical",
       decision: "cleared",
       decisionNote: "Known to the venue team.",
       decidedBy: "user_2abc",
@@ -41,6 +41,9 @@ let value: GetPersonResponse = {
         periodFrom: "2026-01-01T00:00:00Z",
         periodTo: "2026-01-02T00:00:00Z",
         platforms: [],
+        notSearched: [
+          "instagram",
+        ],
       },
       lastScreeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       screenedAt: "2026-01-01T00:00:00Z",
@@ -60,26 +63,20 @@ let value: GetPersonResponse = {
     profiles: [
       {
         id: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        platform: "chesscom",
+        platform: "bluesky",
         handle: "jordanexample42",
         url: "https://synthetic.invalid/synthetic/jordanexample42",
         displayName: "Jordan Example",
         bio: "Engineer at Example Ltd in Melbourne.",
         avatarUrl: "https://synthetic.invalid/avatar/3f9a1c22d4e5b6a7.png",
         accountCreatedAt: "2019-01-01T00:00:00Z",
-        access: "private",
+        access: "locked",
         match: {
-          state: "confirmed",
-          evidence: [
-            {
-              kind: "phone",
-              detail: "the email on the person's row",
-              resolver: "synthetic",
-            },
-          ],
+          state: "probable",
+          evidence: [],
         },
         collector: "synthetic",
-        itemsRead: 874258,
+        itemsRead: 949972,
         periodFrom: "2026-01-01T00:00:00Z",
         periodTo: "2026-01-02T00:00:00Z",
         collectedAt: "2026-01-02T00:00:00Z",
@@ -93,7 +90,18 @@ let value: GetPersonResponse = {
             date: "2019-03",
           },
           matched: [],
-          fields: [],
+          fields: [
+            {
+              field: "creation_date",
+              original: "2019-01-01T00:00:00Z",
+              value: "2019-01-01T00:00:00Z",
+              detail: "bcrypt",
+              distinctive: {
+                rating: "unique",
+                reason: "in 4 breach rows",
+              },
+            },
+          ],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",
@@ -104,41 +112,26 @@ let value: GetPersonResponse = {
         },
       },
     ],
-    findings: [
-      {
-        id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        category: "fixation",
-        band: "info",
-        confidence: 7897.97,
-        rationale: "The post reports when the principal leaves the hotel.",
-        quote:
-          "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
-        evidence: [
-          "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        ],
-        mediaObservations: [
-          {
-            mediaId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-            description: "A handwritten sign held up outside the venue.",
-            readText: "SEE YOU ON THE 1ST",
-          },
-        ],
-        analyser: "synthetic",
-        model: "synthetic-1",
-        spendMinor: 802959,
-        createdAt: "2026-01-01T00:00:00Z",
-      },
-    ],
-    posts: [],
-    media: [
+    findings: [],
+    posts: [
       {
         id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        kind: "media",
-        postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        mediaType: "image",
-        mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
-        coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
-        text: "A photo",
+        kind: "post",
+        text: "Great coffee this morning before the commute.",
+        replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
+        repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
+        quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
+        place: {
+          name: "Example Harbour",
+          id: "212988663",
+          address: "2 Wharf Road",
+          city: "Melbourne",
+        },
+        tagged: [
+          "caseyexample7",
+        ],
+        language: "en",
+        postedWith: "Twitter for iPhone",
         profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
         postedAt: "2026-01-01T00:00:00Z",
@@ -147,17 +140,33 @@ let value: GetPersonResponse = {
         capturedAt: "2026-01-01T00:00:00Z",
       },
     ],
+    media: [],
     reviews: [
       {
         id: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        decision: "cleared",
+        decision: "escalated",
         note: "Known to the venue team.",
         createdBy: "user_2abc",
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
     lookup: {
-      checks: [],
+      checks: [
+        {
+          identifier: "email",
+          lane: "domain",
+          status: "not_found",
+          sources: 655904,
+          answered: 262056,
+          found: 455794,
+          unanswered: [
+            {
+              connector: "github",
+              reason: "unavailable",
+            },
+          ],
+        },
+      ],
       summary: {
         phone: {
           country: "AU",
@@ -237,18 +246,7 @@ let value: GetPersonResponse = {
               search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
             },
           ],
-          fields: [
-            {
-              field: "creation_date",
-              original: "2019-01-01T00:00:00Z",
-              value: "2019-01-01T00:00:00Z",
-              detail: "bcrypt",
-              distinctive: {
-                rating: "unique",
-                reason: "in 4 breach rows",
-              },
-            },
-          ],
+          fields: [],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",

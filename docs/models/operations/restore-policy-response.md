@@ -54,8 +54,10 @@ let value: RestorePolicyResponse = {
         onExpiry: "block",
       },
     },
-    refusedSources: [],
-    screeningDailyCap: 938374,
+    refusedSources: [
+      "breach",
+    ],
+    screeningDailyCap: 248626,
   },
 };
 ```

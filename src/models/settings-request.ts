@@ -5,7 +5,6 @@ import {
   SettingsRequestFlows$Outbound,
   SettingsRequestFlows$outboundSchema,
 } from "./settings-request-flows.js";
-import { SourceId, SourceId$outboundSchema } from "./source-id.js";
 
 /**
  * Changes only named settings, atomically. Every successful write advances policy_version and retains an immutable settings snapshot. expected_policy_version optionally guards against stale edits; restore always requires it.
@@ -15,7 +14,7 @@ export type SettingsRequest = {
   /**
    * Replaces the refused sources; [] refuses none. A change applies to new assessments within a minute.
    */
-  refusedSources?: Array<SourceId> | undefined;
+  refusedSources?: Array<string> | undefined;
   /**
    * Replaces the daily screening cap, in minor units of USD; null removes the cap. Needs settings.write only, like retention_days.
    */
@@ -48,7 +47,7 @@ export const SettingsRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     retentionDays: z.optional(z.int()),
-    refusedSources: z.optional(z.array(SourceId$outboundSchema)),
+    refusedSources: z.optional(z.array(z.string())),
     screeningDailyCap: z.optional(z.nullable(z.int())),
     flows: z.optional(SettingsRequestFlows$outboundSchema),
     expectedPolicyVersion: z.optional(z.int()),

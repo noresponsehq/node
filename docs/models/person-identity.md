@@ -16,7 +16,7 @@ let value: PersonIdentity = {
   city: "Melbourne",
   handles: [
     {
-      platform: "duolingo",
+      platform: "bluesky",
       handle: "jordan_example",
     },
   ],

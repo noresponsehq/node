@@ -42,8 +42,10 @@ let value: PolicyHistoryItem = {
         onExpiry: "block",
       },
     },
-    refusedSources: [],
-    screeningDailyCap: 802290,
+    refusedSources: [
+      "breach",
+    ],
+    screeningDailyCap: null,
   },
   recordedAt: "2026-01-01T00:00:00Z",
   changeReason: "Adjust thresholds after reviewing retained evidence",

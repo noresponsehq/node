@@ -43,8 +43,10 @@ let value: PublishPolicyEvaluationResponse = {
         onExpiry: "block",
       },
     },
-    refusedSources: [],
-    screeningDailyCap: 938374,
+    refusedSources: [
+      "breach",
+    ],
+    screeningDailyCap: 248626,
   },
 };
 ```

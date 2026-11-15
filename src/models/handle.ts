@@ -3,20 +3,15 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import {
-  HandlePlatform,
-  HandlePlatform$inboundSchema,
-  HandlePlatform$outboundSchema,
-} from "./handle-platform.js";
 
 /**
  * An account the person is known to hold.
  */
 export type Handle = {
   /**
-   * A platform a screening can cover. github and scratch through flickr are each one read of the public profile a handle names, with no posts; chesscom also reads the profile's stats, clubs and last two months of games, for its activity and contacts, and through a signed-in session up to 100 of the player's friends, each a contact with the date the friendship began. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
+   * A platform a screening can cover, such as instagram, x, bluesky, youtube, tiktok or github. The screening registry owns the set: a request that names a platform it does not cover answers 422. A new platform adds an id without changing this contract, so read a platform you do not know in a response as one you have not seen before, not as an error. synthetic is the deterministic connector's own platform, for exercising the product end to end with no network.
    */
-  platform: HandlePlatform;
+  platform: string;
   /**
    * The account's handle, without a leading @.
    */
@@ -25,7 +20,7 @@ export type Handle = {
 
 /** @internal */
 export const Handle$inboundSchema: z.ZodMiniType<Handle, unknown> = z.object({
-  platform: HandlePlatform$inboundSchema,
+  platform: types.string(),
   handle: types.string(),
 });
 /** @internal */
@@ -37,7 +32,7 @@ export type Handle$Outbound = {
 /** @internal */
 export const Handle$outboundSchema: z.ZodMiniType<Handle$Outbound, Handle> = z
   .object({
-    platform: HandlePlatform$outboundSchema,
+    platform: z.string(),
     handle: z.string(),
   });
 

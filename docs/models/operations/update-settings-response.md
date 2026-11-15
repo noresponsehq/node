@@ -49,8 +49,10 @@ let value: UpdateSettingsResponse = {
         onExpiry: "block",
       },
     },
-    refusedSources: [],
-    screeningDailyCap: 938374,
+    refusedSources: [
+      "breach",
+    ],
+    screeningDailyCap: 248626,
   },
 };
 ```

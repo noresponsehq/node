@@ -18,7 +18,7 @@ let value: Person = {
   city: "Melbourne",
   handles: [
     {
-      platform: "duolingo",
+      platform: "bluesky",
       handle: "jordan_example",
     },
   ],
@@ -35,6 +35,9 @@ let value: Person = {
     periodFrom: "2026-01-01T00:00:00Z",
     periodTo: "2026-01-02T00:00:00Z",
     platforms: [],
+    notSearched: [
+      "instagram",
+    ],
   },
   lastScreeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   screenedAt: "2026-01-01T00:00:00Z",
