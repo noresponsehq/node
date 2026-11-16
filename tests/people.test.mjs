@@ -28,6 +28,15 @@ const investigation = {
   expires_at: person.expires_at,
   deadline_at: "2026-11-15T10:15:00Z",
 };
+const writtenProfile = {
+  status: "written",
+  investigation_id: investigation.id,
+  queued_at: "2026-11-15T10:05:00Z",
+  finished_at: "2026-11-15T10:05:11Z",
+  summary: "Jordan Example keeps a public GitHub account.",
+  statements: [{ topic: "accounts", text: "Holds a GitHub account.", certainty: "confirmed", basis: "stated", alternatives: [], evidence: [{ kind: "check", id: "c1" }] }],
+  leads: [{ value: "jordan-example", kind: "username", why: "Named on the GitHub record.", evidence: [{ kind: "check", id: "c1" }] }],
+};
 const apiKey = "nrk_0TESTKEY00000000000000000_" + "s".repeat(43);
 const retryConfig = { strategy: "backoff", backoff: { initialInterval: 1, maxInterval: 5, maxElapsedTime: 2000, exponent: 1.1 } };
 
@@ -63,13 +72,17 @@ test("investigation retries keep the same key and person", async () => {
 test("workspace person and investigation reads retain complete structured records", async () => {
   const { profiles, findings, posts, media, lookup, reviews } = groupReport;
   const { nr, calls } = client([
-    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup }),
+    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile }),
     json({ person, investigation, profiles, findings, posts, media, lookup, reviews }),
   ]);
   const latest = (await nr.people.get({ personId: person.id })).result;
   const history = (await nr.investigations.get({ investigationId: investigation.id })).result;
   assert.equal(latest.evidenceInvestigation.id, investigation.id);
   assert.equal(latest.lookup.records[1].fields.find(field => field.field === "password_hash").detail, "bcrypt");
+  assert.equal(latest.writtenProfile.status, "written");
+  assert.equal(new Date(latest.writtenProfile.finishedAt).toISOString(), "2026-11-15T10:05:11.000Z");
+  assert.deepEqual(latest.writtenProfile.statements[0].evidence, [{ kind: "check", id: "c1" }]);
+  assert.equal(latest.writtenProfile.leads[0].value, "jordan-example");
   assert.equal(history.investigation.groupId, null);
   assert.equal(history.lookup.records[0].source.site, "github.com");
   assert.deepEqual(calls.map(call => new URL(call.url).pathname), [`/v1/people/${person.id}`, `/v1/investigations/${investigation.id}`]);

@@ -1,0 +1,29 @@
+# ProfileStatement
+
+## Example Usage
+
+```typescript
+import { ProfileStatement } from "@noresponse/node/models";
+
+let value: ProfileStatement = {
+  topic: "timeline",
+  text: "Lived in Lisbon in 2019.",
+  certainty: "confirmed",
+  basis: "inferred",
+  alternatives: [
+    "A holiday address.",
+  ],
+  evidence: [],
+};
+```
+
+## Fields
+
+| Field                                                                                                                             | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       | Example                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `topic`                                                                                                                           | [models.Topic](../models/topic.md)                                                                                                | :heavy_check_mark:                                                                                                                | N/A                                                                                                                               |                                                                                                                                   |
+| `text`                                                                                                                            | *string*                                                                                                                          | :heavy_check_mark:                                                                                                                | N/A                                                                                                                               | Lived in Lisbon in 2019.                                                                                                          |
+| `certainty`                                                                                                                       | [models.Certainty](../models/certainty.md)                                                                                        | :heavy_check_mark:                                                                                                                | confirmed: a linked record or the searched identifier states it directly. likely: a strong inference. possible: a weak inference. |                                                                                                                                   |
+| `basis`                                                                                                                           | [models.Basis](../models/basis.md)                                                                                                | :heavy_check_mark:                                                                                                                | stated: read from a record. inferred: reasoned from several facts. absence: every source answered and none found it.              |                                                                                                                                   |
+| `alternatives`                                                                                                                    | *string*[]                                                                                                                        | :heavy_check_mark:                                                                                                                | Other explanations to keep open for an inference.                                                                                 |                                                                                                                                   |
+| `evidence`                                                                                                                        | [models.ProfileCitation](../models/profile-citation.md)[]                                                                         | :heavy_check_mark:                                                                                                                | Every record, post or check the statement rests on.                                                                               |                                                                                                                                   |

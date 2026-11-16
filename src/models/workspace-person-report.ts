@@ -26,6 +26,10 @@ import {
   ScreeningProfile,
   ScreeningProfile$inboundSchema,
 } from "./screening-profile.js";
+import {
+  WrittenProfile,
+  WrittenProfile$inboundSchema,
+} from "./written-profile.js";
 
 /**
  * Read a workspace person.
@@ -91,6 +95,10 @@ export type WorkspacePersonReport = {
    * The most recent retained completed or partial investigation, or a migrated result whose original per-person status is unknown. The evidence below belongs to this investigation. Read investigation history for earlier results and pending jobs.
    */
   evidenceInvestigation: Investigation | null;
+  /**
+   * An investigator's profile of this person, written from the evidence of a settled investigation. Null until an investigation completes or partially completes, and null when evidence.read is denied.
+   */
+  writtenProfile: WrittenProfile | null;
 };
 
 /** @internal */
@@ -117,6 +125,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     lookup: types.optional(ScreeningLookup$inboundSchema),
     evidence_restricted: types.optional(types.boolean()),
     evidence_investigation: types.nullable(Investigation$inboundSchema),
+    written_profile: types.nullable(WrittenProfile$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -126,6 +135,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
       "expires_at": "expiresAt",
       "evidence_restricted": "evidenceRestricted",
       "evidence_investigation": "evidenceInvestigation",
+      "written_profile": "writtenProfile",
     });
   }),
 );

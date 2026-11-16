@@ -6,7 +6,21 @@
 import { GetWorkspacePersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetWorkspacePersonResponse = {
-  headers: {},
+  headers: {
+    "key": [
+      "example 1",
+    ],
+    "key1": [
+      "example 1",
+      "example 2",
+      "example 3",
+    ],
+    "key2": [
+      "example 1",
+      "example 2",
+      "example 3",
+    ],
+  },
   result: {
     externalId: "case-person-1042",
     name: "Jordan Example",
@@ -233,6 +247,7 @@ let value: GetWorkspacePersonResponse = {
       expiresAt: "2026-02-01T00:00:00Z",
       deadlineAt: "2026-01-01T00:00:00Z",
     },
+    writtenProfile: null,
   },
 };
 ```
