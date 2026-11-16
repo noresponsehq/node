@@ -204,6 +204,26 @@ let value: GetWorkspacePersonResponse = {
       ],
       lookedAt: "2026-01-01T00:00:00Z",
     },
+    searches: [
+      {
+        searchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        field: "username",
+        table: "FORUM_EXAMPLE_COM_2019",
+        kind: "password",
+        value: "jordanexample42",
+        status: "failed",
+        sources: 555247,
+        answered: 336986,
+        found: 156477,
+        estimatedSpend: 649086,
+        spent: 264360,
+        requestedBy: "user_2abc",
+        parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
+        createdAt: "2026-01-01T00:00:00Z",
+        finishedAt: "2026-01-01T00:00:05Z",
+      },
+    ],
     evidenceInvestigation: {
       highestBand: "low",
       coverage: {

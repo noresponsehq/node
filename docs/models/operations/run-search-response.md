@@ -27,6 +27,7 @@ let value: RunSearchResponse = {
     estimatedSpend: 446142,
     spent: 584601,
     requestedBy: "user_2abc",
+    parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
     createdAt: "2026-01-01T00:00:00Z",
     finishedAt: "2026-01-01T00:00:05Z",
   },

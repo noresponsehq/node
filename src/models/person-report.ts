@@ -62,7 +62,7 @@ export type PersonReport = {
    */
   lookup?: ScreeningLookup | undefined;
   /**
-   * The searches people started on this person's values, newest first: each names the value, and the record and field it came from. Absent when nobody searched.
+   * The searches on this person's values in this group, newest first: each names the value, the record and field it came from, and the search that found that record. Absent when nothing was searched.
    */
   searches?: Array<Search> | undefined;
   /**

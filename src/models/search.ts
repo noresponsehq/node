@@ -9,7 +9,7 @@ import { SearchKind, SearchKind$inboundSchema } from "./search-kind.js";
 import { SearchStatus, SearchStatus$inboundSchema } from "./search-status.js";
 
 /**
- * One search a person started on a value of one of a person's records. Nothing searches again by itself.
+ * One search on a value of one of a person's records, started by a person or by enrichment.
  */
 export type Search = {
   searchId: string;
@@ -66,9 +66,17 @@ export type Search = {
    */
   errorCode?: ErrorCode | undefined;
   /**
-   * Who started the search.
+   * Who started the search: the member or key, or enrichment when the engine started it on a value an earlier result showed.
    */
   requestedBy: string;
+  /**
+   * The search that found the record this value came from. Absent when the record came from the person's investigation.
+   */
+  parentSearchId?: string | undefined;
+  /**
+   * How many searches lie between the person's investigation and this one, this one included: 1 for a value of a record the investigation found, 2 for a value of a record a depth-1 search found, and so on.
+   */
+  depth?: number | undefined;
   createdAt: string;
   finishedAt?: string | undefined;
 };
@@ -91,6 +99,8 @@ export const Search$inboundSchema: z.ZodMiniType<Search, unknown> = z.pipe(
     spent: types.number(),
     error_code: types.optional(ErrorCode$inboundSchema),
     requested_by: types.string(),
+    parent_search_id: types.optional(types.string()),
+    depth: types.optional(types.number()),
     created_at: types.string(),
     finished_at: types.optional(types.string()),
   }),
@@ -101,6 +111,7 @@ export const Search$inboundSchema: z.ZodMiniType<Search, unknown> = z.pipe(
       "estimated_spend": "estimatedSpend",
       "error_code": "errorCode",
       "requested_by": "requestedBy",
+      "parent_search_id": "parentSearchId",
       "created_at": "createdAt",
       "finished_at": "finishedAt",
     });

@@ -1,5 +1,12 @@
 # Changelog
 
+## 15.0.3
+
+* `sdk.groups.getPerson()`:  `response.searches[]` **Changed**
+* `sdk.groups.startSearch()`:  `response` **Changed**
+* `sdk.groups.runSearch()`:  `response` **Changed**
+* `sdk.people.get()`:  `response.searches` **Added**
+
 ## 15.0.2
 
 * `sdk.assessments.create()`:  `error.code.enum(evaluationUnavailable)` **Added**

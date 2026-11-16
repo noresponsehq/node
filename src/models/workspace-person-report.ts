@@ -26,6 +26,7 @@ import {
   ScreeningProfile,
   ScreeningProfile$inboundSchema,
 } from "./screening-profile.js";
+import { Search, Search$inboundSchema } from "./search.js";
 import {
   WrittenProfile,
   WrittenProfile$inboundSchema,
@@ -88,6 +89,10 @@ export type WorkspacePersonReport = {
    */
   lookup?: ScreeningLookup | undefined;
   /**
+   * Every search on this person's values, newest first, whether a person started it or enrichment did: each names the value, the record and field it came from, and the search that found that record. Absent when nothing was searched.
+   */
+  searches?: Array<Search> | undefined;
+  /**
    * True when evidence.read is explicitly denied. Submitted details, coverage, job status and decisions remain available. Collected records, profiles, findings, posts, media, discovered values and free-text decision notes are withheld.
    */
   evidenceRestricted?: boolean | undefined;
@@ -123,6 +128,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     posts: z.array(ScreeningPost$inboundSchema),
     media: z.array(ScreeningMedia$inboundSchema),
     lookup: types.optional(ScreeningLookup$inboundSchema),
+    searches: types.optional(z.array(Search$inboundSchema)),
     evidence_restricted: types.optional(types.boolean()),
     evidence_investigation: types.nullable(Investigation$inboundSchema),
     written_profile: types.nullable(WrittenProfile$inboundSchema),
