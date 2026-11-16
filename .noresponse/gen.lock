@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 54e4bb9c54eb530a9f36b878ab347026
+  docChecksum: b34d1d8123455973649afe9c9b166942
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 14.0.0
-  configChecksum: 64c0193ac8e70853a8dfa4946a5639cf
+  releaseVersion: 14.0.1
+  configChecksum: da93cb700d1710decc6dbb36dd1192c8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1523,9 +1523,9 @@ trackedFiles:
   docs/models/workspace-person.md:
     last_write_checksum: sha1:809b30a3f342212feb2c61f7abb4543c2f555309
   jsr.json:
-    last_write_checksum: sha1:066d0f7bd155a6e761f59a0e3d5afbda1c78f085
+    last_write_checksum: sha1:597c1eaa86b1fbf2e84d1041e8ad1b5c056e4d29
   package.json:
-    last_write_checksum: sha1:d2a319b733926ac38cc9a35450de60cce5809751
+    last_write_checksum: sha1:6e0bc380c8400dce90d8be14f594c0724300aaad
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1619,7 +1619,7 @@ trackedFiles:
   src/funcs/exports-retry.ts:
     last_write_checksum: sha1:4839b3fd2c24846a00311f1e9382f884b96bf1ea
   src/funcs/groups-add-people.ts:
-    last_write_checksum: sha1:c59705dc4a43a4e952fd33c5eb9dfde468d625cb
+    last_write_checksum: sha1:9091cdabe8c7f4f62ef7ce7f19a5321f63c223b3
   src/funcs/groups-cancel-screening.ts:
     last_write_checksum: sha1:b52e0a310444ea4843cd8ae76a9940b02edcbc1c
   src/funcs/groups-create.ts:
@@ -1797,7 +1797,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:a1310641230a82929bd466962963eba3e03c7467
+    last_write_checksum: sha1:ef05f4e8da3827174a7787d06410573d6ceb90ec
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -3017,7 +3017,7 @@ trackedFiles:
   src/sdk/exports.ts:
     last_write_checksum: sha1:f3235e861f811175c5b24154d11573e50f847270
   src/sdk/groups.ts:
-    last_write_checksum: sha1:ddba872d3eab0ca8d9fe5fe12c352bf29f0eb40c
+    last_write_checksum: sha1:fdad2f2ac0b7cf51fec0fae1da8304cae72acccb
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
   src/sdk/integrations.ts:
