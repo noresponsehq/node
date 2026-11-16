@@ -85,3 +85,21 @@ for (const operation of ["create person", "review investigation"]) {
     assert.equal(calls.length, 1);
   });
 }
+
+test("ongoing groups retain null dates and PATCH distinguishes omission from clearing", async () => {
+  const group = { id: "grp_example", environment: "test", name: "Harbour building", starts_at: null, ends_at: null, principals: [], topics: [], people: 0, version: 1, created_by: "test", created_at: person.created_at, updated_at: person.created_at };
+  const { nr, calls } = client([json(group, { status: 201 }), json(group), json(group), json(group)]);
+  const created = (await nr.groups.create({ body: { name: group.name } })).result;
+  assert.equal(created.startsAt, null);
+  assert.equal(created.endsAt, null);
+  await nr.groups.update({ groupId: group.id, body: { name: "Harbour organization" } });
+  await nr.groups.update({ groupId: group.id, body: { startsAt: "2026-12-03T09:00:00Z", endsAt: "2026-12-03T17:00:00Z" } });
+  await nr.groups.update({ groupId: group.id, body: { startsAt: null, endsAt: null } });
+  assert.deepEqual(calls.map(call => call.body), [{ name: group.name }, { name: "Harbour organization" }, { starts_at: "2026-12-03T09:00:00Z", ends_at: "2026-12-03T17:00:00Z" }, { starts_at: null, ends_at: null }]);
+});
+
+test("related ongoing groups decode null event starts", async () => {
+  const { OtherGroup$inboundSchema } = await import("../dist/esm/models/other-group.js");
+  const group = OtherGroup$inboundSchema.parse({"group_id":"grp_building","group_name":"Harbour building","group_starts_at":null,"person_id":"per_example","matched_on":["person_id"],"match_state":"unscreened","highest_band":null,"decision":null});
+  assert.equal(group.groupStartsAt, null);
+});

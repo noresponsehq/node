@@ -7,7 +7,7 @@ import {
 } from "./principal.js";
 
 /**
- * Changes the fields it names; at least one besides expected_version.
+ * Updates a group. Dates describe an optional event and do not control person retention.
  */
 export type GroupUpdate = {
   /**
@@ -15,13 +15,13 @@ export type GroupUpdate = {
    */
   name?: string | undefined;
   /**
-   * When the group starts.
+   * Optional event start; null for an ongoing group. Omit to keep the current value; send null to clear it.
    */
-  startsAt?: string | undefined;
+  startsAt?: string | null | undefined;
   /**
-   * When the group ends, at or after its start; the start when omitted.
+   * Optional event end; requires starts_at and must be at or after it. Null when no end is set. Omit to keep the current value; send null to clear it.
    */
-  endsAt?: string | undefined;
+  endsAt?: string | null | undefined;
   /**
    * Where the group is held.
    */
@@ -47,8 +47,8 @@ export type GroupUpdate = {
 /** @internal */
 export type GroupUpdate$Outbound = {
   name?: string | undefined;
-  starts_at?: string | undefined;
-  ends_at?: string | undefined;
+  starts_at?: string | null | undefined;
+  ends_at?: string | null | undefined;
   venue?: string | undefined;
   host?: string | undefined;
   principals?: Array<Principal$Outbound> | undefined;
@@ -63,8 +63,8 @@ export const GroupUpdate$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     name: z.optional(z.string()),
-    startsAt: z.optional(z.string()),
-    endsAt: z.optional(z.string()),
+    startsAt: z.optional(z.nullable(z.string())),
+    endsAt: z.optional(z.nullable(z.string())),
     venue: z.optional(z.string()),
     host: z.optional(z.string()),
     principals: z.optional(z.array(Principal$outboundSchema)),

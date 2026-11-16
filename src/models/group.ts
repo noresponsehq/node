@@ -11,7 +11,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Principal, Principal$inboundSchema } from "./principal.js";
 
 /**
- * A group and its screening context.
+ * A workspace group for a building, organization or event. Dates are optional and do not control person retention.
  */
 export type Group = {
   id: string;
@@ -21,13 +21,13 @@ export type Group = {
    */
   name: string;
   /**
-   * When the group starts.
+   * Optional event start; null for an ongoing group.
    */
-  startsAt: string;
+  startsAt: string | null;
   /**
-   * When the group ends, at or after its start; the start when omitted.
+   * Optional event end; requires starts_at and must be at or after it. Null when no end is set.
    */
-  endsAt: string;
+  endsAt: string | null;
   /**
    * Where the group is held.
    */
@@ -66,8 +66,8 @@ export const Group$inboundSchema: z.ZodMiniType<Group, unknown> = z.pipe(
     id: types.string(),
     environment: AuditSettingsEnvironment$inboundSchema,
     name: types.string(),
-    starts_at: types.string(),
-    ends_at: types.string(),
+    starts_at: types.nullable(types.string()),
+    ends_at: types.nullable(types.string()),
     venue: types.optional(types.string()),
     host: types.optional(types.string()),
     principals: z.array(Principal$inboundSchema),

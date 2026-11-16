@@ -475,3 +475,16 @@ for the expression shape, scope differences, permissions and pagination.
 Keep API keys and personal data out of issues.
 
 [Apache-2.0](LICENSE).
+
+### Ongoing groups and event dates
+
+```typescript
+const building = (await nr.groups.create({ body: { name: "Harbour building" } })).result;
+const meeting = (await nr.groups.create({ body: {
+  name: "Annual meeting", startsAt: "2026-12-03T09:00:00Z", endsAt: "2026-12-03T17:00:00Z",
+} })).result;
+await nr.groups.update({ groupId: meeting.id, body: { startsAt: null, endsAt: null } });
+```
+
+Dates are optional event context. Omitted PATCH fields stay unchanged; explicit null clears them.
+Both response date keys can be null. Person retention follows the workspace TTL independently.

@@ -7,7 +7,7 @@ import {
 } from "./principal.js";
 
 /**
- * Creates a group.
+ * Creates an ongoing group or an event with optional dates.
  */
 export type GroupRequest = {
   /**
@@ -15,13 +15,13 @@ export type GroupRequest = {
    */
   name: string;
   /**
-   * When the group starts.
+   * Optional event start; null for an ongoing group.
    */
-  startsAt: string;
+  startsAt?: string | null | undefined;
   /**
-   * When the group ends, at or after its start; the start when omitted.
+   * Optional event end; requires starts_at and must be at or after it. Null when no end is set.
    */
-  endsAt?: string | undefined;
+  endsAt?: string | null | undefined;
   /**
    * Where the group is held.
    */
@@ -43,8 +43,8 @@ export type GroupRequest = {
 /** @internal */
 export type GroupRequest$Outbound = {
   name: string;
-  starts_at: string;
-  ends_at?: string | undefined;
+  starts_at?: string | null | undefined;
+  ends_at?: string | null | undefined;
   venue?: string | undefined;
   host?: string | undefined;
   principals?: Array<Principal$Outbound> | undefined;
@@ -58,8 +58,8 @@ export const GroupRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     name: z.string(),
-    startsAt: z.string(),
-    endsAt: z.optional(z.string()),
+    startsAt: z.optional(z.nullable(z.string())),
+    endsAt: z.optional(z.nullable(z.string())),
     venue: z.optional(z.string()),
     host: z.optional(z.string()),
     principals: z.optional(z.array(Principal$outboundSchema)),

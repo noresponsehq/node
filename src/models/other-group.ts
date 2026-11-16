@@ -24,7 +24,10 @@ export type OtherGroupMatchedOn = OpenEnum<typeof OtherGroupMatchedOn>;
 export type OtherGroup = {
   groupId: string;
   groupName: string;
-  groupStartsAt: string;
+  /**
+   * The other group's optional event start; null for an ongoing group.
+   */
+  groupStartsAt: string | null;
   /**
    * The person on that group's list.
    */
@@ -71,7 +74,7 @@ export const OtherGroup$inboundSchema: z.ZodMiniType<OtherGroup, unknown> = z
     z.object({
       group_id: types.string(),
       group_name: types.string(),
-      group_starts_at: types.string(),
+      group_starts_at: types.nullable(types.string()),
       person_id: types.string(),
       matched_on: z.array(OtherGroupMatchedOn$inboundSchema),
       match_state: MatchState$inboundSchema,
