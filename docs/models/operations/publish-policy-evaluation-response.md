@@ -47,6 +47,13 @@ let value: PublishPolicyEvaluationResponse = {
       "breach",
     ],
     screeningDailyCap: 248626,
+    enrichment: {
+      mode: "automatic",
+      minLikelihood: 6152.89,
+      kinds: [],
+      maxSpend: null,
+      deadline: 787384,
+    },
   },
 };
 ```

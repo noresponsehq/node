@@ -50,6 +50,13 @@ let value: PolicyHistory = {
           "breach",
         ],
         screeningDailyCap: null,
+        enrichment: {
+          mode: "automatic",
+          minLikelihood: 6152.89,
+          kinds: [],
+          maxSpend: null,
+          deadline: 787384,
+        },
       },
       recordedAt: "2026-01-01T00:00:00Z",
       changeReason: "Adjust thresholds after reviewing retained evidence",

@@ -11,8 +11,6 @@ let value: GetSettingsResponse = {
       "example 1",
       "example 2",
     ],
-    "key1": [],
-    "key2": [],
   },
   result: {
     workspaceId: "tnt_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -54,6 +52,13 @@ let value: GetSettingsResponse = {
       "breach",
     ],
     screeningDailyCap: 248626,
+    enrichment: {
+      mode: "automatic",
+      minLikelihood: 6152.89,
+      kinds: [],
+      maxSpend: null,
+      deadline: 787384,
+    },
   },
 };
 ```

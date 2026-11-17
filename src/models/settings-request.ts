@@ -1,6 +1,11 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
 import {
+  EnrichmentChange,
+  EnrichmentChange$Outbound,
+  EnrichmentChange$outboundSchema,
+} from "./enrichment-change.js";
+import {
   SettingsRequestFlows,
   SettingsRequestFlows$Outbound,
   SettingsRequestFlows$outboundSchema,
@@ -20,6 +25,10 @@ export type SettingsRequest = {
    */
   screeningDailyCap?: number | null | undefined;
   /**
+   * A change to enrichment. A field left out keeps the value in force; max_spend or deadline null removes the bound.
+   */
+  enrichment?: EnrichmentChange | undefined;
+  /**
    * Use account_creation or its deprecated alias signup, not both.
    */
   flows?: SettingsRequestFlows | undefined;
@@ -35,6 +44,7 @@ export type SettingsRequest$Outbound = {
   retention_days?: number | undefined;
   refused_sources?: Array<string> | undefined;
   screening_daily_cap?: number | null | undefined;
+  enrichment?: EnrichmentChange$Outbound | undefined;
   flows?: SettingsRequestFlows$Outbound | undefined;
   expected_policy_version?: number | undefined;
   change_reason?: string | undefined;
@@ -49,6 +59,7 @@ export const SettingsRequest$outboundSchema: z.ZodMiniType<
     retentionDays: z.optional(z.int()),
     refusedSources: z.optional(z.array(z.string())),
     screeningDailyCap: z.optional(z.nullable(z.int())),
+    enrichment: z.optional(EnrichmentChange$outboundSchema),
     flows: z.optional(SettingsRequestFlows$outboundSchema),
     expectedPolicyVersion: z.optional(z.int()),
     changeReason: z.optional(z.string()),
