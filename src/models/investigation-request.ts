@@ -15,7 +15,10 @@ import {
  */
 export type InvestigationRequest = {
   depth: ScreeningDepth;
-  platforms: Array<string>;
+  /**
+   * The platforms to search. Leave it out for a full search: every platform a connector serves in the environment when the investigation starts, which the investigation then lists.
+   */
+  platforms?: Array<string> | undefined;
   personId: string;
   /**
    * A change to enrichment. A field left out keeps the value in force; max_spend or deadline null removes the bound.
@@ -26,7 +29,7 @@ export type InvestigationRequest = {
 /** @internal */
 export type InvestigationRequest$Outbound = {
   depth: string;
-  platforms: Array<string>;
+  platforms?: Array<string> | undefined;
   person_id: string;
   enrichment?: EnrichmentChange$Outbound | undefined;
 };
@@ -38,7 +41,7 @@ export const InvestigationRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     depth: ScreeningDepth$outboundSchema,
-    platforms: z.array(z.string()),
+    platforms: z.optional(z.array(z.string())),
     personId: z.string(),
     enrichment: z.optional(EnrichmentChange$outboundSchema),
   }),
