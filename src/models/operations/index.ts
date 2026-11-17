@@ -57,6 +57,7 @@ export * from "./get-settings.js";
 export * from "./get-usage.js";
 export * from "./get-workspace-person.js";
 export * from "./judge-record.js";
+export * from "./judge-workspace-person-record.js";
 export * from "./list-account-assessments.js";
 export * from "./list-account-credentials.js";
 export * from "./list-account-decisions.js";

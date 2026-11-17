@@ -1,6 +1,7 @@
 import { peopleCreate } from "../funcs/people-create.js";
 import { peopleDelete } from "../funcs/people-delete.js";
 import { peopleGet } from "../funcs/people-get.js";
+import { peopleJudgeRecord } from "../funcs/people-judge-record.js";
 import { peopleList } from "../funcs/people-list.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -69,6 +70,23 @@ export class People extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DeleteWorkspacePersonResponse | undefined> {
     return unwrapAsync(peopleDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Join one of a workspace person's records to them, or reject it.
+   *
+   * @remarks
+   * Records a verdict on one of the records the person report holds: joined makes the record the person's whatever its likelihood, and rejected keeps it a lead that leads nowhere. The verdict belongs to the person on their own: the person report and enrichment follow it, and each group keeps its own verdicts. It sticks for as long as the person's evidence holds the same record, and a later verdict on the same record replaces it. After each verdict, enrichment reads the person again under the environment's enrichment setting: it starts no search from a rejected record or from what a search of it found, and a joined record's values lead on. A record the person report does not hold answers 404. Each verdict is audited as person.record_judged. The decisions scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
+   */
+  async judgeRecord(
+    request: operations.JudgeWorkspacePersonRecordRequest,
+    options?: RequestOptions,
+  ): Promise<operations.JudgeWorkspacePersonRecordResponse> {
+    return unwrapAsync(peopleJudgeRecord(
       this,
       request,
       options,
