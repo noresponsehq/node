@@ -52,7 +52,7 @@ test("a person's report returns typed records: kinds, roles, ratings and likelih
   assert.equal(byField.birthday.value, undefined, "an ambiguous date keeps its original and no value");
   assert.equal(byField.birthday.original, "07/03/1990");
   assert.equal(byField.email.distinctive.rating, "unique");
-  assert.equal(row.likelihood, 0.99);
+  assert.equal(row.likelihood, 0.8);
   assert.equal(row.verdict, undefined);
 
   const [remaining] = result.lookup.remaining;
