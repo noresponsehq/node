@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 02e22d373b33d4e305d7753f14cdc20e
+  docChecksum: dd20329ab0b9f8c104abaf6058ac1d1f
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 15.0.9
-  configChecksum: 498f4ba87135597ebc7d49005a6bd747
+  releaseVersion: 15.0.10
+  configChecksum: dae85ce161e570d06846cfa9fce3ea13
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1269,7 +1269,7 @@ trackedFiles:
   docs/models/record-source.md:
     last_write_checksum: sha1:ada53fd6fdffa3fc7e61182d93c772348562975e
   docs/models/record-t.md:
-    last_write_checksum: sha1:06cafb638f29b2a6cc1e01a8f0d695febeab5c2b
+    last_write_checksum: sha1:f68d10cb0f3ceed29a0d0a2b6c6d268a3593d848
   docs/models/record-verdict-request.md:
     last_write_checksum: sha1:7bcb6c5d4b3518b453c03e579c96b28ce0cc52b0
   docs/models/record-verdict.md:
@@ -1569,9 +1569,9 @@ trackedFiles:
   docs/models/written-profile.md:
     last_write_checksum: sha1:bc6bfb3a768fe6bba40a960540a3c6dc03d2eaba
   jsr.json:
-    last_write_checksum: sha1:3871bde23390847a2d7f004fecbfefa13afe4b23
+    last_write_checksum: sha1:c398819dd01bcd0c767d7a38ee72f9cf917ede4e
   package.json:
-    last_write_checksum: sha1:2fc189ef5f4fe2eaa5d5a9e3bcfdcbd35850db0d
+    last_write_checksum: sha1:a7cd1adc6bc99fd53d60770f7c4504d251d4fe1d
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1697,7 +1697,7 @@ trackedFiles:
   src/funcs/groups-start-screening.ts:
     last_write_checksum: sha1:b4cf06f39e08d521f95191a093ae7930e975975c
   src/funcs/groups-start-search.ts:
-    last_write_checksum: sha1:cb8b5487f0a837e1e35d39077304a8d4f927c148
+    last_write_checksum: sha1:54c17628dbde6fbe872320c29231d6e4b8a85dfd
   src/funcs/groups-update.ts:
     last_write_checksum: sha1:a6e44c5769caa171d8b636c1ee822d253a78d208
   src/funcs/integrations-create.ts:
@@ -1771,7 +1771,7 @@ trackedFiles:
   src/funcs/people-run-search.ts:
     last_write_checksum: sha1:1c40b50e02777e9e8edfc81dd30711f852011174
   src/funcs/people-start-search.ts:
-    last_write_checksum: sha1:b1d454142e059b444a02452aad07352fc33be1cb
+    last_write_checksum: sha1:1c5d0b8d583f4b3a20c5d508a20064d508fa557e
   src/funcs/requests-aggregate.ts:
     last_write_checksum: sha1:086be79536a780dfebd3afd89bfa6c59adbe2f7c
   src/funcs/requests-list.ts:
@@ -1849,7 +1849,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:b686e495263d17bd3237d36240804f50d892cb61
+    last_write_checksum: sha1:69175d721eb3a585f43e5c4312873ec740f2114c
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2815,7 +2815,7 @@ trackedFiles:
   src/models/record-verdict.ts:
     last_write_checksum: sha1:f8578c747367b84faf370b2ec6a920ba467b4de7
   src/models/record.ts:
-    last_write_checksum: sha1:d286f92a5b27dbfffc0d8a345ac918c6abf29750
+    last_write_checksum: sha1:ea3a36822f1781ca9a5551993dbea214c42164fd
   src/models/report.ts:
     last_write_checksum: sha1:c9d3f96a0a9af8fe2fd6ac824bb5141b99aaca42
   src/models/request-aggregate-request-bucket.ts:
@@ -3105,7 +3105,7 @@ trackedFiles:
   src/sdk/exports.ts:
     last_write_checksum: sha1:f3235e861f811175c5b24154d11573e50f847270
   src/sdk/groups.ts:
-    last_write_checksum: sha1:ca14095eb1446b1d08796af36ff042b82521f30d
+    last_write_checksum: sha1:d949fb6abd3b660819a422a00aaf8d4362998200
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
   src/sdk/integrations.ts:
@@ -3125,7 +3125,7 @@ trackedFiles:
   src/sdk/operations.ts:
     last_write_checksum: sha1:a2c36bf3757954b30026bd937272d6fdacfaa421
   src/sdk/people.ts:
-    last_write_checksum: sha1:853a29c5131d834e815f472bbee6267cf032386a
+    last_write_checksum: sha1:d95eb59d0eb90253e8c29091389d10325c54708f
   src/sdk/requests.ts:
     last_write_checksum: sha1:6df100e6c941322f9a4a3e563fa75d16a66cf986
   src/sdk/reviews.ts:
