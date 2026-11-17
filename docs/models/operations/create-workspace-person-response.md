@@ -23,6 +23,7 @@ let value: CreateWorkspacePersonResponse = {
       phone: "+14155550100",
       company: "Example Ltd",
       city: "Melbourne",
+      username: "jordan_example",
       handles: [
         {
           platform: "bluesky",

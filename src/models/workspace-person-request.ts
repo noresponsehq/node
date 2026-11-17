@@ -27,6 +27,10 @@ export type WorkspacePersonRequest = {
    * Where the person lives.
    */
   city?: string | undefined;
+  /**
+   * A username the person uses, with no platform. A search looks it up on every platform that finds accounts by username.
+   */
+  username?: string | undefined;
   handles?: Array<Handle> | undefined;
   personId?: string | undefined;
 };
@@ -39,6 +43,7 @@ export type WorkspacePersonRequest$Outbound = {
   phone?: string | undefined;
   company?: string | undefined;
   city?: string | undefined;
+  username?: string | undefined;
   handles?: Array<Handle$Outbound> | undefined;
   person_id?: string | undefined;
 };
@@ -55,6 +60,7 @@ export const WorkspacePersonRequest$outboundSchema: z.ZodMiniType<
     phone: z.optional(z.string()),
     company: z.optional(z.string()),
     city: z.optional(z.string()),
+    username: z.optional(z.string()),
     handles: z.optional(z.array(Handle$outboundSchema)),
     personId: z.optional(z.string()),
   }),

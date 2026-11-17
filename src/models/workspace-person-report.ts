@@ -62,6 +62,10 @@ export type WorkspacePersonReport = {
    */
   city?: string | undefined;
   /**
+   * A username the person uses, with no platform. A search looks it up on every platform that finds accounts by username.
+   */
+  username?: string | undefined;
+  /**
    * Accounts the person is known to hold, at most 20.
    */
   handles?: Array<Handle> | undefined;
@@ -126,6 +130,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     phone: types.optional(types.string()),
     company: types.optional(types.string()),
     city: types.optional(types.string()),
+    username: types.optional(types.string()),
     handles: types.optional(z.array(Handle$inboundSchema)),
     id: types.string(),
     created_at: types.string(),

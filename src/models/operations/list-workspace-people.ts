@@ -11,6 +11,14 @@ export type ListWorkspacePeopleRequest = {
    * Pass next_cursor from the prior page.
    */
   after?: string | undefined;
+  /**
+   * Return only people whose email is this address, compared without case or surrounding spaces.
+   */
+  email?: string | undefined;
+  /**
+   * Return only people whose phone is this number, compared without surrounding spaces.
+   */
+  phone?: string | undefined;
 };
 
 export type ListWorkspacePeopleResponse = {
@@ -22,6 +30,8 @@ export type ListWorkspacePeopleResponse = {
 export type ListWorkspacePeopleRequest$Outbound = {
   limit: number;
   after?: string | undefined;
+  email?: string | undefined;
+  phone?: string | undefined;
 };
 
 /** @internal */
@@ -31,6 +41,8 @@ export const ListWorkspacePeopleRequest$outboundSchema: z.ZodMiniType<
 > = z.object({
   limit: z._default(z.int(), 100),
   after: z.optional(z.string()),
+  email: z.optional(z.string()),
+  phone: z.optional(z.string()),
 });
 
 export function listWorkspacePeopleRequestToJSON(
