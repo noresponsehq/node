@@ -28,6 +28,10 @@ import {
   ScreeningProfile$inboundSchema,
 } from "./screening-profile.js";
 import { Search, Search$inboundSchema } from "./search.js";
+import {
+  SuggestedSearch,
+  SuggestedSearch$inboundSchema,
+} from "./suggested-search.js";
 
 /**
  * Everything known about one person, and where else in the environment they appear.
@@ -66,6 +70,10 @@ export type PersonReport = {
    */
   searches?: Array<Search> | undefined;
   /**
+   * The searches enrichment would start on this person in this group, likeliest record first. Group screening follows the environment's enrichment setting, with suggest as its mode while the workspace has not set one. In off mode the list is empty. In suggest mode enrichment starts none of them by itself; in automatic mode it starts them as its limits allow. Empty when evidence.read is denied.
+   */
+  suggestedSearches: Array<SuggestedSearch>;
+  /**
    * Where else in the environment the person appears, read live from those groups: deleting one removes it here.
    */
   otherGroups: OtherGroups;
@@ -87,11 +95,13 @@ export const PersonReport$inboundSchema: z.ZodMiniType<PersonReport, unknown> =
       reviews: z.array(PersonReview$inboundSchema),
       lookup: types.optional(ScreeningLookup$inboundSchema),
       searches: types.optional(z.array(Search$inboundSchema)),
+      suggested_searches: z.array(SuggestedSearch$inboundSchema),
       other_groups: OtherGroups$inboundSchema,
       evidence_restricted: types.optional(types.boolean()),
     }),
     z.transform((v) => {
       return remap$(v, {
+        "suggested_searches": "suggestedSearches",
         "other_groups": "otherGroups",
         "evidence_restricted": "evidenceRestricted",
       });

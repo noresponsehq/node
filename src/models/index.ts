@@ -418,6 +418,8 @@ export * from "./signing-key.js";
 export * from "./signing-secret.js";
 export * from "./source.js";
 export * from "./status.js";
+export * from "./suggested-search-kind.js";
+export * from "./suggested-search.js";
 export * from "./thresholds.js";
 export * from "./topic.js";
 export * from "./transport.js";

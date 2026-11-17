@@ -7,18 +7,10 @@ import { GetWorkspacePersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetWorkspacePersonResponse = {
   headers: {
-    "key": [
-      "example 1",
-    ],
+    "key": [],
     "key1": [
       "example 1",
       "example 2",
-      "example 3",
-    ],
-    "key2": [
-      "example 1",
-      "example 2",
-      "example 3",
     ],
   },
   result: {
@@ -224,8 +216,16 @@ let value: GetWorkspacePersonResponse = {
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
+    suggestedSearches: [
+      {
+        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        field: "username",
+        kind: "username",
+        likelihood: 0.87,
+      },
+    ],
     evidenceInvestigation: {
-      highestBand: "low",
+      highestBand: "critical",
       coverage: {
         accountsFound: 862118,
         accountsAccessible: 501876,
@@ -247,19 +247,19 @@ let value: GetWorkspacePersonResponse = {
           },
         ],
       },
-      decision: null,
+      decision: "escalated",
       decisionNote: "Source records reviewed.",
       decidedBy: "user_investigator",
       decidedAt: "2026-01-01T00:00:00Z",
       id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      status: "running",
+      status: "cancelled",
       depth: "standard",
       platforms: [
         "x",
       ],
-      matchState: "none_found",
+      matchState: null,
       errorCode: "expired",
       createdAt: "2026-01-01T00:00:00Z",
       startedAt: "2026-01-01T00:00:00Z",
@@ -267,7 +267,38 @@ let value: GetWorkspacePersonResponse = {
       expiresAt: "2026-02-01T00:00:00Z",
       deadlineAt: "2026-01-01T00:00:00Z",
     },
-    writtenProfile: null,
+    writtenProfile: {
+      status: "written",
+      investigationId: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      queuedAt: "2026-01-01T00:00:00Z",
+      finishedAt: "2026-01-01T00:00:11Z",
+      summary: "Likely lives in Lisbon and uses one username across sites.",
+      statements: [
+        {
+          topic: "credentials",
+          text: "Lived in Lisbon in 2019.",
+          certainty: "possible",
+          basis: "inferred",
+          alternatives: [
+            "A holiday address.",
+          ],
+          evidence: [],
+        },
+      ],
+      leads: [
+        {
+          value: "jordan.example@example.net",
+          kind: "email",
+          why: "A linked record holds an older address.",
+          evidence: [
+            {
+              kind: "record",
+              id: "rec_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            },
+          ],
+        },
+      ],
+    },
   },
 };
 ```

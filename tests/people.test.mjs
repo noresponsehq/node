@@ -72,7 +72,7 @@ test("investigation retries keep the same key and person", async () => {
 test("workspace person and investigation reads retain complete structured records", async () => {
   const { profiles, findings, posts, media, lookup, reviews } = groupReport;
   const { nr, calls } = client([
-    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile }),
+    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile, suggested_searches: [] }),
     json({ person, investigation, profiles, findings, posts, media, lookup, reviews }),
   ]);
   const latest = (await nr.people.get({ personId: person.id })).result;

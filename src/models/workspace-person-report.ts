@@ -28,6 +28,10 @@ import {
 } from "./screening-profile.js";
 import { Search, Search$inboundSchema } from "./search.js";
 import {
+  SuggestedSearch,
+  SuggestedSearch$inboundSchema,
+} from "./suggested-search.js";
+import {
   WrittenProfile,
   WrittenProfile$inboundSchema,
 } from "./written-profile.js";
@@ -93,6 +97,10 @@ export type WorkspacePersonReport = {
    */
   searches?: Array<Search> | undefined;
   /**
+   * The searches enrichment would start on this person, likeliest record first, under the environment's enrichment setting for a person's own investigation. In off mode the list is empty. In suggest mode enrichment starts none of them by itself; in automatic mode it starts them as its limits allow. Empty when evidence.read is denied.
+   */
+  suggestedSearches: Array<SuggestedSearch>;
+  /**
    * True when evidence.read is explicitly denied. Submitted details, coverage, job status and decisions remain available. Collected records, profiles, findings, posts, media, discovered values and free-text decision notes are withheld.
    */
   evidenceRestricted?: boolean | undefined;
@@ -129,6 +137,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     media: z.array(ScreeningMedia$inboundSchema),
     lookup: types.optional(ScreeningLookup$inboundSchema),
     searches: types.optional(z.array(Search$inboundSchema)),
+    suggested_searches: z.array(SuggestedSearch$inboundSchema),
     evidence_restricted: types.optional(types.boolean()),
     evidence_investigation: types.nullable(Investigation$inboundSchema),
     written_profile: types.nullable(WrittenProfile$inboundSchema),
@@ -139,6 +148,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
       "created_at": "createdAt",
       "updated_at": "updatedAt",
       "expires_at": "expiresAt",
+      "suggested_searches": "suggestedSearches",
       "evidence_restricted": "evidenceRestricted",
       "evidence_investigation": "evidenceInvestigation",
       "written_profile": "writtenProfile",

@@ -7,9 +7,10 @@ import { GetPersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetPersonResponse = {
   headers: {
-    "key": [],
-    "key1": [
+    "key": [
       "example 1",
+      "example 2",
+      "example 3",
     ],
   },
   result: {
@@ -293,9 +294,23 @@ let value: GetPersonResponse = {
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
+    suggestedSearches: [],
     otherGroups: {
-      total: 298226,
-      items: [],
+      total: 441806,
+      items: [
+        {
+          groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+          groupName: "Spring gala",
+          groupStartsAt: "2025-09-01T09:00:00Z",
+          personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+          matchedOn: [],
+          matchState: "probable",
+          highestBand: "info",
+          decision: "escalated",
+          decidedBy: "user_2abc",
+          decidedAt: "2025-09-01T12:00:00Z",
+        },
+      ],
     },
   },
 };

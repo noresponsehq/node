@@ -11,7 +11,7 @@ let value: ProfileLead = {
   why: "A linked record holds an older address.",
   evidence: [
     {
-      kind: "check",
+      kind: "record",
       id: "rec_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     },
   ],
