@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 8fe54e7b8d2b2d49d5add7884367b383
+  docChecksum: fc9852fb87d2018ce32c40316c7b7f68
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 15.0.14
-  configChecksum: 8a4781710e43e646855a7c42f454d2b7
+  releaseVersion: 15.0.15
+  configChecksum: e814fc2434d083633fff6b739e651cb3
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1397,9 +1397,9 @@ trackedFiles:
   docs/models/screening-lookup.md:
     last_write_checksum: sha1:a22bf01ff5b5452c1b6b63b01da6e7dc7077e8b9
   docs/models/screening-match-evidence-kind.md:
-    last_write_checksum: sha1:a47d636d015879191919cd9915deac6a0fa09721
+    last_write_checksum: sha1:6f70d9d63af388c46f6d945392d590f14ed5dded
   docs/models/screening-match-evidence.md:
-    last_write_checksum: sha1:2bcb2d23e5bbe09ac101c8b25cc8e4307a6cc967
+    last_write_checksum: sha1:99961bb4cc65522409d53365bc98bece70a6671e
   docs/models/screening-match.md:
     last_write_checksum: sha1:403a1cd2548c96a2fcdd190624aa89e14c623b10
   docs/models/screening-media-observation.md:
@@ -1569,9 +1569,9 @@ trackedFiles:
   docs/models/written-profile.md:
     last_write_checksum: sha1:bc6bfb3a768fe6bba40a960540a3c6dc03d2eaba
   jsr.json:
-    last_write_checksum: sha1:1cf2d94d270b323edbf756f5b82ec684cd1bac29
+    last_write_checksum: sha1:d33d74dd2b85ec65eca92dc4f2a9154020e44dd4
   package.json:
-    last_write_checksum: sha1:3ecda2572c1a3892ee4b5ac2651b5c820056c4a9
+    last_write_checksum: sha1:d6d9d5f410abb4efff4ea20f945277bb5056f5e8
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1849,7 +1849,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:32eaf89b6efc9e1c864eef479ba77144d10f7b83
+    last_write_checksum: sha1:99959652e91e13503e4a80c20d1d58120a4827bb
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2937,9 +2937,9 @@ trackedFiles:
   src/models/screening-lookup.ts:
     last_write_checksum: sha1:6e73f3ea513b513711541db6eebe9174eb93d9cb
   src/models/screening-match-evidence-kind.ts:
-    last_write_checksum: sha1:9cb6a82070e643e4c9e164e5dba605455b648908
+    last_write_checksum: sha1:bd059b681517670f111732c59ca63d1a53f5b5ab
   src/models/screening-match-evidence.ts:
-    last_write_checksum: sha1:26ac775c784a1ed9d00a798328d86eeab79557af
+    last_write_checksum: sha1:7ef601a6857c88b0381c9a7eb5c8a8151b8470d1
   src/models/screening-match.ts:
     last_write_checksum: sha1:d249b8d7bf71209cde03cde0a200973e4de38b71
   src/models/screening-media-observation.ts:
