@@ -42,6 +42,10 @@ export type RecordField = {
    * How distinctive a searchable value is: an email, phone, username, password, hash, person name or IP. Absent for other values, for a field with no value, and when its rating could not be worked out, such as when a count failed. Linkage weighs a password, hash or username by these numbers: the rarer the value, the more a shared one counts.
    */
   distinctive?: RecordDistinctive | undefined;
+  /**
+   * True when the value tells an investigator nothing on its own: a setting flag, a zero count, a bare number or a value with no letter or digit, in a field with no role. A field with a role is not noise. Investigation views hide noise by default; the field is still returned in full.
+   */
+  noise?: boolean | undefined;
 };
 
 /** @internal */
@@ -54,6 +58,7 @@ export const RecordField$inboundSchema: z.ZodMiniType<RecordField, unknown> = z
     value: types.optional(types.string()),
     detail: types.optional(types.string()),
     distinctive: types.optional(RecordDistinctive$inboundSchema),
+    noise: types.optional(types.boolean()),
   });
 
 export function recordFieldFromJSON(
