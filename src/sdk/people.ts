@@ -3,6 +3,7 @@ import { peopleDelete } from "../funcs/people-delete.js";
 import { peopleGet } from "../funcs/people-get.js";
 import { peopleJudgeRecord } from "../funcs/people-judge-record.js";
 import { peopleList } from "../funcs/people-list.js";
+import { peopleReviewChange } from "../funcs/people-review-change.js";
 import { peopleRunSearch } from "../funcs/people-run-search.js";
 import { peopleStartSearch } from "../funcs/people-start-search.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -123,6 +124,23 @@ export class People extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.RunWorkspacePersonSearchResponse> {
     return unwrapAsync(peopleRunSearch(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Mark a change on a workspace person reviewed.
+   *
+   * @remarks
+   * Marks one change between a person's investigations reviewed, so it sorts below the unreviewed ones. Reviewing again keeps the first reviewer and time. Reviewing a change is not a decision on the person. The body is an empty object. Each review is audited as person.change_reviewed. The decisions scope grants this operation. Explicit evidence.read restrictions withhold before and after. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
+   */
+  async reviewChange(
+    request: operations.ReviewWorkspacePersonChangeRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ReviewWorkspacePersonChangeResponse> {
+    return unwrapAsync(peopleReviewChange(
       this,
       request,
       options,

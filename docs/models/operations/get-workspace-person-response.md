@@ -6,7 +6,14 @@
 import { GetWorkspacePersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetWorkspacePersonResponse = {
-  headers: {},
+  headers: {
+    "key": [
+      "example 1",
+      "example 2",
+      "example 3",
+    ],
+    "key1": [],
+  },
   result: {
     externalId: "case-person-1042",
     name: "Jordan Example",
@@ -328,6 +335,7 @@ let value: GetWorkspacePersonResponse = {
         },
       ],
     },
+    changes: [],
   },
 };
 ```

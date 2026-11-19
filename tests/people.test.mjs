@@ -71,8 +71,9 @@ test("investigation retries keep the same key and person", async () => {
 
 test("workspace person and investigation reads retain complete structured records", async () => {
   const { profiles, findings, posts, media, lookup, reviews } = groupReport;
+  const change = { id: "chg_01JAAAAAAAAAAAAAAAAAAAAAAA", kind: "account_added", significance: "high", source: "github", investigation_id: investigation.id, previous_investigation_id: investigation.id, created_at: "2026-11-15T10:05:11Z", reviewed_at: null };
   const { nr, calls } = client([
-    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile, suggested_searches: [] }),
+    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile, suggested_searches: [], changes: [change] }),
     json({ person, investigation, profiles, findings, posts, media, lookup, reviews }),
   ]);
   const latest = (await nr.people.get({ personId: person.id })).result;
@@ -83,6 +84,8 @@ test("workspace person and investigation reads retain complete structured record
   assert.equal(new Date(latest.writtenProfile.finishedAt).toISOString(), "2026-11-15T10:05:11.000Z");
   assert.deepEqual(latest.writtenProfile.statements[0].evidence, [{ kind: "check", id: "c1" }]);
   assert.equal(latest.writtenProfile.leads[0].value, "jordan-example");
+  assert.equal(latest.changes[0].significance, "high");
+  assert.equal(latest.changes[0].reviewedAt, null);
   assert.equal(history.investigation.groupId, null);
   assert.equal(history.lookup.records[0].source.site, "github.com");
   assert.deepEqual(calls.map(call => new URL(call.url).pathname), [`/v1/people/${person.id}`, `/v1/investigations/${investigation.id}`]);

@@ -6,6 +6,7 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Handle, Handle$inboundSchema } from "./handle.js";
 import { Investigation, Investigation$inboundSchema } from "./investigation.js";
+import { PersonChange, PersonChange$inboundSchema } from "./person-change.js";
 import {
   ScreeningFinding,
   ScreeningFinding$inboundSchema,
@@ -116,6 +117,10 @@ export type WorkspacePersonReport = {
    * An investigator's profile of this person, written from the evidence of a settled investigation. Null until an investigation completes or partially completes, and null when evidence.read is denied.
    */
   writtenProfile: WrittenProfile | null;
+  /**
+   * What changed between each settled investigation of this person and the one before it, unreviewed first, then most significant, then newest. The first investigation records no changes. When evidence.read is denied, before and after are withheld.
+   */
+  changes: Array<PersonChange>;
 };
 
 /** @internal */
@@ -146,6 +151,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     evidence_restricted: types.optional(types.boolean()),
     evidence_investigation: types.nullable(Investigation$inboundSchema),
     written_profile: types.nullable(WrittenProfile$inboundSchema),
+    changes: z.array(PersonChange$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {
