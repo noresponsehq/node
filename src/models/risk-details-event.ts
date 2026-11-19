@@ -9,10 +9,10 @@ import {
   FootprintFamily$outboundSchema,
 } from "./footprint-family.js";
 import {
-  Identifier,
-  Identifier$inboundSchema,
-  Identifier$outboundSchema,
-} from "./identifier.js";
+  RiskDetailsEventIdentifier,
+  RiskDetailsEventIdentifier$inboundSchema,
+  RiskDetailsEventIdentifier$outboundSchema,
+} from "./risk-details-event-identifier.js";
 import {
   RiskDetailsEventKind,
   RiskDetailsEventKind$inboundSchema,
@@ -29,7 +29,7 @@ export type RiskDetailsEvent = {
    * The source-neutral kind of evidence: account_presence (an account found on a site), auth_provider (the account at your auth provider), breach (breach and credential tables), breach_abuse (abuse and fraud communities' tables) and code_hosting (a code hosting profile).
    */
   family: FootprintFamily;
-  identifier: Identifier;
+  identifier: RiskDetailsEventIdentifier;
 };
 
 /** @internal */
@@ -43,7 +43,7 @@ export const RiskDetailsEvent$inboundSchema: z.ZodMiniType<
   site: types.string(),
   category: types.string(),
   family: FootprintFamily$inboundSchema,
-  identifier: Identifier$inboundSchema,
+  identifier: RiskDetailsEventIdentifier$inboundSchema,
 });
 /** @internal */
 export type RiskDetailsEvent$Outbound = {
@@ -67,7 +67,7 @@ export const RiskDetailsEvent$outboundSchema: z.ZodMiniType<
   site: z.string(),
   category: z.string(),
   family: FootprintFamily$outboundSchema,
-  identifier: Identifier$outboundSchema,
+  identifier: RiskDetailsEventIdentifier$outboundSchema,
 });
 
 export function riskDetailsEventToJSON(

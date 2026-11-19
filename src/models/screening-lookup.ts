@@ -12,6 +12,10 @@ import { RecordT, RecordT$inboundSchema } from "./record.js";
 import { RiskDetails, RiskDetails$inboundSchema } from "./risk-details.js";
 import { RiskSummary, RiskSummary$inboundSchema } from "./risk-summary.js";
 import {
+  ScreeningLookupAnswer,
+  ScreeningLookupAnswer$inboundSchema,
+} from "./screening-lookup-answer.js";
+import {
   ScreeningLookupCheck,
   ScreeningLookupCheck$inboundSchema,
 } from "./screening-lookup-check.js";
@@ -24,6 +28,10 @@ export type ScreeningLookup = {
    * Each lane each identifier was looked up in, identifiers in the order email, phone, username and lanes in the order accounts, phone, breach, domain. Every lane the person's identifiers are looked up in is listed: one that no source answered, or that no source could be asked in, is not_covered. Empty when the person has no email, phone or handle to look up.
    */
   checks: Array<ScreeningLookupCheck>;
+  /**
+   * Each source asked, with what it answered and when. answered_at is absent while the source has not answered.
+   */
+  answers?: Array<ScreeningLookupAnswer> | undefined;
   /**
    * A few typed facts per identifier: an assessment's risk.summary, and a screened person's lookup summary. Every fact is optional: absent means the evidence did not answer and makes no claim, while false or 0 is a definite answer.
    */
@@ -53,6 +61,7 @@ export const ScreeningLookup$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     checks: z.array(ScreeningLookupCheck$inboundSchema),
+    answers: types.optional(z.array(ScreeningLookupAnswer$inboundSchema)),
     summary: types.optional(RiskSummary$inboundSchema),
     details: types.optional(RiskDetails$inboundSchema),
     records: types.optional(z.array(RecordT$inboundSchema)),

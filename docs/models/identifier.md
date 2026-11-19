@@ -5,7 +5,7 @@
 ```typescript
 import { Identifier } from "@noresponse/node/models";
 
-let value: Identifier = "email";
+let value: Identifier = "phone";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: Identifier = "email";
 ## Values
 
 ```typescript
-"email" | "username" | Unrecognized<string>
+"email" | "phone" | "username" | "name" | Unrecognized<string>
 ```

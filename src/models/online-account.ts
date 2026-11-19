@@ -17,10 +17,10 @@ import {
   FailureReason$outboundSchema,
 } from "./failure-reason.js";
 import {
-  Identifier,
-  Identifier$inboundSchema,
-  Identifier$outboundSchema,
-} from "./identifier.js";
+  RiskDetailsEventIdentifier,
+  RiskDetailsEventIdentifier$inboundSchema,
+  RiskDetailsEventIdentifier$outboundSchema,
+} from "./risk-details-event-identifier.js";
 import {
   SignalOutcome,
   SignalOutcome$inboundSchema,
@@ -50,7 +50,7 @@ export type OnlineAccount = {
    * The platform's domain, lower case: the host its logo is fetched for.
    */
   domain: string;
-  identifier: Identifier;
+  identifier: RiskDetailsEventIdentifier;
   /**
    * Per-signal outcome. A source that timed out, was blocked or errored reports blocked, unavailable or inconclusive with a reason and is listed in incomplete_sources; not_found is a definite absence.
    */
@@ -100,7 +100,7 @@ export const OnlineAccount$inboundSchema: z.ZodMiniType<
   z.object({
     name: types.string(),
     domain: types.string(),
-    identifier: Identifier$inboundSchema,
+    identifier: RiskDetailsEventIdentifier$inboundSchema,
     outcome: SignalOutcome$inboundSchema,
     reason: types.optional(FailureReason$inboundSchema),
     sign_in: types.optional(z.array(SignIn$inboundSchema)),
@@ -143,7 +143,7 @@ export const OnlineAccount$outboundSchema: z.ZodMiniType<
   z.object({
     name: z.string(),
     domain: z.string(),
-    identifier: Identifier$outboundSchema,
+    identifier: RiskDetailsEventIdentifier$outboundSchema,
     outcome: SignalOutcome$outboundSchema,
     reason: z.optional(FailureReason$outboundSchema),
     signIn: z.optional(z.array(SignIn$outboundSchema)),

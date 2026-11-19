@@ -1,5 +1,11 @@
 # Changelog
 
+## 16.0.5
+
+* `sdk.groups.getPerson()`:  `response.lookup.answers` **Added**
+* `sdk.people.get()`:  `response.lookup.answers` **Added**
+* `sdk.investigations.get()`:  `response.lookup.answers` **Added**
+
 ## 16.0.4
 
 * `sdk.people.reviewChange()`: **Added**
