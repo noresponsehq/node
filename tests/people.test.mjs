@@ -73,7 +73,7 @@ test("workspace person and investigation reads retain complete structured record
   const { profiles, findings, posts, media, lookup, reviews } = groupReport;
   const change = { id: "chg_01JAAAAAAAAAAAAAAAAAAAAAAA", kind: "account_added", significance: "high", source: "github", investigation_id: investigation.id, previous_investigation_id: investigation.id, created_at: "2026-11-15T10:05:11Z", reviewed_at: null };
   const { nr, calls } = client([
-    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile, suggested_searches: [], changes: [change] }),
+    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile, suggested_searches: [], changes: [change], groups: [{ group_id: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", group_name: "Annual shareholder meeting", group_starts_at: null, role: "crew", added_at: "2026-11-15T10:00:00Z" }] }),
     json({ person, investigation, profiles, findings, posts, media, lookup, reviews }),
   ]);
   const latest = (await nr.people.get({ personId: person.id })).result;
@@ -86,6 +86,9 @@ test("workspace person and investigation reads retain complete structured record
   assert.equal(latest.writtenProfile.leads[0].value, "jordan-example");
   assert.equal(latest.changes[0].significance, "high");
   assert.equal(latest.changes[0].reviewedAt, null);
+  assert.equal(latest.groups[0].groupId, "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM");
+  assert.equal(latest.groups[0].role, "crew");
+  assert.equal(latest.groups[0].groupStartsAt, null);
   assert.equal(history.investigation.groupId, null);
   assert.equal(history.lookup.records[0].source.site, "github.com");
   assert.deepEqual(calls.map(call => new URL(call.url).pathname), [`/v1/people/${person.id}`, `/v1/investigations/${investigation.id}`]);

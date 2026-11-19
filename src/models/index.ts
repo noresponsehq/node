@@ -266,6 +266,7 @@ export * from "./person-decision.js";
 export * from "./person-flagged-event.js";
 export * from "./person-flagged-match-state.js";
 export * from "./person-flagged.js";
+export * from "./person-group.js";
 export * from "./person-identity.js";
 export * from "./person-list.js";
 export * from "./person-match.js";

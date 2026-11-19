@@ -32,7 +32,54 @@ let value: GetWorkspacePersonResponse = {
     createdAt: "2026-01-01T00:00:00Z",
     updatedAt: "2026-01-01T00:00:00Z",
     expiresAt: "2026-02-01T00:00:00Z",
-    profiles: [],
+    groups: [],
+    profiles: [
+      {
+        id: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        platform: "bluesky",
+        handle: "jordanexample42",
+        url: "https://synthetic.invalid/synthetic/jordanexample42",
+        displayName: "Jordan Example",
+        bio: "Engineer at Example Ltd in Melbourne.",
+        avatarUrl: "https://synthetic.invalid/avatar/3f9a1c22d4e5b6a7.png",
+        accountCreatedAt: "2019-01-01T00:00:00Z",
+        access: "public",
+        match: {
+          state: "possible",
+          evidence: [],
+        },
+        collector: "synthetic",
+        itemsRead: 443528,
+        periodFrom: "2026-01-01T00:00:00Z",
+        periodTo: "2026-01-02T00:00:00Z",
+        collectedAt: "2026-01-02T00:00:00Z",
+        record: {
+          id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+          source: {
+            connector: "bluesky",
+            kind: "platform",
+            site: "bsky.app",
+            table: "users",
+            date: "2019-03",
+          },
+          matched: [
+            {
+              by: "handle",
+              field: "username",
+              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            },
+          ],
+          fields: [],
+          observedAt: "2026-01-02T00:00:00Z",
+          agreed: [
+            "lastip",
+          ],
+          clashed: [
+            "dob",
+          ],
+        },
+      },
+    ],
     findings: [
       {
         id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -85,23 +132,7 @@ let value: GetWorkspacePersonResponse = {
         capturedAt: "2026-01-01T00:00:00Z",
       },
     ],
-    media: [
-      {
-        id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        kind: "media",
-        postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        mediaType: "image",
-        mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
-        coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
-        text: "A photo",
-        profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
-        postedAt: "2026-01-01T00:00:00Z",
-        screenshotSha256:
-          "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
-        capturedAt: "2026-01-01T00:00:00Z",
-      },
-    ],
+    media: [],
     lookup: {
       checks: [
         {
@@ -246,7 +277,14 @@ let value: GetWorkspacePersonResponse = {
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
-    suggestedSearches: [],
+    suggestedSearches: [
+      {
+        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        field: "username",
+        kind: "username",
+        likelihood: 0.87,
+      },
+    ],
     evidenceInvestigation: {
       highestBand: "info",
       coverage: {
@@ -280,19 +318,19 @@ let value: GetWorkspacePersonResponse = {
           },
         ],
       },
-      decision: "escalated",
+      decision: "watch",
       decisionNote: "Source records reviewed.",
       decidedBy: "user_investigator",
       decidedAt: "2026-01-01T00:00:00Z",
       id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      status: "completed",
+      status: "cancelled",
       depth: "standard",
       platforms: [
         "x",
       ],
-      matchState: "unscreened",
+      matchState: null,
       errorCode: "expired",
       createdAt: "2026-01-01T00:00:00Z",
       startedAt: "2026-01-01T00:00:00Z",

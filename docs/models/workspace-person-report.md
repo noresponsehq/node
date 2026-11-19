@@ -25,33 +25,82 @@ let value: WorkspacePersonReport = {
   createdAt: "2026-01-01T00:00:00Z",
   updatedAt: "2026-01-01T00:00:00Z",
   expiresAt: "2026-02-01T00:00:00Z",
-  profiles: [],
-  findings: [
+  groups: [],
+  profiles: [
     {
-      id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      category: "violent_extremism",
-      band: "info",
-      confidence: 724.94,
-      rationale: "The post reports when the principal leaves the hotel.",
-      quote:
-        "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
-      evidence: [
-        "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      ],
-      mediaObservations: [
-        {
-          mediaId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          description: "A handwritten sign held up outside the venue.",
-          readText: "SEE YOU ON THE 1ST",
+      id: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      platform: "bluesky",
+      handle: "jordanexample42",
+      url: "https://synthetic.invalid/synthetic/jordanexample42",
+      displayName: "Jordan Example",
+      bio: "Engineer at Example Ltd in Melbourne.",
+      avatarUrl: "https://synthetic.invalid/avatar/3f9a1c22d4e5b6a7.png",
+      accountCreatedAt: "2019-01-01T00:00:00Z",
+      access: "public",
+      match: {
+        state: "possible",
+        evidence: [],
+      },
+      collector: "synthetic",
+      itemsRead: 443528,
+      periodFrom: "2026-01-01T00:00:00Z",
+      periodTo: "2026-01-02T00:00:00Z",
+      collectedAt: "2026-01-02T00:00:00Z",
+      record: {
+        id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        source: {
+          connector: "bluesky",
+          kind: "platform",
+          site: "bsky.app",
+          table: "users",
+          date: "2019-03",
         },
-      ],
-      analyser: "synthetic",
-      model: "synthetic-1",
-      spendMinor: 734559,
-      createdAt: "2026-01-01T00:00:00Z",
+        matched: [
+          {
+            by: "handle",
+            field: "username",
+            search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          },
+        ],
+        fields: [],
+        observedAt: "2026-01-02T00:00:00Z",
+        agreed: [
+          "lastip",
+        ],
+        clashed: [
+          "dob",
+        ],
+      },
     },
   ],
-  posts: [],
+  findings: [],
+  posts: [
+    {
+      id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      kind: "post",
+      text: "Great coffee this morning before the commute.",
+      replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
+      repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
+      quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
+      place: {
+        name: "Example Harbour",
+        id: "212988663",
+        address: "2 Wharf Road",
+        city: "Melbourne",
+      },
+      tagged: [
+        "caseyexample7",
+      ],
+      language: "en",
+      postedWith: "Twitter for iPhone",
+      profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+      permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
+      postedAt: "2026-01-01T00:00:00Z",
+      screenshotSha256:
+        "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
+      capturedAt: "2026-01-01T00:00:00Z",
+    },
+  ],
   media: [
     {
       id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -213,15 +262,60 @@ let value: WorkspacePersonReport = {
       finishedAt: "2026-01-01T00:00:05Z",
     },
   ],
-  suggestedSearches: [
-    {
-      recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
-      field: "username",
-      kind: "username",
-      likelihood: 0.87,
+  suggestedSearches: [],
+  evidenceInvestigation: {
+    highestBand: "info",
+    coverage: {
+      accountsFound: 862118,
+      accountsAccessible: 501876,
+      itemsRead: 942805,
+      periodFrom: "2026-01-01T00:00:00Z",
+      periodTo: "2026-01-02T00:00:00Z",
+      platforms: [],
+      notSearched: [
+        "instagram",
+      ],
+      timing: {
+        startedAt: "2026-01-01T00:00:00Z",
+        totalMs: 570887,
+        stages: [
+          {
+            stage: "ai_typing",
+            ms: 603969,
+          },
+        ],
+      },
     },
-  ],
-  evidenceInvestigation: null,
+    spend: {
+      totalMinor: 806958,
+      byImplementation: [
+        {
+          implementation: "synthetic",
+          role: "collector",
+          spendMinor: 249606,
+        },
+      ],
+    },
+    decision: "watch",
+    decisionNote: "Source records reviewed.",
+    decidedBy: "user_investigator",
+    decidedAt: "2026-01-01T00:00:00Z",
+    id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+    status: "cancelled",
+    depth: "standard",
+    platforms: [
+      "x",
+    ],
+    matchState: null,
+    errorCode: "expired",
+    createdAt: "2026-01-01T00:00:00Z",
+    startedAt: "2026-01-01T00:00:00Z",
+    finishedAt: "2026-01-01T00:00:00Z",
+    expiresAt: "2026-02-01T00:00:00Z",
+    deadlineAt: "2026-01-01T00:00:00Z",
+  },
   writtenProfile: {
     status: "failed",
     investigationId: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -257,8 +351,8 @@ let value: WorkspacePersonReport = {
   changes: [
     {
       id: "chg_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      kind: "field_changed",
-      significance: "high",
+      kind: "account_added",
+      significance: "medium",
       source: "github",
       field: "email",
       before: "jane@example.com",
@@ -289,6 +383,7 @@ let value: WorkspacePersonReport = {
 | `createdAt`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                         | 2026-01-01T00:00:00Z                                                                                                                                                                                                                                                                                                                        |
 | `updatedAt`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | N/A                                                                                                                                                                                                                                                                                                                                         | 2026-01-01T00:00:00Z                                                                                                                                                                                                                                                                                                                        |
 | `expiresAt`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | The time the workspace retention policy removes this person, their evidence and investigation history. Shortening workspace retention can move this time earlier.                                                                                                                                                                           | 2026-02-01T00:00:00Z                                                                                                                                                                                                                                                                                                                        |
+| `groups`                                                                                                                                                                                                                                                                                                                                    | [models.PersonGroup](../models/person-group.md)[]                                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | Every group this person belongs to in this environment, most recently added first, with their role in each. A person can belong to any number of groups; removing them from a group or deleting the group removes it here.                                                                                                                  |                                                                                                                                                                                                                                                                                                                                             |
 | `profiles`                                                                                                                                                                                                                                                                                                                                  | [models.ScreeningProfile](../models/screening-profile.md)[]                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | The accounts this result matched, with how each was matched.                                                                                                                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                             |
 | `findings`                                                                                                                                                                                                                                                                                                                                  | [models.ScreeningFinding](../models/screening-finding.md)[]                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | What this result flagged, most severe first, each citing its evidence.                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                             |
 | `posts`                                                                                                                                                                                                                                                                                                                                     | [models.ScreeningPost](../models/screening-post.md)[]                                                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                          | All posts retained for this result, including posts that no finding cites.                                                                                                                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                                                             |

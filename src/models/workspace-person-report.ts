@@ -7,6 +7,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Handle, Handle$inboundSchema } from "./handle.js";
 import { Investigation, Investigation$inboundSchema } from "./investigation.js";
 import { PersonChange, PersonChange$inboundSchema } from "./person-change.js";
+import { PersonGroup, PersonGroup$inboundSchema } from "./person-group.js";
 import {
   ScreeningFinding,
   ScreeningFinding$inboundSchema,
@@ -78,6 +79,10 @@ export type WorkspacePersonReport = {
    */
   expiresAt: string;
   /**
+   * Every group this person belongs to in this environment, most recently added first, with their role in each. A person can belong to any number of groups; removing them from a group or deleting the group removes it here.
+   */
+  groups: Array<PersonGroup>;
+  /**
    * The accounts this result matched, with how each was matched.
    */
   profiles: Array<ScreeningProfile>;
@@ -141,6 +146,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     created_at: types.string(),
     updated_at: types.string(),
     expires_at: types.string(),
+    groups: z.array(PersonGroup$inboundSchema),
     profiles: z.array(ScreeningProfile$inboundSchema),
     findings: z.array(ScreeningFinding$inboundSchema),
     posts: z.array(ScreeningPost$inboundSchema),
