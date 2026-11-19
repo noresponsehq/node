@@ -5,6 +5,14 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  ScreeningCoverageSources,
+  ScreeningCoverageSources$inboundSchema,
+} from "./screening-coverage-sources.js";
+import {
+  ScreeningCoverageTiming,
+  ScreeningCoverageTiming$inboundSchema,
+} from "./screening-coverage-timing.js";
+import {
   ScreeningNotAnalysedCount,
   ScreeningNotAnalysedCount$inboundSchema,
 } from "./screening-not-analysed-count.js";
@@ -45,6 +53,14 @@ export type ScreeningCoverage = {
    * Requested platforms where the person gave the screening nothing to look up, such as no handle for a platform that reads supplied handles only. Nothing looked and nothing failed: such a platform is not in platforms, is not none_found and does not make the person partial.
    */
   notSearched?: Array<string> | undefined;
+  /**
+   * How many sources this search asked and how many answered, across the lookup stage (sources asked whether an account exists for an identifier) and the platform stage (profiles read on each platform). A source that answered may have found nothing; one that did not answer failed or ran out of time.
+   */
+  sources?: ScreeningCoverageSources | undefined;
+  /**
+   * How long this search's latest attempt took, stage by stage. started_at minus the investigation's creation is the time spent queued or retrying.
+   */
+  timing?: ScreeningCoverageTiming | undefined;
 };
 
 /** @internal */
@@ -65,6 +81,8 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
     period_to: types.optional(types.string()),
     platforms: z.array(ScreeningPlatformCoverage$inboundSchema),
     not_searched: types.optional(z.array(types.string())),
+    sources: types.optional(ScreeningCoverageSources$inboundSchema),
+    timing: types.optional(ScreeningCoverageTiming$inboundSchema),
   }),
   z.transform((v) => {
     return remap$(v, {

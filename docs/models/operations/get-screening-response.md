@@ -35,12 +35,12 @@ let value: GetScreeningResponse = {
     estimatedSpend: 797695,
     spent: 916565,
     spend: {
-      totalMinor: 570887,
+      totalMinor: 806958,
       byImplementation: [
         {
           implementation: "synthetic",
-          role: "analyser",
-          spendMinor: 603969,
+          role: "collector",
+          spendMinor: 249606,
         },
       ],
     },

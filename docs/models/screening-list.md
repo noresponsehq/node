@@ -31,12 +31,12 @@ let value: ScreeningList = {
       estimatedSpend: 12333,
       spent: 496149,
       spend: {
-        totalMinor: 570887,
+        totalMinor: 806958,
         byImplementation: [
           {
             implementation: "synthetic",
-            role: "analyser",
-            spendMinor: 603969,
+            role: "collector",
+            spendMinor: 249606,
           },
         ],
       },

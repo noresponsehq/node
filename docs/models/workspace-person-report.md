@@ -29,9 +29,9 @@ let value: WorkspacePersonReport = {
   findings: [
     {
       id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      category: "movement_exposure",
-      band: "low",
-      confidence: 4970.22,
+      category: "violent_extremism",
+      band: "info",
+      confidence: 724.94,
       rationale: "The post reports when the principal leaves the hotel.",
       quote:
         "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
@@ -47,7 +47,7 @@ let value: WorkspacePersonReport = {
       ],
       analyser: "synthetic",
       model: "synthetic-1",
-      spendMinor: 722829,
+      spendMinor: 734559,
       createdAt: "2026-01-01T00:00:00Z",
     },
   ],
@@ -57,7 +57,7 @@ let value: WorkspacePersonReport = {
       id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       kind: "media",
       postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      mediaType: "video",
+      mediaType: "image",
       mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
       coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
       text: "A photo",
@@ -72,16 +72,16 @@ let value: WorkspacePersonReport = {
   lookup: {
     checks: [
       {
-        identifier: "email",
-        lane: "domain",
+        identifier: "username",
+        lane: "accounts",
         status: "not_found",
-        sources: 655904,
-        answered: 262056,
-        found: 455794,
+        sources: 579434,
+        answered: 904123,
+        found: 555247,
         unanswered: [
           {
             connector: "github",
-            reason: "unavailable",
+            reason: "blocked",
           },
         ],
       },
@@ -158,14 +158,19 @@ let value: WorkspacePersonReport = {
           table: "users",
           date: "2019-03",
         },
-        matched: [
+        matched: [],
+        fields: [
           {
-            by: "handle",
-            field: "username",
-            search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            field: "creation_date",
+            original: "2019-01-01T00:00:00Z",
+            value: "2019-01-01T00:00:00Z",
+            detail: "bcrypt",
+            distinctive: {
+              rating: "unique",
+              reason: "in 4 breach rows",
+            },
           },
         ],
-        fields: [],
         observedAt: "2026-01-02T00:00:00Z",
         agreed: [
           "lastip",
@@ -186,7 +191,7 @@ let value: WorkspacePersonReport = {
         },
         by: "email",
         search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        rows: 251199,
+        rows: 298226,
       },
     ],
     lookedAt: "2026-01-01T00:00:00Z",
@@ -197,14 +202,14 @@ let value: WorkspacePersonReport = {
       recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
       field: "username",
       table: "FORUM_EXAMPLE_COM_2019",
-      kind: "password",
+      kind: "person_name",
       value: "jordanexample42",
-      status: "failed",
-      sources: 555247,
-      answered: 336986,
-      found: 156477,
-      estimatedSpend: 649086,
-      spent: 264360,
+      status: "running",
+      sources: 58157,
+      answered: 400805,
+      found: 664258,
+      estimatedSpend: 865004,
+      spent: 941722,
       requestedBy: "user_2abc",
       parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
       createdAt: "2026-01-01T00:00:00Z",
@@ -221,21 +226,26 @@ let value: WorkspacePersonReport = {
   ],
   evidenceInvestigation: null,
   writtenProfile: {
-    status: "written",
+    status: "failed",
     investigationId: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     queuedAt: "2026-01-01T00:00:00Z",
     finishedAt: "2026-01-01T00:00:11Z",
     summary: "Likely lives in Lisbon and uses one username across sites.",
     statements: [
       {
-        topic: "credentials",
+        topic: "location",
         text: "Lived in Lisbon in 2019.",
         certainty: "possible",
         basis: "inferred",
         alternatives: [
           "A holiday address.",
         ],
-        evidence: [],
+        evidence: [
+          {
+            kind: "check",
+            id: "rec_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+          },
+        ],
       },
     ],
     leads: [
@@ -243,12 +253,7 @@ let value: WorkspacePersonReport = {
         value: "jordan.example@example.net",
         kind: "email",
         why: "A linked record holds an older address.",
-        evidence: [
-          {
-            kind: "record",
-            id: "rec_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          },
-        ],
+        evidence: [],
       },
     ],
   },

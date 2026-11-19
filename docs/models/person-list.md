@@ -40,18 +40,28 @@ let value: PersonList = {
         notSearched: [
           "instagram",
         ],
+        timing: {
+          startedAt: "2026-01-01T00:00:00Z",
+          totalMs: 570887,
+          stages: [
+            {
+              stage: "ai_typing",
+              ms: 603969,
+            },
+          ],
+        },
       },
       lastScreeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       screenedAt: "2026-01-01T00:00:00Z",
       createdAt: "2026-01-01T00:00:00Z",
       updatedAt: "2026-01-01T00:00:00Z",
       spend: {
-        totalMinor: 570887,
+        totalMinor: 806958,
         byImplementation: [
           {
             implementation: "synthetic",
-            role: "analyser",
-            spendMinor: 603969,
+            role: "collector",
+            spendMinor: 249606,
           },
         ],
       },

@@ -42,16 +42,16 @@ let value: InvestigationReport = {
   lookup: {
     checks: [
       {
-        identifier: "email",
-        lane: "domain",
+        identifier: "username",
+        lane: "accounts",
         status: "not_found",
-        sources: 655904,
-        answered: 262056,
-        found: 455794,
+        sources: 579434,
+        answered: 904123,
+        found: 555247,
         unanswered: [
           {
             connector: "github",
-            reason: "unavailable",
+            reason: "blocked",
           },
         ],
       },
@@ -128,14 +128,19 @@ let value: InvestigationReport = {
           table: "users",
           date: "2019-03",
         },
-        matched: [
+        matched: [],
+        fields: [
           {
-            by: "handle",
-            field: "username",
-            search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            field: "creation_date",
+            original: "2019-01-01T00:00:00Z",
+            value: "2019-01-01T00:00:00Z",
+            detail: "bcrypt",
+            distinctive: {
+              rating: "unique",
+              reason: "in 4 breach rows",
+            },
           },
         ],
-        fields: [],
         observedAt: "2026-01-02T00:00:00Z",
         agreed: [
           "lastip",
@@ -156,7 +161,7 @@ let value: InvestigationReport = {
         },
         by: "email",
         search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        rows: 251199,
+        rows: 298226,
       },
     ],
     lookedAt: "2026-01-01T00:00:00Z",
@@ -192,14 +197,24 @@ let value: InvestigationReport = {
       notSearched: [
         "instagram",
       ],
+      timing: {
+        startedAt: "2026-01-01T00:00:00Z",
+        totalMs: 570887,
+        stages: [
+          {
+            stage: "ai_typing",
+            ms: 603969,
+          },
+        ],
+      },
     },
     spend: {
-      totalMinor: 570887,
+      totalMinor: 806958,
       byImplementation: [
         {
           implementation: "synthetic",
-          role: "analyser",
-          spendMinor: 603969,
+          role: "collector",
+          spendMinor: 249606,
         },
       ],
     },

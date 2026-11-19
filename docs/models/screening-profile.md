@@ -18,7 +18,7 @@ let value: ScreeningProfile = {
   accountCreatedAt: "2019-01-01T00:00:00Z",
   access: "public",
   match: {
-    state: "probable",
+    state: "possible",
     evidence: [],
   },
   collector: "synthetic",
@@ -35,19 +35,14 @@ let value: ScreeningProfile = {
       table: "users",
       date: "2019-03",
     },
-    matched: [],
-    fields: [
+    matched: [
       {
-        field: "creation_date",
-        original: "2019-01-01T00:00:00Z",
-        value: "2019-01-01T00:00:00Z",
-        detail: "bcrypt",
-        distinctive: {
-          rating: "unique",
-          reason: "in 4 breach rows",
-        },
+        by: "handle",
+        field: "username",
+        search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       },
     ],
+    fields: [],
     observedAt: "2026-01-02T00:00:00Z",
     agreed: [
       "lastip",

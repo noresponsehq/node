@@ -10,8 +10,11 @@ let value: GetPersonResponse = {
     "key": [
       "example 1",
       "example 2",
-      "example 3",
     ],
+    "key1": [
+      "example 1",
+    ],
+    "key2": [],
   },
   result: {
     person: {
@@ -45,18 +48,28 @@ let value: GetPersonResponse = {
         notSearched: [
           "instagram",
         ],
+        timing: {
+          startedAt: "2026-01-01T00:00:00Z",
+          totalMs: 570887,
+          stages: [
+            {
+              stage: "ai_typing",
+              ms: 603969,
+            },
+          ],
+        },
       },
       lastScreeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       screenedAt: "2026-01-01T00:00:00Z",
       createdAt: "2026-01-01T00:00:00Z",
       updatedAt: "2026-01-01T00:00:00Z",
       spend: {
-        totalMinor: 570887,
+        totalMinor: 806958,
         byImplementation: [
           {
             implementation: "synthetic",
-            role: "analyser",
-            spendMinor: 603969,
+            role: "collector",
+            spendMinor: 249606,
           },
         ],
       },
@@ -72,13 +85,13 @@ let value: GetPersonResponse = {
         bio: "Engineer at Example Ltd in Melbourne.",
         avatarUrl: "https://synthetic.invalid/avatar/3f9a1c22d4e5b6a7.png",
         accountCreatedAt: "2019-01-01T00:00:00Z",
-        access: "locked",
+        access: "public",
         match: {
-          state: "probable",
+          state: "possible",
           evidence: [],
         },
         collector: "synthetic",
-        itemsRead: 949972,
+        itemsRead: 443528,
         periodFrom: "2026-01-01T00:00:00Z",
         periodTo: "2026-01-02T00:00:00Z",
         collectedAt: "2026-01-02T00:00:00Z",
@@ -91,19 +104,14 @@ let value: GetPersonResponse = {
             table: "users",
             date: "2019-03",
           },
-          matched: [],
-          fields: [
+          matched: [
             {
-              field: "creation_date",
-              original: "2019-01-01T00:00:00Z",
-              value: "2019-01-01T00:00:00Z",
-              detail: "bcrypt",
-              distinctive: {
-                rating: "unique",
-                reason: "in 4 breach rows",
-              },
+              by: "handle",
+              field: "username",
+              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
             },
           ],
+          fields: [],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",
@@ -114,26 +122,41 @@ let value: GetPersonResponse = {
         },
       },
     ],
-    findings: [],
-    posts: [
+    findings: [
+      {
+        id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        category: "violent_extremism",
+        band: "info",
+        confidence: 724.94,
+        rationale: "The post reports when the principal leaves the hotel.",
+        quote:
+          "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
+        evidence: [
+          "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        ],
+        mediaObservations: [
+          {
+            mediaId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            description: "A handwritten sign held up outside the venue.",
+            readText: "SEE YOU ON THE 1ST",
+          },
+        ],
+        analyser: "synthetic",
+        model: "synthetic-1",
+        spendMinor: 734559,
+        createdAt: "2026-01-01T00:00:00Z",
+      },
+    ],
+    posts: [],
+    media: [
       {
         id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        kind: "post",
-        text: "Great coffee this morning before the commute.",
-        replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
-        repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
-        quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
-        place: {
-          name: "Example Harbour",
-          id: "212988663",
-          address: "2 Wharf Road",
-          city: "Melbourne",
-        },
-        tagged: [
-          "caseyexample7",
-        ],
-        language: "en",
-        postedWith: "Twitter for iPhone",
+        kind: "media",
+        postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        mediaType: "image",
+        mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
+        coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
+        text: "A photo",
         profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
         postedAt: "2026-01-01T00:00:00Z",
@@ -142,29 +165,20 @@ let value: GetPersonResponse = {
         capturedAt: "2026-01-01T00:00:00Z",
       },
     ],
-    media: [],
-    reviews: [
-      {
-        id: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        decision: "escalated",
-        note: "Known to the venue team.",
-        createdBy: "user_2abc",
-        createdAt: "2026-01-01T00:00:00Z",
-      },
-    ],
+    reviews: [],
     lookup: {
       checks: [
         {
-          identifier: "email",
-          lane: "domain",
+          identifier: "username",
+          lane: "accounts",
           status: "not_found",
-          sources: 655904,
-          answered: 262056,
-          found: 455794,
+          sources: 579434,
+          answered: 904123,
+          found: 555247,
           unanswered: [
             {
               connector: "github",
-              reason: "unavailable",
+              reason: "blocked",
             },
           ],
         },
@@ -241,14 +255,19 @@ let value: GetPersonResponse = {
             table: "users",
             date: "2019-03",
           },
-          matched: [
+          matched: [],
+          fields: [
             {
-              by: "handle",
-              field: "username",
-              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+              field: "creation_date",
+              original: "2019-01-01T00:00:00Z",
+              value: "2019-01-01T00:00:00Z",
+              detail: "bcrypt",
+              distinctive: {
+                rating: "unique",
+                reason: "in 4 breach rows",
+              },
             },
           ],
-          fields: [],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",
@@ -269,7 +288,7 @@ let value: GetPersonResponse = {
           },
           by: "email",
           search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          rows: 251199,
+          rows: 298226,
         },
       ],
       lookedAt: "2026-01-01T00:00:00Z",
@@ -280,23 +299,30 @@ let value: GetPersonResponse = {
         recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
         field: "username",
         table: "FORUM_EXAMPLE_COM_2019",
-        kind: "password",
+        kind: "person_name",
         value: "jordanexample42",
-        status: "failed",
-        sources: 555247,
-        answered: 336986,
-        found: 156477,
-        estimatedSpend: 649086,
-        spent: 264360,
+        status: "running",
+        sources: 58157,
+        answered: 400805,
+        found: 664258,
+        estimatedSpend: 865004,
+        spent: 941722,
         requestedBy: "user_2abc",
         parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         createdAt: "2026-01-01T00:00:00Z",
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
-    suggestedSearches: [],
+    suggestedSearches: [
+      {
+        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        field: "username",
+        kind: "username",
+        likelihood: 0.87,
+      },
+    ],
     otherGroups: {
-      total: 441806,
+      total: 424478,
       items: [
         {
           groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
@@ -304,9 +330,9 @@ let value: GetPersonResponse = {
           groupStartsAt: "2025-09-01T09:00:00Z",
           personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
           matchedOn: [],
-          matchState: "probable",
+          matchState: "confirmed",
           highestBand: "info",
-          decision: "escalated",
+          decision: "cleared",
           decidedBy: "user_2abc",
           decidedAt: "2025-09-01T12:00:00Z",
         },

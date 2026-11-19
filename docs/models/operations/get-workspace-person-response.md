@@ -6,13 +6,7 @@
 import { GetWorkspacePersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetWorkspacePersonResponse = {
-  headers: {
-    "key": [],
-    "key1": [
-      "example 1",
-      "example 2",
-    ],
-  },
+  headers: {},
   result: {
     externalId: "case-person-1042",
     name: "Jordan Example",
@@ -35,9 +29,9 @@ let value: GetWorkspacePersonResponse = {
     findings: [
       {
         id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        category: "movement_exposure",
-        band: "low",
-        confidence: 4970.22,
+        category: "violent_extremism",
+        band: "info",
+        confidence: 724.94,
         rationale: "The post reports when the principal leaves the hotel.",
         quote:
           "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
@@ -53,17 +47,43 @@ let value: GetWorkspacePersonResponse = {
         ],
         analyser: "synthetic",
         model: "synthetic-1",
-        spendMinor: 722829,
+        spendMinor: 734559,
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
-    posts: [],
+    posts: [
+      {
+        id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        kind: "post",
+        text: "Great coffee this morning before the commute.",
+        replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
+        repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
+        quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
+        place: {
+          name: "Example Harbour",
+          id: "212988663",
+          address: "2 Wharf Road",
+          city: "Melbourne",
+        },
+        tagged: [
+          "caseyexample7",
+        ],
+        language: "en",
+        postedWith: "Twitter for iPhone",
+        profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
+        postedAt: "2026-01-01T00:00:00Z",
+        screenshotSha256:
+          "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
+        capturedAt: "2026-01-01T00:00:00Z",
+      },
+    ],
     media: [
       {
         id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         kind: "media",
         postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        mediaType: "video",
+        mediaType: "image",
         mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
         coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         text: "A photo",
@@ -78,16 +98,16 @@ let value: GetWorkspacePersonResponse = {
     lookup: {
       checks: [
         {
-          identifier: "email",
-          lane: "domain",
+          identifier: "username",
+          lane: "accounts",
           status: "not_found",
-          sources: 655904,
-          answered: 262056,
-          found: 455794,
+          sources: 579434,
+          answered: 904123,
+          found: 555247,
           unanswered: [
             {
               connector: "github",
-              reason: "unavailable",
+              reason: "blocked",
             },
           ],
         },
@@ -164,14 +184,19 @@ let value: GetWorkspacePersonResponse = {
             table: "users",
             date: "2019-03",
           },
-          matched: [
+          matched: [],
+          fields: [
             {
-              by: "handle",
-              field: "username",
-              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+              field: "creation_date",
+              original: "2019-01-01T00:00:00Z",
+              value: "2019-01-01T00:00:00Z",
+              detail: "bcrypt",
+              distinctive: {
+                rating: "unique",
+                reason: "in 4 breach rows",
+              },
             },
           ],
-          fields: [],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",
@@ -192,7 +217,7 @@ let value: GetWorkspacePersonResponse = {
           },
           by: "email",
           search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          rows: 251199,
+          rows: 298226,
         },
       ],
       lookedAt: "2026-01-01T00:00:00Z",
@@ -203,30 +228,23 @@ let value: GetWorkspacePersonResponse = {
         recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
         field: "username",
         table: "FORUM_EXAMPLE_COM_2019",
-        kind: "password",
+        kind: "person_name",
         value: "jordanexample42",
-        status: "failed",
-        sources: 555247,
-        answered: 336986,
-        found: 156477,
-        estimatedSpend: 649086,
-        spent: 264360,
+        status: "running",
+        sources: 58157,
+        answered: 400805,
+        found: 664258,
+        estimatedSpend: 865004,
+        spent: 941722,
         requestedBy: "user_2abc",
         parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         createdAt: "2026-01-01T00:00:00Z",
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
-    suggestedSearches: [
-      {
-        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
-        field: "username",
-        kind: "username",
-        likelihood: 0.87,
-      },
-    ],
+    suggestedSearches: [],
     evidenceInvestigation: {
-      highestBand: "critical",
+      highestBand: "info",
       coverage: {
         accountsFound: 862118,
         accountsAccessible: 501876,
@@ -237,14 +255,24 @@ let value: GetWorkspacePersonResponse = {
         notSearched: [
           "instagram",
         ],
+        timing: {
+          startedAt: "2026-01-01T00:00:00Z",
+          totalMs: 570887,
+          stages: [
+            {
+              stage: "ai_typing",
+              ms: 603969,
+            },
+          ],
+        },
       },
       spend: {
-        totalMinor: 570887,
+        totalMinor: 806958,
         byImplementation: [
           {
             implementation: "synthetic",
-            role: "analyser",
-            spendMinor: 603969,
+            role: "collector",
+            spendMinor: 249606,
           },
         ],
       },
@@ -255,12 +283,12 @@ let value: GetWorkspacePersonResponse = {
       id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      status: "cancelled",
+      status: "completed",
       depth: "standard",
       platforms: [
         "x",
       ],
-      matchState: null,
+      matchState: "unscreened",
       errorCode: "expired",
       createdAt: "2026-01-01T00:00:00Z",
       startedAt: "2026-01-01T00:00:00Z",
@@ -269,21 +297,26 @@ let value: GetWorkspacePersonResponse = {
       deadlineAt: "2026-01-01T00:00:00Z",
     },
     writtenProfile: {
-      status: "written",
+      status: "failed",
       investigationId: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       queuedAt: "2026-01-01T00:00:00Z",
       finishedAt: "2026-01-01T00:00:11Z",
       summary: "Likely lives in Lisbon and uses one username across sites.",
       statements: [
         {
-          topic: "credentials",
+          topic: "location",
           text: "Lived in Lisbon in 2019.",
           certainty: "possible",
           basis: "inferred",
           alternatives: [
             "A holiday address.",
           ],
-          evidence: [],
+          evidence: [
+            {
+              kind: "check",
+              id: "rec_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            },
+          ],
         },
       ],
       leads: [
@@ -291,12 +324,7 @@ let value: GetWorkspacePersonResponse = {
           value: "jordan.example@example.net",
           kind: "email",
           why: "A linked record holds an older address.",
-          evidence: [
-            {
-              kind: "record",
-              id: "rec_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-            },
-          ],
+          evidence: [],
         },
       ],
     },
