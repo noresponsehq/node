@@ -9,8 +9,6 @@ import {
   RecordRemaining$inboundSchema,
 } from "./record-remaining.js";
 import { RecordT, RecordT$inboundSchema } from "./record.js";
-import { RiskDetails, RiskDetails$inboundSchema } from "./risk-details.js";
-import { RiskSummary, RiskSummary$inboundSchema } from "./risk-summary.js";
 import {
   ScreeningLookupAnswer,
   ScreeningLookupAnswer$inboundSchema,
@@ -33,14 +31,6 @@ export type ScreeningLookup = {
    */
   answers?: Array<ScreeningLookupAnswer> | undefined;
   /**
-   * A few typed facts per identifier: an assessment's risk.summary, and a screened person's lookup summary. Every fact is optional: absent means the evidence did not answer and makes no claim, while false or 0 is a definite answer.
-   */
-  summary?: RiskSummary | undefined;
-  /**
-   * Merged observations behind the summary, served only to a caller who may read evidence: no provider, source, origin, raw breach record or score.
-   */
-  details?: RiskDetails | undefined;
-  /**
    * What each source answered, whole, each answer once: every field of each account a connector found, and every column of each breach row the person's email or usernames matched, under the source's own names, and what each search a person started found, each match naming its search. Anyone who may read the person reads them: no extra permission applies, breach passwords and hashes included.
    */
   records?: Array<RecordT> | undefined;
@@ -62,8 +52,6 @@ export const ScreeningLookup$inboundSchema: z.ZodMiniType<
   z.object({
     checks: z.array(ScreeningLookupCheck$inboundSchema),
     answers: types.optional(z.array(ScreeningLookupAnswer$inboundSchema)),
-    summary: types.optional(RiskSummary$inboundSchema),
-    details: types.optional(RiskDetails$inboundSchema),
     records: types.optional(z.array(RecordT$inboundSchema)),
     remaining: types.optional(z.array(RecordRemaining$inboundSchema)),
     looked_at: types.string(),

@@ -67,68 +67,6 @@ let value: GetInvestigationResponse = {
           answeredAt: "2026-01-01T00:00:02Z",
         },
       ],
-      summary: {
-        phone: {
-          country: "AU",
-          carrier: "Telstra",
-        },
-        ip: {
-          country: "AU",
-        },
-      },
-      details: {
-        phoneNames: [
-          {
-            value: "Alex Example",
-            seenBy: 583889,
-          },
-        ],
-        breaches: [
-          {
-            name: "Example Forum",
-            domain: "forum.example.com",
-            category: "forum",
-            kind: "hacking_forum",
-            matchedOn: "email",
-          },
-        ],
-        breachNames: [
-          {
-            value: "Alex Example",
-            seenIn: 714857,
-            sites: [
-              "forum.example.com",
-            ],
-          },
-        ],
-        events: [
-          {
-            year: 309976,
-            kind: "last_active",
-            site: "example.com",
-            category: "site_breach",
-            family: "breach",
-            identifier: "email",
-          },
-        ],
-        accounts: [
-          {
-            name: "Wix",
-            domain: "wix.com",
-            identifier: "username",
-            outcome: "inconclusive",
-            firstNamePrefix: "Al",
-          },
-        ],
-        attributeConflicts: [
-          {
-            attribute: "gender",
-            sites: [
-              "forum.example.com",
-            ],
-          },
-        ],
-      },
       records: [
         {
           id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
