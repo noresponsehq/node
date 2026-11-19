@@ -26,7 +26,7 @@ const created = (await nr.people.create({
 })).result;
 const job = (await nr.investigations.create({
   idempotencyKey: "case-1042-investigation-1",
-  body: { personId: created.person.id, depth: "standard", platforms: ["x"] },
+  body: { personId: created.person.id, depth: "standard" },
 })).result;
 console.log(job.id, job.status, created.person.expiresAt);
 ```

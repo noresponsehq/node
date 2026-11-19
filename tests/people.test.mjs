@@ -49,13 +49,13 @@ test("a workspace person is created without a group and exposes retention and su
 test("investigation retries keep the same key and person", async () => {
   const { nr, calls } = client([problem(503, "service_unavailable"), json(investigation, { status: 202, headers: { "retry-after": "1" } })]);
   const key = "investigation-example-1";
-  const result = await nr.investigations.create({ idempotencyKey: key, body: { personId: person.id, depth: "standard", platforms: ["x"] } });
+  const result = await nr.investigations.create({ idempotencyKey: key, body: { personId: person.id, depth: "standard" } });
   assert.equal(result.result.id, investigation.id);
   assert.equal(calls.length, 2);
   for (const call of calls) {
     assert.equal(new URL(call.url).pathname, "/v1/investigations");
     assert.equal(call.headers["idempotency-key"], key);
-    assert.deepEqual(call.body, { person_id: person.id, depth: "standard", platforms: ["x"] });
+    assert.deepEqual(call.body, { person_id: person.id, depth: "standard" });
   }
 });
 

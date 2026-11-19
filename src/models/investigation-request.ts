@@ -15,12 +15,6 @@ import {
  */
 export type InvestigationRequest = {
   depth: ScreeningDepth;
-  /**
-   * Deprecated: leave it out. Without it the investigation is a full search: every platform a connector serves in the environment when the investigation starts, which the investigation then lists, each searched only with the identifiers its connector takes. A list sent here still limits the investigation until a later contract release removes the field.
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  platforms?: Array<string> | undefined;
   personId: string;
   /**
    * A change to enrichment. A field left out keeps the value in force; max_spend or deadline null removes the bound.
@@ -31,7 +25,6 @@ export type InvestigationRequest = {
 /** @internal */
 export type InvestigationRequest$Outbound = {
   depth: string;
-  platforms?: Array<string> | undefined;
   person_id: string;
   enrichment?: EnrichmentChange$Outbound | undefined;
 };
@@ -43,7 +36,6 @@ export const InvestigationRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     depth: ScreeningDepth$outboundSchema,
-    platforms: z.optional(z.array(z.string())),
     personId: z.string(),
     enrichment: z.optional(EnrichmentChange$outboundSchema),
   }),
