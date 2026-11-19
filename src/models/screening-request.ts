@@ -5,7 +5,7 @@ import {
 } from "./screening-depth.js";
 
 /**
- * Screens the group's people no screening has reached and everyone on watch or escalated.
+ * Screens the group's people no screening has reached.
  */
 export type ScreeningRequest = {
   depth: ScreeningDepth;

@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Record a decision on a person.
  *
  * @remarks
- * Marks the person cleared, watch or escalated with a note. Decisions are kept in order; the latest is the person's. The next screening refreshes everyone on watch or escalated. The decisions scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
+ * Marks the person cleared, watch or escalated with a note. Decisions are kept in order; the latest is the person's. A decision changes nothing else: no screening reads it. Deprecated: decisions are leaving people and groups. The console no longer records them and no screening reads them. This route is removed in the next contract release; stop calling it. The decisions scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
  */
 export function groupsReviewPerson(
   client: NoResponseCore,

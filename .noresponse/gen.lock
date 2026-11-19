@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 43332176b412a8039eb04a3f7a7d4e89
+  docChecksum: 2d2674a97cf426d948e643af2dc02f6c
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 16.0.2
-  configChecksum: cfc16203de7744025ea7496911586a52
+  releaseVersion: 16.0.3
+  configChecksum: 9bbb300e1b8bc684546e4df20236fe3f
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1379,7 +1379,7 @@ trackedFiles:
   docs/models/screening-completed-status.md:
     last_write_checksum: sha1:9cdf4957ff631ce4854ea3f137609c924f471d37
   docs/models/screening-completed.md:
-    last_write_checksum: sha1:a81f770bafb7a4bc4259124a5dc2753eea233a1f
+    last_write_checksum: sha1:b7f8eb3741600352ce4f3865ab7247b95b5ef9f8
   docs/models/screening-coverage-sources.md:
     last_write_checksum: sha1:418830638f865423ac7e90fac9e0706cc1b075be
   docs/models/screening-coverage-timing.md:
@@ -1423,7 +1423,7 @@ trackedFiles:
   docs/models/screening-profile.md:
     last_write_checksum: sha1:15126d6dc9fed7cb7bd96d087e230b122ce8d133
   docs/models/screening-request.md:
-    last_write_checksum: sha1:93bbdf187c1151b6c39963388633edb523d0cf97
+    last_write_checksum: sha1:1ffe782c6befb472f1d287ebdbc6dcafcf629b5d
   docs/models/screening-spend-line-role.md:
     last_write_checksum: sha1:5af9d588dc9a836a539e85c78574a202239bf68c
   docs/models/screening-spend-line.md:
@@ -1579,9 +1579,9 @@ trackedFiles:
   docs/models/written-profile.md:
     last_write_checksum: sha1:bc6bfb3a768fe6bba40a960540a3c6dc03d2eaba
   jsr.json:
-    last_write_checksum: sha1:78f5f3996a83527480c9729b86df7e3962682b73
+    last_write_checksum: sha1:e1b330e82efa53ac778dcde01864dc2c4e33acb2
   package.json:
-    last_write_checksum: sha1:1d5e9be6954e9fee26865dfa441e48d5c9494ade
+    last_write_checksum: sha1:f1322980659fe655de7fd2f66b8913d8f8eb2113
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1701,11 +1701,11 @@ trackedFiles:
   src/funcs/groups-remove-person.ts:
     last_write_checksum: sha1:c61a24609bb7411c02269eb6a7dcb121ccb2fb14
   src/funcs/groups-review-person.ts:
-    last_write_checksum: sha1:fd866ca10c9349ed3cb5fce02ab55f63b7d342e6
+    last_write_checksum: sha1:d7817a75e9a6c2c3dc2fddfdcc643a3125c3a1d6
   src/funcs/groups-run-search.ts:
     last_write_checksum: sha1:6f843a39048f56d9d8b30239945bb219979bb712
   src/funcs/groups-start-screening.ts:
-    last_write_checksum: sha1:b4cf06f39e08d521f95191a093ae7930e975975c
+    last_write_checksum: sha1:5e7bfb9eded4eb08b9fc5928415a20c25794273a
   src/funcs/groups-start-search.ts:
     last_write_checksum: sha1:54c17628dbde6fbe872320c29231d6e4b8a85dfd
   src/funcs/groups-update.ts:
@@ -1727,7 +1727,7 @@ trackedFiles:
   src/funcs/investigations-list.ts:
     last_write_checksum: sha1:378c7b2423a067ee0f7a64873fbbdfbff9e5d978
   src/funcs/investigations-review.ts:
-    last_write_checksum: sha1:91c8af77acf81ed6b27f27207d0905453c0505a6
+    last_write_checksum: sha1:1451525cbc9573a9c81a9d3462faf97ccd58b909
   src/funcs/invites-create.ts:
     last_write_checksum: sha1:9a036e6569adf52c5262306853b43f42691ac5f1
   src/funcs/invites-list.ts:
@@ -1859,7 +1859,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:dbe3b644c37eb480d72f4bf68789b548181ef73a
+    last_write_checksum: sha1:49159839c44baa85f259d290c42cda74cb67ec6e
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2929,7 +2929,7 @@ trackedFiles:
   src/models/screening-completed-status.ts:
     last_write_checksum: sha1:0f7ee6db5bec6a39874b2acfc5b8fef4dc3e5772
   src/models/screening-completed.ts:
-    last_write_checksum: sha1:33afc74d5feb514817d49499247780e8e0b1520e
+    last_write_checksum: sha1:8f480cf6efa9a10faad3a57fbc381b2534558467
   src/models/screening-coverage-sources.ts:
     last_write_checksum: sha1:3b8baf8c2aef72e21eaeec13d0859f1be518c6d1
   src/models/screening-coverage-timing.ts:
@@ -2973,7 +2973,7 @@ trackedFiles:
   src/models/screening-profile.ts:
     last_write_checksum: sha1:193d645787341cfdbf940fa3701436d66d73d7d5
   src/models/screening-request.ts:
-    last_write_checksum: sha1:09bdc526c01099c7a950c6630112c9fc20451e86
+    last_write_checksum: sha1:c7b0b67ebfe37881fe05b1bc4e11e2e879044b91
   src/models/screening-spend-line-role.ts:
     last_write_checksum: sha1:be425217cd80f62133e3da845ca928619f1387bc
   src/models/screening-spend-line.ts:
@@ -3125,13 +3125,13 @@ trackedFiles:
   src/sdk/exports.ts:
     last_write_checksum: sha1:f3235e861f811175c5b24154d11573e50f847270
   src/sdk/groups.ts:
-    last_write_checksum: sha1:d949fb6abd3b660819a422a00aaf8d4362998200
+    last_write_checksum: sha1:dfc11075b73510a194d7b3d1ecfcfaafbfc404aa
   src/sdk/index.ts:
     last_write_checksum: sha1:b40c0c4902ed6514e71af6fc77ab781b56aa71a8
   src/sdk/integrations.ts:
     last_write_checksum: sha1:4b0cfcf0dd0bed0105cc246553ab448e982e032b
   src/sdk/investigations.ts:
-    last_write_checksum: sha1:fdc9353ec365252aa302f07529c89217ee938f96
+    last_write_checksum: sha1:ca9d09aa8422dfdfb4eeb740ad1554dae35d03b9
   src/sdk/invites.ts:
     last_write_checksum: sha1:4f75198d5f57cbaaa0058ef3c9ec3146bf7c65ed
   src/sdk/key-usage.ts:
