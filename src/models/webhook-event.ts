@@ -45,12 +45,6 @@ import {
   PersonDecidedEvent$outboundSchema,
 } from "./person-decided-event.js";
 import {
-  PersonFlaggedEvent,
-  PersonFlaggedEvent$inboundSchema,
-  PersonFlaggedEvent$Outbound,
-  PersonFlaggedEvent$outboundSchema,
-} from "./person-flagged-event.js";
-import {
   ScreeningCompletedEvent,
   ScreeningCompletedEvent$inboundSchema,
   ScreeningCompletedEvent$Outbound,
@@ -81,7 +75,6 @@ export type WebhookEvent =
   | AccountRiskChangedEvent
   | AuditEventEvent
   | ScreeningCompletedEvent
-  | PersonFlaggedEvent
   | PersonDecidedEvent
   | InvestigationCompletedEvent;
 
@@ -96,7 +89,6 @@ export const WebhookEvent$inboundSchema: z.ZodMiniType<WebhookEvent, unknown> =
     AccountRiskChangedEvent$inboundSchema,
     AuditEventEvent$inboundSchema,
     ScreeningCompletedEvent$inboundSchema,
-    PersonFlaggedEvent$inboundSchema,
     PersonDecidedEvent$inboundSchema,
     InvestigationCompletedEvent$inboundSchema,
   ]);
@@ -110,7 +102,6 @@ export type WebhookEvent$Outbound =
   | AccountRiskChangedEvent$Outbound
   | AuditEventEvent$Outbound
   | ScreeningCompletedEvent$Outbound
-  | PersonFlaggedEvent$Outbound
   | PersonDecidedEvent$Outbound
   | InvestigationCompletedEvent$Outbound;
 
@@ -127,7 +118,6 @@ export const WebhookEvent$outboundSchema: z.ZodMiniType<
   AccountRiskChangedEvent$outboundSchema,
   AuditEventEvent$outboundSchema,
   ScreeningCompletedEvent$outboundSchema,
-  PersonFlaggedEvent$outboundSchema,
   PersonDecidedEvent$outboundSchema,
   InvestigationCompletedEvent$outboundSchema,
 ]);

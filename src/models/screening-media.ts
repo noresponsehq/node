@@ -23,10 +23,6 @@ export type ScreeningMedia = {
    */
   coverOf?: string | undefined;
   /**
-   * true on a video the analyser read from its cover frame (the image whose cover_of names it) and its caption alone. Left out otherwise.
-   */
-  frameOnly?: boolean | undefined;
-  /**
    * The caption or alt text.
    */
   text?: string | undefined;
@@ -55,7 +51,6 @@ export const ScreeningMedia$inboundSchema: z.ZodMiniType<
     media_type: MediaType$inboundSchema,
     media_url: types.string(),
     cover_of: types.optional(types.string()),
-    frame_only: types.optional(types.boolean()),
     text: types.optional(types.string()),
     profile_id: types.string(),
     permalink: types.string(),
@@ -69,7 +64,6 @@ export const ScreeningMedia$inboundSchema: z.ZodMiniType<
       "media_type": "mediaType",
       "media_url": "mediaUrl",
       "cover_of": "coverOf",
-      "frame_only": "frameOnly",
       "profile_id": "profileId",
       "posted_at": "postedAt",
       "screenshot_sha256": "screenshotSha256",

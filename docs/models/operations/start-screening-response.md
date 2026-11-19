@@ -7,8 +7,12 @@ import { StartScreeningResponse } from "@noresponse/node/models/operations";
 
 let value: StartScreeningResponse = {
   headers: {
-    "key": [],
+    "key": [
+      "example 1",
+      "example 2",
+    ],
     "key1": [],
+    "key2": [],
   },
   result: {
     id: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -26,18 +30,17 @@ let value: StartScreeningResponse = {
     expiresAt: "2026-01-02T00:00:00Z",
     peopleTotal: 226495,
     peopleDone: 505954,
-    peopleFlagged: 977538,
-    peopleFailed: 960583,
-    peoplePartial: 782149,
-    estimatedSpend: 797695,
-    spent: 916565,
+    peopleFailed: 977538,
+    peoplePartial: 960583,
+    estimatedSpend: 782149,
+    spent: 797695,
     spend: {
-      totalMinor: 806958,
+      totalMinor: 956527,
       byImplementation: [
         {
           implementation: "synthetic",
-          role: "collector",
-          spendMinor: 249606,
+          role: "resolver",
+          spendMinor: 949972,
         },
       ],
     },

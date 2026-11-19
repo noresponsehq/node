@@ -21,7 +21,7 @@ export type ScreeningMatchEvidence = {
    */
   detail?: string | undefined;
   /**
-   * The resolver, collector or analyser that produced a record, by its catalogue name.
+   * The resolver or collector that produced a record, by its catalogue name.
    */
   resolver: string;
 };

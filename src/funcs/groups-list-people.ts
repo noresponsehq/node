@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * List a group's people.
  *
  * @remarks
- * The roster in upload order, with each person's role, match state, highest finding band and decision. Filter by band (or none), decision (or undecided) and role (or unstated). The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
+ * The roster in upload order, with each person's role, match state and decision. Filter by decision (or undecided) and role (or unstated). The people scope grants this operation. Explicit evidence.read restrictions override default evidence access. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
  */
 export function groupsListPeople(
   client: NoResponseCore,
@@ -106,7 +106,6 @@ async function $do(
 
   const query = encodeFormQuery({
     "after": payload.after,
-    "band": payload.band,
     "decision": payload.decision,
     "limit": payload.limit,
     "role": payload.role,

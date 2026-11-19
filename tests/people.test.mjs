@@ -20,22 +20,12 @@ const investigation = {
   depth: "standard",
   platforms: ["x"],
   match_state: "confirmed",
-  highest_band: null,
   coverage: groupReport.person.coverage,
   spend: groupReport.person.spend,
   decision: null,
   created_at: person.created_at,
   expires_at: person.expires_at,
   deadline_at: "2026-11-15T10:15:00Z",
-};
-const writtenProfile = {
-  status: "written",
-  investigation_id: investigation.id,
-  queued_at: "2026-11-15T10:05:00Z",
-  finished_at: "2026-11-15T10:05:11Z",
-  summary: "Jordan Example keeps a public GitHub account.",
-  statements: [{ topic: "accounts", text: "Holds a GitHub account.", certainty: "confirmed", basis: "stated", alternatives: [], evidence: [{ kind: "check", id: "c1" }] }],
-  leads: [{ value: "jordan-example", kind: "username", why: "Named on the GitHub record.", evidence: [{ kind: "check", id: "c1" }] }],
 };
 const apiKey = "nrk_0TESTKEY00000000000000000_" + "s".repeat(43);
 const retryConfig = { strategy: "backoff", backoff: { initialInterval: 1, maxInterval: 5, maxElapsedTime: 2000, exponent: 1.1 } };
@@ -70,20 +60,16 @@ test("investigation retries keep the same key and person", async () => {
 });
 
 test("workspace person and investigation reads retain complete structured records", async () => {
-  const { profiles, findings, posts, media, lookup, reviews } = groupReport;
+  const { profiles, posts, media, lookup, reviews } = groupReport;
   const change = { id: "chg_01JAAAAAAAAAAAAAAAAAAAAAAA", kind: "account_added", significance: "high", source: "github", investigation_id: investigation.id, previous_investigation_id: investigation.id, created_at: "2026-11-15T10:05:11Z", reviewed_at: null };
   const { nr, calls } = client([
-    json({ ...person, evidence_investigation: investigation, profiles, findings, posts, media, lookup, written_profile: writtenProfile, suggested_searches: [], changes: [change], schedule: { period: "weekly", next_run_at: "2026-01-09T00:00:00Z", last_investigation_id: null, last_error: null, updated_at: "2026-01-02T00:00:00Z", updated_by: "Jane Analyst" }, groups: [{ group_id: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", group_name: "Annual shareholder meeting", group_starts_at: null, role: "crew", added_at: "2026-11-15T10:00:00Z" }] }),
-    json({ person, investigation, profiles, findings, posts, media, lookup, reviews }),
+    json({ ...person, evidence_investigation: investigation, profiles, posts, media, lookup, suggested_searches: [], changes: [change], schedule: { period: "weekly", next_run_at: "2026-01-09T00:00:00Z", last_investigation_id: null, last_error: null, updated_at: "2026-01-02T00:00:00Z", updated_by: "Jane Analyst" }, groups: [{ group_id: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", group_name: "Annual shareholder meeting", group_starts_at: null, role: "crew", added_at: "2026-11-15T10:00:00Z" }] }),
+    json({ person, investigation, profiles, posts, media, lookup, reviews }),
   ]);
   const latest = (await nr.people.get({ personId: person.id })).result;
   const history = (await nr.investigations.get({ investigationId: investigation.id })).result;
   assert.equal(latest.evidenceInvestigation.id, investigation.id);
   assert.equal(latest.lookup.records[1].fields.find(field => field.field === "password_hash").detail, "bcrypt");
-  assert.equal(latest.writtenProfile.status, "written");
-  assert.equal(new Date(latest.writtenProfile.finishedAt).toISOString(), "2026-11-15T10:05:11.000Z");
-  assert.deepEqual(latest.writtenProfile.statements[0].evidence, [{ kind: "check", id: "c1" }]);
-  assert.equal(latest.writtenProfile.leads[0].value, "jordan-example");
   assert.equal(latest.changes[0].significance, "high");
   assert.equal(latest.changes[0].reviewedAt, null);
   assert.equal(latest.schedule.period, "weekly");
@@ -120,6 +106,6 @@ test("ongoing groups retain null dates and PATCH distinguishes omission from cle
 
 test("related ongoing groups decode null event starts", async () => {
   const { OtherGroup$inboundSchema } = await import("../dist/esm/models/other-group.js");
-  const group = OtherGroup$inboundSchema.parse({"group_id":"grp_building","group_name":"Harbour building","group_starts_at":null,"person_id":"per_example","matched_on":["person_id"],"match_state":"unscreened","highest_band":null,"decision":null});
+  const group = OtherGroup$inboundSchema.parse({"group_id":"grp_building","group_name":"Harbour building","group_starts_at":null,"person_id":"per_example","matched_on":["person_id"],"match_state":"unscreened","decision":null});
   assert.equal(group.groupStartsAt, null);
 });

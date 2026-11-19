@@ -106,7 +106,6 @@ async function $do(
 
   const query = encodeFormQuery({
     "after": payload.after,
-    "band": payload.band,
     "decision": payload.decision,
     "limit": payload.limit,
     "role": payload.role,

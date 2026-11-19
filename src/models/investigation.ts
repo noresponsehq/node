@@ -4,7 +4,6 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { HighestBand, HighestBand$inboundSchema } from "./highest-band.js";
 import {
   InvestigationStatus,
   InvestigationStatus$inboundSchema,
@@ -28,10 +27,6 @@ import {
 } from "./screening-spend.js";
 
 export type Investigation = {
-  /**
-   * The most severe finding's band, or null when nothing was flagged.
-   */
-  highestBand: HighestBand | null;
   /**
    * The denominator of a screening: accounts found, how many could be read, items read and the period they span, so a clean result is distinct from a person nobody could see.
    */
@@ -68,7 +63,6 @@ export const Investigation$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    highest_band: types.nullable(HighestBand$inboundSchema),
     coverage: ScreeningCoverage$inboundSchema,
     spend: ScreeningSpend$inboundSchema,
     decision: types.nullable(PersonDecision$inboundSchema),
@@ -91,7 +85,6 @@ export const Investigation$inboundSchema: z.ZodMiniType<
   }),
   z.transform((v) => {
     return remap$(v, {
-      "highest_band": "highestBand",
       "decision_note": "decisionNote",
       "decided_by": "decidedBy",
       "decided_at": "decidedAt",

@@ -13,10 +13,6 @@ import {
   ScreeningCoverageTiming$inboundSchema,
 } from "./screening-coverage-timing.js";
 import {
-  ScreeningNotAnalysedCount,
-  ScreeningNotAnalysedCount$inboundSchema,
-} from "./screening-not-analysed-count.js";
-import {
   ScreeningPlatformCoverage,
   ScreeningPlatformCoverage$inboundSchema,
 } from "./screening-platform-coverage.js";
@@ -28,18 +24,6 @@ export type ScreeningCoverage = {
   accountsFound: number;
   accountsAccessible: number;
   itemsRead: number;
-  /**
-   * Items read that the analyser could not analyse. Above zero, the person is partial: a finding may be missing from them.
-   */
-  itemsNotAnalysed?: number | undefined;
-  /**
-   * items_not_analysed split by reason, each reason once with at least one item.
-   */
-  notAnalysedByReason?: Array<ScreeningNotAnalysedCount> | undefined;
-  /**
-   * Videos the analyser read from their cover frame and caption alone, without their sound or later frames. They count as analysed and do not make the person partial. Left out when none.
-   */
-  itemsFrameOnly?: number | undefined;
   /**
    * The oldest item read on any platform.
    */
@@ -72,11 +56,6 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
     accounts_found: types.number(),
     accounts_accessible: types.number(),
     items_read: types.number(),
-    items_not_analysed: types.optional(types.number()),
-    not_analysed_by_reason: types.optional(
-      z.array(ScreeningNotAnalysedCount$inboundSchema),
-    ),
-    items_frame_only: types.optional(types.number()),
     period_from: types.optional(types.string()),
     period_to: types.optional(types.string()),
     platforms: z.array(ScreeningPlatformCoverage$inboundSchema),
@@ -89,9 +68,6 @@ export const ScreeningCoverage$inboundSchema: z.ZodMiniType<
       "accounts_found": "accountsFound",
       "accounts_accessible": "accountsAccessible",
       "items_read": "itemsRead",
-      "items_not_analysed": "itemsNotAnalysed",
-      "not_analysed_by_reason": "notAnalysedByReason",
-      "items_frame_only": "itemsFrameOnly",
       "period_from": "periodFrom",
       "period_to": "periodTo",
       "not_searched": "notSearched",

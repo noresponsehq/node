@@ -353,14 +353,9 @@ async function handler(req, res) {
     return res.status(204).end();
   }
   if (event.type === "screening.completed") {
-    // A screening of a group finished: counts by band, no footprint and partial coverage. No person is named:
-    // read the group's roster, filtered by band.
-    reportScreening(event.data.groupId, event.data.status, event.data.byBand, event.data.partialCoverage);
-    return res.status(204).end();
-  }
-  if (event.type === "person.flagged") {
-    // A screening flagged a person: its highest band and match state, never what was posted.
-    queueReview(event.data.groupId, event.data.personId, event.data.highestBand);
+    // A screening of a group finished: counts of people screened, no footprint and partial coverage. No person is named:
+    // read the group's roster.
+    reportScreening(event.data.groupId, event.data.status, event.data.peopleScreened, event.data.partialCoverage);
     return res.status(204).end();
   }
   if (event.type === "person.decided") {

@@ -6,6 +6,9 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Stage, Stage$inboundSchema } from "./stage.js";
 
 export type StageTime = {
+  /**
+   * ai_typing and analysis appear only on searches recorded before the engine stopped analysing results.
+   */
   stage: Stage;
   ms: number;
 };

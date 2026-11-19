@@ -11,12 +11,6 @@ let value: GetPersonResponse = {
       "example 1",
       "example 2",
     ],
-    "key1": [],
-    "key2": [
-      "example 1",
-      "example 2",
-      "example 3",
-    ],
   },
   result: {
     person: {
@@ -35,28 +29,34 @@ let value: GetPersonResponse = {
         },
       ],
       matchState: "possible",
-      highestBand: "critical",
       decision: "cleared",
       decisionNote: "Known to the venue team.",
       decidedBy: "user_2abc",
       decidedAt: "2026-01-01T00:00:00Z",
       coverage: {
-        accountsFound: 862118,
-        accountsAccessible: 501876,
-        itemsRead: 942805,
+        accountsFound: 835107,
+        accountsAccessible: 274781,
+        itemsRead: 862118,
         periodFrom: "2026-01-01T00:00:00Z",
         periodTo: "2026-01-02T00:00:00Z",
-        platforms: [],
+        platforms: [
+          {
+            platform: "bluesky",
+            status: "unavailable",
+            accountsFound: 373294,
+            itemsRead: 570887,
+          },
+        ],
         notSearched: [
           "instagram",
         ],
         timing: {
           startedAt: "2026-01-01T00:00:00Z",
-          totalMs: 570887,
+          totalMs: 906374,
           stages: [
             {
-              stage: "ai_typing",
-              ms: 603969,
+              stage: "late_lookup",
+              ms: 806958,
             },
           ],
         },
@@ -66,120 +66,69 @@ let value: GetPersonResponse = {
       createdAt: "2026-01-01T00:00:00Z",
       updatedAt: "2026-01-01T00:00:00Z",
       spend: {
-        totalMinor: 806958,
+        totalMinor: 956527,
         byImplementation: [
           {
             implementation: "synthetic",
-            role: "collector",
-            spendMinor: 249606,
+            role: "resolver",
+            spendMinor: 949972,
           },
         ],
       },
       expiresAt: "2026-02-01T00:00:00Z",
     },
-    profiles: [
+    profiles: [],
+    posts: [
       {
-        id: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        platform: "bluesky",
-        handle: "jordanexample42",
-        url: "https://synthetic.invalid/synthetic/jordanexample42",
-        displayName: "Jordan Example",
-        bio: "Engineer at Example Ltd in Melbourne.",
-        avatarUrl: "https://synthetic.invalid/avatar/3f9a1c22d4e5b6a7.png",
-        accountCreatedAt: "2019-01-01T00:00:00Z",
-        access: "public",
-        match: {
-          state: "possible",
-          evidence: [],
+        id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        kind: "post",
+        text: "Great coffee this morning before the commute.",
+        replyTo: "https://synthetic.invalid/synthetic/jordanexample42/p0",
+        repostOf: "https://synthetic.invalid/synthetic/caseyexample7/p2",
+        quoteOf: "https://synthetic.invalid/synthetic/caseyexample7/p3",
+        place: {
+          name: "Example Harbour",
+          id: "212988663",
+          address: "2 Wharf Road",
+          city: "Melbourne",
         },
-        collector: "synthetic",
-        itemsRead: 443528,
-        periodFrom: "2026-01-01T00:00:00Z",
-        periodTo: "2026-01-02T00:00:00Z",
-        collectedAt: "2026-01-02T00:00:00Z",
-        record: {
-          id: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
-          source: {
-            connector: "bluesky",
-            kind: "platform",
-            site: "bsky.app",
-            table: "users",
-            date: "2019-03",
-          },
-          matched: [
-            {
-              by: "handle",
-              field: "username",
-              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-            },
-          ],
-          fields: [],
-          observedAt: "2026-01-02T00:00:00Z",
-          agreed: [
-            "lastip",
-          ],
-          clashed: [
-            "dob",
-          ],
-          evidence: [
-            {
-              signal: "clashes",
-              kind: "username",
-              field: "twitter_username",
-              with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
-              withField: "username",
-              bits: 7897.97,
-            },
-          ],
-          path: [
-            "given",
-          ],
-        },
+        tagged: [
+          "caseyexample7",
+        ],
+        language: "en",
+        postedWith: "Twitter for iPhone",
+        profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
+        postedAt: "2026-01-01T00:00:00Z",
+        screenshotSha256:
+          "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
+        capturedAt: "2026-01-01T00:00:00Z",
       },
     ],
-    findings: [
-      {
-        id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        category: "direct_threat",
-        band: "low",
-        confidence: 3564.17,
-        rationale: "The post reports when the principal leaves the hotel.",
-        quote:
-          "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
-        evidence: [
-          "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        ],
-        mediaObservations: [
-          {
-            mediaId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-            description: "A handwritten sign held up outside the venue.",
-            readText: "SEE YOU ON THE 1ST",
-          },
-        ],
-        analyser: "synthetic",
-        model: "synthetic-1",
-        spendMinor: 655904,
-        createdAt: "2026-01-01T00:00:00Z",
-      },
-    ],
-    posts: [],
     media: [],
-    reviews: [
-      {
-        id: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        decision: "escalated",
-        note: "Known to the venue team.",
-        createdBy: "user_2abc",
-        createdAt: "2026-01-01T00:00:00Z",
-      },
-    ],
+    reviews: [],
     lookup: {
-      checks: [],
+      checks: [
+        {
+          identifier: "phone",
+          lane: "ip",
+          status: "not_covered",
+          sources: 802959,
+          answered: 72494,
+          found: 734559,
+          unanswered: [
+            {
+              connector: "github",
+              reason: "blocked",
+            },
+          ],
+        },
+      ],
       answers: [
         {
           connector: "github",
-          identifier: "phone",
-          outcome: "inconclusive",
+          identifier: "username",
+          outcome: "not_found",
           answeredAt: "2026-01-01T00:00:02Z",
         },
       ],
@@ -193,13 +142,7 @@ let value: GetPersonResponse = {
             table: "users",
             date: "2019-03",
           },
-          matched: [
-            {
-              by: "handle",
-              field: "username",
-              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-            },
-          ],
+          matched: [],
           fields: [
             {
               field: "creation_date",
@@ -207,7 +150,7 @@ let value: GetPersonResponse = {
               value: "2019-01-01T00:00:00Z",
               detail: "bcrypt",
               distinctive: {
-                rating: "distinctive",
+                rating: "common",
                 reason: "in 4 breach rows",
               },
             },
@@ -221,12 +164,12 @@ let value: GetPersonResponse = {
           ],
           evidence: [
             {
-              signal: "clashes",
+              signal: "found_by",
               kind: "username",
               field: "twitter_username",
               with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
               withField: "username",
-              bits: 7897.97,
+              bits: 2511.99,
             },
           ],
           path: [
@@ -245,7 +188,7 @@ let value: GetPersonResponse = {
           },
           by: "email",
           search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          rows: 156477,
+          rows: 579434,
         },
       ],
       lookedAt: "2026-01-01T00:00:00Z",
@@ -256,46 +199,24 @@ let value: GetPersonResponse = {
         recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
         field: "username",
         table: "FORUM_EXAMPLE_COM_2019",
-        kind: "hash",
+        kind: "domain",
         value: "jordanexample42",
-        status: "counted",
-        sources: 298226,
-        answered: 441806,
-        found: 525806,
-        estimatedSpend: 58157,
-        spent: 400805,
+        status: "running",
+        sources: 336986,
+        answered: 156477,
+        found: 649086,
+        estimatedSpend: 264360,
+        spent: 298226,
         requestedBy: "user_2abc",
         parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         createdAt: "2026-01-01T00:00:00Z",
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
-    suggestedSearches: [
-      {
-        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
-        field: "username",
-        kind: "username",
-        likelihood: 0.87,
-      },
-    ],
+    suggestedSearches: [],
     otherGroups: {
-      total: 865004,
-      items: [
-        {
-          groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
-          groupName: "Spring gala",
-          groupStartsAt: "2025-09-01T09:00:00Z",
-          personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
-          matchedOn: [
-            "person_id",
-          ],
-          matchState: "probable",
-          highestBand: "moderate",
-          decision: "escalated",
-          decidedBy: "user_2abc",
-          decidedAt: "2025-09-01T12:00:00Z",
-        },
-      ],
+      total: 525806,
+      items: [],
     },
   },
 };

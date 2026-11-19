@@ -14,9 +14,12 @@ import {
  */
 export type ScreeningSpendLine = {
   /**
-   * The resolver, collector or analyser that produced a record, by its catalogue name.
+   * The resolver or collector that produced a record, by its catalogue name.
    */
   implementation: string;
+  /**
+   * What the implementation did. analyser appears only on spend recorded before the engine stopped analysing posts.
+   */
   role: ScreeningSpendLineRole;
   spendMinor: number;
 };

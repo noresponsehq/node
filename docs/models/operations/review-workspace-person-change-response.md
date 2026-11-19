@@ -14,7 +14,7 @@ let value: ReviewWorkspacePersonChangeResponse = {
   },
   result: {
     id: "chg_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    kind: "identifier_removed",
+    kind: "identifier_added",
     significance: "high",
     source: "github",
     field: "email",

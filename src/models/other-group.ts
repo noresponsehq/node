@@ -6,7 +6,6 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
-import { HighestBand, HighestBand$inboundSchema } from "./highest-band.js";
 import { MatchState, MatchState$inboundSchema } from "./match-state.js";
 import {
   PersonDecision,
@@ -45,10 +44,6 @@ export type OtherGroup = {
    */
   noProfileToCheck?: boolean | undefined;
   /**
-   * That person's most severe band in that group, or null.
-   */
-  highestBand: HighestBand | null;
-  /**
    * The latest reviewer decision in that group, or null before any.
    */
   decision: PersonDecision | null;
@@ -79,7 +74,6 @@ export const OtherGroup$inboundSchema: z.ZodMiniType<OtherGroup, unknown> = z
       matched_on: z.array(OtherGroupMatchedOn$inboundSchema),
       match_state: MatchState$inboundSchema,
       no_profile_to_check: types.optional(types.boolean()),
-      highest_band: types.nullable(HighestBand$inboundSchema),
       decision: types.nullable(PersonDecision$inboundSchema),
       decided_by: types.optional(types.string()),
       decided_at: types.optional(types.string()),
@@ -93,7 +87,6 @@ export const OtherGroup$inboundSchema: z.ZodMiniType<OtherGroup, unknown> = z
         "matched_on": "matchedOn",
         "match_state": "matchState",
         "no_profile_to_check": "noProfileToCheck",
-        "highest_band": "highestBand",
         "decided_by": "decidedBy",
         "decided_at": "decidedAt",
       });

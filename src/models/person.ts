@@ -5,7 +5,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Handle, Handle$inboundSchema } from "./handle.js";
-import { HighestBand, HighestBand$inboundSchema } from "./highest-band.js";
 import { MatchState, MatchState$inboundSchema } from "./match-state.js";
 import {
   PersonDecision,
@@ -68,10 +67,6 @@ export type Person = {
    */
   noProfileToCheck?: boolean | undefined;
   /**
-   * The most severe finding's band, or null when nothing was flagged.
-   */
-  highestBand: HighestBand | null;
-  /**
    * The latest reviewer decision, or null before any.
    */
   decision: PersonDecision | null;
@@ -111,7 +106,6 @@ export const Person$inboundSchema: z.ZodMiniType<Person, unknown> = z.pipe(
     role: types.optional(PersonRole$inboundSchema),
     match_state: MatchState$inboundSchema,
     no_profile_to_check: types.optional(types.boolean()),
-    highest_band: types.nullable(HighestBand$inboundSchema),
     decision: types.nullable(PersonDecision$inboundSchema),
     decision_note: types.optional(types.string()),
     decided_by: types.optional(types.string()),
@@ -130,7 +124,6 @@ export const Person$inboundSchema: z.ZodMiniType<Person, unknown> = z.pipe(
       "external_id": "externalId",
       "match_state": "matchState",
       "no_profile_to_check": "noProfileToCheck",
-      "highest_band": "highestBand",
       "decision_note": "decisionNote",
       "decided_by": "decidedBy",
       "decided_at": "decidedAt",

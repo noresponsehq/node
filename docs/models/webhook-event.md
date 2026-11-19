@@ -334,35 +334,9 @@ const value: models.ScreeningCompletedEvent = {
     errorCode: "expired",
     peopleTotal: 134491,
     peopleScreened: 402555,
-    peopleFlagged: 479916,
-    byBand: {
-      critical: 921729,
-      high: 668548,
-      moderate: 314462,
-      low: 418191,
-      info: 569787,
-    },
-    noFootprint: 729417,
-    partialCoverage: 501765,
+    noFootprint: 479916,
+    partialCoverage: 921729,
     finishedAt: "2026-11-20T08:12:44.000Z",
-  },
-};
-```
-
-### `models.PersonFlaggedEvent`
-
-```typescript
-const value: models.PersonFlaggedEvent = {
-  id: "evt_01JA2ZB4N5P6Q7R8S9T0VWXYZ1",
-  createdAt: "2026-10-14T09:00:02.000Z",
-  type: "person.flagged",
-  data: {
-    groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    screeningId: "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    highestBand: "moderate",
-    matchState: "none_found",
-    flaggedAt: "2026-11-20T07:41:09.000Z",
   },
 };
 ```

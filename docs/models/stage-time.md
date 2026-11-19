@@ -13,7 +13,7 @@ let value: StageTime = {
 
 ## Fields
 
-| Field                              | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `stage`                            | [models.Stage](../models/stage.md) | :heavy_check_mark:                 | N/A                                |
-| `ms`                               | *number*                           | :heavy_check_mark:                 | N/A                                |
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `stage`                                                                                              | [models.Stage](../models/stage.md)                                                                   | :heavy_check_mark:                                                                                   | ai_typing and analysis appear only on searches recorded before the engine stopped analysing results. |
+| `ms`                                                                                                 | *number*                                                                                             | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

@@ -30,7 +30,7 @@ let value: RecordT = {
       value: "2019-01-01T00:00:00Z",
       detail: "bcrypt",
       distinctive: {
-        rating: "distinctive",
+        rating: "common",
         reason: "in 4 breach rows",
       },
     },
@@ -44,12 +44,12 @@ let value: RecordT = {
   ],
   evidence: [
     {
-      signal: "clashes",
+      signal: "found_by",
       kind: "username",
       field: "twitter_username",
       with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
       withField: "username",
-      bits: 7897.97,
+      bits: 2511.99,
     },
   ],
   path: [

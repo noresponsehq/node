@@ -8,10 +8,6 @@ import { OtherGroups, OtherGroups$inboundSchema } from "./other-groups.js";
 import { PersonReview, PersonReview$inboundSchema } from "./person-review.js";
 import { Person, Person$inboundSchema } from "./person.js";
 import {
-  ScreeningFinding,
-  ScreeningFinding$inboundSchema,
-} from "./screening-finding.js";
-import {
   ScreeningLookup,
   ScreeningLookup$inboundSchema,
 } from "./screening-lookup.js";
@@ -46,15 +42,11 @@ export type PersonReport = {
    */
   profiles: Array<ScreeningProfile>;
   /**
-   * What this result flagged, most severe first, each citing its evidence.
-   */
-  findings: Array<ScreeningFinding>;
-  /**
-   * All posts retained for this result, including posts that no finding cites.
+   * All posts retained for this result.
    */
   posts: Array<ScreeningPost>;
   /**
-   * All images and videos retained for this result, including media that no finding cites.
+   * All images and videos retained for this result.
    */
   media: Array<ScreeningMedia>;
   /**
@@ -62,7 +54,7 @@ export type PersonReport = {
    */
   reviews: Array<PersonReview>;
   /**
-   * What the signup check's lookups found for a person: account presence for the email, phone and usernames (the person's handles), the phone lookup, the email domain's registration and the breach search. Context and coverage for the reviewer, not a finding: nothing here sets a band or a match state.
+   * What the signup check's lookups found for a person: account presence for the email, phone and usernames (the person's handles), the phone lookup, the email domain's registration and the breach search. Nothing here sets a match state.
    */
   lookup?: ScreeningLookup | undefined;
   /**
@@ -78,7 +70,7 @@ export type PersonReport = {
    */
   otherGroups: OtherGroups;
   /**
-   * True when evidence.read is explicitly denied. Submitted details, coverage, job status and decisions remain available. Collected records, profiles, findings, posts, media, discovered values and free-text decision notes are withheld.
+   * True when evidence.read is explicitly denied. Submitted details, coverage, job status and decisions remain available. Collected records, profiles, posts, media, discovered values and free-text decision notes are withheld.
    */
   evidenceRestricted?: boolean | undefined;
 };
@@ -89,7 +81,6 @@ export const PersonReport$inboundSchema: z.ZodMiniType<PersonReport, unknown> =
     z.object({
       person: Person$inboundSchema,
       profiles: z.array(ScreeningProfile$inboundSchema),
-      findings: z.array(ScreeningFinding$inboundSchema),
       posts: z.array(ScreeningPost$inboundSchema),
       media: z.array(ScreeningMedia$inboundSchema),
       reviews: z.array(PersonReview$inboundSchema),

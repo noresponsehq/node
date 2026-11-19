@@ -16,10 +16,6 @@ export type ListPeopleRequest = {
    */
   after?: string | undefined;
   /**
-   * Only people whose highest finding has this band; none for people with no finding.
-   */
-  band?: models.ListPeopleBand | undefined;
-  /**
    * Only people with this decision; undecided for none yet.
    */
   decision?: models.ListPeopleDecision | undefined;
@@ -39,7 +35,6 @@ export type ListPeopleRequest$Outbound = {
   group_id: string;
   limit: number;
   after?: string | undefined;
-  band?: string | undefined;
   decision?: string | undefined;
   role?: string | undefined;
 };
@@ -53,7 +48,6 @@ export const ListPeopleRequest$outboundSchema: z.ZodMiniType<
     groupId: z.string(),
     limit: z._default(z.int(), 100),
     after: z.optional(z.string()),
-    band: z.optional(models.ListPeopleBand$outboundSchema),
     decision: z.optional(models.ListPeopleDecision$outboundSchema),
     role: z.optional(models.ListPeopleRole$outboundSchema),
   }),

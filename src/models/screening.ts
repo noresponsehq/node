@@ -50,7 +50,6 @@ export type Screening = {
    * People screened so far, failed ones included.
    */
   peopleDone: number;
-  peopleFlagged: number;
   peopleFailed: number;
   /**
    * People screened with some requested platform not covered; their coverage names which.
@@ -91,7 +90,6 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
       expires_at: types.string(),
       people_total: types.number(),
       people_done: types.number(),
-      people_flagged: types.number(),
       people_failed: types.number(),
       people_partial: types.number(),
       estimated_spend: types.number(),
@@ -109,7 +107,6 @@ export const Screening$inboundSchema: z.ZodMiniType<Screening, unknown> = z
         "expires_at": "expiresAt",
         "people_total": "peopleTotal",
         "people_done": "peopleDone",
-        "people_flagged": "peopleFlagged",
         "people_failed": "peopleFailed",
         "people_partial": "peoplePartial",
         "estimated_spend": "estimatedSpend",

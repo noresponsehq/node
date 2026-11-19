@@ -1,6 +1,6 @@
 # ScreeningLookup
 
-What the signup check's lookups found for a person: account presence for the email, phone and usernames (the person's handles), the phone lookup, the email domain's registration and the breach search. Context and coverage for the reviewer, not a finding: nothing here sets a band or a match state.
+What the signup check's lookups found for a person: account presence for the email, phone and usernames (the person's handles), the phone lookup, the email domain's registration and the breach search. Nothing here sets a match state.
 
 ## Example Usage
 
@@ -10,16 +10,16 @@ import { ScreeningLookup } from "@noresponse/node/models";
 let value: ScreeningLookup = {
   checks: [
     {
-      identifier: "name",
-      lane: "phone",
+      identifier: "phone",
+      lane: "ip",
       status: "not_covered",
-      sources: 683033,
-      answered: 533262,
-      found: 637323,
+      sources: 802959,
+      answered: 72494,
+      found: 734559,
       unanswered: [
         {
           connector: "github",
-          reason: "timed_out",
+          reason: "blocked",
         },
       ],
     },
@@ -27,8 +27,8 @@ let value: ScreeningLookup = {
   answers: [
     {
       connector: "github",
-      identifier: "phone",
-      outcome: "inconclusive",
+      identifier: "username",
+      outcome: "not_found",
       answeredAt: "2026-01-01T00:00:02Z",
     },
   ],
@@ -42,13 +42,7 @@ let value: ScreeningLookup = {
         table: "users",
         date: "2019-03",
       },
-      matched: [
-        {
-          by: "handle",
-          field: "username",
-          search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        },
-      ],
+      matched: [],
       fields: [
         {
           field: "creation_date",
@@ -56,7 +50,7 @@ let value: ScreeningLookup = {
           value: "2019-01-01T00:00:00Z",
           detail: "bcrypt",
           distinctive: {
-            rating: "distinctive",
+            rating: "common",
             reason: "in 4 breach rows",
           },
         },
@@ -70,12 +64,12 @@ let value: ScreeningLookup = {
       ],
       evidence: [
         {
-          signal: "clashes",
+          signal: "found_by",
           kind: "username",
           field: "twitter_username",
           with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
           withField: "username",
-          bits: 7897.97,
+          bits: 2511.99,
         },
       ],
       path: [
@@ -94,7 +88,7 @@ let value: ScreeningLookup = {
       },
       by: "email",
       search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-      rows: 156477,
+      rows: 579434,
     },
   ],
   lookedAt: "2026-01-01T00:00:00Z",
