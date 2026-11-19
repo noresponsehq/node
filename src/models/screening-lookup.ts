@@ -5,6 +5,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import {
+  RecordConflict,
+  RecordConflict$inboundSchema,
+} from "./record-conflict.js";
+import {
   RecordRemaining,
   RecordRemaining$inboundSchema,
 } from "./record-remaining.js";
@@ -39,6 +43,10 @@ export type ScreeningLookup = {
    */
   remaining?: Array<RecordRemaining> | undefined;
   /**
+   * Identifiers you gave that lead to different people. Absent when they agree.
+   */
+  conflicts?: Array<RecordConflict> | undefined;
+  /**
    * When the lookups ran.
    */
   lookedAt: string;
@@ -54,6 +62,7 @@ export const ScreeningLookup$inboundSchema: z.ZodMiniType<
     answers: types.optional(z.array(ScreeningLookupAnswer$inboundSchema)),
     records: types.optional(z.array(RecordT$inboundSchema)),
     remaining: types.optional(z.array(RecordRemaining$inboundSchema)),
+    conflicts: types.optional(z.array(RecordConflict$inboundSchema)),
     looked_at: types.string(),
   }),
   z.transform((v) => {

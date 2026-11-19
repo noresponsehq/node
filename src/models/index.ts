@@ -306,6 +306,8 @@ export * from "./rating.js";
 export * from "./reason-code.js";
 export * from "./reason-identifier.js";
 export * from "./recommendation.js";
+export * from "./record-conflict-signal.js";
+export * from "./record-conflict.js";
 export * from "./record-distinctive.js";
 export * from "./record-evidence-signal.js";
 export * from "./record-evidence.js";

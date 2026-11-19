@@ -136,6 +136,18 @@ let value: GetInvestigationResponse = {
           rows: 579434,
         },
       ],
+      conflicts: [
+        {
+          signal: "anchors_disagree",
+          kind: "person_name",
+          between: [
+            "phone",
+          ],
+          records: [
+            "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+          ],
+        },
+      ],
       lookedAt: "2026-01-01T00:00:00Z",
     },
     person: {

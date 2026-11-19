@@ -65,6 +65,10 @@ export type RecordT = {
    * How the record connects to what the investigator gave: given first, then the ids of the joined records it reached the person through, nearest last. Each step follows what found the record before the strongest agreement. A record with no link to the person has no path.
    */
   path?: Array<string> | undefined;
+  /**
+   * For a record that is not the person's, the other person it belongs with: records that share this number share strong values, such as an email or a full name with a phone, and score as one person against each other. Absent on the person's own records and on a record that matches nobody else. A value that more than 20 strangers hold groups nobody.
+   */
+  otherPerson?: number | undefined;
 };
 
 /** @internal */
@@ -82,10 +86,12 @@ export const RecordT$inboundSchema: z.ZodMiniType<RecordT, unknown> = z.pipe(
     verdict: types.optional(Verdict$inboundSchema),
     evidence: types.optional(z.array(RecordEvidence$inboundSchema)),
     path: types.optional(z.array(types.string())),
+    other_person: types.optional(types.number()),
   }),
   z.transform((v) => {
     return remap$(v, {
       "observed_at": "observedAt",
+      "other_person": "otherPerson",
     });
   }),
 );

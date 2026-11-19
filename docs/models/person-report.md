@@ -274,6 +274,18 @@ let value: PersonReport = {
         rows: 579434,
       },
     ],
+    conflicts: [
+      {
+        signal: "anchors_disagree",
+        kind: "person_name",
+        between: [
+          "phone",
+        ],
+        records: [
+          "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        ],
+      },
+    ],
     lookedAt: "2026-01-01T00:00:00Z",
   },
   searches: [
@@ -282,14 +294,14 @@ let value: PersonReport = {
       recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
       field: "username",
       table: "FORUM_EXAMPLE_COM_2019",
-      kind: "domain",
+      kind: "username",
       value: "jordanexample42",
-      status: "running",
-      sources: 336986,
-      answered: 156477,
-      found: 649086,
-      estimatedSpend: 264360,
-      spent: 298226,
+      status: "counted",
+      sources: 649086,
+      answered: 264360,
+      found: 298226,
+      estimatedSpend: 441806,
+      spent: 525806,
       requestedBy: "user_2abc",
       parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
       createdAt: "2026-01-01T00:00:00Z",
@@ -298,8 +310,22 @@ let value: PersonReport = {
   ],
   suggestedSearches: [],
   otherGroups: {
-    total: 525806,
-    items: [],
+    total: 400805,
+    items: [
+      {
+        groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+        groupName: "Spring gala",
+        groupStartsAt: "2025-09-01T09:00:00Z",
+        personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+        matchedOn: [
+          "person_id",
+        ],
+        matchState: "inaccessible",
+        decision: "watch",
+        decidedBy: "user_2abc",
+        decidedAt: "2025-09-01T12:00:00Z",
+      },
+    ],
   },
 };
 ```
