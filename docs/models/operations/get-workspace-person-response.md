@@ -77,15 +77,28 @@ let value: GetWorkspacePersonResponse = {
           clashed: [
             "dob",
           ],
+          evidence: [
+            {
+              signal: "clashes",
+              kind: "username",
+              field: "twitter_username",
+              with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+              withField: "username",
+              bits: 7897.97,
+            },
+          ],
+          path: [
+            "given",
+          ],
         },
       },
     ],
     findings: [
       {
         id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        category: "violent_extremism",
-        band: "info",
-        confidence: 724.94,
+        category: "direct_threat",
+        band: "low",
+        confidence: 3564.17,
         rationale: "The post reports when the principal leaves the hotel.",
         quote:
           "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
@@ -101,7 +114,7 @@ let value: GetWorkspacePersonResponse = {
         ],
         analyser: "synthetic",
         model: "synthetic-1",
-        spendMinor: 734559,
+        spendMinor: 655904,
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
@@ -134,27 +147,12 @@ let value: GetWorkspacePersonResponse = {
     ],
     media: [],
     lookup: {
-      checks: [
-        {
-          identifier: "username",
-          lane: "accounts",
-          status: "not_found",
-          sources: 579434,
-          answered: 904123,
-          found: 555247,
-          unanswered: [
-            {
-              connector: "github",
-              reason: "blocked",
-            },
-          ],
-        },
-      ],
+      checks: [],
       answers: [
         {
           connector: "github",
-          identifier: "email",
-          outcome: "blocked",
+          identifier: "phone",
+          outcome: "inconclusive",
           answeredAt: "2026-01-01T00:00:02Z",
         },
       ],
@@ -168,14 +166,44 @@ let value: GetWorkspacePersonResponse = {
             table: "users",
             date: "2019-03",
           },
-          matched: [],
-          fields: [],
+          matched: [
+            {
+              by: "handle",
+              field: "username",
+              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            },
+          ],
+          fields: [
+            {
+              field: "creation_date",
+              original: "2019-01-01T00:00:00Z",
+              value: "2019-01-01T00:00:00Z",
+              detail: "bcrypt",
+              distinctive: {
+                rating: "distinctive",
+                reason: "in 4 breach rows",
+              },
+            },
+          ],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",
           ],
           clashed: [
             "dob",
+          ],
+          evidence: [
+            {
+              signal: "clashes",
+              kind: "username",
+              field: "twitter_username",
+              with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+              withField: "username",
+              bits: 7897.97,
+            },
+          ],
+          path: [
+            "given",
           ],
         },
       ],
@@ -190,7 +218,7 @@ let value: GetWorkspacePersonResponse = {
           },
           by: "email",
           search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          rows: 441806,
+          rows: 156477,
         },
       ],
       lookedAt: "2026-01-01T00:00:00Z",
@@ -201,14 +229,14 @@ let value: GetWorkspacePersonResponse = {
         recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
         field: "username",
         table: "FORUM_EXAMPLE_COM_2019",
-        kind: "password",
+        kind: "hash",
         value: "jordanexample42",
-        status: "counting",
-        sources: 400805,
-        answered: 664258,
-        found: 865004,
-        estimatedSpend: 941722,
-        spent: 892966,
+        status: "counted",
+        sources: 298226,
+        answered: 441806,
+        found: 525806,
+        estimatedSpend: 58157,
+        spent: 400805,
         requestedBy: "user_2abc",
         parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         createdAt: "2026-01-01T00:00:00Z",

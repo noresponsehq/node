@@ -13,7 +13,7 @@ let value: RecordField = {
   value: "2019-01-01T00:00:00Z",
   detail: "bcrypt",
   distinctive: {
-    rating: "unique",
+    rating: "distinctive",
     reason: "in 4 breach rows",
   },
 };

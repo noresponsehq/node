@@ -50,6 +50,19 @@ let value: ScreeningProfile = {
     clashed: [
       "dob",
     ],
+    evidence: [
+      {
+        signal: "clashes",
+        kind: "username",
+        field: "twitter_username",
+        with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        withField: "username",
+        bits: 7897.97,
+      },
+    ],
+    path: [
+      "given",
+    ],
   },
 };
 ```

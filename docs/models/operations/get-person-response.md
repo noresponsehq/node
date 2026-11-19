@@ -6,7 +6,18 @@
 import { GetPersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetPersonResponse = {
-  headers: {},
+  headers: {
+    "key": [
+      "example 1",
+      "example 2",
+    ],
+    "key1": [],
+    "key2": [
+      "example 1",
+      "example 2",
+      "example 3",
+    ],
+  },
   result: {
     person: {
       id: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -110,15 +121,28 @@ let value: GetPersonResponse = {
           clashed: [
             "dob",
           ],
+          evidence: [
+            {
+              signal: "clashes",
+              kind: "username",
+              field: "twitter_username",
+              with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+              withField: "username",
+              bits: 7897.97,
+            },
+          ],
+          path: [
+            "given",
+          ],
         },
       },
     ],
     findings: [
       {
         id: "fnd_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        category: "violent_extremism",
-        band: "info",
-        confidence: 724.94,
+        category: "direct_threat",
+        band: "low",
+        confidence: 3564.17,
         rationale: "The post reports when the principal leaves the hotel.",
         quote:
           "Spotted Jordan Lee leaving the hotel, they always take the side exit at seven.",
@@ -134,51 +158,28 @@ let value: GetPersonResponse = {
         ],
         analyser: "synthetic",
         model: "synthetic-1",
-        spendMinor: 734559,
+        spendMinor: 655904,
         createdAt: "2026-01-01T00:00:00Z",
       },
     ],
     posts: [],
-    media: [
+    media: [],
+    reviews: [
       {
-        id: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        kind: "media",
-        postId: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        mediaType: "image",
-        mediaUrl: "https://synthetic.invalid/media/jordanexample42/p1.jpg",
-        coverOf: "itm_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
-        text: "A photo",
-        profileId: "prf_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        permalink: "https://synthetic.invalid/synthetic/jordanexample42/p1",
-        postedAt: "2026-01-01T00:00:00Z",
-        screenshotSha256:
-          "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
-        capturedAt: "2026-01-01T00:00:00Z",
+        id: "arv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+        decision: "escalated",
+        note: "Known to the venue team.",
+        createdBy: "user_2abc",
+        createdAt: "2026-01-01T00:00:00Z",
       },
     ],
-    reviews: [],
     lookup: {
-      checks: [
-        {
-          identifier: "username",
-          lane: "accounts",
-          status: "not_found",
-          sources: 579434,
-          answered: 904123,
-          found: 555247,
-          unanswered: [
-            {
-              connector: "github",
-              reason: "blocked",
-            },
-          ],
-        },
-      ],
+      checks: [],
       answers: [
         {
           connector: "github",
-          identifier: "email",
-          outcome: "blocked",
+          identifier: "phone",
+          outcome: "inconclusive",
           answeredAt: "2026-01-01T00:00:02Z",
         },
       ],
@@ -192,14 +193,44 @@ let value: GetPersonResponse = {
             table: "users",
             date: "2019-03",
           },
-          matched: [],
-          fields: [],
+          matched: [
+            {
+              by: "handle",
+              field: "username",
+              search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
+            },
+          ],
+          fields: [
+            {
+              field: "creation_date",
+              original: "2019-01-01T00:00:00Z",
+              value: "2019-01-01T00:00:00Z",
+              detail: "bcrypt",
+              distinctive: {
+                rating: "distinctive",
+                reason: "in 4 breach rows",
+              },
+            },
+          ],
           observedAt: "2026-01-02T00:00:00Z",
           agreed: [
             "lastip",
           ],
           clashed: [
             "dob",
+          ],
+          evidence: [
+            {
+              signal: "clashes",
+              kind: "username",
+              field: "twitter_username",
+              with: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+              withField: "username",
+              bits: 7897.97,
+            },
+          ],
+          path: [
+            "given",
           ],
         },
       ],
@@ -214,7 +245,7 @@ let value: GetPersonResponse = {
           },
           by: "email",
           search: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-          rows: 441806,
+          rows: 156477,
         },
       ],
       lookedAt: "2026-01-01T00:00:00Z",
@@ -225,24 +256,46 @@ let value: GetPersonResponse = {
         recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
         field: "username",
         table: "FORUM_EXAMPLE_COM_2019",
-        kind: "password",
+        kind: "hash",
         value: "jordanexample42",
-        status: "counting",
-        sources: 400805,
-        answered: 664258,
-        found: 865004,
-        estimatedSpend: 941722,
-        spent: 892966,
+        status: "counted",
+        sources: 298226,
+        answered: 441806,
+        found: 525806,
+        estimatedSpend: 58157,
+        spent: 400805,
         requestedBy: "user_2abc",
         parentSearchId: "srh_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
         createdAt: "2026-01-01T00:00:00Z",
         finishedAt: "2026-01-01T00:00:05Z",
       },
     ],
-    suggestedSearches: [],
+    suggestedSearches: [
+      {
+        recordId: "rec_3f9a1c22d4e5b6a73f9a1c22d4e5b6a7",
+        field: "username",
+        kind: "username",
+        likelihood: 0.87,
+      },
+    ],
     otherGroups: {
-      total: 864348,
-      items: [],
+      total: 865004,
+      items: [
+        {
+          groupId: "grp_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+          groupName: "Spring gala",
+          groupStartsAt: "2025-09-01T09:00:00Z",
+          personId: "per_01J9Y3C2M4N6P8Q0RSTVWXYZAB",
+          matchedOn: [
+            "person_id",
+          ],
+          matchState: "probable",
+          highestBand: "moderate",
+          decision: "escalated",
+          decidedBy: "user_2abc",
+          decidedAt: "2025-09-01T12:00:00Z",
+        },
+      ],
     },
   },
 };

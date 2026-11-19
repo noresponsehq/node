@@ -317,6 +317,8 @@ export * from "./reason-code.js";
 export * from "./reason-identifier.js";
 export * from "./recommendation.js";
 export * from "./record-distinctive.js";
+export * from "./record-evidence-signal.js";
+export * from "./record-evidence.js";
 export * from "./record-field.js";
 export * from "./record-kind.js";
 export * from "./record-match.js";
