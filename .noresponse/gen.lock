@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: 390824e748f63e011024021b3ef725b8
+  docChecksum: 4bd2305089687188ea38abe82a11d9da
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 16.0.6
-  configChecksum: e8f9b4e8f5e2d8f9e1755cf3170a4b53
+  releaseVersion: 16.0.7
+  configChecksum: 7a69e754abd3215f6bce77745e7dfef3
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -453,7 +453,7 @@ trackedFiles:
   docs/models/investigation-report.md:
     last_write_checksum: sha1:aa4c425cd571af4b36f500d6004840759a01efa2
   docs/models/investigation-request.md:
-    last_write_checksum: sha1:2ebbc69383979c0d5d94eb848244eaf660d8b978
+    last_write_checksum: sha1:23e9c97b55119d444f89dbd2810e2b86b3a45645
   docs/models/investigation-status.md:
     last_write_checksum: sha1:ca98da415cd35e21a60ec63cd05d46d17a8a0cfa
   docs/models/investigation.md:
@@ -673,7 +673,7 @@ trackedFiles:
   docs/models/operations/create-integration-response.md:
     last_write_checksum: sha1:d937c80f98edf28058962cc14aa3c88d490a5d07
   docs/models/operations/create-investigation-request.md:
-    last_write_checksum: sha1:ad0d787c2c38d03f86568f5e44d272bf1fede650
+    last_write_checksum: sha1:c6100d771eeb8e95ce3a9f7ff4f257d2392d1e13
   docs/models/operations/create-investigation-response.md:
     last_write_checksum: sha1:06ce943d65c642db3fefb8f730538f4f1363e730
   docs/models/operations/create-invite-request.md:
@@ -1077,7 +1077,7 @@ trackedFiles:
   docs/models/operations/send-webhook-test-event-response.md:
     last_write_checksum: sha1:6b60890c7b8b3ff37c2814936ab39b18142a4a7f
   docs/models/operations/start-screening-request.md:
-    last_write_checksum: sha1:aaa8c39755ff825aac8a54f20062efcfc70ac2e2
+    last_write_checksum: sha1:c6f4297446484f3d40f989d778c907a621558515
   docs/models/operations/start-screening-response.md:
     last_write_checksum: sha1:02549b3a56f6b796e1fb0bc7aa9a58783a31000f
   docs/models/operations/start-search-request.md:
@@ -1435,7 +1435,7 @@ trackedFiles:
   docs/models/screening-profile.md:
     last_write_checksum: sha1:15126d6dc9fed7cb7bd96d087e230b122ce8d133
   docs/models/screening-request.md:
-    last_write_checksum: sha1:1ffe782c6befb472f1d287ebdbc6dcafcf629b5d
+    last_write_checksum: sha1:bc664021f41ba217abadf108b1f3ac32f282ef07
   docs/models/screening-spend-line-role.md:
     last_write_checksum: sha1:5af9d588dc9a836a539e85c78574a202239bf68c
   docs/models/screening-spend-line.md:
@@ -1593,9 +1593,9 @@ trackedFiles:
   docs/models/written-profile.md:
     last_write_checksum: sha1:bc6bfb3a768fe6bba40a960540a3c6dc03d2eaba
   jsr.json:
-    last_write_checksum: sha1:5a7733769dd13a0a3bfeca402f32288446b17e58
+    last_write_checksum: sha1:687f6bf509f67c3aecfe74d60e6af509e5cea09a
   package.json:
-    last_write_checksum: sha1:0de49eb4c074fb21501daa3177e24e81037507bb
+    last_write_checksum: sha1:9beee0c0152c1ce7c2c5dd8b5e9529e6e303c229
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1875,7 +1875,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:e364c4364316f2ff99985e1d49f2e5167919e955
+    last_write_checksum: sha1:8caa6624676e367bd6074121164cec2ce930d71e
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2303,7 +2303,7 @@ trackedFiles:
   src/models/investigation-report.ts:
     last_write_checksum: sha1:a2c95a9795e7ce51d34ffe6526744f5502a7419b
   src/models/investigation-request.ts:
-    last_write_checksum: sha1:6485b84d7050ccb2340d2e65ff396e6a951daeca
+    last_write_checksum: sha1:6edcc3765f64774919da100a59c40d3d9707161d
   src/models/investigation-status.ts:
     last_write_checksum: sha1:26e831e330a6980c21af31b29b5a0da048d77bed
   src/models/investigation.ts:
@@ -2999,7 +2999,7 @@ trackedFiles:
   src/models/screening-profile.ts:
     last_write_checksum: sha1:193d645787341cfdbf940fa3701436d66d73d7d5
   src/models/screening-request.ts:
-    last_write_checksum: sha1:c7b0b67ebfe37881fe05b1bc4e11e2e879044b91
+    last_write_checksum: sha1:ff4655bc23fe044c07d62fea7ef9559272fe3cd2
   src/models/screening-spend-line-role.ts:
     last_write_checksum: sha1:be425217cd80f62133e3da845ca928619f1387bc
   src/models/screening-spend-line.ts:
@@ -5857,7 +5857,7 @@ examples:
         header:
           Idempotency-Key: "account-acct_7f3a9c"
       requestBody:
-        application/json: {"depth": "standard", "platforms": ["bluesky"]}
+        application/json: {"depth": "standard"}
       responses:
         "202":
           application/json: {"id": "scn_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "environment": "live", "status": "running", "depth": "standard", "platforms": ["bluesky"], "requested_by": "user_2abc", "created_at": "2026-01-01T00:00:00Z", "started_at": "2026-01-01T00:00:00Z", "finished_at": "2026-01-02T00:00:00Z", "expires_at": "2026-01-02T00:00:00Z", "people_total": 592267, "people_done": 173751, "people_flagged": 250584, "people_failed": 772063, "people_partial": 825999, "estimated_spend": 343791, "spent": 379997, "spend": {"total_minor": 816908, "by_implementation": [{"implementation": "synthetic", "role": "collector", "spend_minor": 861627}]}, "error_code": "user_cancelled"}
@@ -6137,7 +6137,7 @@ examples:
         header:
           Idempotency-Key: "investigation-case-1042-first"
       requestBody:
-        application/json: {"depth": "standard", "platforms": ["x"], "person_id": "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM"}
+        application/json: {"depth": "standard", "person_id": "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM"}
       responses:
         "202":
           application/json: {"highest_band": null, "coverage": {"accounts_found": 353004, "accounts_accessible": 190010, "items_read": 392044, "period_from": "2026-01-01T00:00:00Z", "period_to": "2026-01-02T00:00:00Z", "platforms": [{"platform": "bluesky", "status": "inaccessible", "accounts_found": 63025, "items_read": 718618}], "not_searched": ["instagram"], "timing": {"started_at": "2026-01-01T00:00:00Z", "total_ms": 335147, "stages": [{"stage": "late_lookup", "ms": 496778}]}}, "spend": {"total_minor": 810936, "by_implementation": []}, "decision": "cleared", "decision_note": "Source records reviewed.", "decided_by": "user_investigator", "decided_at": "2026-01-01T00:00:00Z", "id": "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "person_id": "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "group_id": "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", "status": "partial", "depth": "standard", "platforms": ["x"], "match_state": "confirmed", "error_code": "expired", "created_at": "2026-01-01T00:00:00Z", "started_at": "2026-01-01T00:00:00Z", "finished_at": "2026-01-01T00:00:00Z", "expires_at": "2026-02-01T00:00:00Z", "deadline_at": "2026-01-01T00:00:00Z"}

@@ -9,9 +9,6 @@ let value: CreateInvestigationRequest = {
   idempotencyKey: "investigation-case-1042-first",
   body: {
     depth: "standard",
-    platforms: [
-      "x",
-    ],
     personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   },
 };
