@@ -10,6 +10,7 @@ export const EnrichmentChangeKind = {
   Username: "username",
   Email: "email",
   Phone: "phone",
+  PersonName: "person_name",
 } as const;
 export type EnrichmentChangeKind = ClosedEnum<typeof EnrichmentChangeKind>;
 
@@ -26,7 +27,7 @@ export type EnrichmentChange = {
    */
   minLikelihood?: number | undefined;
   /**
-   * The kinds of value enrichment searches: distinctive usernames, and email addresses and phone numbers, which belong to one person each.
+   * The kinds of value enrichment searches: distinctive usernames, email addresses and phone numbers, which belong to one person each, and distinctive person names, searched in the breach data.
    */
   kinds?: Array<EnrichmentChangeKind> | undefined;
   /**

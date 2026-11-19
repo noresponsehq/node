@@ -10,7 +10,7 @@ import { ScreeningLookup } from "@noresponse/node/models";
 let value: ScreeningLookup = {
   checks: [
     {
-      identifier: "username",
+      identifier: "name",
       lane: "phone",
       status: "not_covered",
       sources: 683033,

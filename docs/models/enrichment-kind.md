@@ -13,5 +13,5 @@ let value: EnrichmentKind = "email";
 ## Values
 
 ```typescript
-"username" | "email" | "phone" | Unrecognized<string>
+"username" | "email" | "phone" | "person_name" | Unrecognized<string>
 ```

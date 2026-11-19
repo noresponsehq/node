@@ -5,11 +5,11 @@
 ```typescript
 import { EnrichmentChangeKind } from "@noresponse/node/models";
 
-let value: EnrichmentChangeKind = "phone";
+let value: EnrichmentChangeKind = "person_name";
 ```
 
 ## Values
 
 ```typescript
-"username" | "email" | "phone"
+"username" | "email" | "phone" | "person_name"
 ```

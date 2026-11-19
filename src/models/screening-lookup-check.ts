@@ -7,10 +7,7 @@ import {
   FailureReason,
   FailureReason$inboundSchema,
 } from "./failure-reason.js";
-import {
-  IdentifierSearchKind,
-  IdentifierSearchKind$inboundSchema,
-} from "./identifier-search-kind.js";
+import { Identifier, Identifier$inboundSchema } from "./identifier.js";
 import { Lane, Lane$inboundSchema } from "./lane.js";
 import {
   ScreeningLookupCheckStatus,
@@ -25,7 +22,7 @@ import {
  * What came of one lane of the lookups for one identifier.
  */
 export type ScreeningLookupCheck = {
-  identifier: IdentifierSearchKind;
+  identifier: Identifier;
   /**
    * An evidence lane: accounts (account presence for email and username), phone, breach, domain (the email domain's registration) and ip.
    */
@@ -61,7 +58,7 @@ export const ScreeningLookupCheck$inboundSchema: z.ZodMiniType<
   ScreeningLookupCheck,
   unknown
 > = z.object({
-  identifier: IdentifierSearchKind$inboundSchema,
+  identifier: Identifier$inboundSchema,
   lane: Lane$inboundSchema,
   status: ScreeningLookupCheckStatus$inboundSchema,
   sources: types.number(),
