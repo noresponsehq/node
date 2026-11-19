@@ -5,7 +5,7 @@
 ```typescript
 import { ErasureReceiptTargetName } from "@noresponse/node/models";
 
-let value: ErasureReceiptTargetName = "downstream_projection";
+let value: ErasureReceiptTargetName = "outbox";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: ErasureReceiptTargetName = "downstream_projection";
 ## Values
 
 ```typescript
-"serving" | "outbox" | "cache" | "downstream_projection" | Unrecognized<string>
+"serving" | "outbox" | Unrecognized<string>
 ```

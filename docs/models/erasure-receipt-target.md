@@ -6,7 +6,7 @@
 import { ErasureReceiptTarget } from "@noresponse/node/models";
 
 let value: ErasureReceiptTarget = {
-  name: "downstream_projection",
+  name: "outbox",
   status: "pending",
   completedAt: "2026-01-01T00:00:00Z",
 };

@@ -5,8 +5,6 @@ import { OpenEnum } from "../types/enums.js";
 export const ErasureReceiptTargetName = {
   Serving: "serving",
   Outbox: "outbox",
-  Cache: "cache",
-  DownstreamProjection: "downstream_projection",
 } as const;
 export type ErasureReceiptTargetName = OpenEnum<
   typeof ErasureReceiptTargetName

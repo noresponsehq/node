@@ -27,7 +27,7 @@ let value: GetErasureReceiptResponse = {
     completedAt: "2026-01-01T00:00:00Z",
     targets: [
       {
-        name: "downstream_projection",
+        name: "outbox",
         status: "pending",
         completedAt: "2026-01-01T00:00:00Z",
       },
