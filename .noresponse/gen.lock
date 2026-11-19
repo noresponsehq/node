@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: eb49e0cee77255c381581098a49a1f01
+  docChecksum: 390824e748f63e011024021b3ef725b8
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 16.0.5
-  configChecksum: 480021b46c53c1680b1058670f0be898
+  releaseVersion: 16.0.6
+  configChecksum: e8f9b4e8f5e2d8f9e1755cf3170a4b53
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1429,7 +1429,7 @@ trackedFiles:
   docs/models/screening-platform-coverage-status.md:
     last_write_checksum: sha1:bf699f8893b861b77fc729cd7f902653f6a404d6
   docs/models/screening-platform-coverage.md:
-    last_write_checksum: sha1:124018bbe1dad8e08c8a14c2eb0e47daf94e4ec1
+    last_write_checksum: sha1:577cae7a4c996abbc2f26fe830e586900e21f492
   docs/models/screening-post.md:
     last_write_checksum: sha1:6cde667a26835a6ad45c36a01c7b07a7464fc227
   docs/models/screening-profile.md:
@@ -1593,9 +1593,9 @@ trackedFiles:
   docs/models/written-profile.md:
     last_write_checksum: sha1:bc6bfb3a768fe6bba40a960540a3c6dc03d2eaba
   jsr.json:
-    last_write_checksum: sha1:53662df4c95619930045ff80531c1d643e55708a
+    last_write_checksum: sha1:5a7733769dd13a0a3bfeca402f32288446b17e58
   package.json:
-    last_write_checksum: sha1:180c029b8525774c06776a2904f0c9309db03130
+    last_write_checksum: sha1:0de49eb4c074fb21501daa3177e24e81037507bb
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1875,7 +1875,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:b4cd4af9f9a58142b138db54280d76f6e9e2ba34
+    last_write_checksum: sha1:e364c4364316f2ff99985e1d49f2e5167919e955
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2993,7 +2993,7 @@ trackedFiles:
   src/models/screening-platform-coverage-status.ts:
     last_write_checksum: sha1:87a271b4a42d370cd834735d8f9c8c0402973d7c
   src/models/screening-platform-coverage.ts:
-    last_write_checksum: sha1:6b29e5529f2b315604a516f55fba51d8f01f4ad0
+    last_write_checksum: sha1:668c504aae60049717305894cbb75c643eae7c46
   src/models/screening-post.ts:
     last_write_checksum: sha1:01577417348b6e66514cb3f737969e0e90859e45
   src/models/screening-profile.ts:
