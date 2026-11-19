@@ -7,12 +7,11 @@ import { GetWorkspacePersonResponse } from "@noresponse/node/models/operations";
 
 let value: GetWorkspacePersonResponse = {
   headers: {
-    "key": [
+    "key": [],
+    "key1": [
       "example 1",
       "example 2",
-      "example 3",
     ],
-    "key1": [],
   },
   result: {
     externalId: "case-person-1042",
@@ -337,6 +336,14 @@ let value: GetWorkspacePersonResponse = {
       ],
     },
     changes: [],
+    schedule: {
+      period: "monthly",
+      nextRunAt: "2026-01-03T00:00:00Z",
+      lastInvestigationId: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKN",
+      lastError: "screening_cap_exceeded",
+      updatedAt: "2026-01-02T00:00:00Z",
+      updatedBy: "Jane Analyst",
+    },
   },
 };
 ```

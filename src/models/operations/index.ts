@@ -117,6 +117,7 @@ export * from "./rotate-integration-secret.js";
 export * from "./rotate-webhook-signing-key.js";
 export * from "./run-search.js";
 export * from "./run-workspace-person-search.js";
+export * from "./schedule-workspace-person.js";
 export * from "./search-accounts.js";
 export * from "./search-assessments.js";
 export * from "./send-webhook-test-event.js";

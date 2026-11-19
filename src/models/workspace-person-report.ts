@@ -9,6 +9,10 @@ import { Investigation, Investigation$inboundSchema } from "./investigation.js";
 import { PersonChange, PersonChange$inboundSchema } from "./person-change.js";
 import { PersonGroup, PersonGroup$inboundSchema } from "./person-group.js";
 import {
+  PersonSchedule,
+  PersonSchedule$inboundSchema,
+} from "./person-schedule.js";
+import {
   ScreeningFinding,
   ScreeningFinding$inboundSchema,
 } from "./screening-finding.js";
@@ -126,6 +130,10 @@ export type WorkspacePersonReport = {
    * What changed between each settled investigation of this person and the one before it, unreviewed first, then most significant, then newest. The first investigation records no changes. When evidence.read is denied, before and after are withheld.
    */
   changes: Array<PersonChange>;
+  /**
+   * The person's rerun schedule. Each due run starts a full investigation of the person, as POST /v1/investigations with no platforms does, and its changes are stored as changes. The schedule lives in the database and the worker runs it, so it survives restarts and releases; each due run starts exactly one investigation.
+   */
+  schedule: PersonSchedule;
 };
 
 /** @internal */
@@ -158,6 +166,7 @@ export const WorkspacePersonReport$inboundSchema: z.ZodMiniType<
     evidence_investigation: types.nullable(Investigation$inboundSchema),
     written_profile: types.nullable(WrittenProfile$inboundSchema),
     changes: z.array(PersonChange$inboundSchema),
+    schedule: PersonSchedule$inboundSchema,
   }),
   z.transform((v) => {
     return remap$(v, {

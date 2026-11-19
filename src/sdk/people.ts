@@ -5,6 +5,7 @@ import { peopleJudgeRecord } from "../funcs/people-judge-record.js";
 import { peopleList } from "../funcs/people-list.js";
 import { peopleReviewChange } from "../funcs/people-review-change.js";
 import { peopleRunSearch } from "../funcs/people-run-search.js";
+import { peopleSchedule } from "../funcs/people-schedule.js";
 import { peopleStartSearch } from "../funcs/people-start-search.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -141,6 +142,23 @@ export class People extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ReviewWorkspacePersonChangeResponse> {
     return unwrapAsync(peopleReviewChange(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Schedule a workspace person's reruns.
+   *
+   * @remarks
+   * Sets how often the person is investigated again: daily, weekly or monthly, counted from now, or off. Each due run starts one full investigation of the person, which the person's investigations list and whose changes the person report stores. Setting the period the schedule already has keeps its next run. The schedule lives in the database and the worker runs it, so a restart or a release neither skips nor repeats a run. Each change is audited as person.schedule_changed. The investigations scope grants this operation. The groups scope is also accepted for existing integrations. The API key selects the workspace and environment.
+   */
+  async schedule(
+    request: operations.ScheduleWorkspacePersonRequest,
+    options?: RequestOptions,
+  ): Promise<operations.ScheduleWorkspacePersonResponse> {
+    return unwrapAsync(peopleSchedule(
       this,
       request,
       options,
