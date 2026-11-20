@@ -152,6 +152,7 @@ export * from "./freshness.js";
 export * from "./from.js";
 export * from "./group-list.js";
 export * from "./group-request.js";
+export * from "./group-type.js";
 export * from "./group-update.js";
 export * from "./group.js";
 export * from "./handle.js";

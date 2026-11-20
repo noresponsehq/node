@@ -15,6 +15,10 @@ export type GroupUpdate = {
    */
   name?: string | undefined;
   /**
+   * The attribute its people share. Omit to keep the current value.
+   */
+  attribute?: string | undefined;
+  /**
    * Optional event start; null for an ongoing group. Omit to keep the current value; send null to clear it.
    */
   startsAt?: string | null | undefined;
@@ -47,6 +51,7 @@ export type GroupUpdate = {
 /** @internal */
 export type GroupUpdate$Outbound = {
   name?: string | undefined;
+  attribute?: string | undefined;
   starts_at?: string | null | undefined;
   ends_at?: string | null | undefined;
   venue?: string | undefined;
@@ -63,6 +68,7 @@ export const GroupUpdate$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     name: z.optional(z.string()),
+    attribute: z.optional(z.string()),
     startsAt: z.optional(z.nullable(z.string())),
     endsAt: z.optional(z.nullable(z.string())),
     venue: z.optional(z.string()),

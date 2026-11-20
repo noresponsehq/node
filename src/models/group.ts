@@ -8,6 +8,7 @@ import {
   AuditSettingsEnvironment$inboundSchema,
 } from "./audit-settings-environment.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
+import { GroupType, GroupType$inboundSchema } from "./group-type.js";
 import { Principal, Principal$inboundSchema } from "./principal.js";
 
 /**
@@ -20,6 +21,14 @@ export type Group = {
    * The group's name.
    */
   name: string;
+  /**
+   * What the group's people share: an event, an organisation, a place or another attribute.
+   */
+  type: GroupType;
+  /**
+   * The attribute its people share. Empty when none was given.
+   */
+  attribute: string;
   /**
    * Optional event start; null for an ongoing group.
    */
@@ -66,6 +75,8 @@ export const Group$inboundSchema: z.ZodMiniType<Group, unknown> = z.pipe(
     id: types.string(),
     environment: AuditSettingsEnvironment$inboundSchema,
     name: types.string(),
+    type: GroupType$inboundSchema,
+    attribute: types.string(),
     starts_at: types.nullable(types.string()),
     ends_at: types.nullable(types.string()),
     venue: types.optional(types.string()),

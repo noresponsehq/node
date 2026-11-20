@@ -13,6 +13,8 @@ let value: GroupList = {
       id: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       environment: "test",
       name: "Annual shareholder meeting",
+      type: "organisation",
+      attribute: "Example Fund",
       startsAt: "2026-01-01T00:00:00Z",
       endsAt: "2026-01-02T00:00:00Z",
       venue: "Example Convention Centre",

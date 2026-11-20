@@ -1,5 +1,6 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../lib/primitives.js";
+import { GroupType, GroupType$outboundSchema } from "./group-type.js";
 import {
   Principal,
   Principal$Outbound,
@@ -14,6 +15,14 @@ export type GroupRequest = {
    * The group's name.
    */
   name: string;
+  /**
+   * What the group's people share: an event, an organisation, a place or another attribute.
+   */
+  type?: GroupType | undefined;
+  /**
+   * The attribute its people share, such as the employer's or the place's name.
+   */
+  attribute?: string | undefined;
   /**
    * Optional event start; null for an ongoing group.
    */
@@ -43,6 +52,8 @@ export type GroupRequest = {
 /** @internal */
 export type GroupRequest$Outbound = {
   name: string;
+  type?: string | undefined;
+  attribute?: string | undefined;
   starts_at?: string | null | undefined;
   ends_at?: string | null | undefined;
   venue?: string | undefined;
@@ -58,6 +69,8 @@ export const GroupRequest$outboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     name: z.string(),
+    type: z.optional(GroupType$outboundSchema),
+    attribute: z.optional(z.string()),
     startsAt: z.optional(z.nullable(z.string())),
     endsAt: z.optional(z.nullable(z.string())),
     venue: z.optional(z.string()),

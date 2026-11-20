@@ -93,7 +93,7 @@ for (const operation of ["create person", "review investigation"]) {
 }
 
 test("ongoing groups retain null dates and PATCH distinguishes omission from clearing", async () => {
-  const group = { id: "grp_example", environment: "test", name: "Harbour building", starts_at: null, ends_at: null, principals: [], topics: [], people: 0, version: 1, created_by: "test", created_at: person.created_at, updated_at: person.created_at };
+  const group = { id: "grp_example", environment: "test", name: "Harbour building", type: "event", attribute: "", starts_at: null, ends_at: null, principals: [], topics: [], people: 0, version: 1, created_by: "test", created_at: person.created_at, updated_at: person.created_at };
   const { nr, calls } = client([json(group, { status: 201 }), json(group), json(group), json(group)]);
   const created = (await nr.groups.create({ body: { name: group.name } })).result;
   assert.equal(created.startsAt, null);
