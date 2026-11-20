@@ -9,8 +9,12 @@ let value: CreateInvestigationResponse = {
   headers: {
     "key": [
       "example 1",
+      "example 2",
     ],
-    "key1": [],
+    "key1": [
+      "example 1",
+    ],
+    "key2": [],
   },
   result: {
     coverage: {
@@ -51,19 +55,15 @@ let value: CreateInvestigationResponse = {
         },
       ],
     },
-    decision: null,
-    decisionNote: "Source records reviewed.",
-    decidedBy: "user_investigator",
-    decidedAt: "2026-01-01T00:00:00Z",
     id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
     groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-    status: "completed",
+    status: "queued",
     depth: "standard",
     platforms: [
       "x",
     ],
-    matchState: "inaccessible",
+    matchState: "possible",
     errorCode: "expired",
     createdAt: "2026-01-01T00:00:00Z",
     startedAt: "2026-01-01T00:00:00Z",

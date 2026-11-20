@@ -7,19 +7,7 @@ import { GetInvestigationResponse } from "@noresponse/node/models/operations";
 
 let value: GetInvestigationResponse = {
   headers: {
-    "key": [
-      "example 1",
-      "example 2",
-    ],
-    "key1": [
-      "example 1",
-      "example 2",
-    ],
-    "key2": [
-      "example 1",
-      "example 2",
-      "example 3",
-    ],
+    "key": [],
   },
   result: {
     profiles: [],
@@ -51,7 +39,6 @@ let value: GetInvestigationResponse = {
       },
     ],
     media: [],
-    reviews: [],
     lookup: {
       checks: [
         {
@@ -208,10 +195,6 @@ let value: GetInvestigationResponse = {
           },
         ],
       },
-      decision: null,
-      decisionNote: "Source records reviewed.",
-      decidedBy: "user_investigator",
-      decidedAt: "2026-01-01T00:00:00Z",
       id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
       groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
@@ -220,7 +203,7 @@ let value: GetInvestigationResponse = {
       platforms: [
         "x",
       ],
-      matchState: "none_found",
+      matchState: null,
       errorCode: "expired",
       createdAt: "2026-01-01T00:00:00Z",
       startedAt: "2026-01-01T00:00:00Z",

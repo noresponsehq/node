@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Read an investigation and its evidence.
  *
  * @remarks
- * Returns this investigation's status, coverage, source records, posts, media and contextual review history. Full evidence is returned by default; explicit evidence.read denial keeps submitted person details, status, coverage and decision summaries and hides collected evidence and free-text notes. The read is durably audited as person.viewed. The API key selects the workspace and environment. Missing, foreign or expired results answer 404.
+ * Returns this investigation's status, coverage, source records, posts and media. Full evidence is returned by default; explicit evidence.read denial keeps submitted person details, status and coverage, and hides collected evidence. The read is durably audited as person.viewed. The API key selects the workspace and environment. Missing, foreign or expired results answer 404.
  */
 export function investigationsGet(
   client: NoResponseCore,

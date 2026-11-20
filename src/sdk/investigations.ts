@@ -2,7 +2,6 @@ import { investigationsCancel } from "../funcs/investigations-cancel.js";
 import { investigationsCreate } from "../funcs/investigations-create.js";
 import { investigationsGet } from "../funcs/investigations-get.js";
 import { investigationsList } from "../funcs/investigations-list.js";
-import { investigationsReview } from "../funcs/investigations-review.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -46,30 +45,13 @@ export class Investigations extends ClientSDK {
    * Read an investigation and its evidence.
    *
    * @remarks
-   * Returns this investigation's status, coverage, source records, posts, media and contextual review history. Full evidence is returned by default; explicit evidence.read denial keeps submitted person details, status, coverage and decision summaries and hides collected evidence and free-text notes. The read is durably audited as person.viewed. The API key selects the workspace and environment. Missing, foreign or expired results answer 404.
+   * Returns this investigation's status, coverage, source records, posts and media. Full evidence is returned by default; explicit evidence.read denial keeps submitted person details, status and coverage, and hides collected evidence. The read is durably audited as person.viewed. The API key selects the workspace and environment. Missing, foreign or expired results answer 404.
    */
   async get(
     request: operations.GetInvestigationRequest,
     options?: RequestOptions,
   ): Promise<operations.GetInvestigationResponse> {
     return unwrapAsync(investigationsGet(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Record an investigation decision.
-   *
-   * @remarks
-   * Record an investigation decision. Deprecated: decisions are leaving people and groups. The console no longer records them and no screening reads them. This route is removed in the next contract release; stop calling it. The API key determines the workspace and environment.
-   */
-  async review(
-    request: operations.ReviewInvestigationRequest,
-    options?: RequestOptions,
-  ): Promise<operations.ReviewInvestigationResponse> {
-    return unwrapAsync(investigationsReview(
       this,
       request,
       options,

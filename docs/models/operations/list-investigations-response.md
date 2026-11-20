@@ -6,7 +6,15 @@
 import { ListInvestigationsResponse } from "@noresponse/node/models/operations";
 
 let value: ListInvestigationsResponse = {
-  headers: {},
+  headers: {
+    "key": [
+      "example 1",
+      "example 2",
+      "example 3",
+    ],
+    "key1": [],
+    "key2": [],
+  },
   result: {
     items: [
       {
@@ -48,19 +56,15 @@ let value: ListInvestigationsResponse = {
             },
           ],
         },
-        decision: "watch",
-        decisionNote: "Source records reviewed.",
-        decidedBy: "user_investigator",
-        decidedAt: "2026-01-01T00:00:00Z",
         id: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         personId: "per_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
         groupId: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
-        status: "running",
+        status: "partial",
         depth: "standard",
         platforms: [
           "x",
         ],
-        matchState: "none_found",
+        matchState: "confirmed",
         errorCode: "expired",
         createdAt: "2026-01-01T00:00:00Z",
         startedAt: "2026-01-01T00:00:00Z",
@@ -69,7 +73,7 @@ let value: ListInvestigationsResponse = {
         deadlineAt: "2026-01-01T00:00:00Z",
       },
     ],
-    hasMore: false,
+    hasMore: true,
     nextCursor: "inv_01JA2Z8K6Q4V7W9XBCDEFGHJKM",
   },
 };

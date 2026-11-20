@@ -22,7 +22,6 @@ const investigation = {
   match_state: "confirmed",
   coverage: groupReport.person.coverage,
   spend: groupReport.person.spend,
-  decision: null,
   created_at: person.created_at,
   expires_at: person.expires_at,
   deadline_at: "2026-11-15T10:15:00Z",
@@ -60,11 +59,11 @@ test("investigation retries keep the same key and person", async () => {
 });
 
 test("workspace person and investigation reads retain complete structured records", async () => {
-  const { profiles, posts, media, lookup, reviews } = groupReport;
+  const { profiles, posts, media, lookup } = groupReport;
   const change = { id: "chg_01JAAAAAAAAAAAAAAAAAAAAAAA", kind: "account_added", significance: "high", source: "github", investigation_id: investigation.id, previous_investigation_id: investigation.id, created_at: "2026-11-15T10:05:11Z", reviewed_at: null };
   const { nr, calls } = client([
     json({ ...person, evidence_investigation: investigation, profiles, posts, media, lookup, suggested_searches: [], changes: [change], schedule: { period: "weekly", next_run_at: "2026-01-09T00:00:00Z", last_investigation_id: null, last_error: null, updated_at: "2026-01-02T00:00:00Z", updated_by: "Jane Analyst" }, groups: [{ group_id: "grp_01JA2Z8K6Q4V7W9XBCDEFGHJKM", group_name: "Annual shareholder meeting", group_starts_at: null, role: "crew", added_at: "2026-11-15T10:00:00Z" }] }),
-    json({ person, investigation, profiles, posts, media, lookup, reviews }),
+    json({ person, investigation, profiles, posts, media, lookup }),
   ]);
   const latest = (await nr.people.get({ personId: person.id })).result;
   const history = (await nr.investigations.get({ investigationId: investigation.id })).result;
@@ -81,16 +80,11 @@ test("workspace person and investigation reads retain complete structured record
   assert.deepEqual(calls.map(call => new URL(call.url).pathname), [`/v1/people/${person.id}`, `/v1/investigations/${investigation.id}`]);
 });
 
-for (const operation of ["create person", "review investigation"]) {
-  test(`${operation} does not retry an uncertain mutation`, async () => {
-    const { nr, calls } = client([problem(503, "service_unavailable"), problem(400, "invalid_request")]);
-    const call = operation === "create person"
-      ? nr.people.create({ body: { name: person.name } })
-      : nr.investigations.review({ investigationId: investigation.id, body: { decision: "watch", note: "Review source records" } });
-    await assert.rejects(call);
-    assert.equal(calls.length, 1);
-  });
-}
+test("create person does not retry an uncertain mutation", async () => {
+  const { nr, calls } = client([problem(503, "service_unavailable"), problem(400, "invalid_request")]);
+  await assert.rejects(nr.people.create({ body: { name: person.name } }));
+  assert.equal(calls.length, 1);
+});
 
 test("ongoing groups retain null dates and PATCH distinguishes omission from clearing", async () => {
   const group = { id: "grp_example", environment: "test", name: "Harbour building", type: "event", attribute: "", starts_at: null, ends_at: null, principals: [], topics: [], people: 0, version: 1, created_by: "test", created_at: person.created_at, updated_at: person.created_at };

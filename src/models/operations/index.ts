@@ -107,7 +107,6 @@ export * from "./resolve-review.js";
 export * from "./restore-policy.js";
 export * from "./retire-account-credential.js";
 export * from "./retry-customer-export.js";
-export * from "./review-investigation.js";
 export * from "./review-person.js";
 export * from "./review-workspace-person-change.js";
 export * from "./revoke-invite.js";

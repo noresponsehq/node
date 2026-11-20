@@ -10,10 +10,6 @@ import {
 } from "./investigation-status.js";
 import { MatchState, MatchState$inboundSchema } from "./match-state.js";
 import {
-  PersonDecision,
-  PersonDecision$inboundSchema,
-} from "./person-decision.js";
-import {
   ScreeningCoverage,
   ScreeningCoverage$inboundSchema,
 } from "./screening-coverage.js";
@@ -35,13 +31,6 @@ export type Investigation = {
    * What screening cost, in US cents, in total and per implementation.
    */
   spend: ScreeningSpend;
-  /**
-   * The latest reviewer decision, or null before any.
-   */
-  decision: PersonDecision | null;
-  decisionNote?: string | undefined;
-  decidedBy?: string | undefined;
-  decidedAt?: string | undefined;
   id: string;
   personId: string;
   groupId: string | null;
@@ -65,10 +54,6 @@ export const Investigation$inboundSchema: z.ZodMiniType<
   z.object({
     coverage: ScreeningCoverage$inboundSchema,
     spend: ScreeningSpend$inboundSchema,
-    decision: types.nullable(PersonDecision$inboundSchema),
-    decision_note: types.optional(types.string()),
-    decided_by: types.optional(types.string()),
-    decided_at: types.optional(types.string()),
     id: types.string(),
     person_id: types.string(),
     group_id: types.nullable(types.string()),
@@ -85,9 +70,6 @@ export const Investigation$inboundSchema: z.ZodMiniType<
   }),
   z.transform((v) => {
     return remap$(v, {
-      "decision_note": "decisionNote",
-      "decided_by": "decidedBy",
-      "decided_at": "decidedAt",
       "person_id": "personId",
       "group_id": "groupId",
       "match_state": "matchState",

@@ -5,7 +5,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdk-validation-error.js";
 import { Investigation, Investigation$inboundSchema } from "./investigation.js";
-import { PersonReview, PersonReview$inboundSchema } from "./person-review.js";
 import {
   ScreeningLookup,
   ScreeningLookup$inboundSchema,
@@ -44,15 +43,11 @@ export type InvestigationReport = {
    */
   media: Array<ScreeningMedia>;
   /**
-   * Every recorded decision, oldest first.
-   */
-  reviews: Array<PersonReview>;
-  /**
    * What the signup check's lookups found for a person: account presence for the email, phone and usernames (the person's handles), the phone lookup, the email domain's registration and the breach search. Nothing here sets a match state.
    */
   lookup?: ScreeningLookup | undefined;
   /**
-   * True when evidence.read is explicitly denied. Submitted details, coverage, job status and decisions remain available. Collected records, profiles, posts, media, discovered values and free-text decision notes are withheld.
+   * True when evidence.read is explicitly denied. Submitted details, coverage and job status remain available. Collected records, profiles, posts, media and discovered values are withheld.
    */
   evidenceRestricted?: boolean | undefined;
   person: WorkspacePerson;
@@ -68,7 +63,6 @@ export const InvestigationReport$inboundSchema: z.ZodMiniType<
     profiles: z.array(ScreeningProfile$inboundSchema),
     posts: z.array(ScreeningPost$inboundSchema),
     media: z.array(ScreeningMedia$inboundSchema),
-    reviews: z.array(PersonReview$inboundSchema),
     lookup: types.optional(ScreeningLookup$inboundSchema),
     evidence_restricted: types.optional(types.boolean()),
     person: WorkspacePerson$inboundSchema,
