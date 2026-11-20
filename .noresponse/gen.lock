@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 73a32132-c2f6-4e84-b218-257c4163d261
 management:
-  docChecksum: e4a918a2e89c2da5ef642860fad8ad15
+  docChecksum: e2af64e190a62f6aa6cb092ae054e9c8
   docVersion: "1"
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 19.0.5
-  configChecksum: 90536a02981b7ab5f1dd1ad5ce058ec9
+  releaseVersion: 19.0.6
+  configChecksum: 6469a7ede89aac3f9f623158e057a2bb
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -493,7 +493,7 @@ trackedFiles:
   docs/models/key-request-scope.md:
     last_write_checksum: sha1:810ec052f0f88e291d6bf41db1b0e8d3aab22d3f
   docs/models/key-request.md:
-    last_write_checksum: sha1:2734e598a55453c20303caa3aa98f68df79bbcec
+    last_write_checksum: sha1:422bc056beadef888d7aa60964503448e1ba3417
   docs/models/key-rotation-request.md:
     last_write_checksum: sha1:7864b73af04483b3f3c94c392be1b1f395f6f407
   docs/models/key-rotation-scope.md:
@@ -1575,9 +1575,9 @@ trackedFiles:
   docs/models/workspace-person.md:
     last_write_checksum: sha1:9258a8fcce4096611d04165a1828d152d7f0fe03
   jsr.json:
-    last_write_checksum: sha1:e1b94e1a116072b872319b84012e19c1fbc2befd
+    last_write_checksum: sha1:d0df2695fc8fcb9a588f85110ffb735fdf1864fa
   package.json:
-    last_write_checksum: sha1:985372dcfec19d808c1ac8bb0b6b159e175f0714
+    last_write_checksum: sha1:12b582fd1fb9b56cb8e3d411b1b63148273ef23f
   src/core.ts:
     last_write_checksum: sha1:777e9e0f1e38ea3247241ea7f31b9223b9d811f0
   src/funcs/accounts-associate-credential.ts:
@@ -1771,17 +1771,17 @@ trackedFiles:
   src/funcs/people-get.ts:
     last_write_checksum: sha1:3fb1af38d34d1db00875980603faaa9f64f3c94b
   src/funcs/people-judge-record.ts:
-    last_write_checksum: sha1:a06f517ab07eff7c81ad594e17b1435a9cebfdf8
+    last_write_checksum: sha1:2494464227249aa487297a54ff2cb38ac140f187
   src/funcs/people-list.ts:
     last_write_checksum: sha1:64978170f0c6c6690e6120b8db238d2713d8b93a
   src/funcs/people-review-change.ts:
-    last_write_checksum: sha1:0ce03e7eea11016fe4fdfdfb8a1aef8485aa3b1a
+    last_write_checksum: sha1:7383f7a1b83119dc0556882b7785c5be1f156306
   src/funcs/people-run-search.ts:
-    last_write_checksum: sha1:1c40b50e02777e9e8edfc81dd30711f852011174
+    last_write_checksum: sha1:0b208528952c8758fdbebb05823c873d503ef061
   src/funcs/people-schedule.ts:
-    last_write_checksum: sha1:0f7af9cb11b6b48fcbeb97c9930877296688d3f0
+    last_write_checksum: sha1:00d143b88dd883bb8aaf382e5fac78474c867779
   src/funcs/people-start-search.ts:
-    last_write_checksum: sha1:6263978c169eda5855a5f03c196a8d92a4474525
+    last_write_checksum: sha1:a28e79287635b6b91f9041fb60bff64311f356d8
   src/funcs/requests-aggregate.ts:
     last_write_checksum: sha1:086be79536a780dfebd3afd89bfa6c59adbe2f7c
   src/funcs/requests-list.ts:
@@ -1859,7 +1859,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:912de3a6131a7d9d8ce7cae6bf7bc2fa6ad2c99f
   src/lib/config.ts:
-    last_write_checksum: sha1:7a749d6b343b1a9aa781052200878afe7ad4e6b1
+    last_write_checksum: sha1:af83eb71a88c96da4a9a640f0ebb42166ed00b46
   src/lib/encodings.ts:
     last_write_checksum: sha1:539d7ad41cf648f7788c4ba4f79e30f4a084a45f
   src/lib/env.ts:
@@ -2309,7 +2309,7 @@ trackedFiles:
   src/models/key-list.ts:
     last_write_checksum: sha1:e1a57075a766143ddada959f96da3e7f863853dc
   src/models/key-request.ts:
-    last_write_checksum: sha1:1bc9c7a197fdab764b34b7633ea1ee174e42a465
+    last_write_checksum: sha1:296d3fa171cb62c51618cad7029294623bef26e6
   src/models/key-rotation-request.ts:
     last_write_checksum: sha1:7e6c5df38c7d92cce4b8d9978c4fd87457676a7b
   src/models/key-rotation.ts:
@@ -3135,7 +3135,7 @@ trackedFiles:
   src/sdk/operations.ts:
     last_write_checksum: sha1:a2c36bf3757954b30026bd937272d6fdacfaa421
   src/sdk/people.ts:
-    last_write_checksum: sha1:49b7fe326f0e7ab67f2a7e75558d6527ef19003e
+    last_write_checksum: sha1:0467494255572007e249cdf173c63e8780f589a1
   src/sdk/requests.ts:
     last_write_checksum: sha1:6df100e6c941322f9a4a3e563fa75d16a66cf986
   src/sdk/reviews.ts:
